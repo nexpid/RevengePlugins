@@ -1,0 +1,21 @@
+{
+  "plugin.name": "Менеджер плагинов",
+  "plugin.name.changes": "Менеджер плагинов (+$changes)",
+  "toast.copy.github_link": "Ссылка на GitHub скопирована!",
+  "toast.copy.unproxied_link": "Ссылка на непроксированный плагин скопирована!",
+  "toast.plugin.update.success": "$plugin обновлен!",
+  "toast.plugin.update.fail": "Не удалось обновить $plugin!",
+  "toast.plugin.delete.success": "$plugin удален!",
+  "toast.plugin.delete.fail": "Не удалось удалить $plugin!",
+  "toast.plugin.install.success": "$plugin установлен!",
+  "toast.plugin.install.fail": "Не удалось установить $plugin!",
+  "toast.data.fail_fetch": "Не удалось собрать плагины!",
+  "toast.data.fail_parse": "Не удалось проанализировать плагины!",
+  "alert.unusable.title": "Невозможно использовать Менеджер плагинов",
+  "alert.unusable.body": "Вы должны переустановить ваш клиент для того, чтобы Plugin Browser работал корректно.",
+  "sheet.sort.title": "Сортировка",
+  "sheet.sort.date_newest": "Дата создания (по убыванию)",
+  "sheet.sort.date_oldest": "Дата создания (по возрастанию)",
+  "sheet.sort.name_az": "Имя (от A до Z)",
+  "sheet.sort.name_za": "Имя (от Z до A)"
+}

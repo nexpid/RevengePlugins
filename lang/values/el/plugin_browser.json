@@ -1,0 +1,21 @@
+{
+  "plugin.name": "Περιηγητής Πρόσθετων Λειτουργιών",
+  "plugin.name.changes": "Plugin Browser (+$changes)",
+  "toast.copy.github_link": "Copied GitHub link!",
+  "toast.copy.unproxied_link": "Αντιγράφηκε ο μη υποστηριζόμενος σύνδεσμος πρόσθετου!",
+  "toast.plugin.update.success": "Updated $plugin!",
+  "toast.plugin.update.fail": "Αποτυχία ενημέρωσης $plugin!",
+  "toast.plugin.delete.success": "Deleted $plugin!",
+  "toast.plugin.delete.fail": "Αποτυχία διαγραφής $plugin!",
+  "toast.plugin.install.success": "Installed $plugin!",
+  "toast.plugin.install.fail": "Αποτυχία εγκατάστασης του $plugin!",
+  "toast.data.fail_fetch": "Απέτυχε η λήψη plugins!",
+  "toast.data.fail_parse": "Απέτυχε η ανάλυση των plugins!",
+  "alert.unusable.title": "Αδυναμία χρήσης περιηγητή προσθέτων",
+  "alert.unusable.body": "You must reinstall your client for Plugin Browser to function properly.",
+  "sheet.sort.title": "Ταξινόμηση",
+  "sheet.sort.date_newest": "Ημερομηνία δημιουργίας (νέα σε παλιά)",
+  "sheet.sort.date_oldest": "Ημερομηνία δημιουργίας (παλιά σε νέα)",
+  "sheet.sort.name_az": "Όνομα (Α έως Ω)",
+  "sheet.sort.name_za": "Όνομα (Ω έως Α)"
+}

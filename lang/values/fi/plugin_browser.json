@@ -1,0 +1,21 @@
+{
+  "plugin.name": "Liitännäisen Selain",
+  "plugin.name.changes": "Liitännäisselain (+$changes)",
+  "toast.copy.github_link": "Copied GitHub link!",
+  "toast.copy.unproxied_link": "Liitännäisen linkin kopiointi pois!",
+  "toast.plugin.update.success": "Päivitetty $plugin!",
+  "toast.plugin.update.fail": "$plugin päivitys epäonnistui!",
+  "toast.plugin.delete.success": "Poistettu $plugin!",
+  "toast.plugin.delete.fail": "$plugin poisto epäonnistui!",
+  "toast.plugin.install.success": "Asennettu $plugin!",
+  "toast.plugin.install.fail": "$plugin asennus epäonnistui!",
+  "toast.data.fail_fetch": "Liitännäisten nouto epäonnistui!",
+  "toast.data.fail_parse": "Liitännäisten jäsentäminen epäonnistui!",
+  "alert.unusable.title": "Liitännäisselainta ei voi käyttää",
+  "alert.unusable.body": "You must reinstall your client for Plugin Browser to function properly.",
+  "sheet.sort.title": "Lajittelu",
+  "sheet.sort.date_newest": "Luomisen päivämäärä (uusi vanhaksi)",
+  "sheet.sort.date_oldest": "Luomisen päivämäärä (vanha uusille)",
+  "sheet.sort.name_az": "Nimi (A–Z)",
+  "sheet.sort.name_za": "Nimi (Z – A)"
+}

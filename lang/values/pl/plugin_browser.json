@@ -1,0 +1,21 @@
+{
+  "plugin.name": "Przeglądarka wtyczek",
+  "plugin.name.changes": "Przeglądarka wtyczek (+$changes)",
+  "toast.copy.github_link": "Copied GitHub link!",
+  "toast.copy.unproxied_link": "Skopiowano link do wtyczki nieproxy!",
+  "toast.plugin.update.success": "Zaktualizowano $plugin!",
+  "toast.plugin.update.fail": "Nie udało się zaktualizować $plugin!",
+  "toast.plugin.delete.success": "Usunięto $plugin!",
+  "toast.plugin.delete.fail": "Nie udało się usunąć $plugin!",
+  "toast.plugin.install.success": "Zainstalowano $plugin!",
+  "toast.plugin.install.fail": "Nie udało się zainstalować $plugin!",
+  "toast.data.fail_fetch": "Nie udało się pobrać wtyczek!",
+  "toast.data.fail_parse": "Nie udało się przetworzyć wtyczek!",
+  "alert.unusable.title": "Nie można użyć przeglądarki wtyczek",
+  "alert.unusable.body": "Musisz ponownie zainstalować swojego klienta, aby Przeglądarka Wtyczek działała poprawnie.",
+  "sheet.sort.title": "Sortowanie",
+  "sheet.sort.date_newest": "Data utworzenia (nowe do starszego)",
+  "sheet.sort.date_oldest": "Data utworzenia (stara do nowej)",
+  "sheet.sort.name_az": "Nazwa (od A do Z)",
+  "sheet.sort.name_za": "Nazwa (Z do A)"
+}

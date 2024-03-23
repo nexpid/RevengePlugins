@@ -1,0 +1,6 @@
+{
+  "log.patch_error": "Fout tegengegaan tijdens het laden!",
+  "log.fetch_error": "Ophalen avatars is mislukt!",
+  "toast.patch_error": "UsrPFP heeft een fout ondervonden tijdens het laden!",
+  "toast.fetch_error": "UsrPFP is mislukt om avatars op te halen!"
+}

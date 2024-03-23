@@ -1,0 +1,21 @@
+{
+  "plugin.name": "Plugin Browser",
+  "plugin.name.changes": "Plugin Browser (+$changes)",
+  "toast.copy.github_link": "Copied GitHub link!",
+  "toast.copy.unproxied_link": "Copied unproxied plugin link!",
+  "toast.plugin.update.success": "Updated $plugin!",
+  "toast.plugin.update.fail": "Failed to update $plugin!",
+  "toast.plugin.delete.success": "Deleted $plugin!",
+  "toast.plugin.delete.fail": "Failed to delete $plugin!",
+  "toast.plugin.install.success": "Installed $plugin!",
+  "toast.plugin.install.fail": "Failed to install $plugin!",
+  "toast.data.fail_fetch": "Failed to fetch plugins!",
+  "toast.data.fail_parse": "Failed to parse plugins!",
+  "alert.unusable.title": "Can't use Plugin Browser",
+  "alert.unusable.body": "You must reinstall your client for Plugin Browser to function properly.",
+  "sheet.sort.title": "Sorting",
+  "sheet.sort.date_newest": "Creation date (new to old)",
+  "sheet.sort.date_oldest": "Creation date (old to new)",
+  "sheet.sort.name_az": "Name (A to Z)",
+  "sheet.sort.name_za": "Name (Z to A)"
+}

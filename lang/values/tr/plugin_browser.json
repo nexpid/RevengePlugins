@@ -1,0 +1,21 @@
+{
+  "plugin.name": "Eklenti Tarayıcısı",
+  "plugin.name.changes": "Eklenti Tarayıcısı (+$changes)",
+  "toast.copy.github_link": "GitHub linki kopyalandı!",
+  "toast.copy.unproxied_link": "Vekilsiz eklenti linki kopyalandı!",
+  "toast.plugin.update.success": "$plugin güncellendi!",
+  "toast.plugin.update.fail": "$plugin güncellenemedi!",
+  "toast.plugin.delete.success": "$plugin silindi!",
+  "toast.plugin.delete.fail": "$plugin silinemedi!",
+  "toast.plugin.install.success": "$plugin yüklendi!",
+  "toast.plugin.install.fail": "$plugin yüklenemedi!",
+  "toast.data.fail_fetch": "Eklentiler alınamadı!",
+  "toast.data.fail_parse": "Eklentiler ayrıştırılamadı!",
+  "alert.unusable.title": "Plugin Tarayıcısı kullanılamaz",
+  "alert.unusable.body": "Plugin Tarayıcısının düzgün çalışması için Discord istemcinizi yeniden yüklemelisiniz.",
+  "sheet.sort.title": "Sıralama",
+  "sheet.sort.date_newest": "Oluşturulma tarihi (yeniden eskiye)",
+  "sheet.sort.date_oldest": "Oluşturulma tarihi (eskiden yeniye)",
+  "sheet.sort.name_az": "İsim (A'dan Z'ye)",
+  "sheet.sort.name_za": "İsim (Z'den A'ya)"
+}

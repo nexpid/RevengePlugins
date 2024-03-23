@@ -1,0 +1,21 @@
+{
+  "plugin.name": "プラグインブラウザ",
+  "plugin.name.changes": "プラグインブラウザ (+$changes)",
+  "toast.copy.github_link": "GitHub のリンクをコピーしました",
+  "toast.copy.unproxied_link": "非プロキシプラグインのリンクをコピーしました！",
+  "toast.plugin.update.success": "$plugin を更新しました！",
+  "toast.plugin.update.fail": "$plugin の更新に失敗しました！",
+  "toast.plugin.delete.success": "$plugin! を削除しました",
+  "toast.plugin.delete.fail": "$plugin の削除に失敗しました！",
+  "toast.plugin.install.success": "$plugin をインストールしました！",
+  "toast.plugin.install.fail": "$plugin のインストールに失敗しました！",
+  "toast.data.fail_fetch": "$plugin の取得に失敗しました！",
+  "toast.data.fail_parse": "$plugin の解析に失敗しました！",
+  "alert.unusable.title": "プラグインブラウザ使用できません",
+  "alert.unusable.body": "プラグインブラウザ を正常に動作させるには、クライアントの再インストールが必要です。",
+  "sheet.sort.title": "並べ替え",
+  "sheet.sort.date_newest": "作成日 (新しい順)",
+  "sheet.sort.date_oldest": "作成日 (古い順)",
+  "sheet.sort.name_az": "名前 (昇順)",
+  "sheet.sort.name_za": "名前 (降順)"
+}

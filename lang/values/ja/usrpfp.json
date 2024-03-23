@@ -1,0 +1,6 @@
+{
+  "log.patch_error": "読み込み中にエラーが発生しました！",
+  "log.fetch_error": "アバターの取得に失敗しました！",
+  "toast.patch_error": "UserPFP の読み込み中にエラーが発生しました！",
+  "toast.fetch_error": "UserPFP がアバターの取得に失敗しました！"
+}

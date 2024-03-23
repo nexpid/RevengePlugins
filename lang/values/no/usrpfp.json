@@ -1,0 +1,6 @@
+{
+  "log.patch_error": "Det oppstod en feil under lasting!",
+  "log.fetch_error": "Kunne ikke hente avatarer!",
+  "toast.patch_error": "Bruk PFP oppdaget en feil under lasting!",
+  "toast.fetch_error": "Bruk PFP kunne ikke hente avatarer!"
+}

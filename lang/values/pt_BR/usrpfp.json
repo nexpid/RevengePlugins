@@ -1,0 +1,6 @@
+{
+  "log.patch_error": "Ocorreu um erro durante o carregamento!",
+  "log.fetch_error": "Falhou em buscar avatares!",
+  "toast.patch_error": "UsfPFP ocorreu um erro durante o carregando!",
+  "toast.fetch_error": "Falha ao obter avatares!"
+}

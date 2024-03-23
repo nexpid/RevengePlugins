@@ -1,0 +1,21 @@
+{
+  "plugin.name": "Navigateur de plugins",
+  "plugin.name.changes": "Navigateur de plugins (+$changes)",
+  "toast.copy.github_link": "Lien GitHub copié !",
+  "toast.copy.unproxied_link": "Lien de plugin non-proxy copié !",
+  "toast.plugin.update.success": "Mis à jour $plugin!",
+  "toast.plugin.update.fail": "Échec de la mise à jour $plugin!",
+  "toast.plugin.delete.success": "Supprimé $plugin!",
+  "toast.plugin.delete.fail": "Échec de la suppression $plugin!",
+  "toast.plugin.install.success": "Installé $plugin!",
+  "toast.plugin.install.fail": "Échec de l'installation $plugin!",
+  "toast.data.fail_fetch": "Échec de la récupération des plugins !",
+  "toast.data.fail_parse": "Échec de l'analyse des plugins !",
+  "alert.unusable.title": "Impossible d'utiliser le navigateur de plugins",
+  "alert.unusable.body": "Vous devez réinstaller Vendetta pour que le navigateur de plugins fonctionne correctement.",
+  "sheet.sort.title": "Tri",
+  "sheet.sort.date_newest": "Date de création (du plus récent au plus vieux)",
+  "sheet.sort.date_oldest": "Date de création (du plus vieux au plus récent)",
+  "sheet.sort.name_az": "Nom (A à Z)",
+  "sheet.sort.name_za": "Nom (Z à A)"
+}

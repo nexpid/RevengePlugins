@@ -1,0 +1,6 @@
+{
+  "log.patch_error": "Hiba lépett fel betöltés közben!",
+  "log.fetch_error": "Nem sikerült lekérni az avatarokat!",
+  "toast.patch_error": "Az UsrPFP betöltés közben hibát észlelt!",
+  "toast.fetch_error": "Nem sikerült lekérni az avatarokat az UsrPFP-nek!"
+}

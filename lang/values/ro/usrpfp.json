@@ -1,0 +1,6 @@
+{
+  "log.patch_error": "A răspuns o eroare la încărcare!",
+  "log.fetch_error": "Nu s-a reușit preluarea avatarelor!",
+  "toast.patch_error": "UsrPFP a întâmpinat o eroare la încărcare!",
+  "toast.fetch_error": "UsrPFP nu a reușit preluarea avatarelor!"
+}

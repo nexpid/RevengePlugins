@@ -1,0 +1,21 @@
+{
+  "plugin.name": "Plugin browser",
+  "plugin.name.changes": "Plugin Browser (+$changes)",
+  "toast.copy.github_link": "Copied GitHub link!",
+  "toast.copy.unproxied_link": "Niet-toegestane plugin link gekopieerd!",
+  "toast.plugin.update.success": "Bijgewerkt $plugin!",
+  "toast.plugin.update.fail": "Bijwerken van $plugin mislukt!",
+  "toast.plugin.delete.success": "Verwijderd $plugin!",
+  "toast.plugin.delete.fail": "Verwijderen van $plugin is mislukt!",
+  "toast.plugin.install.success": "$plugin is geïnstalleerd!",
+  "toast.plugin.install.fail": "Installatie van $plugin is mislukt!",
+  "toast.data.fail_fetch": "Fout bij het ophalen van plugins!",
+  "toast.data.fail_parse": "Fout bij het verwerken van plug-ins!",
+  "alert.unusable.title": "Kan de Plugin Browser niet gebruiken",
+  "alert.unusable.body": "You must reinstall your client for Plugin Browser to function properly.",
+  "sheet.sort.title": "Sorteren",
+  "sheet.sort.date_newest": "Aanmaakdatum (nieuw bij oud)",
+  "sheet.sort.date_oldest": "Aanmaakdatum (oud naar nieuw)",
+  "sheet.sort.name_az": "Naam (A tot Z)",
+  "sheet.sort.name_za": "Naam (Z tot A)"
+}

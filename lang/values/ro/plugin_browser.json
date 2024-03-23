@@ -1,0 +1,21 @@
+{
+  "plugin.name": "Browser Plugin",
+  "plugin.name.changes": "Browser Plugin (+$changes)",
+  "toast.copy.github_link": "Copied GitHub link!",
+  "toast.copy.unproxied_link": "S-a copiat link-ul plugin-ului neproxy!",
+  "toast.plugin.update.success": "Actualizat $plugin!",
+  "toast.plugin.update.fail": "Actualizarea $plugin a eșuat!",
+  "toast.plugin.delete.success": "$plugin șters!",
+  "toast.plugin.delete.fail": "Nu s-a putut șterge $plugin!",
+  "toast.plugin.install.success": "$plugin instalat!",
+  "toast.plugin.install.fail": "Instalarea $plugin a eșuat!",
+  "toast.data.fail_fetch": "Nu s-a reușit preluarea plugin-urilor!",
+  "toast.data.fail_parse": "Esuare analizare plugin-uri!",
+  "alert.unusable.title": "Nu se poate folosi browser-ul pentru plugin-uri",
+  "alert.unusable.body": "You must reinstall your client for Plugin Browser to function properly.",
+  "sheet.sort.title": "Sortare",
+  "sheet.sort.date_newest": "Data creării (nouă la veche)",
+  "sheet.sort.date_oldest": "Data creării (vechi la nou)",
+  "sheet.sort.name_az": "Nume (de la A la Z)",
+  "sheet.sort.name_za": "Nume (de la Z la A)"
+}

@@ -1,0 +1,21 @@
+{
+  "plugin.name": "Navegador de Extensões",
+  "plugin.name.changes": "Plugin Browser (+$changes)",
+  "toast.copy.github_link": "Link do GitHub Copiado!",
+  "toast.copy.unproxied_link": "Link do plugin sem proxy copiado!",
+  "toast.plugin.update.success": "Atualizado $plugin!",
+  "toast.plugin.update.fail": "Falha ao atualizar $plugin!",
+  "toast.plugin.delete.success": "$plugin deletado!",
+  "toast.plugin.delete.fail": "Falha ao deletar $plugin!",
+  "toast.plugin.install.success": "Instalado $plugin!",
+  "toast.plugin.install.fail": "Falha ao instalar $plugin!",
+  "toast.data.fail_fetch": "Falhou em buscar plugins!",
+  "toast.data.fail_parse": "Falha ao analisar plugins!",
+  "alert.unusable.title": "Não foi possível usar o Plugin Browser",
+  "alert.unusable.body": "You must reinstall your client for Plugin Browser to function properly.",
+  "sheet.sort.title": "Filtrar",
+  "sheet.sort.date_newest": "Data de criação (novo para antigo)",
+  "sheet.sort.date_oldest": "Data de criação (antigo para novo)",
+  "sheet.sort.name_az": "Nome (A - Z)",
+  "sheet.sort.name_za": "Nome (Z - A)"
+}

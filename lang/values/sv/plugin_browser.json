@@ -1,0 +1,21 @@
+{
+  "plugin.name": "Webbläsare för plugin",
+  "plugin.name.changes": "Plugin Browser (+$changes)",
+  "toast.copy.github_link": "Copied GitHub link!",
+  "toast.copy.unproxied_link": "Kopierade ej proxierad plugin-länk!",
+  "toast.plugin.update.success": "Uppdaterad $plugin!",
+  "toast.plugin.update.fail": "Det gick inte att uppdatera $plugin!",
+  "toast.plugin.delete.success": "Tog bort $plugin!",
+  "toast.plugin.delete.fail": "Det gick inte att ta bort $plugin!",
+  "toast.plugin.install.success": "Installerat $plugin!",
+  "toast.plugin.install.fail": "Det gick inte att installera $plugin!",
+  "toast.data.fail_fetch": "Det gick inte att hämta plugins!",
+  "toast.data.fail_parse": "Det gick inte att tolka plugins!",
+  "alert.unusable.title": "Kan inte använda Plugin Browser",
+  "alert.unusable.body": "You must reinstall your client for Plugin Browser to function properly.",
+  "sheet.sort.title": "Sortering",
+  "sheet.sort.date_newest": "Skapad datum (nytt till gammalt)",
+  "sheet.sort.date_oldest": "Skapad datum (gammalt till nytt)",
+  "sheet.sort.name_az": "Namn (A till Ö)",
+  "sheet.sort.name_za": "Namn (Ö till A)"
+}

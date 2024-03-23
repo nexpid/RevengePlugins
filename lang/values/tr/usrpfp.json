@@ -1,0 +1,6 @@
+{
+  "log.patch_error": "Yüklenirken bir şeyler ters gitti!",
+  "log.fetch_error": "Avatarlar alınamadı!",
+  "toast.patch_error": "UsrPFP yüklenirken bir şeyler ters gitti!",
+  "toast.fetch_error": "UsrPFP avatarları alamadı!"
+}

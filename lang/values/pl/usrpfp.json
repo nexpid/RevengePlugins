@@ -1,0 +1,6 @@
+{
+  "log.patch_error": "Wystąpił błąd podczas ładowania!",
+  "log.fetch_error": "Nie udało się pobrać awatarów!",
+  "toast.patch_error": "UsrPFP napotkał błąd podczas ładowania!",
+  "toast.fetch_error": "UsrPFP nie udało się pobrać awatarów!"
+}

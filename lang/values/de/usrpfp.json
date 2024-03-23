@@ -1,0 +1,6 @@
+{
+  "log.patch_error": "Fehler beim Laden aufgetreten!",
+  "log.fetch_error": "Fehler beim Abrufen der Avatare!",
+  "toast.patch_error": "Bei UsrPFP ist ein Fehler beim Laden aufgetreten!",
+  "toast.fetch_error": "UsrPFP konnte Avatare nicht abrufen!"
+}

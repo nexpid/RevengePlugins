@@ -1,0 +1,21 @@
+{
+  "plugin.name": "Браузер плагінів",
+  "plugin.name.changes": "Браузер плагінів (+$changes)",
+  "toast.copy.github_link": "Copied GitHub link!",
+  "toast.copy.unproxied_link": "Посилання для непроксованих плагінів!",
+  "toast.plugin.update.success": "Оновлено $plugin!",
+  "toast.plugin.update.fail": "Не вдалося оновити $plugin!",
+  "toast.plugin.delete.success": "Видалено $plugin!",
+  "toast.plugin.delete.fail": "Не вдалося вилучити $plugin!",
+  "toast.plugin.install.success": "Встановлений $plugin!",
+  "toast.plugin.install.fail": "Не вдалося встановити $plugin!",
+  "toast.data.fail_fetch": "Не вдалося отримати плагін!",
+  "toast.data.fail_parse": "Не вдалося обробити плагіни!",
+  "alert.unusable.title": "Неможливо використовувати браузер плагінів",
+  "alert.unusable.body": "You must reinstall your client for Plugin Browser to function properly.",
+  "sheet.sort.title": "Сортування",
+  "sheet.sort.date_newest": "Дата створення (нові - до старих)",
+  "sheet.sort.date_oldest": "Дата створення (старий до нових)",
+  "sheet.sort.name_az": "За назвою (A - Я)",
+  "sheet.sort.name_za": "За назвою (Я - А)"
+}

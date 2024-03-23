@@ -1,0 +1,10 @@
+{
+  "settings.title": "Налаштування",
+  "settings.emojipacks.title": "Emoji пакет",
+  "settings.emojipacks.choose.default": "Default (Twemoji)",
+  "settings.emojipacks.choose.default.ios": "Default (iOs Emoji)",
+  "settings.emojipacks.choose.twemoji": "Twemoji (CDN)",
+  "settings.emojipacks.choose.fluentui_static": "FluentUI Emoji (Статичний)",
+  "settings.emojipacks.choose.fluentui_animated": "FluentUI Emoji (анімовані)",
+  "settings.emojipacks.choose.noto_emoji": "Noto Emoji"
+}

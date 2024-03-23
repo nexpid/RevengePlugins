@@ -1,0 +1,6 @@
+{
+  "log.patch_error": "Προέκυψε ένα σφάλμα κατά τη φόρτωση!",
+  "log.fetch_error": "Αποτυχία λήψης avatars!",
+  "toast.patch_error": "Το UsrPFP αντιμετώπισε ένα σφάλμα κατά τη φόρτωση!",
+  "toast.fetch_error": "Το UsrPFP απέτυχε να φέρει avatars!"
+}

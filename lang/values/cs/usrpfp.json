@@ -1,0 +1,6 @@
+{
+  "log.patch_error": "Chyba při načítání!",
+  "log.fetch_error": "Nepovedlo se načíst avatary!",
+  "toast.patch_error": "UsrPFP dostalo chybu při načítání!",
+  "toast.fetch_error": "UsrPFP se nepovedlo načíst avatary!"
+}

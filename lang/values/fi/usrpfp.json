@@ -1,0 +1,6 @@
+{
+  "log.patch_error": "Virhe kohdistettiin ladattaessa!",
+  "log.fetch_error": "Profiilikuvien noutaminen epäonnistui!",
+  "toast.patch_error": "UsrPFP kohtasi virheen ladatessa!",
+  "toast.fetch_error": "UsrPFP ei onnistunut noutamaan profiileja!"
+}

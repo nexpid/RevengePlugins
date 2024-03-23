@@ -1,0 +1,6 @@
+{
+  "log.patch_error": "Der opstod en fejl under indlæsning!",
+  "log.fetch_error": "Kunne ikke hente avatarer!",
+  "toast.patch_error": "UsrPFP stødte på en fejl under indlæsning!",
+  "toast.fetch_error": "UsrPFP kunne ikke hente avatarer!"
+}
