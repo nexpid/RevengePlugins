@@ -68,8 +68,8 @@ devDependencies:
     specifier: ^3.7.2
     version: 3.7.2(@babel/core@7.24.0)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)
   react-native-svg:
-    specifier: ^14.1.0
-    version: 14.1.0
+    specifier: ^15.0.0
+    version: 15.1.0
   react-native-webview:
     specifier: ^13.8.1
     version: 13.8.1
@@ -2340,8 +2340,8 @@ packages:
       invariant: 2.2.4
     dev: true
 
-  /react-native-svg@14.1.0:
-    resolution: {integrity: sha512-HeseElmEk+AXGwFZl3h56s0LtYD9HyGdrpg8yd9QM26X+d7kjETrRQ9vCjtxuT5dCZEIQ5uggU1dQhzasnsCWA==}
+  /react-native-svg@15.1.0:
+    resolution: {integrity: sha512-p0Sx0EpQNk1nu6UcMEiB8K9P04n3J7s+pNYUwf1d/Yz+v4hk961VjuVqjyndgiEbHZyWiKWLZRVNuvLpwjPY2A==}
     peerDependencies:
       react: '*'
       react-native: '*'
