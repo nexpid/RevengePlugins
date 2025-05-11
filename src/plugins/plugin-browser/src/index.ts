@@ -1,20 +1,20 @@
-import { storage } from '@vendetta/plugin'
+import { storage } from "@vendetta/plugin";
 
-import { Lang } from '$/lang'
+import { Lang } from "$/lang";
 
-import patcher from './stuff/patcher'
+import patcher from "./stuff/patcher";
 
 export const vstorage = storage as {
-    pluginCache: string[]
-}
+	pluginCache: string[];
+};
 
-export const lang = new Lang('plugin_browser')
+export const lang = new Lang("plugin_browser");
 
-let unpatch: any
+let unpatch: any;
 export default {
-    onLoad: () => {
-        vstorage.pluginCache ??= []
-        unpatch = patcher()
-    },
-    onUnload: () => unpatch?.(),
-}
+	onLoad: () => {
+		vstorage.pluginCache ??= [];
+		unpatch = patcher();
+	},
+	onUnload: () => unpatch?.(),
+};

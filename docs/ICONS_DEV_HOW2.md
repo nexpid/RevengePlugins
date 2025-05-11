@@ -17,10 +17,10 @@ Let's say you're making a plugin and want to use an icon of a train. Since the D
 
 ```jsx
 <Image
-  source={{
-    uri: "data:image/png;base64,...",
-  }}
-/>
+	source={{
+		uri: "data:image/png;base64,...",
+	}}
+/>;
 ```
 
 > [!TIP]
@@ -30,13 +30,13 @@ This works, but the icon can't be themed using an iconpack. To do that, you must
 
 ```jsx
 <Image
-  source={{
-    uri: "data:image/png;base64,...",
-    width: 72,
-    height: 72,
-    path: "YourAwesomePlugin/TrainIcon.png",
-  }}
-/>
+	source={{
+		uri: "data:image/png;base64,...",
+		width: 72,
+		height: 72,
+		path: "YourAwesomePlugin/TrainIcon.png",
+	}}
+/>;
 ```
 
 > [!TIP]
@@ -46,14 +46,14 @@ And lastly, set `allowIconTheming` to `true`, like so:
 
 ```jsx
 <Image
-  source={{
-    uri: "data:image/png;base64,...",
-    width: 72,
-    height: 72,
-    path: "YourAwesomePlugin/TrainIcon.png",
-    allowIconTheming: true,
-  }}
-/>
+	source={{
+		uri: "data:image/png;base64,...",
+		width: 72,
+		height: 72,
+		path: "YourAwesomePlugin/TrainIcon.png",
+		allowIconTheming: true,
+	}}
+/>;
 ```
 
 And you're done! Iconpack makers can now change the icon by editing the file at `<iconpack root>/_/external/YourAwesomePlugin/TrainIcon.png`.

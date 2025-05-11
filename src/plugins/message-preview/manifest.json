@@ -1,18 +1,18 @@
 {
-  "name": "Message Preview",
-  "description": "Adds a button to preview your message before sending it",
-  "authors": [
-    {
-      "name": "nexpid",
-      "id": "853550207039832084"
-    },
-    {
-      "name": "pylix",
-      "id": "492949202121261067"
-    }
-  ],
-  "main": "src/index.ts",
-  "vendetta": {
-    "icon": "EyeIcon"
-  }
+	"name": "Message Preview",
+	"description": "Adds a button to preview your message before sending it",
+	"authors": [
+		{
+			"name": "nexpid",
+			"id": "853550207039832084"
+		},
+		{
+			"name": "pylix",
+			"id": "492949202121261067"
+		}
+	],
+	"main": "src/index.ts",
+	"vendetta": {
+		"icon": "EyeIcon"
+	}
 }

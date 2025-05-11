@@ -1,7 +1,7 @@
 {
-  "status": "finished",
-  "proxied": false,
-  "external": {
-    "backend": "SongSpotlight"
-  }
+	"status": "finished",
+	"proxied": false,
+	"external": {
+		"backend": "SongSpotlight"
+	}
 }

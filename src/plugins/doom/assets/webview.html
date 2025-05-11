@@ -1,47 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-    <head>
-        <script src="URL_JSDOS_JS"></script>
-        <link rel="stylesheet" href="URL_JSDOS_CSS" />
-    </head>
-    <body>
-        <div id="jsbox" />
-    </body>
+	<head>
+		<script src="URL_JSDOS_JS"></script>
+		<link rel="stylesheet" href="URL_JSDOS_CSS" />
+	</head>
+	<body>
+		<div id="jsbox" />
+	</body>
 </html>
 <script>
-    const cache_wdosboxJs = URL_JSDOS_WDOSBOX_JS;
+const cache_wdosboxJs = URL_JSDOS_WDOSBOX_JS;
 
-    const RealXMLHttpRequest = window.XMLHttpRequest;
-    window.XMLHttpRequest = class FakeXMLHttpRequest extends (
-        RealXMLHttpRequest
-    ) {
-        open(method, url) {
-            if (url === "wdosbox.js")
-                return super.open(method, cache_wdosboxJs);
-            else if (url === "wdosbox.wasm")
-                return super.open(method, URL_JSDOS_WDOSBOX_WASM);
-            else return super.open(method, url);
-        }
-    };
+	const RealXMLHttpRequest = window.XMLHttpRequest;
+	window.XMLHttpRequest = class FakeXMLHttpRequest extends RealXMLHttpRequest {
+		open(method, url) {
+			if (url === "wdosbox.js") {
+				return super.open(method, cache_wdosboxJs);
+			} else if (url === "wdosbox.wasm") {
+				return super.open(method, URL_JSDOS_WDOSBOX_WASM);
+			} else return super.open(method, url);
+		}
+	};
 
-    const RealWorker = window.Worker;
-    window.Worker = class FakeWorker extends RealWorker {
-        constructor(url) {
-            if (url === "wdosbox.js") return super(cache_wdosboxJs);
-            else super(url);
-        }
-    };
+	const RealWorker = window.Worker;
+	window.Worker = class FakeWorker extends RealWorker {
+		constructor(url) {
+			if (url === "wdosbox.js") return super(cache_wdosboxJs);
+			else super(url);
+		}
+	};
 </script>
 <script>
-    const element = document.createElement("style");
-    element.appendChild(document.createTextNode(REP_WEBVIEW_CSS));
-    document.head.appendChild(element);
+const element = document.createElement("style");
+	element.appendChild(document.createTextNode(REP_WEBVIEW_CSS));
+	document.head.appendChild(element);
 </script>
 <script>
-    Dos(document.getElementById("jsbox"), {
-        style: "none",
-        noSideBar: true,
-        noFullscreen: true,
-        noSocialLinks: true,
-    }).run(URL_GAME_LINK);
+Dos(document.getElementById("jsbox"), {
+		style: "none",
+		noSideBar: true,
+		noFullscreen: true,
+		noSocialLinks: true,
+	}).run(URL_GAME_LINK);
 </script>

@@ -86,7 +86,7 @@ jobs:
         run: |
           if [ ! -z "$(git status -s)" ]; then
             git add .
-            git commit -m "chore(i18n): sync translations" || true 
+            git commit -m "chore(i18n): sync translations" || true
             git pull --ff-only
             git push
           fi

@@ -1,14 +1,14 @@
 {
-  "name": "Char Counter",
-  "description": "Adds a character counter above the chat input",
-  "authors": [
-    {
-      "name": "nexpid",
-      "id": "853550207039832084"
-    }
-  ],
-  "main": "src/index.ts",
-  "vendetta": {
-    "icon": "PencilIcon"
-  }
+	"name": "Char Counter",
+	"description": "Adds a character counter above the chat input",
+	"authors": [
+		{
+			"name": "nexpid",
+			"id": "853550207039832084"
+		}
+	],
+	"main": "src/index.ts",
+	"vendetta": {
+		"icon": "PencilIcon"
+	}
 }

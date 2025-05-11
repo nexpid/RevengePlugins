@@ -1,6 +1,6 @@
 {
-  "status": "discontinued",
-  "discontinuedFor": "Temporarily replaced by NexxUtils",
-  "usable": true,
-  "proxied": false
+	"status": "discontinued",
+	"discontinuedFor": "Temporarily replaced by NexxUtils",
+	"usable": true,
+	"proxied": false
 }

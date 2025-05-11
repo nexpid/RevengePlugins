@@ -1,30 +1,30 @@
-import { patchPanelUI } from './panel'
-import { patchTabsUI } from './tabs'
+import { patchPanelUI } from "./panel";
+import { patchTabsUI } from "./tabs";
 
 export interface PinToSettingsTabs {
-    key: string
-    title: () => string
-    icon?: number
-    predicate?: () => boolean
-    trailing?: () => React.ReactNode
-    page: React.ComponentType
+	key: string;
+	title: () => string;
+	icon?: number;
+	predicate?: () => boolean;
+	trailing?: () => React.ReactNode;
+	page: React.ComponentType;
 }
 
 export function patchSettingsPin(tabs: PinToSettingsTabs): () => void {
-    const patches = new Array<() => void>()
+	const patches = new Array<() => void>();
 
-    let disabled = false
+	let disabled = false;
 
-    const realPredicate = tabs.predicate ?? (() => true)
-    tabs.predicate = () => (disabled ? false : realPredicate())
+	const realPredicate = tabs.predicate ?? (() => true);
+	tabs.predicate = () => (disabled ? false : realPredicate());
 
-    patchPanelUI(tabs, patches)
-    patchTabsUI(tabs, patches)
-    patches.push(() => (disabled = true))
+	patchPanelUI(tabs, patches);
+	patchTabsUI(tabs, patches);
+	patches.push(() => (disabled = true));
 
-    return () => {
-        for (const x of patches) {
-            x()
-        }
-    }
+	return () => {
+		for (const x of patches) {
+			x();
+		}
+	};
 }

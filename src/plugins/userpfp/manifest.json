@@ -1,14 +1,14 @@
 {
-  "name": "UserPFP",
-  "description": "https://userpfp.github.io/UserPFP/#using-userpfp",
-  "authors": [
-    {
-      "name": "nexpid",
-      "id": "853550207039832084"
-    }
-  ],
-  "main": "src/index.ts",
-  "vendetta": {
-    "icon": "tab-you"
-  }
+	"name": "UserPFP",
+	"description": "https://userpfp.github.io/UserPFP/#using-userpfp",
+	"authors": [
+		{
+			"name": "nexpid",
+			"id": "853550207039832084"
+		}
+	],
+	"main": "src/index.ts",
+	"vendetta": {
+		"icon": "tab-you"
+	}
 }

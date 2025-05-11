@@ -1,14 +1,14 @@
 {
-  "name": "rejuvenate",
-  "description": "synonym of update; verb, as in bring up to date",
-  "authors": [
-    {
-      "name": "nexpid",
-      "id": "853550207039832084"
-    }
-  ],
-  "main": "src/index.ts",
-  "vendetta": {
-    "icon": "EmbedIcon"
-  }
+	"name": "rejuvenate",
+	"description": "synonym of update; verb, as in bring up to date",
+	"authors": [
+		{
+			"name": "nexpid",
+			"id": "853550207039832084"
+		}
+	],
+	"main": "src/index.ts",
+	"vendetta": {
+		"icon": "EmbedIcon"
+	}
 }

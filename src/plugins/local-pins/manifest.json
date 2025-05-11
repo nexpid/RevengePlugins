@@ -1,14 +1,14 @@
 {
-  "name": "Local Pins",
-  "description": "Adds a button to locally pin a message",
-  "authors": [
-    {
-      "name": "nexpid",
-      "id": "853550207039832084"
-    }
-  ],
-  "main": "src/index.ts",
-  "vendetta": {
-    "icon": "PinIcon"
-  }
+	"name": "Local Pins",
+	"description": "Adds a button to locally pin a message",
+	"authors": [
+		{
+			"name": "nexpid",
+			"id": "853550207039832084"
+		}
+	],
+	"main": "src/index.ts",
+	"vendetta": {
+		"icon": "PinIcon"
+	}
 }

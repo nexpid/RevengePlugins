@@ -1,14 +1,14 @@
 {
-  "name": "Themes+",
-  "description": "Adds more customizability to Themes",
-  "authors": [
-    {
-      "name": "nexpid",
-      "id": "853550207039832084"
-    }
-  ],
-  "main": "src/index.tsx",
-  "vendetta": {
-    "icon": "PaintPaletteIcon"
-  }
+	"name": "Themes+",
+	"description": "Adds more customizability to Themes",
+	"authors": [
+		{
+			"name": "nexpid",
+			"id": "853550207039832084"
+		}
+	],
+	"main": "src/index.tsx",
+	"vendetta": {
+		"icon": "PaintPaletteIcon"
+	}
 }

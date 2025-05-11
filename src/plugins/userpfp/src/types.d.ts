@@ -1,3 +1,3 @@
 export interface DataFile {
-    avatars: Record<string, string>
+	avatars: Record<string, string>;
 }

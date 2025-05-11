@@ -1,18 +1,18 @@
 {
-  "name": "Monet Theme",
-  "description": "A material you theme generator",
-  "authors": [
-    {
-      "name": "nexpid",
-      "id": "853550207039832084"
-    },
-    {
-      "name": "Taki_Shiwa",
-      "id": "466968658997149706"
-    }
-  ],
-  "main": "src/index.ts",
-  "vendetta": {
-    "icon": "PaintPaletteIcon"
-  }
+	"name": "Monet Theme",
+	"description": "A material you theme generator",
+	"authors": [
+		{
+			"name": "nexpid",
+			"id": "853550207039832084"
+		},
+		{
+			"name": "Taki_Shiwa",
+			"id": "466968658997149706"
+		}
+	],
+	"main": "src/index.ts",
+	"vendetta": {
+		"icon": "PaintPaletteIcon"
+	}
 }

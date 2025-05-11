@@ -59,9 +59,9 @@ body:
       label: System Info
       description: Enter your system information (use the **sysinfo** plugin if you need hep)
       value: |
-        Device: 
-        Manufacturer: 
-        Brand: 
+        Device:
+        Manufacturer:
+        Brand:
 
         OS:
         Version:

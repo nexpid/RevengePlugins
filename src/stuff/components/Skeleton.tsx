@@ -1,36 +1,36 @@
-import { React, stylesheet } from '@vendetta/metro/common'
-import { semanticColors } from '@vendetta/ui'
-import type { DimensionValue, ViewStyle } from 'react-native'
+import { React, stylesheet } from "@vendetta/metro/common";
+import { semanticColors } from "@vendetta/ui";
+import type { DimensionValue, ViewStyle } from "react-native";
 
-import { Reanimated } from '$/deps'
+import { Reanimated } from "$/deps";
 
 export default function Skeleton({
-    height,
-    style,
+	height,
+	style,
 }: {
-    height: DimensionValue
-    style?: ViewStyle
+	height: DimensionValue;
+	style?: ViewStyle;
 }) {
-    const baseStyle = stylesheet.createThemedStyleSheet({
-        skeleton: {
-            height,
-            borderRadius: 16,
-            backgroundColor: semanticColors.BG_MOD_STRONG,
-        },
-    })
+	const baseStyle = stylesheet.createThemedStyleSheet({
+		skeleton: {
+			height,
+			borderRadius: 16,
+			backgroundColor: semanticColors.BG_MOD_STRONG,
+		},
+	});
 
-    const opacity = Reanimated.useSharedValue(1)
-    React.useEffect(() => {
-        opacity.value = Reanimated.withRepeat(
-            Reanimated.withTiming(0.5, { duration: 1000 }),
-            -1,
-            true,
-        )
-    }, [])
+	const opacity = Reanimated.useSharedValue(1);
+	React.useEffect(() => {
+		opacity.value = Reanimated.withRepeat(
+			Reanimated.withTiming(0.5, { duration: 1000 }),
+			-1,
+			true,
+		);
+	}, []);
 
-    return (
-        <Reanimated.default.View
-            style={[baseStyle.skeleton, style, { opacity }]}
-        />
-    )
+	return (
+		<Reanimated.default.View
+			style={[baseStyle.skeleton, style, { opacity }]}
+		/>
+	);
 }

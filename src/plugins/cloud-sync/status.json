@@ -1,7 +1,7 @@
 {
-  "status": "finished",
-  "proxied": false,
-  "external": {
-    "backend": "CloudSync"
-  }
+	"status": "finished",
+	"proxied": false,
+	"external": {
+		"backend": "CloudSync"
+	}
 }

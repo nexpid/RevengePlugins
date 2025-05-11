@@ -1,8 +1,8 @@
-import { settings } from '@vendetta'
+import { settings } from "@vendetta";
 
-const initialSymbol = Symbol.for('rejuvenate.initial')
+const initialSymbol = Symbol.for("rejuvenate.initial");
 export const initial = window[initialSymbol]
-    ? false
-    : (window[initialSymbol] = true)
+	? false
+	: (window[initialSymbol] = true);
 
-export const getPluginUrl = () => `${settings.debuggerUrl.slice(0, -4)}8731`
+export const getPluginUrl = () => `${settings.debuggerUrl.slice(0, -4)}8731`;

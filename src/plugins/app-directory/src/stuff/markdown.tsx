@@ -1,6 +1,6 @@
-import { findByProps } from '@vendetta/metro'
+import { findByProps } from "@vendetta/metro";
 
-const parser = findByProps('parse', 'parseToAST', 'reactParserFor')
+const parser = findByProps("parse", "parseToAST", "reactParserFor");
 
 // TODO make image work
 // const rules = {
@@ -29,10 +29,10 @@ const parser = findByProps('parse', 'parseToAST', 'reactParserFor')
 // };
 
 export function parse(text: string) {
-    const reactParse = parser.parse // parser.reactParserFor(rules);
-    return reactParse(text, true, {
-        allowHeading: true,
-        allowLinks: true,
-        allowList: true,
-    })
+	const reactParse = parser.parse; // parser.reactParserFor(rules);
+	return reactParse(text, true, {
+		allowHeading: true,
+		allowLinks: true,
+		allowList: true,
+	});
 }

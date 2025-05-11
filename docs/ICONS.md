@@ -11,7 +11,7 @@
 
 Some of my plugins use custom icons when Discord's built-in icons just aren't enough. They can be themed using a special folder in your iconpack.
 
-To start, go into Themes+'s settings > Configure > **Manual** mode > Custom iconpack.  
+To start, go into Themes+'s settings > Configure > **Manual** mode > Custom iconpack.\
 Then, fill in the **URL** and **Filename Suffix** of your iconpack.
 
 ## Common icons

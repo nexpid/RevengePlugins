@@ -1,29 +1,29 @@
 {
-  "commentAnchors.tags.anchors": {
-    "STUB": {
-      "iconColor": "purple",
-      "highlightColor": "#BA68C8",
-      "scope": "workspace",
-      "behavior": "anchor"
-    }
-  },
-  "editor.formatOnSave": true,
-  "[typescript]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
+	"commentAnchors.tags.anchors": {
+		"STUB": {
+			"iconColor": "purple",
+			"highlightColor": "#BA68C8",
+			"scope": "workspace",
+			"behavior": "anchor"
+		}
+	},
+	"editor.formatOnSave": true,
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	}
 }

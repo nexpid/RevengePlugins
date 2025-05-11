@@ -29,7 +29,7 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=7d2bfee4383dbe57e7f3cf7fb56e46de30a9f1bc072e21a8b4820a32c5a4b10a)
       image-size:
-        specifier: ^2.0.2
+        specifier: 2.0.2
         version: 2.0.2
       mime:
         specifier: ^4.0.7

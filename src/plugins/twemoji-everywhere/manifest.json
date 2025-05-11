@@ -1,14 +1,14 @@
 {
-  "name": "Twemoji Everywhere",
-  "description": "Turns all (possible) system emoji into Twemoji 👋😀🎉",
-  "authors": [
-    {
-      "name": "nexpid",
-      "id": "853550207039832084"
-    }
-  ],
-  "main": "src/index.ts",
-  "vendetta": {
-    "icon": "img_nitro_emojis"
-  }
+	"name": "Twemoji Everywhere",
+	"description": "Turns all (possible) system emoji into Twemoji 👋😀🎉",
+	"authors": [
+		{
+			"name": "nexpid",
+			"id": "853550207039832084"
+		}
+	],
+	"main": "src/index.ts",
+	"vendetta": {
+		"icon": "img_nitro_emojis"
+	}
 }

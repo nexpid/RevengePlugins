@@ -1,14 +1,14 @@
 {
-  "name": "App Directory",
-  "description": "Brings the app directory to mobile",
-  "authors": [
-    {
-      "name": "nexpid",
-      "id": "853550207039832084"
-    }
-  ],
-  "main": "src/index.ts",
-  "vendetta": {
-    "icon": "RobotIcon"
-  }
+	"name": "App Directory",
+	"description": "Brings the app directory to mobile",
+	"authors": [
+		{
+			"name": "nexpid",
+			"id": "853550207039832084"
+		}
+	],
+	"main": "src/index.ts",
+	"vendetta": {
+		"icon": "RobotIcon"
+	}
 }

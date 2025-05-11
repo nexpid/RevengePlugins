@@ -1,14 +1,14 @@
 {
-  "name": "Plugin Embeds",
-  "description": "Shows an embed with plugin info when a plugin link is sent in chat",
-  "authors": [
-    {
-      "name": "nexpid",
-      "id": "853550207039832084"
-    }
-  ],
-  "main": "src/index.ts",
-  "vendetta": {
-    "icon": "share"
-  }
+	"name": "Plugin Embeds",
+	"description": "Shows an embed with plugin info when a plugin link is sent in chat",
+	"authors": [
+		{
+			"name": "nexpid",
+			"id": "853550207039832084"
+		}
+	],
+	"main": "src/index.ts",
+	"vendetta": {
+		"icon": "share"
+	}
 }

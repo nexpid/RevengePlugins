@@ -1,9 +1,9 @@
 {
-  "recommendations": [
-    "biomejs.biome",
-    "ExodiusStudios.comment-anchors",
-    "usernamehw.errorlens",
-    "yoavbls.pretty-ts-errors",
-    "kejun.markdown-alert"
-  ]
+	"recommendations": [
+		"biomejs.biome",
+		"ExodiusStudios.comment-anchors",
+		"usernamehw.errorlens",
+		"yoavbls.pretty-ts-errors",
+		"kejun.markdown-alert"
+	]
 }

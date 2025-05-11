@@ -1,14 +1,14 @@
 {
-  "name": "CustomRPC",
-  "description": "Displays a custom RPC activity on your profile! (idea from Vencord) (RECODED)",
-  "authors": [
-    {
-      "name": "nexpid",
-      "id": "853550207039832084"
-    }
-  ],
-  "main": "src/index.ts",
-  "vendetta": {
-    "icon": "games"
-  }
+	"name": "CustomRPC",
+	"description": "Displays a custom RPC activity on your profile! (idea from Vencord) (RECODED)",
+	"authors": [
+		{
+			"name": "nexpid",
+			"id": "853550207039832084"
+		}
+	],
+	"main": "src/index.ts",
+	"vendetta": {
+		"icon": "games"
+	}
 }

@@ -1,35 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html></html>
 <script>
-    const RNWV = window.ReactNativeWebView;
+const RNWV = window.ReactNativeWebView;
 
-    /** @type {(HTMLAudioElement | null)[]} */
-    const audios = AUDIOS_VARIABLE.map(x => (x ? new Audio(x) : null));
-    let position = 0;
+	/** @type {(HTMLAudioElement | null)[]} */
+	const audios = AUDIOS_VARIABLE.map(x => (x ? new Audio(x) : null));
+	let position = 0;
 
-    /** @argument enabled {boolean} */
-    const playback = enabled => {
-        audios.forEach((x, i) => {
-            if (!x) return;
-            if (i === position && enabled) x.play();
-            else {
-                if (i !== position) x.currentTime = 0;
-                x.pause();
-            }
-        });
-    };
+	/** @argument enabled {boolean} */
+	const playback = enabled => {
+		audios.forEach((x, i) => {
+			if (!x) return;
+			if (i === position && enabled) x.play();
+			else {
+				if (i !== position) x.currentTime = 0;
+				x.pause();
+			}
+		});
+	};
 
-    audios.forEach(x =>
-        x?.addEventListener("ended", () => RNWV.postMesssage("ended")),
-    );
+	audios.forEach(x => x?.addEventListener("ended", () => RNWV.postMesssage("ended")));
 
-    window.addEventListener("message", ev => {
-        const { action, pos } = ev.data;
-        if (!action) return;
+	window.addEventListener("message", ev => {
+		const { action, pos } = ev.data;
+		if (!action) return;
 
-        if (pos !== undefined) position = audios[pos] ? pos : 0;
+		if (pos !== undefined) position = audios[pos] ? pos : 0;
 
-        if (action === "play") playback(true);
-        else if (action === "pause") playback(false);
-    });
+		if (action === "play") playback(true);
+		else if (action === "pause") playback(false);
+	});
 </script>

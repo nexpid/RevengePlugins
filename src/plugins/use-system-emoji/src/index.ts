@@ -1,7 +1,7 @@
-import patcher from './stuff/patcher'
+import patcher from "./stuff/patcher";
 
-let unpatch: any
+let unpatch: any;
 export default {
-    onLoad: () => (unpatch = patcher()),
-    onUnload: () => unpatch(),
-}
+	onLoad: () => (unpatch = patcher()),
+	onUnload: () => unpatch(),
+};

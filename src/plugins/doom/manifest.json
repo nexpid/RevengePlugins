@@ -1,14 +1,14 @@
 {
-  "name": "DOOM",
-  "description": "Play DOOM inside of Discord by going to the Settings (powered by js-dos)",
-  "authors": [
-    {
-      "name": "nexpid",
-      "id": "853550207039832084"
-    }
-  ],
-  "main": "src/index.ts",
-  "vendetta": {
-    "icon": "HubIcon"
-  }
+	"name": "DOOM",
+	"description": "Play DOOM inside of Discord by going to the Settings (powered by js-dos)",
+	"authors": [
+		{
+			"name": "nexpid",
+			"id": "853550207039832084"
+		}
+	],
+	"main": "src/index.ts",
+	"vendetta": {
+		"icon": "HubIcon"
+	}
 }

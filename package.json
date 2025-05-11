@@ -23,7 +23,7 @@
 		"dts-bundle": "^0.7.3",
 		"esbuild": "^0.20.1",
 		"fuzzysort": "^3.1.0",
-		"image-size": "^2.0.2",
+		"image-size": "2.0.2",
 		"mime": "^4.0.7",
 		"tar-fs": "3.0.8",
 		"tsx": "4.19.4",
