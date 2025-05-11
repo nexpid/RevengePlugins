@@ -7,8 +7,7 @@
 		"**/declarations",
 		"**/lang/values/*.json",
 		"**/lang/defs.d.ts",
-		"**/*-lock.json",
-		"**/README.md"
+		"**/*-lock.json"
 	],
 	"plugins": [
 		"https://plugins.dprint.dev/typescript-0.95.1.wasm",

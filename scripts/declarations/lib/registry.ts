@@ -25,24 +25,21 @@ export async function getTarball(pkg: string, version: string): Promise<Buffer> 
 
 export async function unzipTarball(path: string, tarball: Buffer) {
 	await mkdir(path, { recursive: true });
-	await (() =>
-		new Promise<void>((res, rej) => {
-			const extractor = extract(path, {
-				ignore(name: string) {
-					const base = basename(name);
-					return (
-						base !== "package.json"
-						&& !base.endsWith(".d.ts")
-					);
-				},
-			}).on("close", res).addListener("error", rej);
+	const extractor = extract(path, {
+		ignore(name: string) {
+			const base = basename(name);
+			return (
+				base !== "package.json"
+				&& !base.endsWith(".d.ts")
+			);
+		},
+	});
 
-			const buffStream = new PassThrough();
-			buffStream.end(new Uint8Array(tarball));
-			buffStream.pipe(extractor);
-		}))();
-
-	return join(path, "package");
+	return new Promise((res, rej) => {
+		const stream = new PassThrough();
+		stream.end(new Uint8Array(tarball));
+		stream.pipe(extractor).on("close", res).addListener("error", rej);
+	}).then(() => join(path, "package"));
 }
 
 function findTypes(path: string, packageJson: any) {

@@ -1,6 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
+import { dprint } from "../../common/dprint.ts";
 import { stringifyChart } from "../lib/chart.ts";
 import { makeMdNote, plural } from "../lib/common.ts";
 import { listPlugins } from "./plugins.ts";
@@ -85,7 +86,7 @@ function makeBadge(badge: import("../types").Readmes.Badge, mdLink?: boolean) {
 	if (badge.link) {
 		return mdLink
 			? `[${img}](${badge.link})`
-			: `<a href=${JSON.stringify(badge.link)}>${img}</a>`;
+			: `<a href=${JSON.stringify(badge.link)}>\n${img}\n</a>`;
 	} else return img;
 }
 
@@ -110,7 +111,7 @@ function makeEndpointBadge(
 	if (badge.link) {
 		return mdLink
 			? `[${img}](${badge.link})`
-			: `<a href=${JSON.stringify(badge.link)}>${img}</a>`;
+			: `<a href=${JSON.stringify(badge.link)}>\n${img}\n</a>`;
 	} else return img;
 }
 
@@ -186,12 +187,11 @@ export async function writePluginReadmes(filter: string[] = []) {
 			filter.length !== 0 ? filter.includes(plugin.name) : true
 		)
 	) {
-		await writeFile(
+		await dprint.saveAndFormat(
 			`src/plugins/${plugin.id}/README.md`,
-			// FORMAT TS TS PMO
-
 			[
 				`${mdNote}\n`,
+
 				// header
 				"<div align=\"center\">",
 				makeBadge(plugin.badges.status),
@@ -202,7 +202,11 @@ export async function writePluginReadmes(filter: string[] = []) {
 					.join("\n"),
 				// footer
 				"</div>\n",
-				`<h1 align="center">${plugin.name}</h1>\n`,
+
+				"<h1 align=\"center\">",
+				plugin.name,
+				"</h1>\n",
+
 				plugin.description,
 			].join("\n"),
 		);

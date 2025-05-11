@@ -9,6 +9,7 @@ import { build } from "esbuild";
 import { imageSizeFromFile } from "image-size/fromFile";
 import Mime from "mime";
 
+import { dprint } from "../../../common/dprint.ts";
 import { makeMdNote } from "../../lib/common.ts";
 import { isJolly, jollifyManifest } from "../jollyposting.ts";
 
@@ -32,9 +33,8 @@ async function buildPlugin(
 	})`;
 
 	await mkdir(join("dist", plugin), { recursive: true });
-	await writeFile(
+	await dprint.saveAndFormat(
 		join("dist", plugin, "index.md"),
-		// FORMAT TS TS PMO
 		[
 			"---",
 			`title: ${title}`,
