@@ -1,69 +1,64 @@
 {
-  "name": "revenge-plugins",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nexpid/RevengePlugins.git"
-  },
-  "license": "CC-BY-4.0",
-  "author": "nexpid",
-  "type": "module",
-  "scripts": {
-    "build": "tsx scripts/build/index.ts",
-    "dev": "pnpm build --dev",
-    "watch": "tsx scripts/watch/index.ts",
-    "serve": "tsx scripts/serve/index.ts",
-    "crowdin": "tsx scripts/crowdin/index.ts",
-    "declarations": "tsx scripts/declarations/index.ts",
-    "ci": "pnpm lint && pnpm format && tsc --noEmit",
-    "lint": "biome lint --write",
-    "format": "biome format --write"
-  },
-  "dependencies": {
-    "@nexpid/vdp-shared": "^1.0.2",
-    "@swc/core": "^1.10.7",
-    "dts-bundle-generator": "^9.5.1",
-    "esbuild": "^0.20.1",
-    "fuzzysort": "^3.1.0",
-    "image-size": "^1.2.0",
-    "mime": "^4.0.6",
-    "prettier": "^3.4.2",
-    "react-native-reanimated": "3.11.0",
-    "react-native-svg": "15.0.0",
-    "tar-fs": "^3.0.6",
-    "tsx": "4.19.2",
-    "twemoji-parser": "^14.0.0",
-    "ws": "^8.18.0"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@eslint/js": "^9.2.0",
-    "chokidar": "^3.6.0",
-    "picocolors": "^1.0.1",
-    "typescript": "^5.7.3",
-    "vendetta-types": "^2.4.21",
-    "zustand": "^4.5.5"
-  },
-  "packageManager": "pnpm@10.10.0",
-  "pnpm": {
-    "patchedDependencies": {
-      "picocolors@1.0.1": "patches/picocolors@1.0.1.patch",
-      "fuzzysort@3.1.0": "patches/fuzzysort@3.1.0.patch"
-    },
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "react",
-        "react-native"
-      ]
-    },
-    "onlyBuiltDependencies": [
-      "@biomejs/biome",
-      "@swc/core",
-      "esbuild"
-    ]
-  },
-  "engines": {
-    "node": ">=20",
-    "pnpm": ">=9"
-  }
+	"name": "revenge-plugins",
+	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nexpid/RevengePlugins.git"
+	},
+	"license": "CC-BY-4.0",
+	"author": "nexpid",
+	"type": "module",
+	"scripts": {
+		"build": "tsx scripts/build/index.ts",
+		"dev": "pnpm build --dev",
+		"watch": "tsx scripts/watch/index.ts",
+		"serve": "tsx scripts/serve/index.ts",
+		"crowdin": "tsx scripts/crowdin/index.ts",
+		"declarations": "tsx scripts/declarations/index.ts",
+		"ci": "pnpm lint && pnpm format && tsc --noEmit",
+		"lint": "biome lint --write",
+		"format": "dprint fmt"
+	},
+	"dependencies": {
+		"@nexpid/vdp-shared": "^1.0.2",
+		"@swc/core": "^1.10.7",
+		"dts-bundle": "^0.7.3",
+		"dts-generator": "^3.0.0",
+		"esbuild": "^0.20.1",
+		"fuzzysort": "^3.1.0",
+		"image-size": "^2.0.2",
+		"mime": "^4.0.7",
+		"tar-fs": "3.0.8",
+		"tsx": "4.19.4",
+		"twemoji-parser": "^14.0.0",
+		"ws": "^8.18.2"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@eslint/js": "^9.26.0",
+		"@types/dts-bundle": "^0.0.35",
+		"@types/tar-fs": "^2.0.4",
+		"chokidar": "^4.0.3",
+		"picocolors": "^1.1.1",
+		"typescript": "^5.8.3",
+		"vendetta-types": "^2.4.21",
+		"zustand": "^4.5.5"
+	},
+	"packageManager": "pnpm@10.10.0",
+	"pnpm": {
+		"patchedDependencies": {
+			"fuzzysort@3.1.0": "patches/fuzzysort@3.1.0.patch"
+		},
+		"peerDependencyRules": {
+			"ignoreMissing": [
+				"react",
+				"react-native"
+			]
+		},
+		"onlyBuiltDependencies": [
+			"@biomejs/biome",
+			"@swc/core",
+			"esbuild"
+		]
+	}
 }

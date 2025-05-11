@@ -1,0 +1,21 @@
+{
+	"useTabs": true,
+	"lineWidth": 90,
+	"excludes": [
+		"**/node_modules",
+		"**/dist",
+		"**/declarations",
+		"**/lang/values/*.json",
+		"**/lang/defs.d.ts",
+		"**/*-lock.json"
+	],
+	"plugins": [
+		"https://plugins.dprint.dev/typescript-0.95.1.wasm",
+		"https://plugins.dprint.dev/json-0.20.0.wasm",
+		"https://plugins.dprint.dev/markdown-0.18.0.wasm",
+		"https://plugins.dprint.dev/toml-0.7.0.wasm",
+		"https://plugins.dprint.dev/biome-0.7.1.wasm",
+		"https://plugins.dprint.dev/g-plane/markup_fmt-v0.20.0.wasm",
+		"https://plugins.dprint.dev/g-plane/pretty_yaml-v0.5.1.wasm"
+	]
+}

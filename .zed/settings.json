@@ -1,3 +1,39 @@
 {
-    "format_on_save": "on"
+    "code_actions_on_format": {
+        "source.fixAll.eslint": true,
+        "source.organizeImports": true
+    },
+    "formatter": {
+        "external": {
+            "command": "dprint",
+            "arguments": [
+                "fmt",
+                "--stdin",
+                "{buffer_path}"
+            ]
+        }
+    },
+    "prettier": {
+        "allowed": false
+    },
+    "languages": {
+        "JSON": {
+            "formatter": null
+        },
+        "YAML": {
+            "formatter": null
+        },
+        "JavaScript": {
+            "formatter": null
+        },
+        "JSX": {
+            "formatter": null
+        },
+        "TypeScript": {
+            "formatter": null
+        },
+        "TSX": {
+            "formatter": null
+        }
+    }
 }

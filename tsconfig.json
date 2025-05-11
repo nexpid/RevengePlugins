@@ -1,27 +1,27 @@
 {
-  "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./src/",
-    "esModuleInterop": true,
-    "jsx": "react-native",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "noImplicitAny": false,
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
-    "paths": {
-      "$/*": ["./stuff/*"]
-    },
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "esnext"
-  },
-  "include": [
-    "src/**/*",
-    "scripts/**/*",
-    "lang/**/*",
-    "node_modules/@revenge-mod/vendetta-types/**/*",
-    "declarations"
-  ]
+	"compilerOptions": {
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": "./src/",
+		"esModuleInterop": true,
+		"jsx": "react-native",
+		"module": "esnext",
+		"moduleResolution": "node",
+		"noImplicitAny": false,
+		"allowImportingTsExtensions": true,
+		"noEmit": true,
+		"paths": {
+			"$/*": ["./stuff/*"]
+		},
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "esnext"
+	},
+	"include": [
+		"src/**/*",
+		"scripts/**/*",
+		"lang/**/*",
+		"declarations",
+		"node_modules/vendetta-types/defs.d.ts"
+	]
 }
