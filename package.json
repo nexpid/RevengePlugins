@@ -1,13 +1,11 @@
 {
 	"name": "revenge-plugins",
 	"private": true,
+	"type": "module",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/nexpid/RevengePlugins.git"
 	},
-	"license": "CC-BY-4.0",
-	"author": "nexpid",
-	"type": "module",
 	"scripts": {
 		"build": "tsx scripts/build/index.ts",
 		"dev": "pnpm build --dev",
@@ -23,7 +21,6 @@
 		"@nexpid/vdp-shared": "^1.0.2",
 		"@swc/core": "^1.10.7",
 		"dts-bundle": "^0.7.3",
-		"dts-generator": "^3.0.0",
 		"esbuild": "^0.20.1",
 		"fuzzysort": "^3.1.0",
 		"image-size": "^2.0.2",
@@ -44,7 +41,6 @@
 		"vendetta-types": "^2.4.21",
 		"zustand": "^4.5.5"
 	},
-	"packageManager": "pnpm@10.10.0",
 	"pnpm": {
 		"patchedDependencies": {
 			"fuzzysort@3.1.0": "patches/fuzzysort@3.1.0.patch"
@@ -60,5 +56,6 @@
 			"@swc/core",
 			"esbuild"
 		]
-	}
+	},
+	"packageManager": "pnpm@10.10.0"
 }

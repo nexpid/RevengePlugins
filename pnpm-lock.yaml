@@ -22,9 +22,6 @@ importers:
       dts-bundle:
         specifier: ^0.7.3
         version: 0.7.3
-      dts-generator:
-        specifier: ^3.0.0
-        version: 3.0.0
       esbuild:
         specifier: ^0.20.1
         version: 0.20.2
@@ -1823,10 +1820,6 @@ packages:
   dts-bundle@0.7.3:
     resolution: {integrity: sha512-EEAEuPRk8QyKhoN90NHTh+spSQujkkvOnKWUfuzpmC/fgryiWopL1SegSktx0UsoPfNidIGVDN7/AXpBDBv0WQ==}
     engines: {node: '>= 0.10.0'}
-    hasBin: true
-
-  dts-generator@3.0.0:
-    resolution: {integrity: sha512-IrFP0TUGnBOxr8Lth0hLh/iM9odZTRGYyr4Y46IRxyw1SGO1Vvf30+x4npck9yP4FbaRXbB0Zh7gvmiqUta7mg==}
     hasBin: true
 
   ee-first@1.1.1:
@@ -5105,11 +5098,6 @@ snapshots:
       commander: 2.20.3
       detect-indent: 0.2.0
       glob: 6.0.4
-      mkdirp: 0.5.6
-
-  dts-generator@3.0.0:
-    dependencies:
-      glob: 7.2.3
       mkdirp: 0.5.6
 
   ee-first@1.1.1: {}
