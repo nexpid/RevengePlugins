@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="../assets/docs.gif" alt="Bunny Plugins docs" />
+    <img src="../assets/docs.gif" alt="Revenge Plugins docs" />
 </h1>
 
 ## Contents
@@ -14,6 +14,6 @@
 
 - ### [Local building](./BUILDING.md)
 
-  - Learn how to build BunnyPlugins locally and serve it to your phone
+  - Learn how to build RevengePlugins locally and serve it to your phone
 
 - ### Themes+ — [Making your custom icons themable](./ICONS_DEV_HOW2.md)

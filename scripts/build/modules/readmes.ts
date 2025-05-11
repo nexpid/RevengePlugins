@@ -9,10 +9,9 @@ import { listPlugins } from "./plugins.ts";
 
 const mdNote = makeMdNote("scripts/build/modules/readmes.ts", "md");
 const links = {
-    // STUB[epic=proxy] vendetta.nexpid.xyz => bunny.nexpid.xyz
     proxied: "https://bn-plugins.github.io/vd-proxy/vendetta.nexpid.xyz/",
-    base: "https://bunny.nexpid.xyz/",
-    code: "https://github.com/nexpid/BunnyPlugins/tree/dev/src/plugins/",
+    base: "https://revenge.nexpid.xyz/",
+    code: "https://github.com/nexpid/RevengePlugins/tree/dev/src/plugins/",
     external: {
         backend: "https://github.com/nexpid/",
     },
@@ -321,39 +320,39 @@ export async function writeRootReadme() {
             [
                 `${mdNote}\n`,
 
-                '<h1 align="center">🐇 Bunny Plugins</h1>',
-                '<p align="center">A collection of all my awesome plugins for <a href="https://github.com/pyoncord/Bunny#installing">Bunny</a>.</p>\n',
+                '<h1 align="center">👊 Revenge Plugins</h1>',
+                '<p align="center">A collection of all my awesome plugins for <a href="https://github.com/revenge-mod/revenge-bundle#%EF%B8%8F-download">Revenge</a>.</p>\n',
                 // header
                 '<div align="center">',
                 makeEndpointBadge({
-                    endpoint: "github/stars/nexpid/BunnyPlugins",
+                    endpoint: "github/stars/nexpid/RevengePlugins",
                     text: "stars",
                     color: LabelColor.Status,
                     icon: shields.stars.icon,
                     value: {
                         color: shields.stars.color,
                     },
-                    link: "https://github.com/nexpid/BunnyPlugins/stars",
+                    link: "https://github.com/nexpid/RevengePlugins/stars",
                 }),
                 makeEndpointBadge({
-                    endpoint: "github/issues/nexpid/BunnyPlugins",
+                    endpoint: "github/issues/nexpid/RevengePlugins",
                     text: "issues",
                     color: LabelColor.Status,
                     icon: shields.issues.icon,
                     value: {
                         color: shields.issues.color,
                     },
-                    link: "https://github.com/nexpid/BunnyPlugins/issues",
+                    link: "https://github.com/nexpid/RevengePlugins/issues",
                 }),
                 makeEndpointBadge({
-                    endpoint: "github/issues-pr/nexpid/BunnyPlugins",
+                    endpoint: "github/issues-pr/nexpid/RevengePlugins",
                     text: "pull requests",
                     color: LabelColor.Status,
                     icon: shields.pulls.icon,
                     value: {
                         color: shields.pulls.color,
                     },
-                    link: "https://github.com/nexpid/BunnyPlugins/pulls",
+                    link: "https://github.com/nexpid/RevengePlugins/pulls",
                 }),
                 makeEndpointBadge({
                     endpoint: "discord/1205207689832038522",
@@ -372,7 +371,7 @@ export async function writeRootReadme() {
                 "> My plugins assume you're using version atleast **250.10** (250210) from **September 28th, 2024**, they might not work properly if you use an older version than that.\n",
 
                 "> [!CAUTION]  ",
-                "> If you have any plugins that are installed under the **dev.bunny.nexpid.xyz** subdomain, make sure to reinstall them under **bunny.nexpid.xyz**, as the dev subdomain is being sunsetted.\n",
+                "> If you have any plugins that are installed under the **dev.bunny.nexpid.xyz**, **bunny.nexpid.xyz** or **vendetta.nexpid.xyz** subdomain, make sure to reinstall them under the **revenge.nexpid.xyz** subdomain, as those subdomains are being sunsetted and will be removed in the future.\n",
 
                 "## 🌐 Localization\n",
 

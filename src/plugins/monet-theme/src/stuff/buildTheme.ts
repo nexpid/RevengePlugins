@@ -43,7 +43,7 @@ export function build(patches: Patches): ThemeDataWithPlus {
 
     const theme = {
         name: 'Material You Theme 2.0',
-        description: 'A Bunny theme with Material You theming.',
+        description: 'A Revenge theme with Material You theming.',
         authors: [
             {
                 name: 'nexpid',

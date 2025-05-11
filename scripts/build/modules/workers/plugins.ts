@@ -52,7 +52,7 @@ async function buildPlugin(
                 "</div>\n",
 
                 "> **Note**",
-                `> This is a landing page for the plugin **${manifest.name}**. The proper way to install this plugin is going to Bunny's Plugins page and adding it there.`,
+                `> This is a landing page for the plugin **${manifest.name}**. The proper way to install this plugin is going to Revenge's Plugins page and adding it there.`,
             ].join("\n"),
             {
                 parser: "markdown",
