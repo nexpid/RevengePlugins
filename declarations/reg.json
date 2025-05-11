@@ -4,6 +4,7 @@
     "joi@17.13.1",
     "react-native-document-picker@9.3.0",
     "react-native-video@6.5.0",
-    "react-native-webview@13.8.1"
+    "react-native-webview@13.8.1",
+    "@react-native-documents/picker@10.1.3"
   ]
 }

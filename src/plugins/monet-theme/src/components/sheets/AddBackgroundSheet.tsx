@@ -3,7 +3,7 @@ import { getAssetIDByName } from '@vendetta/ui/assets'
 import { Forms } from '@vendetta/ui/components'
 
 import { ActionSheet, hideActionSheet } from '$/components/ActionSheet'
-import { DocumentPicker } from '$/deps'
+import { RNDocumentPicker } from '$/deps'
 import { Button, TextInput } from '$/lib/redesign'
 
 const { FormRow } = Forms
@@ -28,8 +28,8 @@ export default function AddBackgroundSheet({
                     <FormRow.Icon source={getAssetIDByName('ImageIcon')} />
                 }
                 onPress={() => {
-                    DocumentPicker.pickSingle({
-                        type: DocumentPicker.types.images,
+                    RNDocumentPicker.pickSingle({
+                        type: RNDocumentPicker.types.images,
                         mode: 'open',
                         copyTo: 'documentDirectory',
                     }).then(file => {

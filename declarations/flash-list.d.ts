@@ -3,7 +3,6 @@
 declare module "@shopify/flash-list" {
     import React$1 from 'react';
     import { Animated, FlatList, NativeScrollEvent, ScrollViewProps, StyleProp, ViewProps, ViewStyle, ViewabilityConfig, ViewabilityConfigCallbackPairs } from 'react-native';
-    import { DataProvider, Dimension, GridLayoutProvider, Layout, LayoutManager, RecyclerListView, RecyclerListViewProps } from 'recyclerlistview';
     
     export declare type BlankAreaEventHandler = (blankAreaEvent: BlankAreaEvent) => void;
     export declare const useOnNativeBlankAreaEvents: (onBlankAreaEvent: (blankAreaEvent: BlankAreaEvent) => void) => void;

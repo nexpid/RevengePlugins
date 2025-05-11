@@ -18,7 +18,7 @@ import { showToast } from '@vendetta/ui/toasts'
 import { ActionSheet } from '$/components/ActionSheet'
 import { BetterTableRowGroup } from '$/components/BetterTableRow'
 import Text from '$/components/Text'
-import { DocumentPicker, Reanimated, RNFileModule } from '$/deps'
+import { RNDocumentPicker, Reanimated, RNFileModule } from '$/deps'
 import { Lang } from '$/lang'
 
 import { getLocale } from '$/lib/intlProxy'
@@ -29,6 +29,8 @@ import {
     decompressRawData,
     deleteData,
     getData,
+    getRawData,
+    RawData,
     rawDataURL,
     saveData,
 } from '../stuff/api'
@@ -41,6 +43,7 @@ import IgnoredPluginsPage from './pages/IgnoredPluginsPage'
 import ImportActionSheet from './sheets/ImportActionSheet'
 import TooMuchDataSheet from './sheets/TooMuchDataSheet'
 import WwyltdSheet from './sheets/WwyltdSheet'
+import { canSaveFileNatively, pickFile, saveFile } from '../stuff/files'
 
 const UserStore = findByStoreName('UserStore')
 
@@ -168,7 +171,7 @@ export default function () {
                         count={
                             data
                                 ? Object.keys(data.fonts.installed).length +
-                                  data.fonts.custom.length
+                                data.fonts.custom.length
                                 : '-'
                         }
                         subtitle={'settings.your_data.fonts'}
@@ -205,19 +208,19 @@ export default function () {
                         onPress={
                             settings.developerSettings
                                 ? () => {
-                                      if (
-                                          !vstorage
-                                              .realTrackingAnalyticsSentToChina
-                                              .pressedSettings
-                                      )
-                                          doBumpiness()
+                                    if (
+                                        !vstorage
+                                            .realTrackingAnalyticsSentToChina
+                                            .pressedSettings
+                                    )
+                                        doBumpiness()
 
-                                      if (lastTap >= Date.now()) {
-                                          vstorage.realTrackingAnalyticsSentToChina.pressedSettings = true
-                                          setShowDev(!showDev)
-                                          lastTap = 0
-                                      } else lastTap = Date.now() + 500
-                                  }
+                                    if (lastTap >= Date.now()) {
+                                        vstorage.realTrackingAnalyticsSentToChina.pressedSettings = true
+                                        setShowDev(!showDev)
+                                        lastTap = 0
+                                    } else lastTap = Date.now() + 500
+                                }
                                 : undefined
                         }
                         style={{ width: '100%', marginBottom: 8 }}
@@ -297,8 +300,8 @@ export default function () {
                         <FormRow.Icon source={getAssetIDByName('PinIcon')} />
                     }
                     onValueChange={() =>
-                        (vstorage.config.addToSettings =
-                            !vstorage.config.addToSettings)
+                    (vstorage.config.addToSettings =
+                        !vstorage.config.addToSettings)
                     }
                     value={vstorage.config.addToSettings}
                 />
@@ -583,46 +586,73 @@ export default function () {
                                 />
                             )
                         }
-                        onPress={() =>
-                            !isBusy.length && url.openURL(rawDataURL())
+                        onPress={async () => {
+                            if (isBusy.length) return;
+
+                            if (!canSaveFileNatively()) return url.openURL(rawDataURL());
+
+                            setBusy("download_compressed");
+                            let data: RawData;
+                            try {
+                                data = await getRawData();
+                            } catch {
+                                unBusy("download_compressed");
+                                return;
+                            }
+
+                            const saved = await saveFile(data.file, data.data).catch(console.error);
+                            unBusy("download_compressed");
+                            if (!saved || saved.error) return (showToast(
+                                lang.format("toast.backup_not_saved", {}),
+                                getAssetIDByName("CircleXIcon-primary"),
+                            ),
+                                logger.error("backup not saved", saved && saved.error));
+
+                            showToast(
+                                lang.format("toast.backup_saved", {
+                                    file: saved.name ?? "",
+                                }),
+                                getAssetIDByName("FileIcon"),
+                            );
                         }
-                        // onPress={async () => {
-                        //     if (isBusy.length) return;
+                        }
+                    // onPress={async () => {
+                    //     if (isBusy.length) return;
 
-                        //     setBusy("download_compressed");
+                    //     setBusy("download_compressed");
 
-                        //     let data: RawData;
-                        //     try {
-                        //         data = await getRawData();
-                        //     } catch {
-                        //         unBusy("download_compressed");
-                        //         return;
-                        //     }
+                    //     let data: RawData;
+                    //     try {
+                    //         data = await getRawData();
+                    //     } catch {
+                    //         unBusy("download_compressed");
+                    //         return;
+                    //     }
 
-                        //     try {
-                        //         await RNFS.writeFile(
-                        //             RNFS.DownloadDirectoryPath +
-                        //                 "/" +
-                        //                 data.file,
-                        //             data.data,
-                        //         );
+                    //     try {
+                    //         await RNFS.writeFile(
+                    //             RNFS.DownloadDirectoryPath +
+                    //                 "/" +
+                    //                 data.file,
+                    //             data.data,
+                    //         );
 
-                        //         showToast(
-                        //             lang.format("toast.backup_saved", {
-                        //                 file: data.file,
-                        //             }),
-                        //             getAssetIDByName("FileIcon"),
-                        //         );
-                        //     } catch (e) {
-                        //         showToast(
-                        //             lang.format("toast.backup_not_saved", {}),
-                        //             getAssetIDByName("CircleXIcon-primary"),
-                        //         ),
-                        //             logger.error("backup not saved", e);
-                        //     }
+                    //         showToast(
+                    //             lang.format("toast.backup_saved", {
+                    //                 file: data.file,
+                    //             }),
+                    //             getAssetIDByName("FileIcon"),
+                    //         );
+                    //     } catch (e) {
+                    //         showToast(
+                    //             lang.format("toast.backup_not_saved", {}),
+                    //             getAssetIDByName("CircleXIcon-primary"),
+                    //         ),
+                    //             logger.error("backup not saved", e);
+                    //     }
 
-                        //     unBusy("download_compressed");
-                        // }}
+                    //     unBusy("download_compressed");
+                    // }}
                     />
                     <FormRow
                         label={lang.format(
@@ -646,37 +676,15 @@ export default function () {
                             if (isBusy.length) return
                             setBusy('import_compressed')
 
-                            let text: string | null = null
-                            try {
-                                const { fileCopyUri, type } =
-                                    await DocumentPicker.pickSingle({
-                                        type: DocumentPicker.types.plainText,
-                                        mode: 'open',
-                                        copyTo: 'cachesDirectory',
-                                    })
-                                if (type === 'text/plain' && fileCopyUri)
-                                    text = await RNFileModule.readFile(
-                                        fileCopyUri.slice(5),
-                                        'utf8',
-                                    )
-                            } catch (e) {
-                                if (!DocumentPicker.isCancel(e))
-                                    showToast(
-                                        lang.format(
-                                            'toast.failed_file_open',
-                                            {},
-                                        ),
-                                        getAssetIDByName('CircleXIcon-primary'),
-                                    ),
-                                        logger.error(e)
-                            }
+                            const text = await pickFile().catch(e => new Error(e));
+                            if (!text || text instanceof Error) return (unBusy('import_compressed'), showToast(lang.format("toast.failed_file_open", {}), getAssetIDByName("CircleXIcon-primary")), logger.error(text));
 
-                            unBusy('import_compressed')
-                            if (!text) return
+                            // TODO: get rid of this :P
+                            const encoded = Buffer.from(text, "utf8").toString("base64");
 
                             let backup: UserData
                             try {
-                                backup = await decompressRawData(text)
+                                backup = await decompressRawData(encoded);
                             } catch {
                                 unBusy('import_compressed')
                                 return

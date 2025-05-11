@@ -6,10 +6,10 @@ settings:
 
 patchedDependencies:
   fuzzysort@3.1.0:
-    hash: bimxxw4622jjburfe3votrtl5m
+    hash: 7d2bfee4383dbe57e7f3cf7fb56e46de30a9f1bc072e21a8b4820a32c5a4b10a
     path: patches/fuzzysort@3.1.0.patch
   picocolors@1.0.1:
-    hash: 6swi6tv3myzmgefw5pw432whxi
+    hash: 75e35c3053a4dc2207e919ba1530d595cedb87aad1a853e4b09bef8c8f585fea
     path: patches/picocolors@1.0.1.patch
 
 importers:
@@ -30,7 +30,7 @@ importers:
         version: 0.20.2
       fuzzysort:
         specifier: ^3.1.0
-        version: 3.1.0(patch_hash=bimxxw4622jjburfe3votrtl5m)
+        version: 3.1.0(patch_hash=7d2bfee4383dbe57e7f3cf7fb56e46de30a9f1bc072e21a8b4820a32c5a4b10a)
       image-size:
         specifier: ^1.2.0
         version: 1.2.0
@@ -65,18 +65,18 @@ importers:
       '@eslint/js':
         specifier: ^9.2.0
         version: 9.8.0
-      '@revenge-mod/vendetta-types':
-        specifier: github:nexpid/revenge-types
-        version: https://codeload.github.com/nexpid/revenge-types/tar.gz/4569bd44d4605bdcbcd4314cd1ffc3265575e878(react-native@0.74.3(@babel/core@7.24.9)(@babel/preset-env@7.25.0(@babel/core@7.24.9))(react@18.3.1))(react@18.3.1)
       chokidar:
         specifier: ^3.6.0
         version: 3.6.0
       picocolors:
         specifier: ^1.0.1
-        version: 1.0.1(patch_hash=6swi6tv3myzmgefw5pw432whxi)
+        version: 1.0.1(patch_hash=75e35c3053a4dc2207e919ba1530d595cedb87aad1a853e4b09bef8c8f585fea)
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
+      vendetta-types:
+        specifier: ^2.4.21
+        version: 2.4.21(react-native@0.74.3(@babel/core@7.24.9)(@babel/preset-env@7.25.0(@babel/core@7.24.9))(react@18.3.1))(react@18.3.1)
       zustand:
         specifier: ^4.5.5
         version: 4.5.5(react@18.3.1)
@@ -1321,10 +1321,6 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
-
-  '@revenge-mod/vendetta-types@https://codeload.github.com/nexpid/revenge-types/tar.gz/4569bd44d4605bdcbcd4314cd1ffc3265575e878':
-    resolution: {tarball: https://codeload.github.com/nexpid/revenge-types/tar.gz/4569bd44d4605bdcbcd4314cd1ffc3265575e878}
-    version: 2.4.23
 
   '@rnx-kit/chromium-edge-launcher@1.0.0':
     resolution: {integrity: sha512-lzD84av1ZQhYUS+jsGqJiCMaJO2dn9u+RTT9n9q6D3SaKVwWqv+7AoRKqBu19bkwyE+iFRl1ymr40QS90jVFYg==}
@@ -3163,7 +3159,7 @@ snapshots:
   '@babel/code-frame@7.24.7':
     dependencies:
       '@babel/highlight': 7.24.7
-      picocolors: 1.0.1(patch_hash=6swi6tv3myzmgefw5pw432whxi)
+      picocolors: 1.0.1(patch_hash=75e35c3053a4dc2207e919ba1530d595cedb87aad1a853e4b09bef8c8f585fea)
 
   '@babel/compat-data@7.25.0': {}
 
@@ -3334,7 +3330,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.7
       chalk: 2.4.2
       js-tokens: 4.0.0
-      picocolors: 1.0.1(patch_hash=6swi6tv3myzmgefw5pw432whxi)
+      picocolors: 1.0.1(patch_hash=75e35c3053a4dc2207e919ba1530d595cedb87aad1a853e4b09bef8c8f585fea)
 
   '@babel/parser@7.25.0':
     dependencies:
@@ -4652,19 +4648,6 @@ snapshots:
       react: 18.3.1
       react-native: 0.74.3(@babel/core@7.24.9)(@babel/preset-env@7.25.0(@babel/core@7.24.9))(react@18.3.1)
 
-  '@revenge-mod/vendetta-types@https://codeload.github.com/nexpid/revenge-types/tar.gz/4569bd44d4605bdcbcd4314cd1ffc3265575e878(react-native@0.74.3(@babel/core@7.24.9)(@babel/preset-env@7.25.0(@babel/core@7.24.9))(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@react-native-clipboard/clipboard': 1.10.0(react-native@0.74.3(@babel/core@7.24.9)(@babel/preset-env@7.25.0(@babel/core@7.24.9))(react@18.3.1))(react@18.3.1)
-      '@types/chroma-js': 2.4.4
-      '@types/lodash': 4.17.7
-      '@types/react': 18.0.26
-      '@types/react-native': 0.68.1
-      moment: 2.22.2
-      spitroast: 1.4.4
-    transitivePeerDependencies:
-      - react
-      - react-native
-
   '@rnx-kit/chromium-edge-launcher@1.0.0':
     dependencies:
       '@types/node': 18.19.42
@@ -5361,7 +5344,7 @@ snapshots:
 
   function-bind@1.1.2: {}
 
-  fuzzysort@3.1.0(patch_hash=bimxxw4622jjburfe3votrtl5m): {}
+  fuzzysort@3.1.0(patch_hash=7d2bfee4383dbe57e7f3cf7fb56e46de30a9f1bc072e21a8b4820a32c5a4b10a): {}
 
   gensync@1.0.0-beta.2: {}
 
@@ -6000,7 +5983,7 @@ snapshots:
 
   path-parse@1.0.7: {}
 
-  picocolors@1.0.1(patch_hash=6swi6tv3myzmgefw5pw432whxi): {}
+  picocolors@1.0.1(patch_hash=75e35c3053a4dc2207e919ba1530d595cedb87aad1a853e4b09bef8c8f585fea): {}
 
   picomatch@2.3.1: {}
 
@@ -6482,7 +6465,7 @@ snapshots:
     dependencies:
       browserslist: 4.23.2
       escalade: 3.1.2
-      picocolors: 1.0.1(patch_hash=6swi6tv3myzmgefw5pw432whxi)
+      picocolors: 1.0.1(patch_hash=75e35c3053a4dc2207e919ba1530d595cedb87aad1a853e4b09bef8c8f585fea)
 
   use-sync-external-store@1.2.2(react@18.3.1):
     dependencies:

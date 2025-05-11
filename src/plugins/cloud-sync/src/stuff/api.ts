@@ -87,11 +87,9 @@ export interface RawData {
     data: string
     file: string
 }
-export async function getRawData(): Promise<RawData | undefined> {
+export async function getRawData(): Promise<RawData> {
     return await authFetch(`${constants.api}api/data/raw`).then(async res => {
-        if (!res) return
-
-        const data = await res?.text()
+        const data = await res!.text();
         return {
             data,
             file: JSON.parse(
@@ -106,9 +104,9 @@ export function rawDataURL() {
     return `${constants.api}api/data/raw?auth=${encodeURIComponent(useAuthorizationStore.getState().token ?? '')}`
 }
 
-export async function decompressRawData(data: string): Promise<UserData> {
+export async function decompressRawData(data: string, rawdog?: boolean): Promise<UserData> {
     return await (
-        await authFetch(`${constants.api}api/data/decompress`, {
+        await authFetch(`${constants.api}api/data/decompress?rawdog=${!!rawdog}`, {
             method: 'POST',
             body: data,
             headers: {
