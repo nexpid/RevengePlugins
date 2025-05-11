@@ -371,7 +371,7 @@ export async function writeRootReadme() {
                 "> My plugins assume you're using version atleast **250.10** (250210) from **September 28th, 2024**, they might not work properly if you use an older version than that.\n",
 
                 "> [!CAUTION]  ",
-                "> If you have any plugins that are installed under the **dev.bunny.nexpid.xyz** subdomain, make sure to reinstall them under **revenge.nexpid.xyz**, as the dev subdomain is being sunsetted.\n",
+                "> If you have any plugins that are installed under the **dev.bunny.nexpid.xyz**, **bunny.nexpid.xyz** or **vendetta.nexpid.xyz** subdomain, make sure to reinstall them under the **revenge.nexpid.xyz** subdomain, as those subdomains are being sunsetted and will be removed in the future.\n",
 
                 "## 🌐 Localization\n",
 
