@@ -1,9 +1,9 @@
 {
-  "name": "bunny-plugins",
+  "name": "revenge-plugins",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nexpid/BunnyPlugins.git"
+    "url": "git+https://github.com/nexpid/RevengePlugins.git"
   },
   "license": "CC-BY-4.0",
   "author": "nexpid",

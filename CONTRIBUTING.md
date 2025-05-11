@@ -1,6 +1,6 @@
 # Contributing
 
-First off, thank you for taking the time and effort to contribute! It means a lot to me :3  
+First off, thank you for taking the time and effort to contribute! It means a lot to me :3
 Make sure to read this whole page, I promise you it's not a mouthful <img src="https://em-content.zobj.net/content/2020/07/27/funnyface.png" alt="TikTok emote of a pink face sticking out its tongue, [funnyface]" width=20 height=20 align="top" />
 
 ## Building locally
@@ -17,7 +17,7 @@ Make sure to read this whole page, I promise you it's not a mouthful <img src="h
 Start by cloning the repository:
 
 ```sh
-git clone https://github.com/nexpid/BunnyPlugins.git --branch dev
+git clone https://github.com/nexpid/RevengePlugins.git --branch dev
 ```
 
 > [!CAUTION]
@@ -34,12 +34,12 @@ pnpm serve # ps: you should open another terminal tab for this
 > [!TIP]
 > Building plugins in dev mode (`pnpm build --dev`) won't minify their dist syntax to make plugins easier to debug.
 
-Finally, make sure your phone and your computer are connected to the same network, and look for the correct IP address.  
+Finally, make sure your phone and your computer are connected to the same network, and look for the correct IP address.
 You can now install whatever plugin you want using that IP at port `:8731`, e.g., `http://192.168.2.22:8731/cloud-sync`
 
 ### Live refetch
 
-If you want to go a step further, you can live refetch plugins with the `rejuvenate` plugin.  
+If you want to go a step further, you can live refetch plugins with the `rejuvenate` plugin.
 Start by running the same code snippet as above, but using the `watch` script instead of `dev`:
 
 ```sh
@@ -62,7 +62,7 @@ Then, install the `rejuvenate.dev`[^1] plugin, and you're done! Your plugins now
 Start by cloning the repository:
 
 ```sh
-git clone https://github.com/nexpid/BunnyPlugins.git --branch dev
+git clone https://github.com/nexpid/RevengePlugins.git --branch dev
 ```
 
 > [!CAUTION]
@@ -87,12 +87,12 @@ Before you start committing your changes, you need to make sure your workspace i
 For starters, make sure you're on a seperate feature branch, which should be titled `feat/<summary of your changes>`:
 
 ```sh
-git remote add upstream https://github.com/nexpid/BunnyPlugins.git # add the upstream remote
+git remote add upstream https://github.com/nexpid/RevengePlugins.git # add the upstream remote
 git fetch upstream # fetch all of its branches
 git checkout -b feat/......... upstream/dev # switch to a new branch based on upstream/dev
 ```
 
-Then, make sure to split them up into multiple commits for better readability.  
+Then, make sure to split them up into multiple commits for better readability.
 While not required, it's recommended to title your commits based on this modified version of [semantic commit messages](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716) I use:
 
 - `feat` — any general changes to the codebase (e.g., adding a feature to a plugin)

@@ -11,8 +11,8 @@
 - Clone this repository,
 
 ```sh
-git clone https://github.com/nexpid/BunnyPlugins --branch feat/improve-workspace
-cd BunnyPlugins
+git clone https://github.com/nexpid/RevengePlugins --branch feat/improve-workspace
+cd RevengePlugins
 ```
 
 - install dependencies,
@@ -40,6 +40,6 @@ http://<ip>:8787/<plugin-id>
 ```
 
 > [!TIP]
-> If you're hosting BunnyPlugins on-device using Termux, use `localhost` as the IP.
+> If you're hosting RevengePlugins on-device using Termux, use `localhost` as the IP.
 
 Bnnuy
