@@ -2,132 +2,82 @@ import { basename, join } from "node:path";
 import { PassThrough } from "node:stream";
 import { gunzipSync } from "node:zlib";
 
-import { generateDtsBundle } from "dts-bundle-generator";
+import { bundle } from "dts-bundle";
 import { existsSync } from "fs";
-import { mkdir, readFile, writeFile } from "fs/promises";
+import { mkdir, readFile } from "fs/promises";
+import picocolors from "picocolors";
 import { extract } from "tar-fs";
 
-export async function getTarball(pkg: string, version: string) {
-    const orgLessPackage = pkg.split("/").slice(-1)[0];
-    return gunzipSync(
-        await fetch(
-            `https://registry.npmjs.com/${pkg}/-/${orgLessPackage}-${version}.tgz`,
-        ).then(tgz => tgz.arrayBuffer()),
-    );
+const verbose = process.argv.includes("-v") || process.argv.includes("--verbose");
+
+export function cleanPath(path: string) {
+	return path.replaceAll("/", "+");
 }
 
-export async function unzipTarball(path: string, tarball: ArrayBuffer) {
-    await mkdir(path, { recursive: true });
-    await (() =>
-        new Promise<void>(res => {
-            const buffStream = new PassThrough();
-            buffStream.end(new Uint8Array(tarball));
-            buffStream.pipe(
-                extract(path, {
-                    ignore(name: string) {
-                        return (
-                            name !== join(path, "package", "package.json") &&
-                            !basename(name).endsWith(".d.ts")
-                        );
-                    },
-                    finish: res,
-                }),
-            );
-        }))();
-
-    return join(path, "package");
+export async function getTarball(pkg: string, version: string): Promise<Buffer> {
+	const orgLessPackage = pkg.split("/").slice(-1)[0];
+	return gunzipSync(
+		await fetch(
+			`https://registry.npmjs.com/${pkg}/-/${orgLessPackage}-${version}.tgz`,
+		).then(tgz => tgz.arrayBuffer()),
+	);
 }
 
-function addDeclareModule(
-    pkg: string,
-    bundle: string,
-    includeHeader?: boolean,
-) {
-    const lines = bundle.split("\n");
+export async function unzipTarball(path: string, tarball: Buffer) {
+	await mkdir(path, { recursive: true });
+	await (() =>
+		new Promise<void>((res, rej) => {
+			const extractor = extract(path, {
+				ignore(name: string) {
+					const base = basename(name);
+					return (
+						base !== "package.json"
+						&& !base.endsWith(".d.ts")
+					);
+				},
+			}).on("close", res).addListener("error", rej);
 
-    const header = lines.slice(0, includeHeader ? 2 : 0).join("\n");
-    const content = lines
-        .slice(includeHeader ? 2 : 0, -1)
-        .map(line => " ".repeat(4) + line)
-        .join("\n");
+			const buffStream = new PassThrough();
+			buffStream.end(new Uint8Array(tarball));
+			buffStream.pipe(extractor);
+		}))();
 
-    return `${header ? `${header}\n` : ""}declare module ${JSON.stringify(pkg)} {\n${content}\n};\n`;
+	return join(path, "package");
 }
 
 function findTypes(path: string, packageJson: any) {
-    const types: string =
-        packageJson.typings ?? packageJson.types ?? packageJson.main;
-    const maps = [`${types}/index.d.ts`, `${types}.d.ts`, types];
+	const types: string = packageJson.typings ?? packageJson.types ?? packageJson.main;
+	const maps = [`${types}/index.d.ts`, `${types}.d.ts`, types];
 
-    return maps.find(x => existsSync(join(path, x)));
+	return maps.find(x => existsSync(join(path, x)));
 }
 
 export async function rollupDts(path: string, pkg: string, out: string) {
-    const packageJson = JSON.parse(
-        await readFile(join(path, "package.json"), "utf8"),
-    ) as any;
-    const types = findTypes(path, packageJson);
-    if (!types)
-        throw new Error(
-            "Couldn't find types!",
-            packageJson.typings ?? packageJson.types,
-        );
+	const packageJson = JSON.parse(
+		await readFile(join(path, "package.json"), "utf8"),
+	) as any;
+	const types = findTypes(path, packageJson);
+	if (!types) {
+		throw new Error(
+			`Couldn't find types! ${
+				[packageJson.typings, packageJson.types, packageJson.main].join(", ")
+			}`,
+		);
+	}
 
-    const bundle = generateDtsBundle([
-        {
-            filePath: join(path, types),
-            output: {
-                exportReferencedTypes: false,
-            },
-        },
-    ])[0];
+	if (verbose) {
+		console.log(
+			picocolors.magenta(
+				`rolling up!!!!\nSOURCE ${join(path, types)}\nDESTINATION ${out}\nGLHF`,
+			),
+		);
+	}
 
-    await writeFile(out, addDeclareModule(pkg, bundle, true));
+	bundle({
+		name: pkg,
+		main: join(path, types),
+		out,
+		verbose,
+		indent: "\t",
+	});
 }
-
-// UNFINISHED :(
-// export async function copyDts(path: string, pkg: string, out: string) {
-//     const packageJson = JSON.parse(
-//         await readFile(join(path, "package.json"), "utf8"),
-//     ) as any;
-
-//     // let's hope types is index.d.ts, otherwise this won't work lol
-//     const types = getTypes(packageJson);
-//     const root = join(path, types, "..");
-//     const thing = slashResolve(join(path, types));
-
-//     await writeFile(
-//         thing,
-//         addDeclareModule(pkg, await readFile(thing, "utf8")),
-//     );
-
-//     // get list of used files
-//     const usedFiles = new Set<string>();
-//     async function goThroughImports(imports: Set<string>) {
-//         for (const imp of imports.values()) {
-//             if (usedFiles.has(imp)) continue;
-
-//             usedFiles.add(imp);
-//             if (!usedFiles.has(slashJoin(imp, "..")))
-//                 usedFiles.add(slashJoin(imp, ".."));
-//             if (!usedFiles.has(slashJoin(imp, "..", "..")))
-//                 usedFiles.add(slashJoin(imp, "..", ".."));
-
-//             await goThroughImports(await listImports(imp));
-//         }
-//     }
-
-//     usedFiles.add(thing);
-//     await goThroughImports(await listImports(thing));
-
-//     if (pkg === "react-native-reanimated") console.log(usedFiles);
-
-//     await mkdir(out, { recursive: true });
-//     await cp(root, out, {
-//         recursive: true,
-//         force: true,
-//         filter(source) {
-//             return usedFiles.has(slashResolve(source).slice(4));
-//         },
-//     });
-// }
