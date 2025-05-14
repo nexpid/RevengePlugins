@@ -6,6 +6,8 @@ runs:
   steps:
     - name: setup workspace
       uses: ./.github/actions/setup
+      with:
+        setup-dprint: true
 
     - name: lint
       if: ${{ !env.ACT }}

@@ -26,8 +26,6 @@ jobs:
 
       - name: setup workspace
         uses: ./.github/actions/ci
-        with:
-            setup-dprint: true
   build:
     runs-on: ubuntu-latest
     permissions:
@@ -39,6 +37,8 @@ jobs:
 
       - name: setup workspace
         uses: ./.github/actions/setup
+        with:
+          setup-dprint: true
 
       - name: build plugins
         run: pnpm build
