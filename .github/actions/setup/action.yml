@@ -34,7 +34,7 @@ runs:
       working-directory: ${{ inputs.root }}
       run: |
         version=$(node -e 'const { readFile } = await import("fs/promises"); process.stdout.write(JSON.parse(await readFile("dprint.json", "utf8")).version)')
-        curl -fsSL https://dprint.dev/install.sh | sh -s ${{ fromJson(steps.dprint_config.outputs.config).version }} > /dev/null 2>&1
+        curl -fsSL https://dprint.dev/install.sh | sh -s $version > /dev/null 2>&1
         echo "/home/runner/.dprint/bin" >> $GITHUB_PATH
       shell: bash
 
