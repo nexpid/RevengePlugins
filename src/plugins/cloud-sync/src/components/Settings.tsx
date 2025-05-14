@@ -30,7 +30,7 @@ import {
 	deleteData,
 	getData,
 	getRawData,
-	RawData,
+	type RawData,
 	rawDataURL,
 	saveData,
 } from "../stuff/api";
@@ -594,6 +594,7 @@ export default function() {
 									lang.format("toast.backup_not_saved", {}),
 									getAssetIDByName("CircleXIcon-primary"),
 								),
+									// biome-ignore lint/complexity/useOptionalChain: it needs to be here tbf
 									logger.error("backup not saved", saved && saved.error));
 							}
 

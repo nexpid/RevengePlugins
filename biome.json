@@ -12,15 +12,7 @@
 		"include": ["src/**/*"]
 	},
 	"formatter": {
-		"enabled": true,
-		"useEditorconfig": true,
-		"formatWithErrors": false,
-		"indentStyle": "space",
-		"indentWidth": 4,
-		"lineEnding": "lf",
-		"lineWidth": 80,
-		"attributePosition": "auto",
-		"bracketSpacing": true
+		"enabled": false
 	},
 	"organizeImports": { "enabled": true },
 	"json": {

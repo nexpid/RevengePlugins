@@ -28,7 +28,7 @@ export async function pickFile(): Promise<string | null> {
 			mode: "import",
 		});
 		if (error) throw new Error(error);
-		else if (type === "text/plain" && uri) {
+		if (type === "text/plain" && uri) {
 			const [copyResult] = await DocumentsNew.keepLocalCopy({
 				files: [{
 					fileName: name ?? "cloudsync.txt",
