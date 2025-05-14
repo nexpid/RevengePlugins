@@ -40,6 +40,8 @@ jobs:
 
       - name: build plugins
         run: pnpm build
+        env:
+          DPRINT_PATH: "/tmp/dprint-cli/"
 
       - name: update stuff
         if: ${{ !env.ACT }}

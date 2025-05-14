@@ -15,7 +15,8 @@ export class DprintFormatter {
 	constructor(public version = "0.49.1") {}
 
 	getCliPath() {
-		return join(import.meta.dirname, "../../", "node_modules", ".dprint-cli");
+		return process.env.DPRINT_PATH
+			?? join(import.meta.dirname, "../../", "node_modules", ".dprint-cli");
 	}
 
 	getStaticBinary() {
