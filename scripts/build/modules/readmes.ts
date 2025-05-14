@@ -10,7 +10,7 @@ const mdNote = makeMdNote("scripts/build/modules/readmes.ts", "md");
 const links = {
 	proxied: "https://bn-plugins.github.io/vd-proxy/vendetta.nexpid.xyz/",
 	base: "https://revenge.nexpid.xyz/",
-	code: "https://github.com/nexpid/RevengePlugins/tree/dev/src/plugins/",
+	code: "./plugins/",
 	external: {
 		backend: "https://github.com/nexpid/",
 	},

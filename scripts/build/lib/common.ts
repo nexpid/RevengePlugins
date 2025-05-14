@@ -25,20 +25,5 @@ export const isDev = process.argv.includes("--dev")
 export const previewLang = isDev
 	&& (process.argv.includes("-pl") || process.argv.includes("--preview-lang"));
 
-export const prettierOptions = {
-	// .editorconfig isn't properly parsed by prettier, so I have to write
-	// the rules myself here manually
-	endOfLine: "lf",
-	tabWidth: 4,
-	printWidth: 80,
-	bracketSameLine: true,
-	arrowParens: "avoid",
-};
-
-export const markdownPrettierOptions = {
-	...prettierOptions,
-	tabWidth: 2,
-};
-
 export const plural = (count: number, singular: string, plural: string) =>
 	count === 1 ? singular : plural;
