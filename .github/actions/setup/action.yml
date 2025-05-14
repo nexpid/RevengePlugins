@@ -20,7 +20,7 @@ runs:
 
     - uses: actions/setup-node@v4
       with:
-        node-version: "23.11.0"
+        node-version-file: ${{ inputs.root }}versions.json
         cache: "pnpm"
         cache-dependency-path: ${{ inputs.root }}pnpm-lock.yaml
 
