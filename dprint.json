@@ -7,10 +7,9 @@
 		"**/declarations",
 		"**/lang/values/*.json",
 		"**/lang/defs.d.ts",
-		"**/*-lock.json"
+		"**/*-lock.*"
 	],
 	"yaml": {
-		"useTabs": false,
 		"indentWidth": 2
 	},
 	"plugins": [
