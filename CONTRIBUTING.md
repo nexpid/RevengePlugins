@@ -8,9 +8,14 @@ Make sure to read this whole page, I promise you it's not a mouthful <img src="h
 ### Prerequisites
 
 - [NodeJS (LTS)](https://nodejs.org/en/download/package-manager) **>= v20**
-- [pnpm](https://pnpm.io/installation) **>= v9**
+- [pnpm](https://pnpm.io/installation) **>= v10**
   - Any other node package manager can be used, but you'll have to modify the scripts in `package.json`
 - [git](https://git-scm.com/)
+
+### Optional
+
+- [dprint](https://dprint.dev)
+  - A file formatter the build script uses for formatting generated markdown files. It's not an npm dependency, so it doesn't get installed automatically. Will simply write markdown files unformatted if not installed
 
 ### Steps
 

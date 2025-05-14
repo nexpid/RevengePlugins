@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
-import { dprint } from "../../common/dprint.ts";
+import { dprint } from "../../common/dprint";
 import { listPlugins } from "./plugins.ts";
 
 const variableRules = [

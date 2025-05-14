@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
-import { dprint } from "../../common/dprint.ts";
+import { dprint } from "../../common/dprint";
 import { stringifyChart } from "../lib/chart.ts";
 import { makeMdNote, plural } from "../lib/common.ts";
 import { listPlugins } from "./plugins.ts";

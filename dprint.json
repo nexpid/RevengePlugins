@@ -9,6 +9,10 @@
 		"**/lang/defs.d.ts",
 		"**/*-lock.json"
 	],
+	"yaml": {
+		"useTabs": false,
+		"indentWidth": 2
+	},
 	"plugins": [
 		"https://plugins.dprint.dev/typescript-0.95.1.wasm",
 		"https://plugins.dprint.dev/json-0.20.0.wasm",
@@ -17,5 +21,6 @@
 		"https://plugins.dprint.dev/biome-0.7.1.wasm",
 		"https://plugins.dprint.dev/g-plane/markup_fmt-v0.20.0.wasm",
 		"https://plugins.dprint.dev/g-plane/pretty_yaml-v0.5.1.wasm"
-	]
+	],
+	"version": "0.49.1"
 }

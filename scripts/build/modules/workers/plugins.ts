@@ -9,7 +9,7 @@ import { build } from "esbuild";
 import { imageSizeFromFile } from "image-size/fromFile";
 import Mime from "mime";
 
-import { dprint } from "../../../common/dprint.ts";
+import { dprint } from "../../../common/dprint";
 import { makeMdNote } from "../../lib/common.ts";
 import { isJolly, jollifyManifest } from "../jollyposting.ts";
 

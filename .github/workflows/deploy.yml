@@ -26,6 +26,8 @@ jobs:
 
       - name: setup workspace
         uses: ./.github/actions/ci
+        with:
+            setup-dprint: true
   build:
     runs-on: ubuntu-latest
     permissions:
