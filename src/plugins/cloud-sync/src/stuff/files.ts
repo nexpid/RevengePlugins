@@ -12,7 +12,7 @@ export async function pickFile(): Promise<string | null> {
 		try {
 			const { fileCopyUri, type } = await DocumentPicker.pickSingle({
 				type: DocumentPicker.types.plainText,
-				mode: "open",
+				mode: "import",
 				copyTo: "cachesDirectory",
 			});
 			if (type === "text/plain" && fileCopyUri) {
@@ -36,9 +36,7 @@ export async function pickFile(): Promise<string | null> {
 				}],
 				destination: "cachesDirectory",
 			});
-			console.log(uri);
 			if (copyResult.status === "success") {
-				console.log(copyResult.localUri);
 				text = await RNFileModule.readFile(parseLink(copyResult.localUri), "utf8");
 			} else {
 				throw new Error(copyResult.copyError);
@@ -56,9 +54,10 @@ export function canSaveFileNatively() {
 export async function saveFile(name: string, content: any) {
 	if (!DocumentsNew) return false;
 
+	const filename = `tmp_cloudsync_${name}`;
 	const path = await RNFileModule.writeFile(
 		"cache",
-		`cloudsync_${name}`,
+		filename,
 		content,
 		"utf8",
 	);
@@ -66,5 +65,5 @@ export async function saveFile(name: string, content: any) {
 		sourceUris: [`file:///${path}`],
 		mimeType: "text/plain",
 		fileName: name,
-	}).then(x => x[0]);
+	}).then(x => x[0]).finally(() => void RNFileModule.removeFile("cache", filename));
 }

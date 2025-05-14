@@ -108,10 +108,9 @@ export function rawDataURL() {
 
 export async function decompressRawData(
 	data: string,
-	rawdog?: boolean,
 ): Promise<UserData> {
 	return await (
-		await authFetch(`${constants.api}api/data/decompress?rawdog=${!!rawdog}`, {
+		await authFetch(`${constants.api}api/data/decompress`, {
 			method: "POST",
 			body: data,
 			headers: {

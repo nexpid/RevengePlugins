@@ -3,7 +3,7 @@ import { getAssetIDByName } from "@vendetta/ui/assets";
 import { Forms } from "@vendetta/ui/components";
 
 import { ActionSheet, hideActionSheet } from "$/components/ActionSheet";
-import { DocumentPicker } from "$/deps";
+import { DocumentPicker, DocumentsNew } from "$/deps";
 import { Button, TextInput } from "$/lib/redesign";
 
 const { FormRow } = Forms;
@@ -28,16 +28,42 @@ export default function AddBackgroundSheet({
 				subLabel={file?.name}
 				leading={<FormRow.Icon source={getAssetIDByName("ImageIcon")} />}
 				onPress={() => {
-					DocumentPicker.pickSingle({
-						type: DocumentPicker.types.images,
-						mode: "open",
-						copyTo: "documentDirectory",
-					}).then(file => {
-						setFile({
-							name: file.name!,
-							path: file.fileCopyUri!,
+					if (DocumentPicker) {
+						DocumentPicker.pickSingle({
+							type: DocumentPicker.types.images,
+							mode: "import",
+							copyTo: "documentDirectory",
+						}).then(file => {
+							setFile({
+								name: file.name!,
+								path: file.fileCopyUri!,
+							});
 						});
-					});
+					} else if (DocumentsNew) {
+						DocumentsNew.pick({
+							type: DocumentsNew.types.images,
+							allowVirtualFiles: true,
+							mode: "import",
+						}).then(([{ name, uri }]) => {
+							name ??= "wallpaper.jpg";
+							if (uri) {
+								DocumentsNew.keepLocalCopy({
+									files: [{
+										fileName: name,
+										uri,
+									}],
+									destination: "documentDirectory",
+								}).then(([result]) => {
+									if (result.status === "success") {
+										setFile({
+											name,
+											path: result.localUri,
+										});
+									}
+								});
+							}
+						});
+					}
 				}}
 			/>
 			<TextInput

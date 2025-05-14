@@ -605,43 +605,6 @@ export default function() {
 								getAssetIDByName("FileIcon"),
 							);
 						}}
-						// onPress={async () => {
-						//     if (isBusy.length) return;
-
-						//     setBusy("download_compressed");
-
-						//     let data: RawData;
-						//     try {
-						//         data = await getRawData();
-						//     } catch {
-						//         unBusy("download_compressed");
-						//         return;
-						//     }
-
-						//     try {
-						//         await RNFS.writeFile(
-						//             RNFS.DownloadDirectoryPath +
-						//                 "/" +
-						//                 data.file,
-						//             data.data,
-						//         );
-
-						//         showToast(
-						//             lang.format("toast.backup_saved", {
-						//                 file: data.file,
-						//             }),
-						//             getAssetIDByName("FileIcon"),
-						//         );
-						//     } catch (e) {
-						//         showToast(
-						//             lang.format("toast.backup_not_saved", {}),
-						//             getAssetIDByName("CircleXIcon-primary"),
-						//         ),
-						//             logger.error("backup not saved", e);
-						//     }
-
-						//     unBusy("download_compressed");
-						// }}
 					/>
 					<FormRow
 						label={lang.format(
@@ -673,12 +636,9 @@ export default function() {
 									logger.error(text));
 							}
 
-							// TODO: get rid of this :P
-							const encoded = Buffer.from(text, "utf8").toString("base64");
-
 							let backup: UserData;
 							try {
-								backup = await decompressRawData(encoded);
+								backup = await decompressRawData(text);
 							} catch {
 								unBusy("import_compressed");
 								return;
