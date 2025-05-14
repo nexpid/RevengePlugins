@@ -35,7 +35,7 @@ runs:
       working-directory: ${{ inputs.root }}
       run: |
         content="cat ./dprint.json"
-        echo "::set-output name=config::$content"
+        echo "config=$content" >> $GITHUB_OUTPUT
       shell: bash
 
     - name: install dprint
