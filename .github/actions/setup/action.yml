@@ -7,7 +7,7 @@ inputs:
     default: ""
     required: false
   setup-dprint:
-    description: Whether to set up dprint as well
+    description: Whether to setup dprint
     default: "false"
     required: false
 
@@ -31,7 +31,7 @@ runs:
 
     - id: dprint_config
       name: read dprint config
-      if: ${{ inputs.install-dprint }}
+      if: ${{ inputs.setup-dprint }}
       working-directory: ${{ inputs.root }}
       run: |
         content="cat ./dprint.json"
@@ -39,7 +39,7 @@ runs:
       shell: bash
 
     - name: install dprint
-      if: ${{ inputs.install-dprint }}
+      if: ${{ inputs.setup-dprint }}
       working-directory: ${{ inputs.root }}
       run: |
         curl -fsSL https://dprint.dev/install.sh | sh -s ${{ fromJson(steps.dprint_config.outputs.config).version }} > /dev/null 2>&1
