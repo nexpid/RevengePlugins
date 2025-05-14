@@ -185,6 +185,7 @@ async function buildPlugin(
 									tpConfig = JSON.parse(
 										await readFile(
 											join(root, "tpconfig.json"),
+											"utf8",
 										),
 									);
 									break;
@@ -197,7 +198,7 @@ async function buildPlugin(
 								contents: `export default ${
 									JSON.stringify({
 										uri: `data:${Mime.getType(args.path)};base64,${
-											(await readFile(args.path)).toString("base64")
+											Buffer.from(await readFile(args.path)).toString("base64")
 										}`,
 										width: dimensions.width,
 										height: dimensions.height,

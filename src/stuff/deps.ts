@@ -22,7 +22,7 @@ export const { default: Video } = findByProps(
 	"FilterType",
 ) as typeof import("react-native-video");
 
-export const Joi = findByProps("isJoi") as typeof import("joi");
+export const Joi = findByProps("isJoi") as unknown as typeof import("joi");
 
 export const zustand = (findByProps("create", "useStore") ?? {
 	create: findByName("create"),

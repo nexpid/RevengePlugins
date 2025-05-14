@@ -5,7 +5,7 @@
 		"esModuleInterop": true,
 		"jsx": "react-native",
 		"module": "esnext",
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
 		"noImplicitAny": false,
 		"allowImportingTsExtensions": true,
 		"noEmit": true,
