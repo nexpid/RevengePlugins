@@ -62,7 +62,7 @@ for (
 	if (file.isFile() && allExtensions.includes(extname(file.name))) {
 		promises.push(
 			getDependencies(
-				slashResolve(join(file.path, file.name)).replace(/\\/g, "/"),
+				slashResolve(join(file.parentPath, file.name)).replace(/\\/g, "/"),
 			),
 		);
 	}
@@ -175,8 +175,7 @@ const runFileChange = async (localPath: string) => {
 };
 
 chokidar
-	.watch(["src/**/*.*", "lang/values/base/*.json"], {
-		persistent: true,
+	.watch(["src", "lang/values/base"], {
 		ignoreInitial: true,
 	})
 	.on("add", path =>
@@ -193,5 +192,5 @@ chokidar
 		))
 	.on("ready", () => logWatch("Ready!"));
 
-process.on("uncaughtException", () => void 0);
-process.on("unhandledRejection", () => void 0);
+process.on("uncaughtException", console.error);
+process.on("unhandledRejection", console.error);
