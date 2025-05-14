@@ -4,6 +4,7 @@ import { join } from "path";
 import { promisify } from "util";
 
 const execFileAsync = promisify(execFile);
+const debugDprint = process.argv.includes("--debug-dprint");
 
 function cleanOutput(txt: string) {
 	return txt.replace(/^\n*/, "").replace(/\n*$/, "").replace(/\r/g, "");
@@ -35,11 +36,24 @@ class DprintFormatter {
 					cwd,
 				},
 				(error, stdout, stderr) => {
-					if (error || stderr) {
+					const out = cleanOutput(stdout), err = cleanOutput(stderr);
+					if (error) {
+						const cleanError = !err ? String(error) : err;
+						if (out && !debugDprint) {
+							console.warn(
+								`dprint raised an error, but stdout exists. pass the --debug-dprint flag to debug (exit code ${sub.exitCode}, pid ${sub.pid}, args ${
+									JSON.stringify(args.join(" "))
+								}, stdin ${!!stdin ? "yes" : "no"})\n${err}`,
+							);
+							return res(out);
+						}
+
 						rej(
-							`${cleanOutput(stdout)}\n${
-								!stderr ? String(error) : cleanOutput(stderr)
-							}\n\nTrace: [${sub.pid}] dprint ${args.join(" ")}\nStdin:\n${
+							`${out}\n${cleanError}\nDebug dprint: ${
+								debugDprint ? "YES" : "NO"
+							}\nExit code: ${sub.exitCode}\nTrace: [${sub.pid}] dprint ${
+								args.join(" ")
+							}\nStdin:\n${
 								stdin
 									? stdin.split("\n").map((x, i) =>
 										` ${i.toString().padStart(maxStdinCharLength, " ")}  ${x}`
