@@ -37,7 +37,7 @@ class DprintFormatter {
 				(error, stdout, stderr) => {
 					if (error || stderr) {
 						rej(
-							`${
+							`${cleanOutput(stdout)}\n${
 								!stderr ? String(error) : cleanOutput(stderr)
 							}\n\nTrace: [${sub.pid}] dprint ${args.join(" ")}\nStdin:\n${
 								stdin
