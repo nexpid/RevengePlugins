@@ -36,6 +36,7 @@ runs:
       run: |
         version=$(node -e 'import("fs").then(fs => process.stdout.write(JSON.parse(fs.readFileSync("package.json", "utf8")).engines.dprint))')
         curl -fsSL https://dprint.dev/install.sh | sh -s $version > /dev/null 2>&1
+        echo "DPRINT_INSTALL=$HOME/.dprint" >> $GITHUB_ENV
         echo "/home/runner/.dprint/bin" >> $GITHUB_PATH
       shell: bash
 

@@ -163,7 +163,7 @@ async function listPluginMetadatas(noDev?: boolean) {
 					{
 						text: "view_code",
 						color: LabelColor.CodeLink,
-						link: links.code + plugin,
+						link: links.code + plugin + "/",
 					},
 					status.external?.backend
 						? {
