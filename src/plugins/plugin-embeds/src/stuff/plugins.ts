@@ -66,29 +66,25 @@ export const getCodedLink = (plugin: string) => {
 	const info = getPluginInfo(plugin).res;
 	const installing = pluginInstallingCache[plugin];
 
-	if (info === false) {
-		obj.headerText = "...";
-	} else if (info === null) {
-		obj.headerText = "unknown plugin";
-	} else {
-		obj.titleText = info.name;
-		obj.noParticipantsText = `\n${info.description}`;
-		obj.ctaEnabled = !installing;
+	if (info === null || info === false) return null;
 
-		const has = !!plugins[plugin];
-		obj.acceptLabelBackgroundColor = androidifyColor(
-			resolveSemanticColor(
-				!has || installing
-					? semanticColors.BUTTON_POSITIVE_BACKGROUND
-					: semanticColors.BUTTON_DANGER_BACKGROUND,
-			),
-		);
-		obj.acceptLabelText = installing
-			? "..."
-			: has
+	obj.titleText = info.name;
+	obj.noParticipantsText = `\n${info.description}`;
+	obj.ctaEnabled = !installing;
+
+	const has = !!plugins[plugin];
+	obj.acceptLabelBackgroundColor = androidifyColor(
+		resolveSemanticColor(
+			!has || installing
+				? semanticColors.BUTTON_POSITIVE_BACKGROUND
+				: semanticColors.BUTTON_DANGER_BACKGROUND,
+		),
+	);
+	obj.acceptLabelText = installing
+		? "..."
+		: has
 			? "Uninstall Plugin"
 			: "Install Plugin";
-	}
 
 	return obj;
 };
