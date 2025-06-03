@@ -32,18 +32,18 @@ export default () => {
 									HTTP_REGEX_MULTI,
 								) ?? []
 							) {
-								const pluginURLMatchers: (string | RegExp)[] = [
-									constants.PROXY_PREFIX,
-									"https://vendetta.nexpid.xyz/", // :3
-									/^https?:\/\/\w+\.github\.io\//i,
-								];
-								if (pluginURLMatchers.some(x =>
-									x instanceof RegExp
-										? x.test(url.toLowerCase())
-										: url
-											.toLowerCase()
-											.startsWith(x.toLowerCase())
-								)
+								if (
+									[
+										constants.PROXY_PREFIX,
+										"https://vendetta.nexpid.xyz/", // :3
+										/^https?:\/\/\w+\.github\.io\//i,
+									].some(x =>
+										x instanceof RegExp
+											? x.test(url.toLowerCase())
+											: url
+												.toLowerCase()
+												.startsWith(x.toLowerCase())
+									)
 								) {
 									plugins.push(
 										!url.endsWith("/") ? `${url}/` : url,
@@ -96,7 +96,8 @@ export default () => {
 
 						row.message.codedLinks ??= [];
 						codedLinksCache[row.message.id][
-							row.message.codedLinks.push(getCodedLink(plugin)) - 1
+							row.message.codedLinks.push(getCodedLink(plugin))
+							- 1
 						] = plugin;
 					}
 				}
