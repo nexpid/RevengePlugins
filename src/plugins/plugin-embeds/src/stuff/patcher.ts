@@ -1,4 +1,3 @@
-import { constants } from "@vendetta";
 import { HTTP_REGEX_MULTI } from "@vendetta/constants";
 import { findByProps } from "@vendetta/metro";
 import { before, instead } from "@vendetta/patcher";
@@ -15,6 +14,13 @@ import { getCodedLink } from "./plugins";
 const codedLinksCache = {} as Record<string, Record<number, string>>;
 const { MessagesHandlers } = findByProps("MessagesHandlers");
 
+const whitelist = [
+	"https://vd-plugins.github.io/proxy/",
+	"https://bn-plugins.github.io/vd-proxy/",
+	"https://revenge.nexpid.xyz/",
+	/^https?:\/\/\w+\.github\.io\//i,
+] as (string | RegExp)[];
+
 export default () => {
 	const patches = new Array<() => void>();
 
@@ -22,31 +28,33 @@ export default () => {
 		before("updateRows", RNChatModule, args => {
 			const rows = JSON.parse(args[1]);
 			for (const row of rows) {
-				const plugins = new Array<string>();
+				const origMap = new Map<string, string>();
+				const pluginLinks = new Array<string>();
 
 				const iterate = (thing: Iterable | Iterable[]) => {
 					for (const x of Array.isArray(thing) ? thing : [thing]) {
 						if (typeof x.content === "string") {
 							for (
-								const url of x.content.match(
+								const _url of x.content.match(
 									HTTP_REGEX_MULTI,
 								) ?? []
 							) {
+								const url = _url.endsWith("/") ? _url : `${_url}/`;
+								origMap.set(url, _url);
+
 								if (
-									[
-										constants.PROXY_PREFIX,
-										"https://vendetta.nexpid.xyz/", // :3
-										/^https?:\/\/\w+\.github\.io\//i,
-									].some(x =>
+									whitelist.some(x =>
 										x instanceof RegExp
 											? x.test(url.toLowerCase())
 											: url
 												.toLowerCase()
 												.startsWith(x.toLowerCase())
+									) || Object.keys(plugins).some(x =>
+										x.toLowerCase() === url.toLowerCase()
 									)
 								) {
-									plugins.push(
-										!url.endsWith("/") ? `${url}/` : url,
+									pluginLinks.push(
+										url,
 									);
 								}
 							}
@@ -70,7 +78,7 @@ export default () => {
 					) {
 						if (
 							ids.find(x => x[0] === row.message.id)
-							&& !plugins.includes(plug)
+							&& !pluginLinks.includes(plug)
 						) {
 							ids.length === 1
 								? delete pluginMessageCache[plug]
@@ -80,8 +88,8 @@ export default () => {
 						}
 					}
 
-					if (plugins[0]) codedLinksCache[row.message.id] = {};
-					for (const plugin of plugins) {
+					if (pluginLinks[0]) codedLinksCache[row.message.id] = {};
+					for (const plugin of pluginLinks) {
 						pluginMessageCache[plugin] ??= [];
 						if (
 							!pluginMessageCache[plugin].find(
@@ -93,6 +101,12 @@ export default () => {
 								row.message.channelId,
 							]);
 						}
+
+						row.message.embeds ??= [];
+						row.message.embeds.splice(
+							row.message.embeds.findIndex((e: any) => e.url === origMap.get(plugin)),
+							1,
+						);
 
 						row.message.codedLinks ??= [];
 						codedLinksCache[row.message.id][
