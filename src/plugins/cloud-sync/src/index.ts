@@ -93,44 +93,44 @@ export const initState = {
 };
 
 const patches: (any)[] = [];
-export default {
-	onLoad: () => {
-		vstorage.config ??= {
-			autoSync: false,
-			addToSettings: true,
-			ignoredPlugins: [],
-		};
-		vstorage.custom ??= {
-			host: "",
-			clientId: "",
-		};
-		vstorage.realTrackingAnalyticsSentToChina ??= {
-			pressedSettings: false,
-			tooMuchData: false,
-		};
+export function onLoad() {
+	vstorage.config ??= {
+		autoSync: false,
+		addToSettings: true,
+		ignoredPlugins: [],
+	};
+	vstorage.custom ??= {
+		host: "",
+		clientId: "",
+	};
+	vstorage.realTrackingAnalyticsSentToChina ??= {
+		pressedSettings: false,
+		tooMuchData: false,
+	};
 
-		const emitters = {
-			plugins: (plugins as any)[emitterSymbol] as Emitter,
-			themes: (themes as any)[emitterSymbol] as Emitter,
-		};
+	const emitters = {
+		plugins: (plugins as any)[emitterSymbol] as Emitter,
+		themes: (themes as any)[emitterSymbol] as Emitter,
+	};
 
-		emitters.plugins.on("SET", autoSync);
-		emitters.themes.on("SET", autoSync);
-		emitters.plugins.on("DEL", autoSync);
-		emitters.themes.on("DEL", autoSync);
+	emitters.plugins.on("SET", autoSync);
+	emitters.themes.on("SET", autoSync);
+	emitters.plugins.on("DEL", autoSync);
+	emitters.themes.on("DEL", autoSync);
 
-		patches.push(() => {
-			emitters.plugins.off("SET", autoSync);
-			emitters.themes.off("SET", autoSync);
-			emitters.plugins.off("DEL", autoSync);
-			emitters.themes.off("DEL", autoSync);
-		});
+	patches.push(() => {
+		emitters.plugins.off("SET", autoSync);
+		emitters.themes.off("SET", autoSync);
+		emitters.plugins.off("DEL", autoSync);
+		emitters.themes.off("DEL", autoSync);
+	});
 
-		patches.push(patcher());
-		patches.push(lang.unload);
-	},
-	onUnload: () => {
-		for (const x of patches) x();
-	},
-	settings: Settings,
-};
+	patches.push(patcher());
+	patches.push(lang.unload);
+}
+
+export function onUnload() {
+	for (const x of patches) x();
+}
+
+export const settings = Settings;

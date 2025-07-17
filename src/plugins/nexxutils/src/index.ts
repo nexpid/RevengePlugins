@@ -1,6 +1,6 @@
 import { storage } from "@vendetta/plugin";
 
-import settings from "./components/Settings";
+import Settings from "./components/Settings";
 import modules from "./modules";
 import devtools from "./stuff/devtools";
 
@@ -19,15 +19,15 @@ export const version = "0.9.0";
 
 let undevtool: () => void;
 
-export default {
-	onLoad: () => {
-		vstorage.modules ??= {};
-		for (const x of modules) x.storage.enabled && x.start();
-		undevtool = devtools();
-	},
-	onUnload: () => {
-		for (const x of modules) x.storage.enabled && x.stop();
-		undevtool?.();
-	},
-	settings,
-};
+export function onLoad() {
+	vstorage.modules ??= {};
+	for (const x of modules) x.storage.enabled && x.start();
+	undevtool = devtools();
+}
+
+export function onUnload() {
+	for (const x of modules) x.storage.enabled && x.stop();
+	undevtool?.();
+}
+
+export const settings = Settings;

@@ -1,6 +1,6 @@
 import { storage } from "@vendetta/plugin";
 
-import settings from "./components/Settings";
+import Settings from "./components/Settings";
 import patcher from "./stuff/patcher";
 
 export const vstorage = storage as {
@@ -40,16 +40,11 @@ export function removePin(channel: string, id: string) {
 	);
 }
 
-let unpatch: () => void;
-export default {
-	onLoad: () => {
-		vstorage.pinned ??= {};
-		vstorage.preferFilters ??= ["server", "local"];
+export function onLoad() {
+	vstorage.pinned ??= {};
+	vstorage.preferFilters ??= ["server", "local"];
+}
 
-		unpatch = patcher();
-	},
-	onUnload: () => {
-		unpatch();
-	},
-	settings,
-};
+export const onUnload = patcher();
+
+export const settings = Settings;

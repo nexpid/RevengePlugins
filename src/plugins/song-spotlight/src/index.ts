@@ -3,7 +3,7 @@ import { storage } from "@vendetta/plugin";
 
 import { Lang } from "$/lang";
 
-import settings from "./components/Settings";
+import Settings from "./components/Settings";
 import patcher from "./stuff/patcher";
 
 const { inspect } = findByProps("inspect");
@@ -29,18 +29,18 @@ export function debugLog(...messages: any[]) {
 
 export const lang = new Lang("song_spotlight");
 const patches: (any)[] = [];
-export default {
-	onLoad: () => {
-		debugLog("Plugin started");
-		vstorage.custom ??= {
-			host: "",
-			clientId: "",
-		};
+export function onLoad() {
+	debugLog("Plugin started");
+	vstorage.custom ??= {
+		host: "",
+		clientId: "",
+	};
 
-		patches.push(patcher());
-	},
-	onUnload: () => {
-		for (const x of patches) x();
-	},
-	settings,
-};
+	patches.push(patcher());
+}
+
+export function onUnload() {
+	for (const x of patches) x();
+}
+
+export const settings = Settings;

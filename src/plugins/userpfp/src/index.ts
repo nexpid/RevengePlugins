@@ -14,24 +14,23 @@ export let enabled = false;
 export const lang = new Lang("userpfp");
 
 let unpatch: () => void;
-export default {
-	onLoad: async () => {
-		enabled = true;
-		try {
-			unpatch = await patcher();
-		} catch (e) {
-			logger.error("patch error", e);
+export async function onLoad() {
+	enabled = true;
+	try {
+		unpatch = await patcher();
+	} catch (e) {
+		logger.error("patch error", e);
 
-			showToast(
-				lang.format("toast.patch_error", {}),
-				getAssetIDByName("CircleXIcon-primary"),
-			);
-			stopPlugin(id);
-		}
-	},
-	onUnload: () => {
-		enabled = false;
-		lang.unload();
-		unpatch();
-	},
-};
+		showToast(
+			lang.format("toast.patch_error", {}),
+			getAssetIDByName("CircleXIcon-primary"),
+		);
+		stopPlugin(id);
+	}
+}
+
+export function onUnload() {
+	enabled = false;
+	lang.unload();
+	unpatch();
+}

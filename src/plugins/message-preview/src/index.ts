@@ -8,13 +8,11 @@ export const vstorage = storage as {
 	previewType: "popup" | "clyde";
 };
 
-let unpatch: any;
-export default {
-	onLoad: () => {
-		vstorage.buttonType ??= "pill";
-		vstorage.previewType ??= "popup";
-		unpatch = patcher();
-	},
-	onUnload: () => unpatch?.(),
-	settings: Settings,
-};
+export function onLoad() {
+	vstorage.buttonType ??= "pill";
+	vstorage.previewType ??= "popup";
+}
+
+export const onUnload = patcher();
+
+export const settings = Settings;

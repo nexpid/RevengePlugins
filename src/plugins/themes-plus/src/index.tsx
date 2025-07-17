@@ -2,7 +2,7 @@ import { storage } from "@vendetta/plugin";
 
 import { Lang } from "$/lang";
 
-import settings from "./components/Settings";
+import Settings from "./components/Settings";
 import load, { patches } from "./stuff/loader";
 
 export enum PatchType {
@@ -47,34 +47,34 @@ export let enabled = false;
 
 export const lang = new Lang("themes_plus");
 
-export default {
-	onLoad: () => {
-		vstorage.iconpack ??= {
-			mode: ConfigIconpackMode.Automatic,
-			custom: {
-				url:
-					"https://raw.githubusercontent.com/Moodzz1/discord-iconpacks/master/Packs/Solar-Duotone/",
-				suffix: "",
-				config: {
-					biggerStatus: false,
-				},
+export function onLoad() {
+	vstorage.iconpack ??= {
+		mode: ConfigIconpackMode.Automatic,
+		custom: {
+			url:
+				"https://raw.githubusercontent.com/Moodzz1/discord-iconpacks/master/Packs/Solar-Duotone/",
+			suffix: "",
+			config: {
+				biggerStatus: false,
 			},
-			isCustom: false,
-		};
-		enabled = true;
+		},
+		isCustom: false,
+	};
+	enabled = true;
 
-		try {
-			load();
-		} catch (e) {
-			console.log("Themes+ failed to load whoopsies!!", e);
-		}
-	},
-	onUnload: () => {
-		enabled = false;
-		lang.unload();
-		for (const x of patches) {
-			x();
-		}
-	},
-	settings,
-};
+	try {
+		load();
+	} catch (e) {
+		console.log("Themes+ failed to load whoopsies!!", e);
+	}
+}
+
+export function onUnload() {
+	enabled = false;
+	lang.unload();
+	for (const x of patches) {
+		x();
+	}
+}
+
+export const settings = Settings;

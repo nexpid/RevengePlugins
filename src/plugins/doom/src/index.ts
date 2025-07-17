@@ -28,7 +28,10 @@ export const vstorage = storage as {
 	};
 };
 
-export const onLoad = () => (vstorage.settings ??= {
-	game: "doom1",
-});
+export function onLoad() {
+	vstorage.settings ??= {
+		game: "doom1",
+	};
+}
+
 export const settings = App;

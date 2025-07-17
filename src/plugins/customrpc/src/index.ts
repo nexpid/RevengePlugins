@@ -1,6 +1,6 @@
 import { storage } from "@vendetta/plugin";
 
-import settings from "./components/Settings";
+import Settings from "./components/Settings";
 import {
 	dispatchActivity,
 	dispatchActivityIfPossible,
@@ -35,27 +35,27 @@ export const debug: {
 	lastRawActivityTimestamp: undefined,
 };
 
-export default {
-	onLoad: async () => {
-		vstorage.settings ??= {
-			edit: false,
-			display: false,
-			debug: {
-				enabled: false,
-				visible: false,
-			},
-		};
-		vstorage.activity ??= {
-			editing: makeEmptySettingsActivity(),
-		};
-		vstorage.profiles ??= PresetProfiles;
+export async function onLoad() {
+	vstorage.settings ??= {
+		edit: false,
+		display: false,
+		debug: {
+			enabled: false,
+			visible: false,
+		},
+	};
+	vstorage.activity ??= {
+		editing: makeEmptySettingsActivity(),
+	};
+	vstorage.profiles ??= PresetProfiles;
 
-		dispatchActivityIfPossible();
-		registerDefaultChanges();
-	},
-	onUnload: () => {
-		dispatchActivity();
-		unregisterChanges(true);
-	},
-	settings,
-};
+	dispatchActivityIfPossible();
+	registerDefaultChanges();
+}
+
+export function onUnload() {
+	dispatchActivity();
+	unregisterChanges(true);
+}
+
+export const settings = Settings;

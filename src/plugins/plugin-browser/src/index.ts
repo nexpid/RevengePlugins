@@ -12,13 +12,11 @@ export const vstorage = storage as {
 
 export const lang = new Lang("plugin_browser");
 
-let unpatch: any;
-export default {
-	onLoad: () => {
-		vstorage.pluginCache ??= [];
-		vstorage.dangerZone ??= false;
-		unpatch = patcher();
-	},
-	onUnload: () => unpatch?.(),
-	settings: Settings,
-};
+export function onLoad() {
+	vstorage.pluginCache ??= [];
+	vstorage.dangerZone ??= false;
+}
+
+export const onUnload = patcher();
+
+export const settings = Settings;

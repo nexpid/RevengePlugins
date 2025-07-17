@@ -13,18 +13,13 @@ export const vstorage = storage as {
 	};
 };
 
-let unpatch: () => void;
+export function onLoad() {
+	vstorage.config ??= {
+		redirect: true,
+		referrals: false,
+	};
+}
 
-export default {
-	onLoad: () => {
-		vstorage.config ??= {
-			redirect: true,
-			referrals: false,
-		};
-		unpatch = patcher();
-	},
-	onUnload: () => {
-		unpatch();
-	},
-	settings: Settings,
-};
+export const onUnload = patcher();
+
+export const settings = Settings;

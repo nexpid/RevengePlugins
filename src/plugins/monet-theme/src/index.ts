@@ -8,7 +8,7 @@ import { getDiscordTheme } from "$/types";
 import type { ThemeDataWithPlus, VendettaSysColors } from "$/typings";
 
 import usePatches from "./components/hooks/usePatches";
-import settings from "./components/Settings";
+import Settings from "./components/Settings";
 import { apply, build } from "./stuff/buildTheme";
 
 export const patchesURL = () =>
@@ -61,101 +61,101 @@ export const vstorage = storage as {
 
 export const patches: (any)[] = [];
 
-export default {
-	settings,
-	onLoad: async () => {
-		const syscolors = getSysColors();
+export async function onLoad() {
+	const syscolors = getSysColors();
 
-		vstorage.colors ??= {
-			neutral1: syscolors?.neutral1[7] ?? "#747679",
-			neutral2: syscolors?.neutral2[7] ?? "#70777C",
-			accent1: syscolors?.accent1[7] ?? "#007FAC",
-			accent2: syscolors?.accent2[7] ?? "#657985",
-			accent3: syscolors?.accent3[7] ?? "#787296",
-		};
-		vstorage.config ??= {
-			wallpaper: "none",
-			custom: [],
-		};
-		vstorage.patches ??= {
-			from: "git",
-		};
+	vstorage.colors ??= {
+		neutral1: syscolors?.neutral1[7] ?? "#747679",
+		neutral2: syscolors?.neutral2[7] ?? "#70777C",
+		accent1: syscolors?.accent1[7] ?? "#007FAC",
+		accent2: syscolors?.accent2[7] ?? "#657985",
+		accent3: syscolors?.accent3[7] ?? "#787296",
+	};
+	vstorage.config ??= {
+		wallpaper: "none",
+		custom: [],
+	};
+	vstorage.patches ??= {
+		from: "git",
+	};
 
-		let lTheme = getDiscordTheme();
-		const oldColors = vstorage.reapply?.cache?.colors;
-		const oldTheme = vstorage.reapply?.cache?.theme;
+	let lTheme = getDiscordTheme();
+	const oldColors = vstorage.reapply?.cache?.colors;
+	const oldTheme = vstorage.reapply?.cache?.theme;
 
-		vstorage.reapply ??= {
-			enabled: false,
-			cache: {
-				colors: JSON.stringify(syscolors),
-				theme: lTheme,
-			},
-		};
-		vstorage.reapply.cache = {
+	vstorage.reapply ??= {
+		enabled: false,
+		cache: {
 			colors: JSON.stringify(syscolors),
 			theme: lTheme,
-		};
+		},
+	};
+	vstorage.reapply.cache = {
+		colors: JSON.stringify(syscolors),
+		theme: lTheme,
+	};
 
-		const reapply = async () => {
-			if (!vstorage.reapply.enabled || !hasTheme()) return;
-			showToast("Reapplying Monet Theme", getAssetIDByName("RetryIcon"));
+	const reapply = async () => {
+		if (!vstorage.reapply.enabled || !hasTheme()) return;
+		showToast("Reapplying Monet Theme", getAssetIDByName("RetryIcon"));
 
-			const cpatches = await usePatches.patches;
-			if (!cpatches) {
-				return showToast(
-					"Failed to fetch color patches!",
-					getAssetIDByName("CircleXIcon-primary"),
-				);
-			}
-
-			let theme: ThemeDataWithPlus;
-			try {
-				theme = build(cpatches);
-			} catch (_e: any) {
-				showToast(
-					"Failed to build theme!",
-					getAssetIDByName("CircleXIcon-primary"),
-				);
-				return;
-			}
-
-			apply(theme);
-		};
-
-		if (
-			oldTheme
-			&& oldColors
-			&& syscolors
-			&& (vstorage.reapply.cache.colors !== oldColors
-				|| vstorage.reapply.cache.theme !== oldTheme)
-		) {
-			reapply();
+		const cpatches = await usePatches.patches;
+		if (!cpatches) {
+			return showToast(
+				"Failed to fetch color patches!",
+				getAssetIDByName("CircleXIcon-primary"),
+			);
 		}
 
-		const onThemeChanged = () => {
-			const newLTheme = getDiscordTheme();
-			if (lTheme !== newLTheme) reapply();
-			lTheme = newLTheme;
-		};
-
-		ThemeStore.addChangeListener(onThemeChanged);
-		patches.push(() => ThemeStore.removeChangeListener(onThemeChanged));
-	},
-	onUnload: () => {
-		for (const x of patches) x();
-
-		if (hasTheme()) {
-			showConfirmationAlert({
-				title: "Deselect Theme",
-				content: "Monet theme is currently selected, would you like to deselect it?",
-				onConfirm: async () => {
-					apply(null);
-				},
-				confirmText: "Unload",
-				confirmColor: "brand" as ButtonColors,
-				cancelText: "Cancel",
-			});
+		let theme: ThemeDataWithPlus;
+		try {
+			theme = build(cpatches);
+		} catch (_e: any) {
+			showToast(
+				"Failed to build theme!",
+				getAssetIDByName("CircleXIcon-primary"),
+			);
+			return;
 		}
-	},
-};
+
+		apply(theme);
+	};
+
+	if (
+		oldTheme
+		&& oldColors
+		&& syscolors
+		&& (vstorage.reapply.cache.colors !== oldColors
+			|| vstorage.reapply.cache.theme !== oldTheme)
+	) {
+		reapply();
+	}
+
+	const onThemeChanged = () => {
+		const newLTheme = getDiscordTheme();
+		if (lTheme !== newLTheme) reapply();
+		lTheme = newLTheme;
+	};
+
+	ThemeStore.addChangeListener(onThemeChanged);
+	patches.push(() => ThemeStore.removeChangeListener(onThemeChanged));
+}
+
+export function onUnload() {
+	for (const x of patches) x();
+
+	if (hasTheme()) {
+		showConfirmationAlert({
+			title: "Deselect Theme",
+			content: "Monet theme is currently selected, would you like to deselect it?",
+			onConfirm: async () => {
+				apply(null);
+			},
+			confirmText: "Unload",
+			confirmColor: "brand" as ButtonColors,
+			cancelText: "Cancel",
+		});
+	}
+}
+
+export const settings = Settings;
