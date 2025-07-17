@@ -8,22 +8,11 @@
 		}
 	},
 	"editor.formatOnSave": true,
-	"[typescript]": {
-		"editor.defaultFormatter": "biomejs.biome"
+	"editor.codeActionsOnSave": {
+		"source.fixAll.biome": "explicit",
+		"source.organizeImports.biome": "explicit"
 	},
-	"[typescriptreact]": {
-		"editor.defaultFormatter": "biomejs.biome"
-	},
-	"[javascript]": {
-		"editor.defaultFormatter": "biomejs.biome"
-	},
-	"[javascriptreact]": {
-		"editor.defaultFormatter": "biomejs.biome"
-	},
-	"[json]": {
-		"editor.defaultFormatter": "biomejs.biome"
-	},
-	"[jsonc]": {
+	"[typescript][typescriptreact][javascript][javascriptreact][yaml][json][jsonc][markdown]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	}
 }
