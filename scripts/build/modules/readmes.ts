@@ -1,7 +1,8 @@
-import { readFile } from "node:fs/promises";
+
 import { join } from "node:path";
 
 import { dprint } from "../../common/dprint";
+import { readFileString } from "../../fs.ts";
 import { stringifyChart } from "../lib/chart.ts";
 import { makeMdNote, plural } from "../lib/common.ts";
 import { listPlugins } from "./plugins.ts";
@@ -122,13 +123,12 @@ async function listPluginMetadatas(noDev?: boolean) {
 
 	for (const { name: plugin } of await listPlugins(noDev)) {
 		const manifest: import("../types").Readmes.Manifest = JSON.parse(
-			await readFile(
+			await readFileString(
 				join("src/plugins/", plugin, "manifest.json"),
-				"utf8",
 			),
 		);
 		const status: import("../types").Readmes.Status = JSON.parse(
-			await readFile(join("src/plugins/", plugin, "status.json"), "utf8"),
+			await readFileString(join("src/plugins/", plugin, "status.json")),
 		);
 
 		const proxied = !!status.proxied;

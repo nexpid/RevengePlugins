@@ -1,9 +1,7 @@
 import { createHash } from "node:crypto";
-import { dirname, extname, join, resolve } from "node:path";
-
 import { existsSync } from "node:fs";
-import { readFile } from "node:fs/promises";
-
+import { dirname, extname, join, resolve } from "node:path";
+import { readFileString } from "../../fs";
 import { logDebug } from "../statistics/print";
 
 export function slashResolve(path: string) {
@@ -49,7 +47,7 @@ export async function listImports(
 	if (!allExtensions.includes(extname(path))) return new Set();
 	const dir = dirname(path);
 
-	const content = await readFile(path, "utf8");
+	const content = await readFileString(path);
 	const hash = createHash("sha256").update(content).digest("hex");
 
 	if (hashedImports.has(path + hash)) return hashedImports.get(path + hash)!;

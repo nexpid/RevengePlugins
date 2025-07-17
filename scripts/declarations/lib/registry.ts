@@ -1,12 +1,12 @@
+import { existsSync } from "node:fs";
+import { mkdir, } from "node:fs/promises";
 import { basename, join } from "node:path";
 import { PassThrough } from "node:stream";
 import { gunzipSync } from "node:zlib";
-
-import { existsSync } from "node:fs";
-import { mkdir, readFile } from "node:fs/promises";
 import { bundle } from "dts-bundle";
 import picocolors from "picocolors";
 import { extract } from "tar-fs";
+import { readFileString } from "../../fs";
 
 const verbose = process.argv.includes("-v") || process.argv.includes("--verbose");
 
@@ -38,7 +38,7 @@ export async function unzipTarball(path: string, tarball: Buffer) {
 	return new Promise((res, rej) => {
 		const stream = new PassThrough();
 		stream.end(new Uint8Array(tarball));
-		stream.pipe(extractor).on("close", res).addListener("error", rej);
+		stream.pipe(extractor as any).on("close", res).addListener("error", rej);
 	}).then(() => join(path, "package"));
 }
 
@@ -51,7 +51,7 @@ function findTypes(path: string, packageJson: any) {
 
 export async function rollupDts(path: string, pkg: string, out: string) {
 	const packageJson = JSON.parse(
-		await readFile(join(path, "package.json"), "utf8"),
+		await readFileString(join(path, "package.json")),
 	) as any;
 	const types = findTypes(path, packageJson);
 	if (!types) {

@@ -1,8 +1,8 @@
+import { readdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
-import { readdir, readFile, writeFile } from "node:fs/promises";
-
 import { listPlugins } from "../../build/modules/plugins.ts";
+import { readFileString } from "../../fs.ts";
 
 export async function writeNewLangFiles(source: string) {
 	const data: Record<string, Record<string, any>> = {};
@@ -15,7 +15,7 @@ export async function writeNewLangFiles(source: string) {
 			const key = file.split(".")[0];
 			data[key] ??= {};
 			data[key][lang] = JSON.parse(
-				await readFile(join(source, lang, file), "utf8"),
+				await readFileString(join(source, lang, file)),
 			);
 		}
 	}
@@ -25,7 +25,7 @@ export async function writeNewLangFiles(source: string) {
 		if (!plugin) continue;
 
 		const en = JSON.parse(
-			await readFile(join("lang/values/base", `${plugin}.json`), "utf8"),
+			await readFileString(join("lang/values/base", `${plugin}.json`)),
 		);
 
 		// if translations aren't on crowdin yet, make a placeholder

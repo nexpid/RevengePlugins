@@ -57,7 +57,13 @@
 			"@biomejs/biome",
 			"@swc/core",
 			"esbuild"
-		]
+		],
+		"overrides": {
+			"@types/minimatch": "5.1.2"
+		}
+	},
+	"overrides": {
+		"@types/minimatch": "5.1.2"
 	},
 	"engines": {
 		"node": "24.2.0",

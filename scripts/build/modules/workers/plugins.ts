@@ -10,6 +10,7 @@ import { imageSizeFromFile } from "image-size/fromFile";
 import Mime from "mime";
 
 import { dprint } from "../../../common/dprint";
+import { readFileString } from "../../../fs.ts";
 import { makeMdNote } from "../../lib/common.ts";
 import { isJolly, jollifyManifest } from "../jollyposting.ts";
 
@@ -23,7 +24,7 @@ async function buildPlugin(
 	prcess?: string,
 ) {
 	const manifest: import("../../types").Readmes.Manifest = JSON.parse(
-		await readFile(join("src/plugins", plugin, "manifest.json"), "utf8"),
+		await readFileString(join("src/plugins", plugin, "manifest.json")),
 	);
 
 	const title = `${manifest.name} (by ${
@@ -61,12 +62,12 @@ async function buildPlugin(
 	if (lang) {
 		const langDefaultFile = join("lang/values/base", `${lang}.json`);
 		if (existsSync(langDefaultFile)) {
-			langDefault = JSON.parse(await readFile(langDefaultFile, "utf8"));
+			langDefault = JSON.parse(await readFileString(langDefaultFile));
 		}
 
 		const langValuesFile = join("lang/values", `${lang}.json`);
 		if (existsSync(langValuesFile) && isDev) {
-			langValues = JSON.parse(await readFile(langValuesFile, "utf8"));
+			langValues = JSON.parse(await readFileString(langValuesFile));
 		}
 	}
 
@@ -184,9 +185,8 @@ async function buildPlugin(
 							for (let depth = 0; depth < 5; depth++) {
 								if (existsSync(join(root, "tpconfig.json"))) {
 									tpConfig = JSON.parse(
-										await readFile(
+										await readFileString(
 											join(root, "tpconfig.json"),
-											"utf8",
 										),
 									);
 									break;

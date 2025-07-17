@@ -1,15 +1,14 @@
+import { watch } from "chokidar";
+import Mime from "mime";
 import { createReadStream, existsSync } from "node:fs";
 import { readFile, stat } from "node:fs/promises";
 import http from "node:http";
 import * as os from "node:os";
 import { join } from "node:path";
-
-import { watch } from "chokidar";
-import Mime from "mime";
 import pc from "picocolors";
 import { WebSocketServer } from "ws";
-
 import { logDebug, logServer, logWss } from "../common/live/print.ts";
+import { readFileString } from "../fs.ts";
 
 const port = 8731;
 
@@ -85,7 +84,7 @@ server.on("request", async (req, res) => {
 					// 5XX
 					: pc.red(text),
 			)
-		}   ${pc.gray(req.headers["user-agent"] ?? "-")}`,
+		}   ${pc.gray(req.headers["user-agent"]?.toString() ?? "-")}`,
 	);
 });
 
@@ -101,6 +100,7 @@ let chokidarReady = false;
 watch("dist", {
 	ignoreInitial: false,
 })
+	// @ts-expect-error chokidar weird types
 	.on("all", async (event, _path) => {
 		if (!["add", "change"].includes(event) || !_path.endsWith("manifest.json")) return;
 		const path = _path.replace(/\\/g, "/");
@@ -111,7 +111,7 @@ watch("dist", {
 		try {
 			pluginHashes.set(
 				id,
-				hash = JSON.parse(await readFile(path, "utf8")).hash,
+				hash = JSON.parse(await readFileString(path)).hash,
 			);
 		} catch (_e) {
 			return null;

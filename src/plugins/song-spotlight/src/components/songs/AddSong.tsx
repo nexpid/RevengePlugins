@@ -1,8 +1,7 @@
 import { getInputAlertMessage, InputAlert } from "$/components/InputAlert";
-import Text from "$/components/Text";
 import { Lang } from "$/lang";
-import { Button, PressableScale, Stack, TextInput } from "$/lib/redesign";
-import { clipboard, React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
+import { PressableScale } from "$/lib/redesign";
+import { React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
 import { semanticColors } from "@vendetta/ui";
 import { showConfirmationAlert } from "@vendetta/ui/alerts";
 import { getAssetIDByName } from "@vendetta/ui/assets";

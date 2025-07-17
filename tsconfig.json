@@ -19,7 +19,6 @@
 	},
 	"include": [
 		"src/**/*",
-		"scripts/**/*",
 		"lang/**/*",
 		"declarations",
 		"node_modules/vendetta-types/defs.d.ts"

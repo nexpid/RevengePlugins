@@ -1,13 +1,12 @@
 import { findByProps } from "@vendetta/metro";
 import { React, ReactNative as RN } from "@vendetta/metro/common";
 import { after, before } from "@vendetta/patcher";
-import { findInReactTree } from "@vendetta/utils";
 
 import { lang } from "..";
 import Kiryu, { openSet } from "../components/Kiryu";
 import { sendAction } from "./frames";
 
-const { ChatInput } = findByProps("ChatInput");
+const _ChatInput = findByProps("ChatInput")?.ChatInput;
 const messaging = findByProps("sendMessage", "receiveMessage");
 
 export default function() {
@@ -51,26 +50,26 @@ export default function() {
 		kbShow.remove();
 	});
 
-	patches.push(
-		after("render", ChatInput.prototype, (_, ret) => {
-			const input = findInReactTree(
-				ret.props.children,
-				x => x.type?.name === "ChatInput",
-			);
-			const props = input?.props;
-			if (!props?.onChangeText) return;
+	// patches.push(
+	// 	after("render", ChatInput.prototype, (_, ret) => {
+	// 		const input = findInReactTree(
+	// 			ret.props.children,
+	// 			x => x.type?.name === "ChatInput",
+	// 		);
+	// 		const props = input?.props;
+	// 		if (!props?.onChangeText) return;
 
-			patches.push(
-				after(
-					"onChangeText",
-					props,
-					([txt]) =>
-						txt !== ""
-						&& sendAction(Math.random() < 0.5 ? "left" : "right"),
-				),
-			);
-		}),
-	);
+	// 		patches.push(
+	// 			after(
+	// 				"onChangeText",
+	// 				props,
+	// 				([txt]) =>
+	// 					txt !== ""
+	// 					&& sendAction(Math.random() < 0.5 ? "left" : "right"),
+	// 			),
+	// 		);
+	// 	}),
+	// );
 
 	patches.push(lang.unload);
 

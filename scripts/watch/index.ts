@@ -187,6 +187,7 @@ chokidar
 	.watch(["src", "lang/values/base", ...shims], {
 		ignoreInitial: true,
 	})
+	// @ts-expect-error chokidar weird types
 	.on("add", path =>
 		runFileChange(path).catch(e =>
 			logWatchErr(

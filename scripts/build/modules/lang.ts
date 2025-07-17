@@ -1,7 +1,8 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
 import { dprint } from "../../common/dprint";
+import { readFileString } from "../../fs.ts";
 import { listPlugins } from "./plugins.ts";
 
 const variableRules = [
@@ -73,11 +74,11 @@ export async function fixPluginLangs(filter: string[] = []) {
 		if (!plugin) continue;
 
 		const translations: Record<string, Record<string, string>> = JSON.parse(
-			await readFile(join("lang/values", `${plugin}.json`), "utf-8"),
+			await readFileString(join("lang/values", `${plugin}.json`)),
 		);
 
 		const base: Record<string, string> = JSON.parse(
-			await readFile(join("lang/values/base", `${plugin}.json`), "utf8"),
+			await readFileString(join("lang/values/base", `${plugin}.json`)),
 		);
 
 		for (const entries of Object.values(translations)) {
@@ -125,7 +126,7 @@ export async function makeLangDefs() {
 		);
 
 		const values = JSON.parse(
-			await readFile(join("lang/values/base", `${plugin}.json`), "utf8"),
+			await readFileString(join("lang/values/base", `${plugin}.json`)),
 		);
 
 		const keyRulesMap: Record<string, import("../types").Lang.Rule[]> = {};

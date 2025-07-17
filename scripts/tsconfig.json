@@ -1,0 +1,14 @@
+{
+	"extends": "../tsconfig.json",
+	"compilerOptions": {
+		"typeRoots": [
+			"@types/node"
+		]
+	},
+	"include": [
+		"**/*.*"
+	],
+	"exclude": [
+		"build/modules/workers/migration-shim.ts"
+	]
+}

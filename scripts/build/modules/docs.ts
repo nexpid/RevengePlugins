@@ -1,6 +1,7 @@
-import { readdir, readFile, writeFile } from "node:fs/promises";
+import { readdir, writeFile } from "node:fs/promises";
 import { basename, dirname, join } from "node:path";
 import modIcons from "plugins/themes-plus/src/stuff/modIcons";
+import { readFileString } from "../../fs";
 
 function replaceHook(str: string, hook: string, replacement: string) {
 	const [prefix, rest] = str.split(`<!-- ${hook} start -->`);
@@ -21,7 +22,7 @@ export async function makeDocsIconsHook() {
 				.map(async file => ({
 					parent: dirname(file),
 					config: JSON.parse(
-						await readFile(join("src", file), "utf8"),
+						await readFileString(join("src", file)),
 					) as {
 						root: string;
 					},
@@ -72,7 +73,7 @@ export async function makeDocsIconsHook() {
 
 	// Modify ICONS.md yea!!
 
-	const iconsMd = await readFile("docs/ICONS.md", "utf8");
+	const iconsMd = await readFileString("docs/ICONS.md");
 	const iconsMdModIcons = replaceHook(
 		iconsMd,
 		"mod icons hook",

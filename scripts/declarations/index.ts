@@ -1,7 +1,6 @@
-import { join } from "node:path";
-
 import { existsSync } from "node:fs";
-import { readFile, readdir, rm } from "node:fs/promises";
+import { readdir, rm } from "node:fs/promises";
+import { join } from "node:path";
 
 import {
 	bench,
@@ -12,11 +11,12 @@ import {
 	logHeader,
 	runTask,
 } from "../common/statistics/print";
+import { readFileString } from "../fs";
 import { cleanPath, getTarball, rollupDts, unzipTarball } from "./lib/registry";
 
 const offset = performance.now();
 
-const reg = JSON.parse(await readFile("declarations/reg.json", "utf8")) as {
+const reg = JSON.parse(await readFileString("declarations/reg.json")) as {
 	dependencies: string[];
 };
 
