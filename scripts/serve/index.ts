@@ -98,11 +98,11 @@ let nextMessageTimeout: any = 0;
 
 const pluginHashes = new Map<string, string>();
 let chokidarReady = false;
-watch("dist/*/manifest.json", {
+watch("dist", {
 	ignoreInitial: false,
 })
 	.on("all", async (event, _path) => {
-		if (!["add", "change"].includes(event)) return;
+		if (!["add", "change"].includes(event) || !_path.endsWith("manifest.json")) return;
 		const path = _path.replace(/\\/g, "/");
 
 		const id = path.split("/")[1];
