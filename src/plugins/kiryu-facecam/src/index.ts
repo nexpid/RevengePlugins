@@ -53,6 +53,6 @@ export function onLoad() {
 	};
 }
 
-export const onUnload = patcher();
+// export const onUnload = patcher();
 
 export const settings = Settings();
