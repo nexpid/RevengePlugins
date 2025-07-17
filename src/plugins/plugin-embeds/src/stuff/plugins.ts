@@ -1,90 +1,125 @@
-import { plugins } from "@vendetta/plugins";
+import { installPlugin, plugins, removePlugin } from "@vendetta/plugins";
 import { semanticColors } from "@vendetta/ui";
 
-import { androidifyColor, resolveSemanticColor } from "$/types";
+import { resolveSemanticColor } from "$/types";
 
-import { pluginInstallingCache, updateMessages } from "./messages";
+import { logger } from "@vendetta";
+import { findByProps } from "@vendetta/metro";
+import { ReactNative } from "@vendetta/metro/common";
+import { getAssetIDByName } from "@vendetta/ui/assets";
+import { showToast } from "@vendetta/ui/toasts";
+import { updateMessages } from "./messages";
 
-const pluginInfoCache = {} as Record<string, PluginManifest | null>;
-const getPluginInfo = (
-	plugin: string,
-): {
-	res: PluginManifest | null | false;
-	promise?: Promise<PluginManifest | null>;
-} => {
-	if (pluginInfoCache[plugin] !== undefined) {
-		return { res: pluginInfoCache[plugin] };
-	}
+enum StateAction {
+	Installing = "Installing",
+	Uninstalling = "Uninstalling"
+}
 
-	if (plugins[plugin]) {
-		return {
-			res: (pluginInfoCache[plugin] = plugins[plugin].manifest),
-		};
-	}
+const CodedLinkExtendedType = findByProps("CodedLinkExtendedType")
+	?.CodedLinkExtendedType as { EMBEDDED_ACTIVITY_INVITE: 3 };
 
-	// suffer
+const pluginInstalling = new Map<string, StateAction>();
+const pluginInfo = new Map<string, PluginManifest | null>();
+
+function retrievePluginInfo(plugin: string): PluginManifest | null {
+	if (pluginInfo.has(plugin)) return pluginInfo.get(plugin)!;
+
+	pluginInfo.set(plugin, null);
+	(async () => {
+		let data: PluginManifest | null = null;
+		try {
+			// cache for 30 mins
+			data = await fetch(`${plugin}manifest.json`, {
+				cache: "force-cache",
+				headers: {
+					"cache-control": "public, max-age=30",
+				},
+			}).then(x => x.json());
+		} catch {
+			data = null;
+		}
+
+		pluginInfo.set(plugin, data);
+		updateMessages(plugin);
+	})();
+
+	return null;
+}
+
+function getPluginState(plugin: string) {
 	return {
-		res: false,
-		promise: (async () => {
-			try {
-				pluginInfoCache[plugin] = await (
-					await fetch(`${plugin}manifest.json`, {
-						headers: { "cache-control": "public; max-age=30" },
-					})
-				).json();
-			} catch (_e) {
-				pluginInfoCache[plugin] = null;
-			}
+		installed: !!plugins[plugin],
+		action: pluginInstalling.get(plugin),
+	};
+}
+
+export function runPluginStateCta(plugin: string) {
+	const info = retrievePluginInfo(plugin), state = getPluginState(plugin);
+	if (!info || state.action) return;
+
+	pluginInstalling.set(plugin, state.installed ? StateAction.Uninstalling : StateAction.Installing);
+	updateMessages(plugin);
+
+	const promise: Promise<void> = state.installed
+		? removePlugin(plugin) as any
+		: installPlugin(plugin, true);
+	const txtStatus = state.installed ? "Uninstalled" : "Installed";
+	const txtLog = state.installed ? "uninstall" : "install";
+
+	promise
+		.then(() =>
+			showToast(`${txtStatus} ${info.name}`, getAssetIDByName("CircleCheckIcon-primary"))
+		)
+		.catch((err) => {
+			logger.error(err);
+			showToast(
+				`Failed to ${txtLog} ${info.name}`,
+				getAssetIDByName("CircleXIcon-primary"),
+			);
+		})
+		.finally(() => {
+			pluginInstalling.delete(plugin);
 			updateMessages(plugin);
-			return pluginInfoCache[plugin];
-		})(),
-	};
-};
+		});
+}
 
-export const getCodedLink = (plugin: string) => {
-	const obj = {
-		borderColor: 0,
-		backgroundColor: androidifyColor(
-			resolveSemanticColor(semanticColors.BACKGROUND_SECONDARY),
-		),
-		thumbnailCornerRadius: 0,
-		headerColor: androidifyColor(
-			resolveSemanticColor(semanticColors.HEADER_PRIMARY),
-		),
+function resolve(semantic: any) {
+	return ReactNative.processColor(resolveSemanticColor(semantic));
+}
+
+function getCodedLinkProps() {
+	return {
+		backgroundColor: resolve(semanticColors.CARD_PRIMARY_BG), // #131318ff
+		borderColor: resolve(semanticColors.BORDER_SUBTLE), // #6c6f7c24
+		headerColor: resolve(semanticColors.HEADER_SECONDARY), // #a8aab4ff
+		acceptLabelBackgroundColor: resolve(
+			semanticColors.REDESIGN_BUTTON_PRIMARY_BACKGROUND,
+		), // #5865f2
+		type: 0,
+		extendedType: CodedLinkExtendedType.EMBEDDED_ACTIVITY_INVITE,
 		headerText: "",
-		acceptLabelBackgroundColor: 0,
-		titleText: "",
-		type: null,
-		extendedType: 4,
 		participantAvatarUris: [],
-		acceptLabelText: "",
-		noParticipantsText: "",
-		ctaEnabled: false,
-		plugin,
+	};
+}
+
+export function getCodedLink(plugin: string) {
+	const info = retrievePluginInfo(plugin);
+	if (!info) return;
+
+	const { installed, action } = getPluginState(plugin);
+	const obj = {
+		...getCodedLinkProps(),
+		titleText: info.name,
+		noParticipantsText: `\n${info.description}`,
+		acceptLabelText: action || (installed ? "Uninstall" : "Install"),
+		ctaEnabled: !action,
 	};
 
-	const info = getPluginInfo(plugin).res;
-	const installing = pluginInstallingCache[plugin];
-
-	if (info === null || info === false) return null;
-
-	obj.titleText = info.name;
-	obj.noParticipantsText = `\n${info.description}`;
-	obj.ctaEnabled = !installing;
-
-	const has = !!plugins[plugin];
-	obj.acceptLabelBackgroundColor = androidifyColor(
-		resolveSemanticColor(
-			!has || installing
-				? semanticColors.BUTTON_POSITIVE_BACKGROUND
-				: semanticColors.BUTTON_DANGER_BACKGROUND,
-		),
-	);
-	obj.acceptLabelText = installing
-		? "..."
-		: has
-			? "Uninstall Plugin"
-			: "Install Plugin";
+	if (action) {
+		obj.acceptLabelBackgroundColor = resolve(semanticColors.REDESIGN_BUTTON_SECONDARY_BACKGROUND);
+	} else if (installed) {
+		obj.acceptLabelBackgroundColor = resolve(semanticColors.REDESIGN_BUTTON_DANGER_BACKGROUND);
+	}
 
 	return obj;
-};
+}

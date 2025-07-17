@@ -5,9 +5,4 @@ export interface Iterable {
 	[k: PropertyKey]: any;
 }
 
-let unpatch: () => void;
-
-export const onLoad = () => (unpatch = patcher());
-export const onUnload = () => {
-	unpatch();
-};
+export const onUnload = patcher();

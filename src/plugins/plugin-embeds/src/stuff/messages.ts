@@ -2,30 +2,32 @@
 
 import { findByStoreName } from "@vendetta/metro";
 import { FluxDispatcher } from "@vendetta/metro/common";
+import { invisibleChar } from "./patcher";
 
 const MessageStore = findByStoreName("MessageStore");
 
-export const pluginInstallingCache = {} as Record<string, boolean>;
-export const pluginMessageCache = {} as Record<string, [string, string][]>;
+export const pluginMessageMap = new Map<string, {
+	channelId: string;
+	plugins: string[];
+}>();
 
-export const updateMessages = (plugin: string, installing?: boolean) => {
-	if (installing !== undefined) pluginInstallingCache[plugin] = installing;
+export const updateMessages = (plugin: string) => {
+	for (const [id, { channelId, plugins }] of pluginMessageMap.entries()) {
+		if (!plugins.includes(plugin)) continue;
 
-	if (pluginMessageCache[plugin]) {
-		for (const [id, channel] of pluginMessageCache[plugin]) {
-			const message = MessageStore.getMessage(channel, id);
-			if (message) {
-				FluxDispatcher.dispatch({
-					type: "MESSAGE_UPDATE",
-					message: {
-						...message,
-						content: message.content.endsWith(" ")
-							? message.content.slice(0, -1)
-							: `${message.content} `,
-					},
-					log_edit: false,
-				});
-			}
+		const message = MessageStore.getMessage(channelId, id);
+		if (message) {
+			const content: string = message.content;
+
+			// a bit jank, but it works
+			FluxDispatcher.dispatch({
+				type: "MESSAGE_UPDATE",
+				message: {
+					...message,
+					content: content.startsWith(invisibleChar) ? content.slice(invisibleChar.length) : invisibleChar + content,
+				},
+				log_edit: false,
+			});
 		}
 	}
 };

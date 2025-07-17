@@ -1,25 +1,29 @@
 import { HTTP_REGEX_MULTI } from "@vendetta/constants";
 import { findByProps } from "@vendetta/metro";
 import { before, instead } from "@vendetta/patcher";
-import { installPlugin, plugins, removePlugin } from "@vendetta/plugins";
-import { getAssetIDByName } from "@vendetta/ui/assets";
-import { showToast } from "@vendetta/ui/toasts";
 
 import { RNChatModule } from "$/deps";
 
 import type { Iterable } from "..";
-import { pluginMessageCache, updateMessages } from "./messages";
-import { getCodedLink } from "./plugins";
+import { pluginMessageMap } from "./messages";
+import { getCodedLink, runPluginStateCta } from "./plugins";
+import { embedWhitelist } from "./whitelist";
 
-const codedLinksCache = {} as Record<string, Record<number, string>>;
+function trail(x: string) {
+	return x.replace(/(\/)?$/, "/");
+}
+
+interface CodedLinkMeta {
+	index: number;
+	plugin: string;
+}
+
+export const invisibleChar = "\x00";
+
 const { MessagesHandlers } = findByProps("MessagesHandlers");
 
-const whitelist = [
-	"https://vd-plugins.github.io/proxy/",
-	"https://bn-plugins.github.io/vd-proxy/",
-	"https://revenge.nexpid.xyz/",
-	/^https?:\/\/\w+\.github\.io\//i,
-] as (string | RegExp)[];
+const patchedSymbol = Symbol.for("nexpid.plugin-embeds.patched");
+const codedLinks = new Map<string, CodedLinkMeta[]>();
 
 export default () => {
 	const patches = new Array<() => void>();
@@ -28,92 +32,71 @@ export default () => {
 		before("updateRows", RNChatModule, args => {
 			const rows = JSON.parse(args[1]);
 			for (const row of rows) {
-				const origMap = new Map<string, string>();
 				const pluginLinks = new Array<string>();
 
-				const iterate = (thing: Iterable | Iterable[]) => {
-					for (const x of Array.isArray(thing) ? thing : [thing]) {
-						if (typeof x.content === "string") {
-							for (
-								const _url of x.content.match(
-									HTTP_REGEX_MULTI,
-								) ?? []
-							) {
-								const url = _url.endsWith("/") ? _url : `${_url}/`;
-								origMap.set(url, _url);
+				function iterate(thing: Iterable | Iterable[]) {
+					const stuff = Array.isArray(thing) ? thing : [thing];
+					for (const obj of stuff) {
+						if (typeof obj.content === "string") {
+							if (obj.content.startsWith(invisibleChar)) obj.content = obj.content.slice(invisibleChar.length);
 
+							const links = obj.content.match(HTTP_REGEX_MULTI)?.map(trail) ?? [];
+							for (const url of links) {
+								const host = new URL(url).hostname.toLowerCase();
 								if (
-									whitelist.some(x =>
-										x instanceof RegExp
-											? x.test(url.toLowerCase())
-											: url
-												.toLowerCase()
-												.startsWith(x.toLowerCase())
-									) || Object.keys(plugins).some(x =>
-										x.toLowerCase() === url.toLowerCase()
+									embedWhitelist.hosts.some(x => x.toLowerCase() === host)
+									|| embedWhitelist.domains.some(x =>
+										host.endsWith(`.${x.toLowerCase()}`)
 									)
 								) {
-									pluginLinks.push(
-										url,
-									);
+									pluginLinks.push(url);
 								}
 							}
 						} else if (
-							typeof x.content === "object"
-							&& x.content !== null
+							typeof obj.content === "object"
+							&& obj.content !== null
 						) {
-							iterate(x.content);
-							return;
+							iterate(obj.content);
 						}
 					}
-				};
+				}
 
 				if (row.message) {
 					if (row.message.content) iterate(row.message.content);
 
-					for (
-						const [plug, ids] of Object.entries(
-							pluginMessageCache,
-						)
-					) {
-						if (
-							ids.find(x => x[0] === row.message.id)
-							&& !pluginLinks.includes(plug)
-						) {
-							ids.length === 1
-								? delete pluginMessageCache[plug]
-								: (pluginMessageCache[plug] = ids.filter(
-									x => x[0] !== row.message.id,
-								));
-						}
-					}
+					const cache: CodedLinkMeta[] = [];
 
-					if (pluginLinks[0]) codedLinksCache[row.message.id] = {};
+					row.message.embeds ??= [];
+					row.message.codedLinks ??= [];
 					for (const plugin of pluginLinks) {
-						pluginMessageCache[plugin] ??= [];
-						if (
-							!pluginMessageCache[plugin].find(
-								x => x[0] === row.message.id,
-							)
-						) {
-							pluginMessageCache[plugin].push([
-								row.message.id,
-								row.message.channelId,
-							]);
-						}
+						const link = getCodedLink(plugin);
+						if (!link) continue;
 
-						row.message.embeds ??= [];
-						row.message.embeds.splice(
-							row.message.embeds.findIndex((e: any) => e.url === origMap.get(plugin)),
-							1,
+						const embedIndex = row.message.embeds.findIndex((embed: any) =>
+							embed?.url && trail(embed.url) === plugin
 						);
-
-						row.message.codedLinks ??= [];
-						codedLinksCache[row.message.id][
-							row.message.codedLinks.push(getCodedLink(plugin))
-							- 1
-						] = plugin;
+						if (embedIndex !== -1) {
+							row.message.embeds.splice(
+								embedIndex,
+								1,
+							);
+						}
+						cache.push({
+							index: row.message.codedLinks.push(
+								link,
+							) - 1,
+							plugin,
+						});
 					}
+
+					const id = row.message.id;
+					if (pluginLinks[0]) {
+						pluginMessageMap.set(id, {
+							channelId: row.message.channelId,
+							plugins: pluginLinks,
+						});
+					} else pluginMessageMap.delete(id);
+					codedLinks.set(id, cache);
 				}
 			}
 
@@ -122,85 +105,44 @@ export default () => {
 	);
 
 	const patchHandlers = (handlers: any) => {
-		if (handlers.__ple_patched) return;
-		handlers.__ple_patched = true;
+		if (handlers[patchedSymbol]) return;
+		handlers[patchedSymbol] = true;
 
-		if (
-			Object.prototype.hasOwnProperty.call(
-				handlers,
-				"handleTapInviteEmbed",
-			)
-		) {
-			patches.push(
-				instead("handleTapInviteEmbed", handlers, (args, orig) => {
-					const [
-						{
-							nativeEvent: { index, messageId },
-						},
-					] = args;
-					const plugin = codedLinksCache[messageId][index];
-					if (!plugin) return orig.call(this, ...args);
+		patches.push(
+			instead("handleTapInviteEmbed", handlers, (args, orig) => {
+				const event = args[0]?.nativeEvent;
+				if (!event) return orig.apply(this, args);
+				const { index, messageId } = event as {
+					index: number;
+					messageId: string;
+				};
 
-					const has = !!plugins[plugin];
-					if (has) {
-						try {
-							removePlugin(plugin);
-						} catch (e) {
-							console.log(e);
-							showToast(
-								"Failed to uninstall plugin!",
-								getAssetIDByName("CircleXIcon-primary"),
-							);
-						}
-						updateMessages(plugin, false);
-					} else {
-						updateMessages(plugin, true);
-						installPlugin(plugin)
-							.then(() => {
-								showToast(
-									`Successfully installed ${plugins[plugin].manifest.name}.`,
-									getAssetIDByName("CircleCheckIcon-primary"),
-								);
-							})
-							.catch(e => {
-								console.log(e);
-								showToast(
-									"Failed to install plugin!",
-									getAssetIDByName("CircleXIcon-primary"),
-								);
-							})
-							.finally(() => {
-								updateMessages(plugin, false);
-							});
-					}
-				}),
-			);
-		}
+				const link = codedLinks.get(messageId)?.find((meta) => meta.index === index);
+				if (!link) return orig.apply(this, args);
 
-		patches.push(() => (handlers.__ple_patched = false));
+				runPluginStateCta(link.plugin);
+			}),
+		);
+
+		patches.push(() => delete handlers[patchedSymbol]);
 	};
 
-	const origGetParams = Object.getOwnPropertyDescriptor(
+	const originalParams = Object.getOwnPropertyDescriptor(
 		MessagesHandlers.prototype,
 		"params",
-	)?.get;
+	)!;
+	const originalGetter = originalParams.get!;
 
-	origGetParams
-		&& Object.defineProperty(MessagesHandlers.prototype, "params", {
-			configurable: true,
-			get() {
-				if (this) patchHandlers(this);
-				return origGetParams.call(this);
-			},
-		});
+	Object.defineProperty(MessagesHandlers.prototype, "params", {
+		...originalParams,
+		get() {
+			if (this) patchHandlers(this);
+			return originalGetter.call(this);
+		},
+	});
 
 	patches.push(
-		() =>
-			origGetParams
-			&& Object.defineProperty(MessagesHandlers.prototype, "params", {
-				configurable: true,
-				get: origGetParams,
-			}),
+		() => Object.defineProperty(MessagesHandlers.prototype, "params", originalParams),
 	);
 
 	return () => {
