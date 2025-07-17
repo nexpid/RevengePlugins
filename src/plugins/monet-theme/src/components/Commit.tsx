@@ -1,5 +1,4 @@
 import { ReactNative as RN, stylesheet } from "@vendetta/metro/common";
-import { useProxy } from "@vendetta/storage";
 import { semanticColors } from "@vendetta/ui";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import type { PressableProps } from "react-native";
@@ -8,7 +7,6 @@ import Text from "$/components/Text";
 import { getLocale } from "$/lib/intlProxy";
 import { PressableScale, Stack } from "$/lib/redesign";
 import { getDiscordTheme } from "$/types";
-import { vstorage } from "..";
 import {
 	conventionalCommitRegex,
 	parseConventionalCommit,

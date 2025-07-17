@@ -9,18 +9,18 @@ import {
 } from "@vendetta/metro/common";
 import { useProxy } from "@vendetta/storage";
 import { semanticColors } from "@vendetta/ui";
-import { showInputAlert } from "@vendetta/ui/alerts";
+import { showConfirmationAlert, showInputAlert } from "@vendetta/ui/alerts";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { Forms } from "@vendetta/ui/components";
 import { showToast } from "@vendetta/ui/toasts";
 
 import { BetterTableRowGroup, BetterTableRowTitle } from "$/components/BetterTableRow";
+import { getInputAlertMessage, InputAlert } from "$/components/InputAlert";
 import { RichText } from "$/components/RichText";
 import Skeleton from "$/components/Skeleton";
 import Text from "$/components/Text";
 import { ContextMenu, IconButton, PressableScale } from "$/lib/redesign";
 import type { ThemeDataWithPlus, VendettaSysColors } from "$/typings";
-
 import RepainterIcon from "../../assets/icons/RepainterIcon.png";
 import { getSysColors, hasTheme, vstorage } from "..";
 import { apply, build } from "../stuff/buildTheme";
@@ -162,16 +162,26 @@ export default () => {
 							const link = checkForURL(
 								(await clipboard.getString()) ?? "",
 							);
-							showInputAlert({
+
+							showConfirmationAlert({
 								title: "Enter Repainter link",
-								placeholder: "https://repainter.app/themes/123ABC",
-								initialValue: link,
+								content: (
+									<InputAlert
+										key="repainterLink"
+										defaultValue={link}
+										placeholder="https://repainter.app/themes/123ABC"
+										importClipboard="Import from clipboard"
+										errorMessage="Input is not a valid URL"
+										validate={(v) => !!(new URL(v))}
+									/>
+								),
 								confirmText: "Use",
-								onConfirm: async i => {
-									const link = checkForURL(i);
+								async onConfirm() {
+									const link = checkForURL(getInputAlertMessage("repainterLink"));
 									if (!link) {
-										throw new Error(
-											"No Repainter link found!",
+										return showToast(
+											"No repainter link found!",
+											getAssetIDByName("CircleXIcon-primary"),
 										);
 									}
 
