@@ -33,5 +33,5 @@ export default new Module({
 		},
 		onStop() {},
 	},
-	disabled: true,
+	disabled: false,
 });

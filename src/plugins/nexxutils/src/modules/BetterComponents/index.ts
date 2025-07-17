@@ -1,13 +1,12 @@
 import { find, findByDisplayName, findByName } from "@vendetta/metro";
 import { React, ReactNative as RN } from "@vendetta/metro/common";
-import { after, instead } from "@vendetta/patcher";
+import { instead } from "@vendetta/patcher";
 import { assets } from "@vendetta/ui";
 import { showConfirmationAlert } from "@vendetta/ui/alerts";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 
 import { Module, ModuleCategory } from "../../stuff/Module";
-import M3Dialog from "./components/M3Dialog";
 import M3Snackbar from "./components/M3Snackbar";
 import M3Switch from "./components/M3Switch";
 
@@ -15,7 +14,7 @@ const { FormSwitch } = find(
 	x => typeof x?.FormSwitch === "function" && !("FormRow" in x),
 );
 const Toast = findByName("Toast", false);
-const Alert = findByDisplayName("FluxContainer(Alert)");
+const _Alert = findByDisplayName("FluxContainer(Alert)");
 
 export default new Module({
 	id: "better-components",
@@ -23,6 +22,9 @@ export default new Module({
 	sublabel: "Alters the way some Discord components look",
 	category: ModuleCategory.Useful,
 	icon: getAssetIDByName("BicycleIcon"),
+	extra: {
+		note: "The Alert option has been temporarily disabled by nexpid",
+	},
 	settings: {
 		switch: {
 			label: "Switch",
@@ -100,6 +102,7 @@ export default new Module({
 			choices: ["Default", "M3"],
 			default: "M3",
 			icon: getAssetIDByName("TicketIcon"),
+			disabled: true,
 		},
 		test_alert: {
 			label: "Test Alert",
@@ -118,6 +121,7 @@ export default new Module({
 				});
 			},
 			icon: getAssetIDByName("BugIcon"),
+			disabled: true,
 		},
 	},
 	handlers: {
@@ -146,15 +150,16 @@ export default new Module({
 						})),
 				);
 			}
-			if (this.storage.options.alert !== "Default") {
-				this.patches.add(
-					after(
-						"render",
-						Alert.prototype,
-						(_, ret) => React.createElement(M3Dialog, ret.props),
-					),
-				);
-			}
+			// FIX fix Alert patch
+			// if (this.storage.options.alert !== "Default") {
+			// 	this.patches.add(
+			// 		after(
+			// 			"render",
+			// 			Alert.prototype,
+			// 			(_, ret) => React.createElement(M3Dialog, ret.props),
+			// 		),
+			// 	);
+			// }
 		},
 		onStop() {},
 	},

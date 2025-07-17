@@ -7,10 +7,10 @@ import { fluxSubscribe } from "$/types";
 
 const SpotifyStore = findByStoreName("SpotifyStore");
 const SelectedChannelStore = findByStoreName("SelectedChannelStore");
+const DraftStore = findByStoreName("DraftStore");
 
 const { sendMessage } = findByProps("sendMessage", "revealMessage");
-// const { getDraft } = findByProps('getDraft')
-// const { clearDraft } = findByProps('clearDraft')
+const { clearDraft } = findByProps("clearDraft");
 
 const sendInvite = () => {
 	const activity = SpotifyStore.getActivity();
@@ -20,8 +20,7 @@ const sendInvite = () => {
 	sendMessage(
 		channel,
 		{
-			content: "",
-			// content: getDraft(channel, 0),
+			content: DraftStore.getDraft(channel, 0),
 			tts: false,
 			invalidEmojis: [],
 			validNonShortcutEmojis: [],
@@ -35,7 +34,7 @@ const sendInvite = () => {
 		},
 	);
 
-	// clearDraft(channel, 0)
+	clearDraft(channel, 0);
 };
 
 export default function InviteButton() {

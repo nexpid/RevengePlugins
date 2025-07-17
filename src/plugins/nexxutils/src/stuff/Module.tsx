@@ -49,6 +49,7 @@ type ModuleSetting =
 	& {
 		label: string;
 		icon?: number;
+		disabled?: boolean;
 	}
 	& (
 		| {
@@ -87,6 +88,7 @@ class Patches {
 
 interface ModuleExtra {
 	credits?: string[];
+	note?: string;
 	warning?: string;
 }
 
@@ -220,7 +222,6 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 				content: any;
 				color: string;
 				icon: string;
-				iconColor?: string;
 				action?: () => any;
 			}[] = [];
 
@@ -229,7 +230,6 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 					content: "This plugin has been temporarily disabled by nexpid",
 					color: "TEXT_MUTED",
 					icon: "BeakerIcon",
-					iconColor: "TEXT_MUTED",
 				});
 			}
 
@@ -261,7 +261,13 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 					content: this.extra.warning,
 					color: "TEXT_WARNING",
 					icon: "WarningIcon",
-					iconColor: "STATUS_WARNING",
+				});
+			}
+			if (this.extra?.note) {
+				extra.push({
+					content: this.extra.note,
+					color: "TEXT_MUTED",
+					icon: "BeakerIcon",
 				});
 			}
 
@@ -272,7 +278,6 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 					}`,
 					color: "TEXT_DANGER",
 					icon: "WarningIcon",
-					iconColor: "STATUS_DANGER",
 					action: () => {
 						openModal(
 							"error-viewer",
@@ -315,20 +320,13 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 											resizeMode="cover"
 											style={[
 												styles.icon,
-												x.iconColor
-													? {
-														tintColor: resolveSemanticColor(
-															semanticColors[
-																x
-																	.iconColor
-															],
-														),
-													}
-													: null,
+												{
+													tintColor: resolveSemanticColor(semanticColors[x.color]),
+												},
 											]}
 											source={getAssetIDByName(x.icon)}
 										/>
-										<RN.View style={{ width: 2 }} />
+										<RN.View style={{ width: 8 }} />
 									</React.Fragment>
 								)),
 						]}
@@ -359,10 +357,22 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 										{extra.map(x => {
 											const children = (
 												<>
+													<RN.Image
+														resizeMode="cover"
+														style={[
+															styles.icon,
+															{ marginRight: 12 },
+															{
+																tintColor: resolveSemanticColor(semanticColors[x.color]),
+															},
+														]}
+														source={getAssetIDByName(x.icon)}
+													/>
 													<Text
 														key="content"
 														variant="text-md/semibold"
 														color={x.color}
+														style={{ marginRight: 12 }}
 													>
 														{x.content}
 													</Text>
@@ -430,6 +440,7 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 															)();
 														}}
 														icon={setting.icon}
+														disabled={setting.disabled}
 													/>
 												</RN.View>
 											)
@@ -467,6 +478,7 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 																/>
 															}
 															value={this.storage.options[id]}
+															disabled={setting.disabled}
 														/>
 													)
 													: (
@@ -479,7 +491,7 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 																		.options[id],
 																)}
 																onPress={() => {
-																	ActionSheet.open(
+																	!setting.disabled && ActionSheet.open(
 																		ChooseSheet,
 																		{
 																			title: setting.label,
@@ -522,6 +534,7 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 																			]}
 																	</Text>
 																}
+																disabled={setting.disabled}
 															/>
 														)
 													)

@@ -1,12 +1,8 @@
-import { findByStoreName } from "@vendetta/metro";
+
 import { React, ReactNative as RN } from "@vendetta/metro/common";
-import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 
 import { Reanimated } from "$/deps";
-import { getUserAvatar } from "$/types";
-
-const UserStore = findByStoreName("UserStore");
 
 export default function() {
 	const spinAnim = Reanimated.useSharedValue("0deg");
@@ -53,16 +49,9 @@ export default function() {
 					},
 					{ transform: [{ rotate: spinAnim }, { scale: scaleAnim }] },
 				]}
-				source={UserStore.getCurrentUser()?.id
-					? {
-						uri: getUserAvatar(
-							UserStore.getCurrentUser(),
-							true,
-						),
-					}
-					: getAssetIDByName(
-						`icon${Math.floor(Math.random() * 8)}`,
-					)}
+				source={{
+					uri: "https://github.com/nexpid.png",
+				}}
 			/>
 		</RN.Pressable>
 	);

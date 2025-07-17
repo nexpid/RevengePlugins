@@ -15,7 +15,7 @@ export const vstorage = storage as {
 };
 
 // major.minor.patch
-export const version = "0.9.0";
+export const version = "0.9.1";
 
 let undevtool: () => void;
 
