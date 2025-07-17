@@ -11,7 +11,7 @@ import { ContextMenu, PressableScale, Stack } from "$/lib/redesign";
 
 import { lang } from "../..";
 import { copyLink, openLink, serviceToIcon } from "../../stuff/songs";
-import { getSongInfo, type SongInfo } from "../../stuff/songs/info";
+import { getSongInfo, type SongInfo as SongInfoType } from "../../stuff/songs/info";
 import type { Song } from "../../types";
 import { ModifiedDataContext } from "../Settings";
 
@@ -70,7 +70,7 @@ export default function SongInfo({
 	const poss = React.useRef(positions);
 	poss.current = positions;
 
-	const [songInfo, setSongInfo] = React.useState<null | false | SongInfo>(
+	const [songInfo, setSongInfo] = React.useState<null | false | SongInfoType>(
 		null,
 	);
 	const { data, setData } = React.useContext(ModifiedDataContext);

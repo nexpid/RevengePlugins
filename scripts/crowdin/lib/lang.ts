@@ -1,6 +1,6 @@
 import { join } from "node:path";
 
-import { readdir, readFile, writeFile } from "fs/promises";
+import { readdir, readFile, writeFile } from "node:fs/promises";
 
 import { listPlugins } from "../../build/modules/plugins.ts";
 
@@ -25,7 +25,7 @@ export async function writeNewLangFiles(source: string) {
 		if (!plugin) continue;
 
 		const en = JSON.parse(
-			await readFile(join("lang/values/base", plugin + ".json"), "utf8"),
+			await readFile(join("lang/values/base", `${plugin}.json`), "utf8"),
 		);
 
 		// if translations aren't on crowdin yet, make a placeholder
@@ -34,7 +34,7 @@ export async function writeNewLangFiles(source: string) {
 
 		// minify but also not really
 		await writeFile(
-			join("lang/values", plugin + ".json"),
+			join("lang/values", `${plugin}.json`),
 			`{\n${
 				Object.entries(data[plugin])
 					.sort((a, b) => a[0].localeCompare(b[0]))

@@ -31,6 +31,7 @@ export default () => {
 				const mods = modules.filter(x => x.category === category);
 				return (
 					<BetterTableRowGroup
+						key={title}
 						title={title}
 						icon={icon}
 						padding={mods.length === 0}
@@ -38,7 +39,7 @@ export default () => {
 						{mods.length > 0
 							? (
 								mods.map(x => (
-									<ErrorBoundary>
+									<ErrorBoundary key={x.id}>
 										<x.component />
 									</ErrorBoundary>
 								))

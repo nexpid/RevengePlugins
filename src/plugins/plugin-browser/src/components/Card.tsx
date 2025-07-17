@@ -48,6 +48,7 @@ const styles = stylesheet.createThemedStyleSheet({
 });
 
 interface Action {
+	label: string;
 	icon: string;
 	disabled?: boolean;
 	isDestructive?: boolean;
@@ -55,9 +56,7 @@ interface Action {
 	onPress: () => void;
 }
 
-type OverflowAction = Omit<Action, "loading"> & {
-	label: string;
-};
+type OverflowAction = Omit<Action, "loading">;
 
 interface CardProps {
 	headerLabel: React.ReactNode;
@@ -140,6 +139,7 @@ export default function Card(props: CardProps) {
 						<Stack spacing={5} direction="horizontal">
 							{props.actions?.map(
 								({
+									label,
 									icon,
 									onPress,
 									isDestructive,
@@ -147,6 +147,7 @@ export default function Card(props: CardProps) {
 									disabled,
 								}) => (
 									<IconButton
+										key={label}
 										onPress={onPress}
 										disabled={disabled}
 										loading={loading}

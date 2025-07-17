@@ -13,7 +13,7 @@ import { cFetch, customUrl } from "./util";
 
 const UserStore = findByStoreName("UserStore");
 
-export const patches = new Array<() => void>();
+export const patches: (() => void)[] = [];
 
 export default async function load() {
 	// biunny...
@@ -117,7 +117,7 @@ export default async function load() {
 	let iconpackConfig: IconpackConfig = {
 		biggerStatus: false,
 	};
-	let tree = new Array<string>();
+	let tree: string[] = [];
 
 	if (!isCustomIconpack && state.iconpack.iconpack) {
 		// TODO this should be an actual type

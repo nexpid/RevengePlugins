@@ -71,7 +71,7 @@ type ModuleSetting =
 	);
 
 class Patches {
-	store = new Array<() => void>();
+	store = [] as (() => void)[];
 
 	add(patch: () => void) {
 		this.store.push(patch);
@@ -242,6 +242,7 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 								{!Number.isNaN(Number(x))
 									? (
 										<SmartMention
+											key={x}
 											userId={x}
 											loadUsername={true}
 										/>
@@ -293,6 +294,7 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 					<FormRow
 						label={[
 							<RN.Text
+								key="label"
 								style={{
 									color: resolveSemanticColor(
 										semanticColors[
@@ -308,7 +310,7 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 							extra
 								.sort(() => -1)
 								.map(x => (
-									<>
+									<React.Fragment key={x.content}>
 										<RN.Image
 											resizeMode="cover"
 											style={[
@@ -327,7 +329,7 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 											source={getAssetIDByName(x.icon)}
 										/>
 										<RN.View style={{ width: 2 }} />
-									</>
+									</React.Fragment>
 								)),
 						]}
 						subLabel={this.sublabel}
@@ -358,6 +360,7 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 											const children = (
 												<>
 													<Text
+														key="content"
 														variant="text-md/semibold"
 														color={x.color}
 													>
@@ -376,6 +379,7 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 											return x.action
 												? (
 													<RN.Pressable
+														key="children"
 														style={styles.row}
 														android_ripple={styles.androidRipple}
 														onPress={x.action}
@@ -384,7 +388,7 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 													</RN.Pressable>
 												)
 												: (
-													<RN.View style={styles.row}>
+													<RN.View key="children" style={styles.row}>
 														{children}
 													</RN.View>
 												);
@@ -413,6 +417,7 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 										setting.type === "button"
 											? (
 												<RN.View
+													key={id}
 													style={{ marginVertical: 12 }}
 												>
 													<Button
@@ -439,6 +444,7 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 												setting.type === "toggle"
 													? (
 														<FormSwitchRow
+															key={id}
 															label={setting.label}
 															subLabel={this.callable(
 																setting.subLabel,

@@ -1,7 +1,6 @@
 // Based on: https://github.com/pyoncord/Bunny/blob/dev/src/lib/ui/settings/patches/tabs.tsx
 
 import { findByProps } from "@vendetta/metro";
-import { React } from "@vendetta/metro/common";
 import { after } from "@vendetta/patcher";
 import { findInReactTree } from "@vendetta/utils";
 

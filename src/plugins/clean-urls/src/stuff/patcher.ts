@@ -47,7 +47,7 @@ const handleContent = (content: Content[]) => {
 };
 
 export default function() {
-	const patches = new Array<() => void>();
+	const patches: (() => void)[] = [];
 
 	patches.push(
 		before("sendMessage", Messages, args => {

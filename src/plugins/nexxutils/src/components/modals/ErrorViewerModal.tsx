@@ -157,6 +157,7 @@ export default function ErrorViewerModal({
 					<RN.View style={{ gap: 12, flexDirection: "column" }}>
 						{Object.entries(errors).map(([label, err]) => (
 							<Card
+								key={label}
 								label={label}
 								error={err}
 								clear={() => {

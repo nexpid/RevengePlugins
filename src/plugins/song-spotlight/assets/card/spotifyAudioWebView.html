@@ -9,17 +9,21 @@ const RNWV = window.ReactNativeWebView;
 
 	/** @argument enabled {boolean} */
 	const playback = enabled => {
-		audios.forEach((x, i) => {
-			if (!x) return;
+		for (let i = 1; i < audios.length; i++) {
+			const audio = audios[i];
+			if (!audio) continue;
+
 			if (i === position && enabled) x.play();
 			else {
 				if (i !== position) x.currentTime = 0;
 				x.pause();
 			}
-		});
+		}
 	};
 
-	audios.forEach(x => x?.addEventListener("ended", () => RNWV.postMesssage("ended")));
+	for (const audio of audios) {
+		audio?.addEventListener("ended", () => RNWV.postMesssage("ended"));
+	}
 
 	window.addEventListener("message", ev => {
 		const { action, pos } = ev.data;

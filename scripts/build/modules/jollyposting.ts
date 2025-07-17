@@ -1,4 +1,4 @@
-import { Readmes } from "../types";
+import type { Readmes } from "../types";
 
 // Merry rizzmas 2028
 

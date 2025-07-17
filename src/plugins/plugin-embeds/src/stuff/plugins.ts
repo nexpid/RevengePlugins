@@ -12,7 +12,7 @@ import { updateMessages } from "./messages";
 
 enum StateAction {
 	Installing = "Installing",
-	Uninstalling = "Uninstalling"
+	Uninstalling = "Uninstalling",
 }
 
 const CodedLinkExtendedType = findByProps("CodedLinkExtendedType")
@@ -57,7 +57,10 @@ export function runPluginStateCta(plugin: string) {
 	const info = retrievePluginInfo(plugin), state = getPluginState(plugin);
 	if (!info || state.action) return;
 
-	pluginInstalling.set(plugin, state.installed ? StateAction.Uninstalling : StateAction.Installing);
+	pluginInstalling.set(
+		plugin,
+		state.installed ? StateAction.Uninstalling : StateAction.Installing,
+	);
 	updateMessages(plugin);
 
 	const promise: Promise<void> = state.installed
@@ -116,9 +119,13 @@ export function getCodedLink(plugin: string) {
 	};
 
 	if (action) {
-		obj.acceptLabelBackgroundColor = resolve(semanticColors.REDESIGN_BUTTON_SECONDARY_BACKGROUND);
+		obj.acceptLabelBackgroundColor = resolve(
+			semanticColors.REDESIGN_BUTTON_SECONDARY_BACKGROUND,
+		);
 	} else if (installed) {
-		obj.acceptLabelBackgroundColor = resolve(semanticColors.REDESIGN_BUTTON_DANGER_BACKGROUND);
+		obj.acceptLabelBackgroundColor = resolve(
+			semanticColors.REDESIGN_BUTTON_DANGER_BACKGROUND,
+		);
 	}
 
 	return obj;

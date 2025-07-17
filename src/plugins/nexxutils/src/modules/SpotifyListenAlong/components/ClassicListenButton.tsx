@@ -1,4 +1,4 @@
-import { React, ReactNative as RN } from "@vendetta/metro/common";
+import { ReactNative as RN } from "@vendetta/metro/common";
 import { Button } from "@vendetta/ui/components";
 
 import UserPlayIcon from "../../../../assets/SpotifyListenAlong/UserPlayIcon.png";

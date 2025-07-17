@@ -92,7 +92,7 @@ export const initState = {
 	didInit: null,
 };
 
-const patches = new Array<any>();
+const patches: (any)[] = [];
 export default {
 	onLoad: () => {
 		vstorage.config ??= {

@@ -7,7 +7,7 @@ import { lang } from "../..";
 export let isInPage = false;
 
 let logged: () => void;
-const logs = new Array<[string, string]>();
+const logs: ([string, string])[] = [];
 
 export function clearLogs() {
 	logs.length = 0;
@@ -60,6 +60,7 @@ export const ImportLogsPage = () => {
 			<RN.Text style={styles.text}>
 				{logs.map(([scope, message]) => [
 					<RN.Text
+						key={scope + message}
 						style={[
 							styles.text,
 							{

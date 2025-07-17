@@ -19,7 +19,7 @@ const UserProfileAboutMeCard = findByName("UserProfileAboutMeCard", false);
 const ThemeStore = findByStoreName("ThemeStore");
 
 export default function() {
-	const patches = new Array<any>();
+	const patches: (any)[] = [];
 
 	if (YouAboutMeCard) {
 		patches.push(

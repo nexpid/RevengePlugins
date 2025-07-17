@@ -113,7 +113,7 @@ watch("dist/*/manifest.json", {
 				id,
 				hash = JSON.parse(await readFile(path, "utf8")).hash,
 			);
-		} catch (e) {
+		} catch (_e) {
 			return null;
 		}
 
@@ -134,9 +134,9 @@ watch("dist/*/manifest.json", {
 				);
 			}
 
-			wss.clients.forEach(ws =>
-				ws.send(JSON.stringify({ op: "update", updates: nextMessage }))
-			);
+			for (const ws of wss.clients) {
+				ws.send(JSON.stringify({ op: "update", updates: nextMessage }));
+			}
 			nextMessage = {};
 		}, 500);
 	})
@@ -176,13 +176,12 @@ wss.on("connection", ws => {
 
 server.listen(port, async () => {
 	const interfaces = Object.entries(os.networkInterfaces())
-		.map(([group, entries]) =>
+		.flatMap(([group, entries]) =>
 			entries!.map(entry => ({
 				...entry,
 				group,
 			}))
 		)
-		.flat()
 		.filter(int => int.family === "IPv4")
 		.sort((a, b) => a.group.localeCompare(b.group));
 	const longestInterface = Math.max(

@@ -9,8 +9,8 @@ export default () => {
 		MessageMarkupRendererGuhh,
 		(_, ret) => {
 			const branch = (x: { content: any[] }, isHeading: boolean) => {
-				const jumboableChain = new Array<any>();
-				const content = new Array<any>();
+				const jumboableChain: (any)[] = [];
+				const content: (any)[] = [];
 
 				for (const y of x.content) {
 					const guh = y.type === "emoji"

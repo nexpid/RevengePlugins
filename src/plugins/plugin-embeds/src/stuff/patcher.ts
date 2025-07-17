@@ -26,19 +26,21 @@ const patchedSymbol = Symbol.for("nexpid.plugin-embeds.patched");
 const codedLinks = new Map<string, CodedLinkMeta[]>();
 
 export default () => {
-	const patches = new Array<() => void>();
+	const patches: (() => void)[] = [];
 
 	patches.push(
 		before("updateRows", RNChatModule, args => {
 			const rows = JSON.parse(args[1]);
 			for (const row of rows) {
-				const pluginLinks = new Array<string>();
+				const pluginLinks: string[] = [];
 
 				function iterate(thing: Iterable | Iterable[]) {
 					const stuff = Array.isArray(thing) ? thing : [thing];
 					for (const obj of stuff) {
 						if (typeof obj.content === "string") {
-							if (obj.content.startsWith(invisibleChar)) obj.content = obj.content.slice(invisibleChar.length);
+							if (obj.content.startsWith(invisibleChar)) {
+								obj.content = obj.content.slice(invisibleChar.length);
+							}
 
 							const links = obj.content.match(HTTP_REGEX_MULTI)?.map(trail) ?? [];
 							for (const url of links) {

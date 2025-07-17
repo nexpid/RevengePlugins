@@ -13,6 +13,6 @@
 		"source.organizeImports.biome": "explicit"
 	},
 	"[typescript][typescriptreact][javascript][javascriptreact][yaml][json][jsonc][markdown]": {
-		"editor.defaultFormatter": "biomejs.biome"
+		"editor.defaultFormatter": "dprint.dprint"
 	}
 }

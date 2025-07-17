@@ -13,7 +13,7 @@ export function getPins(channel: string) {
 	return vstorage.pinned[channel].sort((a, b) => b.pinned - a.pinned) ?? [];
 }
 export function getAllPins() {
-	const pins = new Array<{ id: string; pinned: number; channelId: string }>();
+	const pins: ({ id: string; pinned: number; channelId: string })[] = [];
 	for (const [channelId, msgs] of Object.entries(vstorage.pinned)) {
 		pins.push(...msgs.map(x => ({ id: x.id, pinned: x.pinned, channelId })));
 	}

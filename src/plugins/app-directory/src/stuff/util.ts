@@ -11,7 +11,7 @@ export function inServers(x: number) {
 }
 
 export const parseDesc = (detailed: string | null, short: string) => {
-	const parsed = new Array<{ title: string; content: string[] }>();
+	const parsed: ({ title: string; content: string[] })[] = [];
 
 	const l = detailed?.split("\n") ?? [];
 	let open = false;

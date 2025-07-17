@@ -73,6 +73,7 @@ export default function SettingsActionSheet({
 			/>
 			{manifest.games.map(({ title, id }) => (
 				<FormRadioRow
+					key={id}
 					label={title}
 					onPress={() => {
 						setChanges({

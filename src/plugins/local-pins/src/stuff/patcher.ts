@@ -39,7 +39,7 @@ export const pinsCallback: {
 };
 
 export default function() {
-	const patches = new Array<() => void>();
+	const patches: (() => void)[] = [];
 
 	patches.push(
 		after("default", ChannelPinsConnected, (_, pins) => {

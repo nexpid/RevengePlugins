@@ -1,13 +1,13 @@
-import { execFile } from "child_process";
-import { writeFile } from "fs/promises";
-import { join } from "path";
-import { promisify } from "util";
+import { execFile } from "node:child_process";
+import { writeFile } from "node:fs/promises";
+import { join } from "node:path";
+import { promisify } from "node:util";
 
 const execFileAsync = promisify(execFile);
 const debugDprint = process.argv.includes("--debug-dprint");
 
 function cleanOutput(txt: string) {
-	return txt.replace(/^\n*/, "").replace(/\n*$/, "").replace(/\r/g, "");
+	return txt.replace(/^\n*/, "").replace(/\n*$/, "\n").replace(/\r/g, "");
 }
 
 // When dprint is installed
@@ -23,11 +23,12 @@ class DprintFormatter {
 		stdin?: string,
 	): Promise<{ output: string; isError: boolean }>;
 	private async run(args: string[], throwOnError = false, stdin?: string) {
-		const cwd = join(import.meta.dirname, "../../");
+		const cwd = join(import.meta.dirname, "../../../");
 		const maxStdinCharLength = stdin
 			? stdin.split("\n").length.toString().length
 			: 0;
 
+		args.unshift("--config", "dprint.json");
 		return new Promise((res, rej) => {
 			const sub = execFile(
 				"dprint",
@@ -43,7 +44,7 @@ class DprintFormatter {
 							console.warn(
 								`dprint raised an error, but stdout exists. pass the --debug-dprint flag to debug (exit code ${sub.exitCode}, pid ${sub.pid}, args ${
 									JSON.stringify(args.join(" "))
-								}, stdin ${!!stdin ? "yes" : "no"})\n${err}`,
+								}, stdin ${stdin ? "yes" : "no"})\n${err}`,
 							);
 							return res(out);
 						}
@@ -70,7 +71,7 @@ class DprintFormatter {
 			.then(output => throwOnError ? output : { output, isError: false })
 			.catch(output => {
 				if (throwOnError) throw output;
-				else return { output, isError: true };
+				return { output, isError: true };
 			});
 	}
 
@@ -116,7 +117,7 @@ class DprintFormatterFallback {
 	async debugResolvedConfig() {
 		return {} as object;
 	}
-	async formatText(content: string, path: string) {
+	async formatText(content: string, _path: string) {
 		return content;
 	}
 	async saveAndFormat(path: string, content: string) {

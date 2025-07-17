@@ -32,7 +32,7 @@
 		"ws": "^8.18.2"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
+		"@biomejs/biome": "^2.1.2",
 		"@eslint/js": "^9.26.0",
 		"@types/dts-bundle": "^0.0.35",
 		"@types/tar-fs": "^2.0.4",

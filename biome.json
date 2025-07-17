@@ -1,26 +1,24 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-	"vcs": {
-		"enabled": false,
-		"clientKind": "git",
-		"useIgnoreFile": false
-	},
+	"$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": [
-			"declarations/*.d.ts",
-			"dist",
-			"node_modules",
-			"lang/values/*.json"
+		"includes": [
+			"**",
+			"!**/declarations/**/*.d.ts",
+			"!**/dist",
+			"!**/node_modules",
+			"!**/lang/values/**/*.json"
 		]
 	},
 	"formatter": {
-		"enabled": true,
-		"lineWidth": 120,
-		"indentStyle": "tab"
+		"enabled": false
 	},
-	"organizeImports": {
-		"enabled": true
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
 	},
 	"json": {
 		"parser": {
@@ -41,13 +39,12 @@
 				"noUnreachable": "off",
 				"noUnreachableSuper": "off",
 				"noUnusedVariables": "warn",
-				"useArrayLiterals": "warn",
 				"useJsxKeyInIterable": "warn"
 			},
 			"style": {
-				"noCommaOperator": "off",
 				"noNonNullAssertion": "off",
 				"noParameterAssign": "off",
+				"useArrayLiterals": "error",
 				"useSingleVarDeclarator": "off"
 			},
 			"suspicious": {
@@ -57,6 +54,9 @@
 				"noImportAssign": "off",
 				"noUnsafeNegation": "off",
 				"useGetterReturn": "off"
+			},
+			"complexity": {
+				"noCommaOperator": "off"
 			}
 		}
 	}

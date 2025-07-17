@@ -106,7 +106,7 @@ export interface ParsedVariableString {
 export function parseVariableString(str: string): ParsedVariableString {
 	const data = {
 		content: str,
-		types: new Array<VariableType>(),
+		types: [] as VariableType[],
 	};
 
 	for (const x of stringVariables) {

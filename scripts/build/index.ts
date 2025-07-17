@@ -81,4 +81,4 @@ logFinished("writing README files", writeReadmeFiles.stop());
 
 logCompleted(Math.floor(performance.now() - offset));
 
-workers.forEach(x => x.terminate());
+for (const worker of workers) worker.terminate();

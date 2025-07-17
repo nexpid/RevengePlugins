@@ -1,5 +1,5 @@
 import { findByProps } from "@vendetta/metro";
-import { React, ReactNative as RN } from "@vendetta/metro/common";
+import { ReactNative as RN } from "@vendetta/metro/common";
 import { useProxy } from "@vendetta/storage";
 
 import Text from "$/components/Text";

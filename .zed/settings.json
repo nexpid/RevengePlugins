@@ -1,7 +1,7 @@
 {
 	"code_actions_on_format": {
-		"source.fixAll.eslint": true,
-		"source.organizeImports": true
+		"source.fixAll.biome": true,
+		"source.organizeImports.biome": true
 	},
 	"formatter": {
 		"external": {
@@ -17,10 +17,10 @@
 		"allowed": false
 	},
 	"languages": {
-		"JSON": {
+		"TypeScript": {
 			"formatter": null
 		},
-		"YAML": {
+		"TSX": {
 			"formatter": null
 		},
 		"JavaScript": {
@@ -29,10 +29,10 @@
 		"JSX": {
 			"formatter": null
 		},
-		"TypeScript": {
+		"YAML": {
 			"formatter": null
 		},
-		"TSX": {
+		"JSON": {
 			"formatter": null
 		},
 		"Markdown": {

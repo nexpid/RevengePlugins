@@ -1,9 +1,11 @@
 {
 	"recommendations": [
 		"biomejs.biome",
+		"dprint.dprint",
 		"ExodiusStudios.comment-anchors",
+		"formulahendry.auto-rename-tag",
+		"kejun.markdown-alert",
 		"usernamehw.errorlens",
-		"yoavbls.pretty-ts-errors",
-		"kejun.markdown-alert"
+		"yoavbls.pretty-ts-errors"
 	]
 }

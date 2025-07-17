@@ -118,6 +118,7 @@ export default function PluginCard({
 			actions={!isDisabled
 				? [
 					{
+						label: status.hasPlugin ? "Uninstall" : "Install",
 						icon: status.hasPlugin
 							? "TrashIcon"
 							: "DownloadIcon",

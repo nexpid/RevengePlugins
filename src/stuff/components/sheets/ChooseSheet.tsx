@@ -28,8 +28,9 @@ export default function ChooseSheet({
 
 	return (
 		<ActionSheet title={title}>
-			{options.map(x => (
+			{options.map((x) => (
 				<FormRow
+					key={x.value}
 					label={x.name}
 					subLabel={x.description}
 					trailing={x.iconComponent

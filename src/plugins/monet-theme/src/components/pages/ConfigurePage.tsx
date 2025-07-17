@@ -1,4 +1,4 @@
-import { type React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
+import { React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
 import { useProxy } from "@vendetta/storage";
 import { semanticColors } from "@vendetta/ui";
 import { getAssetIDByName } from "@vendetta/ui/assets";
@@ -132,6 +132,7 @@ function WallpaperCollection({
 				)}
 				{collection.content.map(x => (
 					<Wallpaper
+						key={x.url}
 						label={x.title}
 						image={{ uri: x.url }}
 						selected={vstorage.config.wallpaper === x.url}
@@ -201,10 +202,10 @@ export const ConfigurePage = () => {
 				padding
 			>
 				{collections.map(x => (
-					<>
+					<React.Fragment key={x.label}>
 						<WallpaperCollection collection={x} />
 						<RN.View style={{ height: 8 }} />
-					</>
+					</React.Fragment>
 				))}
 				<WallpaperCollection
 					configurable={{

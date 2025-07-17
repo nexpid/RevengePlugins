@@ -43,7 +43,7 @@ const getCustomAvatar = (id: string, isStatic?: boolean) => {
 const urlExt = (url: string) => new URL(url).pathname.split(".").slice(-1)[0];
 
 export default async () => {
-	const patches = new Array<() => void>();
+	const patches: (() => void)[] = [];
 
 	await fetchData();
 	if (!data || !enabled) return () => void 0;

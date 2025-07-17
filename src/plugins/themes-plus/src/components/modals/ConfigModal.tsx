@@ -123,6 +123,7 @@ const tabs = {
 							>
 								{state.iconpack.list.map(pack => (
 									<IconpackRow
+										key={pack.id}
 										pack={pack}
 										onPress={() => {
 											vstorage.iconpack.pack = pack.id;

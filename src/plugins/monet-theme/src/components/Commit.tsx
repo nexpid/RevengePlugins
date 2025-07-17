@@ -5,10 +5,9 @@ import { getAssetIDByName } from "@vendetta/ui/assets";
 import type { PressableProps } from "react-native";
 
 import Text from "$/components/Text";
+import { getLocale } from "$/lib/intlProxy";
 import { PressableScale, Stack } from "$/lib/redesign";
 import { getDiscordTheme } from "$/types";
-
-import { getLocale } from "$/lib/intlProxy";
 import { vstorage } from "..";
 import {
 	conventionalCommitRegex,
@@ -101,8 +100,6 @@ export default function Commit({
 	state?: CommitState;
 	contextProps?: any;
 } & PressableProps) {
-	useProxy(vstorage);
-
 	const styles = stylesheet.createThemedStyleSheet({
 		androidRipple: {
 			color: semanticColors.ANDROID_RIPPLE,

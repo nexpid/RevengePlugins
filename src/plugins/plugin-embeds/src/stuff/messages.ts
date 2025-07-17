@@ -24,7 +24,9 @@ export const updateMessages = (plugin: string) => {
 				type: "MESSAGE_UPDATE",
 				message: {
 					...message,
-					content: content.startsWith(invisibleChar) ? content.slice(invisibleChar.length) : invisibleChar + content,
+					content: content.startsWith(invisibleChar)
+						? content.slice(invisibleChar.length)
+						: invisibleChar + content,
 				},
 				log_edit: false,
 			});

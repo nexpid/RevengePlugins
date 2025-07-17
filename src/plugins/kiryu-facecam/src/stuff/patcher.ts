@@ -11,7 +11,7 @@ const { ChatInput } = findByProps("ChatInput");
 const messaging = findByProps("sendMessage", "receiveMessage");
 
 export default function() {
-	const patches = new Array<() => void>();
+	const patches: (() => void)[] = [];
 
 	patches.push(
 		after("render", RN.View, ([{ children, style }], ret) => {

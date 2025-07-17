@@ -47,6 +47,7 @@ export function ImageVariableActionSheet({
 		<ActionSheet title={`${role} Image Variable`}>
 			{imageVariables.map(x => (
 				<FormRow
+					key={x.title}
 					label={x.title}
 					subLabel={x.description}
 					trailing={<FormRow.Arrow />}
@@ -339,6 +340,7 @@ export function ActivityTypeActionSheet({
 				.filter(x => typeof x === "number")
 				.map((x: any) => (
 					<FormRadioRow
+						key={x}
 						label={activityTypePreview[x]}
 						trailing={<FormRow.Arrow />}
 						selected={x === val}
@@ -363,6 +365,7 @@ export function TimestampVariableActionSheet({
 		<ActionSheet title={`Set ${role} Time Variable`}>
 			{timestampVariables.map(x => (
 				<FormRow
+					key={x.title}
 					label={x.title}
 					subLabel={x.description}
 					trailing={<FormRow.Arrow />}
@@ -523,7 +526,7 @@ export const activitySavedPrompt = ({
 		title: "Unsaved Changes",
 		content: [
 			"You have unsaved changes in ",
-			<RichText.Bold>{vstorage.activity.profile}</RichText.Bold>,
+			<RichText.Bold key="profile">{vstorage.activity.profile}</RichText.Bold>,
 			`. Are you sure you want to ${role}?`,
 		],
 		confirmText: button,

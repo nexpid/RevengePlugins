@@ -474,217 +474,215 @@ export default function AppDirectoryPage({
 							</>
 						)
 						: (
-							<>
-								{collections.map((x, i) => (
-									<>
-										<Text
-											variant="text-lg/bold"
-											color="TEXT_NORMAL"
-											style={{
-												paddingBottom: 24,
-												paddingTop: i !== 0 ? 30 : 0,
-											}}
-										>
-											{x.title}
-										</Text>
-										<RN.FlatList
-											horizontal
-											data={x.application_directory_collection_items.sort(
-												(a, b) => a.position - b.position,
-											)}
-											ItemSeparatorComponent={() => <RN.View style={{ width: 8 }} />}
-											renderItem={({ item: app }) =>
-												x.type === APICollectionType.Big
-													? (
-														<RN.Pressable
-															style={[collectionStyles.card]}
-															android_ripple={styles.androidRipple}
-															onPress={onAppPress(app)}
+							collections.map((x, i) => (
+								<React.Fragment key={x.id}>
+									<Text
+										variant="text-lg/bold"
+										color="TEXT_NORMAL"
+										style={{
+											paddingBottom: 24,
+											paddingTop: i !== 0 ? 30 : 0,
+										}}
+									>
+										{x.title}
+									</Text>
+									<RN.FlatList
+										horizontal
+										data={x.application_directory_collection_items.sort(
+											(a, b) => a.position - b.position,
+										)}
+										ItemSeparatorComponent={() => <RN.View style={{ width: 8 }} />}
+										renderItem={({ item: app }) =>
+											x.type === APICollectionType.Big
+												? (
+													<RN.Pressable
+														style={[collectionStyles.card]}
+														android_ripple={styles.androidRipple}
+														onPress={onAppPress(app)}
+													>
+														{app.image_hash && (
+															<RN.Image
+																style={collectionStyles.cardImage}
+																source={{
+																	uri:
+																		`https://cdn.discordapp.com/app-assets/application-directory/collection-items/${app.id}/${app.image_hash}.webp?size=512`,
+																}}
+																resizeMode="cover"
+															/>
+														)}
+														<RN.View
+															style={collectionStyles.cardContent}
 														>
-															{app.image_hash && (
-																<RN.Image
-																	style={collectionStyles.cardImage}
-																	source={{
-																		uri:
-																			`https://cdn.discordapp.com/app-assets/application-directory/collection-items/${app.id}/${app.image_hash}.webp?size=512`,
-																	}}
-																	resizeMode="cover"
-																/>
-															)}
-															<RN.View
-																style={collectionStyles.cardContent}
+															<Text
+																variant="text-lg/semibold"
+																color="TEXT_NORMAL"
+																style={{
+																	paddingBottom: 4,
+																}}
 															>
-																<Text
-																	variant="text-lg/semibold"
-																	color="TEXT_NORMAL"
-																	style={{
-																		paddingBottom: 4,
-																	}}
-																>
-																	{app.application.name}
-																</Text>
-																<Text
-																	variant="text-md/semibold"
-																	color="TEXT_NORMAL"
-																	lineClamp={2}
-																>
-																	{app.application
+																{app.application.name}
+															</Text>
+															<Text
+																variant="text-md/semibold"
+																color="TEXT_NORMAL"
+																lineClamp={2}
+															>
+																{app.application
+																	.directory_entry
+																	.short_description}
+															</Text>
+														</RN.View>
+													</RN.Pressable>
+												)
+												: x.type
+														=== APICollectionType.Medium
+												? (
+													<RN.Pressable
+														style={[
+															collectionStyles.card,
+															{ width: jwidth / 1.5 },
+														]}
+														android_ripple={styles.androidRipple}
+														onPress={onAppPress(app)}
+													>
+														{app.image_hash && (
+															<RN.Image
+																style={collectionStyles.cardImage}
+																source={{
+																	uri:
+																		`https://cdn.discordapp.com/app-assets/application-directory/collection-items/${app.id}/${app.image_hash}.webp?size=256`,
+																}}
+																resizeMode="cover"
+															/>
+														)}
+														<RN.View
+															style={collectionStyles.cardContent}
+														>
+															<Text
+																variant="text-md/semibold"
+																color="TEXT_NORMAL"
+															>
+																{app.application.name}
+															</Text>
+															<Text
+																variant="text-md/medium"
+																color="TEXT_MUTED"
+																style={{
+																	paddingBottom: 8,
+																}}
+															>
+																{app.application
+																	.categories[0] && (
+																	<>
+																		{app
+																			.application
+																			.categories[0]
+																			.name}
+																		<Text
+																			variant="text-md/bold"
+																			color="TEXT_MUTED"
+																			style={{
+																				opacity: 0.5,
+																			}}
+																		>
+																			{"  "}·
+																			{"  "}
+																		</Text>
+																	</>
+																)}
+																{inServers(
+																	app.application
 																		.directory_entry
-																		.short_description}
-																</Text>
-															</RN.View>
-														</RN.Pressable>
-													)
-													: x.type
-															=== APICollectionType.Medium
-													? (
-														<RN.Pressable
-															style={[
-																collectionStyles.card,
-																{ width: jwidth / 1.5 },
-															]}
-															android_ripple={styles.androidRipple}
-															onPress={onAppPress(app)}
+																		.guild_count,
+																)}
+															</Text>
+															<Text
+																variant="text-md/semibold"
+																color="TEXT_NORMAL"
+																lineClamp={2}
+															>
+																{app.application
+																	.directory_entry
+																	.short_description}
+															</Text>
+														</RN.View>
+													</RN.Pressable>
+												)
+												: (
+													<RN.Pressable
+														style={[
+															collectionStyles.card,
+															{ width: jwidth / 1.55 },
+														]}
+														android_ripple={styles.androidRipple}
+														onPress={onAppPress(app)}
+													>
+														<RN.View
+															style={collectionStyles.cardContent}
 														>
-															{app.image_hash && (
+															<RN.View
+																style={collectionStyles.smallProfile}
+															>
 																<RN.Image
-																	style={collectionStyles.cardImage}
+																	style={collectionStyles.smallAvatar}
 																	source={{
 																		uri:
-																			`https://cdn.discordapp.com/app-assets/application-directory/collection-items/${app.id}/${app.image_hash}.webp?size=256`,
+																			`https://cdn.discordapp.com/app-icons/${app.application.id}/${app.application.icon}.webp?size=60`,
 																	}}
-																	resizeMode="cover"
 																/>
-															)}
-															<RN.View
-																style={collectionStyles.cardContent}
-															>
-																<Text
-																	variant="text-md/semibold"
-																	color="TEXT_NORMAL"
+																<RN.View
+																	style={collectionStyles.smallProfileThing}
 																>
-																	{app.application.name}
-																</Text>
-																<Text
-																	variant="text-md/medium"
-																	color="TEXT_MUTED"
-																	style={{
-																		paddingBottom: 8,
-																	}}
-																>
+																	<Text
+																		variant="text-md/semibold"
+																		color="TEXT_NORMAL"
+																	>
+																		{app
+																			.application
+																			.name}
+																	</Text>
 																	{app.application
 																		.categories[0] && (
-																		<>
+																		<Text
+																			variant="text-md/medium"
+																			color="TEXT_MUTED"
+																		>
 																			{app
 																				.application
 																				.categories[0]
 																				.name}
-																			<Text
-																				variant="text-md/bold"
-																				color="TEXT_MUTED"
-																				style={{
-																					opacity: 0.5,
-																				}}
-																			>
-																				{"  "}·
-																				{"  "}
-																			</Text>
-																		</>
-																	)}
-																	{inServers(
-																		app.application
-																			.directory_entry
-																			.guild_count,
-																	)}
-																</Text>
-																<Text
-																	variant="text-md/semibold"
-																	color="TEXT_NORMAL"
-																	lineClamp={2}
-																>
-																	{app.application
-																		.directory_entry
-																		.short_description}
-																</Text>
-															</RN.View>
-														</RN.Pressable>
-													)
-													: (
-														<RN.Pressable
-															style={[
-																collectionStyles.card,
-																{ width: jwidth / 1.55 },
-															]}
-															android_ripple={styles.androidRipple}
-															onPress={onAppPress(app)}
-														>
-															<RN.View
-																style={collectionStyles.cardContent}
-															>
-																<RN.View
-																	style={collectionStyles.smallProfile}
-																>
-																	<RN.Image
-																		style={collectionStyles.smallAvatar}
-																		source={{
-																			uri:
-																				`https://cdn.discordapp.com/app-icons/${app.application.id}/${app.application.icon}.webp?size=60`,
-																		}}
-																	/>
-																	<RN.View
-																		style={collectionStyles.smallProfileThing}
-																	>
-																		<Text
-																			variant="text-md/semibold"
-																			color="TEXT_NORMAL"
-																		>
-																			{app
-																				.application
-																				.name}
 																		</Text>
-																		{app.application
-																			.categories[0] && (
-																			<Text
-																				variant="text-md/medium"
-																				color="TEXT_MUTED"
-																			>
-																				{app
-																					.application
-																					.categories[0]
-																					.name}
-																			</Text>
-																		)}
-																	</RN.View>
-																</RN.View>
-																<Text
-																	variant="text-md/medium"
-																	color="TEXT_MUTED"
-																	style={{
-																		paddingBottom: 8,
-																	}}
-																>
-																	{inServers(
-																		app.application
-																			.directory_entry
-																			.guild_count,
 																	)}
-																</Text>
-																<Text
-																	variant="text-md/semibold"
-																	color="TEXT_NORMAL"
-																	lineClamp={2}
-																>
-																	{app.application
-																		.directory_entry
-																		.short_description}
-																</Text>
+																</RN.View>
 															</RN.View>
-														</RN.Pressable>
-													)}
-										/>
-									</>
-								))}
-							</>
+															<Text
+																variant="text-md/medium"
+																color="TEXT_MUTED"
+																style={{
+																	paddingBottom: 8,
+																}}
+															>
+																{inServers(
+																	app.application
+																		.directory_entry
+																		.guild_count,
+																)}
+															</Text>
+															<Text
+																variant="text-md/semibold"
+																color="TEXT_NORMAL"
+																lineClamp={2}
+															>
+																{app.application
+																	.directory_entry
+																	.short_description}
+															</Text>
+														</RN.View>
+													</RN.Pressable>
+												)}
+									/>
+								</React.Fragment>
+							))
 						)
 				)
 				: (

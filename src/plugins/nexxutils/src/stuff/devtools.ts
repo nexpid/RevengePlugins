@@ -7,7 +7,7 @@ import { resolveSemanticColor } from "$/types";
 const ThemeStore = findByStoreName("ThemeStore");
 
 export default function() {
-	const patches = new Array<() => void>();
+	const patches: (() => void)[] = [];
 
 	const collected = new Map<
 		string,
@@ -98,7 +98,7 @@ export default function() {
 				) => {
 					collected.get(key)?.unpatch();
 
-					const ran = new Array<string>();
+					const ran: string[] = [];
 					const unpatch = before(prop, parent, args => {
 						const props = parser?.(args) ?? args[0];
 						const runFor = (

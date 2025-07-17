@@ -11,7 +11,7 @@ export interface PinToSettingsTabs {
 }
 
 export function patchSettingsPin(tabs: PinToSettingsTabs): () => void {
-	const patches = new Array<() => void>();
+	const patches: (() => void)[] = [];
 
 	let disabled = false;
 

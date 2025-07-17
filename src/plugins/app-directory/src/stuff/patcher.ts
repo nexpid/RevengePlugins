@@ -11,7 +11,7 @@ const GuildSettingsModal = findByName("GuildSettingsModal", false);
 const GuildSettingsModalLanding = findByName("GuildSettingsModalLanding", false);
 
 export default () => {
-	const patches = new Array<() => void>();
+	const patches: (() => void)[] = [];
 
 	patches.push(
 		after("default", GuildSettingsModal, (_, ret) => {

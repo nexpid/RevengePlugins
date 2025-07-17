@@ -11,7 +11,7 @@ export interface Collection {
 	content: CollectionEntry[];
 }
 
-const prefix = `${constants.github.raw}plugins/monet-theme/assets/backgrounds/`;
+const prefix = `${constants.github.raw}src/plugins/monet-theme/assets/backgrounds/`;
 
 export default [
 	{

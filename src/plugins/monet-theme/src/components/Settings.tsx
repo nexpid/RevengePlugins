@@ -81,7 +81,7 @@ export default () => {
 		},
 	});
 
-	let showMessage: string | undefined = undefined;
+	let showMessage: string | undefined;
 
 	const debug = getDebugInfo() as any;
 	const syscolors = getSysColors();

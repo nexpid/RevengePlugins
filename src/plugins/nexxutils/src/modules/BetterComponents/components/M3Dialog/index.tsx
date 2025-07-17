@@ -121,6 +121,7 @@ export default function({
 			<RN.View style={styles.actions}>
 				{things.map(x => (
 					<TextButton
+						key={x.loading}
 						color={x.color}
 						label={x.text}
 						disabled={x.base && isConfirmButtonDisabled}

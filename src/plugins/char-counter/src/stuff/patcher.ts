@@ -1,5 +1,5 @@
 import { findByName } from "@vendetta/metro";
-import { React, ReactNative as RN } from "@vendetta/metro/common";
+import { React } from "@vendetta/metro/common";
 import { after } from "@vendetta/patcher";
 import { findInReactTree } from "@vendetta/utils";
 

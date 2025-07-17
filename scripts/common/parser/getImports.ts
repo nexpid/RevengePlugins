@@ -1,8 +1,8 @@
 import { createHash } from "node:crypto";
 import { dirname, extname, join, resolve } from "node:path";
 
-import { existsSync } from "fs";
-import { readFile } from "fs/promises";
+import { existsSync } from "node:fs";
+import { readFile } from "node:fs/promises";
 
 import { logDebug } from "../statistics/print";
 
@@ -16,7 +16,7 @@ export function slashJoin(...paths: string[]) {
 const baseExtensions = [".ts", ".js", ".mjs", ".cjs", ".d.ts"];
 const jsxExtensions = [
 	...baseExtensions,
-	...baseExtensions.map(ext => ext + "x"),
+	...baseExtensions.map(ext => `${ext}x`),
 ];
 export const allExtensions = [
 	...jsxExtensions,

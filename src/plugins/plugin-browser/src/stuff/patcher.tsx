@@ -13,7 +13,7 @@ import { getChanges, initThing } from "./pluginChecker";
 export let pluginsEmitter: Emitter;
 
 export default (): () => void => {
-	const patches = new Array<any>();
+	const patches: (any)[] = [];
 	patches.push(
 		patchSettingsPin({
 			key: plugin.manifest.name,

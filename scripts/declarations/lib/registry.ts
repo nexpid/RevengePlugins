@@ -2,9 +2,9 @@ import { basename, join } from "node:path";
 import { PassThrough } from "node:stream";
 import { gunzipSync } from "node:zlib";
 
+import { existsSync } from "node:fs";
+import { mkdir, readFile } from "node:fs/promises";
 import { bundle } from "dts-bundle";
-import { existsSync } from "fs";
-import { mkdir, readFile } from "fs/promises";
 import picocolors from "picocolors";
 import { extract } from "tar-fs";
 

@@ -1,5 +1,5 @@
-import { readdir, readFile, writeFile } from "fs/promises";
-import { basename, dirname, join } from "path";
+import { readdir, readFile, writeFile } from "node:fs/promises";
+import { basename, dirname, join } from "node:path";
 import modIcons from "plugins/themes-plus/src/stuff/modIcons";
 
 function replaceHook(str: string, hook: string, replacement: string) {

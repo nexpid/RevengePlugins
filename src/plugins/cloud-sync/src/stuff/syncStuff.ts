@@ -141,7 +141,7 @@ export async function importData(data: UserData, options: SyncImportOptions) {
 
 	const status = { plugins: 0, themes: 0, fonts: 0 };
 	let failedAny = false;
-	let selFont: FontDefinition | undefined = undefined;
+	let selFont: FontDefinition | undefined;
 
 	const { bunny } = window as any;
 

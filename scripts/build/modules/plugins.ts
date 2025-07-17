@@ -1,5 +1,5 @@
 import { readdir } from "node:fs/promises";
-import { Worker } from "node:worker_threads";
+import type { Worker } from "node:worker_threads";
 
 import {
 	bench,
@@ -75,7 +75,10 @@ export function buildPlugin(
 						plugin.prcess
 						&& finishUp.add({ prcess: plugin.prcess, worker });
 				} else if (usedWorkers <= 0) {
-					workers.forEach(x => x.emit("finished")), workerResolves.res();
+					for (const worker of workers) {
+						worker.emit("finished");
+					}
+					workerResolves.res();
 				}
 			} else if (status.result === "nay") {
 				if (!silent) logScopeFailed(label);

@@ -5,7 +5,7 @@ import type { FullPlugin } from "../types";
 import constants from "./constants";
 import { properLink } from "./util";
 
-let lastPluginCache = new Array<string>();
+let lastPluginCache: string[] = [];
 export function getChanges(): string[] {
 	if (!lastPluginCache[0] || !vstorage.pluginCache[0]) return [];
 	return lastPluginCache.filter(id => !vstorage.pluginCache.includes(id));

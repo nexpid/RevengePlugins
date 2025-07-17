@@ -10,7 +10,7 @@ import { unsubAuthStore } from "../stores/AuthorizationStore";
 import { unsubCacheStore } from "../stores/CacheStore";
 
 export default (): () => void => {
-	const patches = new Array<any>();
+	const patches: (any)[] = [];
 	patches.push(
 		patchSettingsPin({
 			key: plugin.manifest.name,

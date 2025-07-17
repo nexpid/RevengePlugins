@@ -20,11 +20,11 @@ export default function useLocalPinned(channelId?: string) {
 
 	React.useEffect(() => {
 		(async () => {
-			const parsed = new Array<{
+			const parsed: ({
 				message: any;
 				channelId: string;
 				channel?: any;
-			}>();
+			})[] = [];
 
 			const raw = channelId ? getPins(channelId) : getAllPins();
 			for (let i = 0; i < raw.length; i++) {

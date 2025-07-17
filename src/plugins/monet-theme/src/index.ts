@@ -59,7 +59,7 @@ export const vstorage = storage as {
 	};
 };
 
-export const patches = new Array<any>();
+export const patches: (any)[] = [];
 
 export default {
 	settings,

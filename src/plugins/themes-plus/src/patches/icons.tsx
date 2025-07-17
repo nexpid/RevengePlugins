@@ -1,5 +1,5 @@
 import { findByName } from "@vendetta/metro";
-import { React, ReactNative as RN } from "@vendetta/metro/common";
+import { ReactNative as RN } from "@vendetta/metro/common";
 import { before, instead } from "@vendetta/patcher";
 import { getAssetByID, getAssetIDByName } from "@vendetta/ui/assets";
 

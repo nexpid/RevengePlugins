@@ -7,8 +7,7 @@ const useProvider = (
 ): string => {
 	const url = urlObj.toString();
 
-	const query = new Array<string>();
-	urlObj.searchParams.forEach((_, key) => query.push(key));
+	const query = [...urlObj.searchParams.keys()];
 
 	// should we redirect?
 	if (vstorage.config.redirect && provider.redirections) {
@@ -25,10 +24,10 @@ const useProvider = (
 	}
 
 	// apply rules & referrals
-	const toRemove = new Array<any>().concat(
+	const toRemove = [
 		provider.rules ?? [],
 		(vstorage.config.referrals && provider.referralMarketing) ?? [],
-	);
+	].flat();
 
 	if (toRemove.length > 0 && query.length > 0) {
 		for (const rule of toRemove) {

@@ -201,8 +201,9 @@ export default function AppInfoPage({
 							)}
 						/>
 						<RN.View style={styles.carouselDots}>
-							{carouselIndexContent.map(i => (
+							{carouselIndexContent.map((x) => (
 								<RN.Animated.View
+									key={x}
 									style={[
 										styles.carouselDot,
 										{
@@ -213,7 +214,7 @@ export default function AppInfoPage({
 													inputRange: carouselIndexContent,
 													outputRange: carouselIndexContent.map(
 														j =>
-															i === j
+															x === j
 																? styles
 																	.carouselDotActive
 																	.backgroundColor
@@ -305,7 +306,7 @@ export default function AppInfoPage({
 					app.directory_entry.detailed_description,
 					app.directory_entry.short_description,
 				).map(({ title, content }, i, a) => (
-					<>
+					<React.Fragment key={title}>
 						<TableRowGroupTitle title={title} />
 						<Text
 							variant="text-md/normal"
@@ -316,7 +317,7 @@ export default function AppInfoPage({
 						>
 							{parse(content.join("\n"))}
 						</Text>
-					</>
+					</React.Fragment>
 				))}
 			</RN.View>
 			{detailedInfo.directory_entry.popular_application_commands && (
@@ -327,6 +328,7 @@ export default function AppInfoPage({
 					{detailedInfo.directory_entry.popular_application_commands.map(
 						(x, i, a) => (
 							<RN.View
+								key={x.id}
 								style={[
 									styles.popularCommand,
 									{
@@ -362,6 +364,7 @@ export default function AppInfoPage({
 				<TableRowGroup>
 					{...(app.directory_entry.external_urls.map(x => (
 						<TableRow
+							key={x.url}
 							label={x.name}
 							icon={
 								<TableRowIcon

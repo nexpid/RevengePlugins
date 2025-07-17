@@ -44,7 +44,6 @@ declare const Buffer: {
 	};
 };
 
-// biome-ignore lint/correctness/noUnusedVariables: This is used
 interface Window {
 	nx?: {
 		readonly semantic: Record<

@@ -1,5 +1,5 @@
 import { findByName } from "@vendetta/metro";
-import { React, ReactNative as RN } from "@vendetta/metro/common";
+import { ReactNative as RN } from "@vendetta/metro/common";
 import { useProxy } from "@vendetta/storage";
 import { showConfirmationAlert } from "@vendetta/ui/alerts";
 

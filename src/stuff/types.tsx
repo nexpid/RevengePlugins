@@ -154,7 +154,7 @@ export function deepEquals(x: any, y: any) {
 		if (Object.keys(x).length !== Object.keys(y).length) return false;
 
 		for (const prop in x) {
-			if (Object.prototype.hasOwnProperty.call(y, prop)) {
+			if (Object.hasOwn(y, prop)) {
 				if (!deepEquals(x[prop], y[prop])) return false;
 			} else return false;
 		}

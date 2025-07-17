@@ -171,7 +171,7 @@ const services = {
 			};
 
 			if (type === "user") {
-				let tracks = new Array<any>();
+				let tracks: (any)[] = [];
 
 				const tracksRes = await fetch(
 					soundcloudUrl(

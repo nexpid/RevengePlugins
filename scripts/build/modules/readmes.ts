@@ -64,8 +64,8 @@ const shields = {
 function makeBadge(badge: import("../types").Readmes.Badge, mdLink?: boolean) {
 	const chunks = [
 		badge.text,
-		badge.value && badge.value?.text,
-		badge.value && badge.value?.color?.slice(1),
+		badge.value?.text,
+		badge.value?.color?.slice(1),
 		!badge.value && badge.color.slice(1),
 	]
 		.filter(x => !!x)
@@ -87,7 +87,8 @@ function makeBadge(badge: import("../types").Readmes.Badge, mdLink?: boolean) {
 		return mdLink
 			? `[${img}](${badge.link})`
 			: `<a href=${JSON.stringify(badge.link)}>\n${img}\n</a>`;
-	} else return img;
+	}
+	return img;
 }
 
 function makeEndpointBadge(
@@ -112,7 +113,8 @@ function makeEndpointBadge(
 		return mdLink
 			? `[${img}](${badge.link})`
 			: `<a href=${JSON.stringify(badge.link)}>\n${img}\n</a>`;
-	} else return img;
+	}
+	return img;
 }
 
 async function listPluginMetadatas(noDev?: boolean) {
@@ -163,7 +165,7 @@ async function listPluginMetadatas(noDev?: boolean) {
 					{
 						text: "view_code",
 						color: LabelColor.CodeLink,
-						link: links.code + plugin + "/",
+						link: `${links.code + plugin}/`,
 					},
 					status.external?.backend
 						? {
@@ -318,7 +320,7 @@ export async function writeRootReadme() {
 		},
 	);
 
-	await writeFile(
+	await dprint.saveAndFormat(
 		"README.md",
 		[
 			`${mdNote}\n`,
@@ -406,27 +408,29 @@ export async function writeRootReadme() {
 
 			"## 📃 Plugin List\n",
 
-			Object.entries(categories)
-				.map(([status, { label }]) =>
-					[
-						`### ${label}\n`,
-						...plugins
-							.filter(plugin => plugin.status === status)
-							.map(plugin =>
-								[
-									`- ${plugin.name} — ${plugin.description}`,
-									plugin.discontinuedFor
-									&& `  - **Discontinued due to:** ${plugin.discontinuedFor}`,
-									`  - ${
-										plugin.badges.links.map(link => makeBadge(link, true)).join("  ")
-									}`,
-								]
-									.filter(x => !!x)
-									.join("\n")
-							),
-					].join("\n")
-				)
-				.join("\n\n") + "\n",
+			`${
+				Object.entries(categories)
+					.map(([status, { label }]) =>
+						[
+							`### ${label}\n`,
+							...plugins
+								.filter(plugin => plugin.status === status)
+								.map(plugin =>
+									[
+										`- ${plugin.name} — ${plugin.description}`,
+										plugin.discontinuedFor
+										&& `  - **Discontinued due to:** ${plugin.discontinuedFor}`,
+										`  - ${
+											plugin.badges.links.map(link => makeBadge(link, true)).join("  ")
+										}`,
+									]
+										.filter(x => !!x)
+										.join("\n")
+								),
+						].join("\n")
+					)
+					.join("\n\n")
+			}\n`,
 
 			"## 📜 Licensing\n",
 

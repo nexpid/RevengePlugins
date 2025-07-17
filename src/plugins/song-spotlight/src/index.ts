@@ -20,7 +20,7 @@ export const initState = {
 };
 
 export const showDebugLogs = false;
-export const debugLogs = new Array<string>();
+export const debugLogs: string[] = [];
 export function debugLog(...messages: any[]) {
 	debugLogs.push(
 		`[${new Date().toISOString()}] ${messages.map(x => inspect(x)).join(", ")}`,
@@ -28,7 +28,7 @@ export function debugLog(...messages: any[]) {
 }
 
 export const lang = new Lang("song_spotlight");
-const patches = new Array<any>();
+const patches: (any)[] = [];
 export default {
 	onLoad: () => {
 		debugLog("Plugin started");

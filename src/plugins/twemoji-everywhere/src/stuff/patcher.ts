@@ -6,7 +6,7 @@ import CustomTwemoji from "../components/CustomTwemoji";
 import { getSrc, parse } from "./twemoji";
 
 export default function() {
-	const patches = new Array<() => void>();
+	const patches: (() => void)[] = [];
 
 	patches.push(
 		before("render", RN.Image, args => {
@@ -26,7 +26,7 @@ export default function() {
 
 	patches.push(
 		before("render", RN.Text, ([x]) => {
-			let children = new Array<any>();
+			let children: (any)[] = [];
 
 			const style = RN.StyleSheet.flatten(x.style) ?? {};
 			const twemoji = (src: string) =>

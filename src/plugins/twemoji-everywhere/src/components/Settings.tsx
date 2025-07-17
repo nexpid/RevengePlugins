@@ -63,12 +63,12 @@ export default () => {
 				icon={getAssetIDByName("SettingsIcon")}
 			>
 				{Object.entries(normalPacks).map(([id, pack]) => (
-					<Pack emoji={emoji} pack={pack} id={id as any} />
+					<Pack key={id} emoji={emoji} pack={pack} id={id as any} />
 				))}
 			</BetterTableRowGroup>
 			<BetterTableRowGroup nearby>
 				{Object.entries(sillyPacks).map(([id, pack]) => (
-					<Pack emoji={emoji} pack={pack} id={id as any} />
+					<Pack key={id} emoji={emoji} pack={pack} id={id as any} />
 				))}
 			</BetterTableRowGroup>
 		</RN.ScrollView>

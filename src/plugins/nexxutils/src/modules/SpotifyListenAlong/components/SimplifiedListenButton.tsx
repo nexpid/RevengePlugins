@@ -1,4 +1,4 @@
-import { React, ReactNative as RN } from "@vendetta/metro/common";
+import { ReactNative as RN } from "@vendetta/metro/common";
 
 import { IconButton } from "$/lib/redesign";
 

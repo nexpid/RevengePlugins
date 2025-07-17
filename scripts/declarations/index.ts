@@ -1,7 +1,7 @@
 import { join } from "node:path";
 
-import { existsSync } from "fs";
-import { readdir, readFile, rm } from "fs/promises";
+import { existsSync } from "node:fs";
+import { readFile, readdir, rm } from "node:fs/promises";
 
 import {
 	bench,

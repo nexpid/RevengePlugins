@@ -40,7 +40,7 @@ function parseVariablesToRules(text: string) {
 			} else if (kind === "select" || kind === "plural") {
 				// map replacers into an array
 				const replacers = Array.from(
-					(rawReplacers + "}").matchAll(replacerRegExp),
+					(`${rawReplacers}}`).matchAll(replacerRegExp),
 				).map(x => x[1]);
 				const isBool = ["true", "false", "other"].every(x => replacers.includes(x))
 					&& replacers.length === 3;
@@ -73,11 +73,11 @@ export async function fixPluginLangs(filter: string[] = []) {
 		if (!plugin) continue;
 
 		const translations: Record<string, Record<string, string>> = JSON.parse(
-			await readFile(join("lang/values", plugin + ".json"), "utf-8"),
+			await readFile(join("lang/values", `${plugin}.json`), "utf-8"),
 		);
 
 		const base: Record<string, string> = JSON.parse(
-			await readFile(join("lang/values/base", plugin + ".json"), "utf8"),
+			await readFile(join("lang/values/base", `${plugin}.json`), "utf8"),
 		);
 
 		for (const entries of Object.values(translations)) {
@@ -95,7 +95,7 @@ export async function fixPluginLangs(filter: string[] = []) {
 
 		// minify but also not really
 		await writeFile(
-			join("lang/values", plugin + ".json"),
+			join("lang/values", `${plugin}.json`),
 			`{\n${
 				Object.entries(translations)
 					.sort((a, b) => a[0].localeCompare(b[0]))
@@ -125,7 +125,7 @@ export async function makeLangDefs() {
 		);
 
 		const values = JSON.parse(
-			await readFile(join("lang/values/base", plugin + ".json"), "utf8"),
+			await readFile(join("lang/values/base", `${plugin}.json`), "utf8"),
 		);
 
 		const keyRulesMap: Record<string, import("../types").Lang.Rule[]> = {};
