@@ -13,10 +13,10 @@ const RowManager = findByName("RowManager");
 const SelectedChannelStore = findByStoreName("SelectedChannelStore");
 const UserStore = findByStoreName("UserStore");
 const UploadAttachmentStore = findByStoreName("UploadAttachmentStore");
+const DraftStore = findByStoreName("DraftStore");
 
 const { receiveMessage } = findByProps("receiveMessage");
 const { createBotMessage } = findByProps("createBotMessage");
-const { getDraft } = findByProps("getDraft");
 
 const getAttachments = async (channelId: string) =>
 	await Promise.all(
@@ -45,7 +45,7 @@ const getAttachments = async (channelId: string) =>
 
 export default async function openPreview() {
 	const channelId = SelectedChannelStore.getChannelId();
-	const content = getDraft(channelId, 0);
+	const content = DraftStore.getDraft(channelId, 0);
 	if (
 		content.trim() === ""
 		&& !UploadAttachmentStore.getUploads(channelId).length
