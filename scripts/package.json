@@ -1,6 +1,5 @@
 {
 	"devDependencies": {
-		"@types/node": "^24.0.14",
-		"@types/chokidar": "^2.1.7"
+		"@types/node": "^24.0.14"
 	}
 }

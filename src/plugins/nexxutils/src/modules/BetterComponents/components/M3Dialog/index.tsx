@@ -5,6 +5,7 @@ import { semanticColors } from "@vendetta/ui";
 import Text from "$/components/Text";
 
 import TextButton from "./TextButton";
+
 const Alerts = findByProps("openLazy", "close");
 
 export default function({

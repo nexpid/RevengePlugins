@@ -1,8 +1,6 @@
-import { React, stylesheet } from "@vendetta/metro/common";
-
 import Text from "$/components/Text";
 import { Reanimated } from "$/deps";
-
+import { React, stylesheet } from "@vendetta/metro/common";
 import { before } from "@vendetta/patcher";
 import { vstorage } from "..";
 import getMessageLength, { display, hasSLM } from "../stuff/getMessageLength";

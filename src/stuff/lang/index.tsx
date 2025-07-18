@@ -1,9 +1,7 @@
+import { getLocale } from "$/lib/intlProxy";
+import { fluxSubscribe } from "$/types";
 import { findByName } from "@vendetta/metro";
 import { ReactNative as RN } from "@vendetta/metro/common";
-
-import { fluxSubscribe } from "$/types";
-
-import { getLocale } from "$/lib/intlProxy";
 import type LangValues from "../../../lang/defs";
 import { useLangStore } from "./LangStore";
 

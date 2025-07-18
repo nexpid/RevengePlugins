@@ -2,6 +2,7 @@ import { ReactNative as RN } from "@vendetta/metro/common";
 import rawEmojiRegex from "twemoji-parser/dist/lib/regex";
 
 import { type lang, vstorage } from "..";
+
 const emojiRegex = new RegExp(`(${rawEmojiRegex.source})`, rawEmojiRegex.flags);
 
 export interface EmojiPack {

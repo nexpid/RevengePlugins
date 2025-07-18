@@ -10,9 +10,8 @@ import { Search } from "@vendetta/ui/components";
 
 import Text from "$/components/Text";
 import usePromise from "$/hooks/usePromise";
-import { managePage } from "$/lib/ui";
-
 import { getLocale } from "$/lib/intlProxy";
+import { managePage } from "$/lib/ui";
 import {
 	type APIAppDirectorySearch,
 	type APICollectionApplication,

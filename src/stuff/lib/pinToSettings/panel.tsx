@@ -1,11 +1,10 @@
 // Based on: https://github.com/pyoncord/Bunny/blob/dev/src/lib/ui/settings/patches/panel.tsx
 
+import { logger } from "@vendetta";
 import { NavigationNative } from "@vendetta/metro/common";
 import { after } from "@vendetta/patcher";
 import { Forms } from "@vendetta/ui/components";
 import { findInReactTree } from "@vendetta/utils";
-
-import { logger } from "@vendetta";
 import intlProxy from "../intlProxy";
 import type { PinToSettingsTabs } from ".";
 

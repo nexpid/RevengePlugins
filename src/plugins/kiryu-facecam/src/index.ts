@@ -3,7 +3,6 @@ import { storage } from "@vendetta/plugin";
 import { Lang } from "$/lang";
 
 import Settings from "./components/Settings";
-import patcher from "./stuff/patcher";
 
 export const vstorage = storage as {
 	styling: {

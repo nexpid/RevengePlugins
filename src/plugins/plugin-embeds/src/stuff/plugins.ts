@@ -1,11 +1,9 @@
-import { installPlugin, plugins, removePlugin } from "@vendetta/plugins";
-import { semanticColors } from "@vendetta/ui";
-
 import { resolveSemanticColor } from "$/types";
-
 import { logger } from "@vendetta";
 import { findByProps } from "@vendetta/metro";
 import { ReactNative } from "@vendetta/metro/common";
+import { installPlugin, plugins, removePlugin } from "@vendetta/plugins";
+import { semanticColors } from "@vendetta/ui";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 import { updateMessages } from "./messages";

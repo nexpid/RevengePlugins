@@ -1,11 +1,9 @@
-import { React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
-import { semanticColors } from "@vendetta/ui";
-
 import Text from "$/components/Text";
 import { Reanimated } from "$/deps";
 import { TextStyleSheet } from "$/types";
-
+import { React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
 import { before } from "@vendetta/patcher";
+import { semanticColors } from "@vendetta/ui";
 import { vstorage } from "..";
 import getMessageLength, { display, hasSLM } from "../stuff/getMessageLength";
 import type { ChatInputProps } from "../stuff/patcher";

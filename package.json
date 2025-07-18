@@ -14,7 +14,7 @@
 		"crowdin": "tsx scripts/crowdin/index.ts",
 		"declarations": "tsx scripts/declarations/index.ts",
 		"ci": "pnpm lint && pnpm format && tsc --noEmit",
-		"lint": "biome lint --write",
+		"lint": "biome check --fix --unsafe",
 		"format": "dprint fmt"
 	},
 	"dependencies": {
