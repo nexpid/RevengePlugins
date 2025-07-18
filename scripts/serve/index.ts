@@ -100,7 +100,6 @@ let chokidarReady = false;
 watch("dist", {
 	ignoreInitial: false,
 })
-	// @ts-expect-error chokidar weird types
 	.on("all", async (event, _path) => {
 		if (!["add", "change"].includes(event) || !_path.endsWith("manifest.json")) return;
 		const path = _path.replace(/\\/g, "/");
