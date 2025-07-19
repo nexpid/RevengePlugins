@@ -10,7 +10,7 @@ import { showToast } from "@vendetta/ui/toasts";
 import { BetterTableRowGroup } from "$/components/BetterTableRow";
 import Text from "$/components/Text";
 import { Reanimated } from "$/deps";
-import { Button } from "$/lib/redesign";
+import { Button, IconButton } from "$/lib/redesign";
 import { managePage } from "$/lib/ui";
 import { deepEquals } from "$/types";
 
@@ -159,24 +159,39 @@ export default function Settings({ newData }: { newData?: UserData }) {
 	managePage(
 		{
 			headerRight: () => (
-				<Button
-					size="sm"
-					variant={isDataModified && !isFetching ? "primary" : "secondary"}
-					disabled={!isDataModified || isFetching}
-					loading={isFetching}
-					text={lang.format("settings.update_songs", {})}
-					onPress={() => {
-						setIsFetching(true);
-						saveData(data!)
-							.then(() =>
-								showToast(
-									lang.format("toast.updated_songs", {}),
-									getAssetIDByName("UploadIcon"),
+				<>
+					<IconButton
+						size="sm"
+						variant="tertiary"
+						icon={getAssetIDByName("CopyIcon")}
+						onPress={() => {
+							clipboard.setString(JSON.stringify(data ?? []));
+							showToast(
+								lang.format("toast.copied_data", {}),
+								getAssetIDByName("CopyIcon"),
+							);
+						}}
+						style={{ marginRight: 8 }}
+					/>
+					<Button
+						size="sm"
+						variant={isDataModified && !isFetching ? "primary" : "secondary"}
+						disabled={!isDataModified || isFetching}
+						loading={isFetching}
+						text={lang.format("settings.update_songs", {})}
+						onPress={() => {
+							setIsFetching(true);
+							saveData(data!)
+								.then(() =>
+									showToast(
+										lang.format("toast.updated_songs", {}),
+										getAssetIDByName("UploadIcon"),
+									)
 								)
-							)
-							.finally(() => setIsFetching(false));
-					}}
-				/>
+								.finally(() => setIsFetching(false));
+						}}
+					/>
+				</>
 			),
 		},
 		null,

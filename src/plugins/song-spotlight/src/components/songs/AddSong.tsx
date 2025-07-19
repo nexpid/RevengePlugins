@@ -54,7 +54,6 @@ export default function AddSong({ disabled }: { disabled: boolean }) {
 					cancelText: lang.format("alert.add_song.cancel", {}),
 					async onConfirm() {
 						const value = getInputAlertMessage("addSong");
-						console.log(value);
 						try {
 							new URL(value);
 						} catch {
