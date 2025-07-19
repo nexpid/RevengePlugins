@@ -2,9 +2,12 @@ import { logger } from "@vendetta";
 
 import type { AppleMusicSong, Song, SoundcloudSong, SpotifySong } from "../../types";
 
-// https://music.apple.com/assets/index-923f60bc.js
-const appleMusicDevToken =
-	"eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IldlYlBsYXlLaWQifQ.eyJpc3MiOiJBTVBXZWJQbGF5IiwiaWF0IjoxNzMyMTMyODU5LCJleHAiOjE3MzkzOTA0NTksInJvb3RfaHR0cHNfb3JpZ2luIjpbImFwcGxlLmNvbSJdfQ.QmJkRh6Ds6mPQ3fnyi7lxz32UdU8hJWZokV9AiwKQbSeZOfwkitUfrz2lbFCleLAQZCJQBPeYYXubbq8VcgC5A";
+const appleMusicSource = "https://music.apple.com";
+const appleMusicSrcMatcher = /src="(\/assets\/index-\w+\.js)"/i;
+let cachedAppleMusicSrc: string;
+
+const appleMusicTokenMatcher = /\w+="(ey.*?)"/i;
+let cachedAppleMusicToken: string;
 
 interface SongInfoBase {
 	service: Song["service"];
@@ -276,12 +279,38 @@ const services = {
 		}
 	},
 	async applemusic({ service, type, id }: AppleMusicSong) {
+		let token: string | undefined = cachedAppleMusicToken;
+		if (!token) {
+			// fetch the javascript file with the token
+			let index: string | undefined = cachedAppleMusicSrc;
+			if (!index) {
+				index = await fetch(`${appleMusicSource}/us/new`, {
+					headers: {
+						origin: appleMusicSource,
+					},
+				}).then(x => x.text()).then(x => x.match(appleMusicSrcMatcher)?.[1]);
+			}
+			if (!index) return false;
+
+			cachedAppleMusicSrc = index;
+
+			// parse the token from the javascript file
+			token = await fetch(`${appleMusicSource}${index}`, {
+				headers: {
+					origin: appleMusicSource,
+				},
+			}).then(x => x.text()).then(x => x.match(appleMusicTokenMatcher)?.[1]);
+		}
+		if (!token) return false;
+
+		cachedAppleMusicToken = token;
+
 		const res = await fetch(
 			`https://amp-api.music.apple.com/v1/catalog/us/${type}s/${id}?include=songs`,
 			{
 				headers: {
-					authorization: `Bearer ${appleMusicDevToken}`,
-					origin: "https://music.apple.com",
+					authorization: `Bearer ${token}`,
+					origin: appleMusicSource,
 				},
 			},
 		);
