@@ -29,6 +29,7 @@ export const updateMessages = (plugin: string) => {
 						: invisibleChar + content,
 				},
 				log_edit: false,
+				otherPluginBypass: true,
 			});
 		}
 	}
