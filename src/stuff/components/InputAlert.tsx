@@ -5,14 +5,14 @@ import Text from "./Text";
 
 const messageMap = new Map<string, string>();
 
-export function getInputAlertMessage(key: string) {
-	const val = messageMap.get(key) ?? "";
-	messageMap.delete(key);
+export function getInputAlertMessage(id: string) {
+	const val = messageMap.get(id) ?? "";
+	messageMap.delete(id);
 	return val;
 }
 
 export function InputAlert({
-	key,
+	id,
 	defaultValue = "",
 	placeholder,
 	title,
@@ -20,7 +20,7 @@ export function InputAlert({
 	errorMessage,
 	validate,
 }: {
-	key: string;
+	id: string;
 	defaultValue?: string;
 	placeholder?: string;
 	title?: React.ReactNode;
@@ -30,7 +30,7 @@ export function InputAlert({
 }) {
 	const [value, setValue] = React.useState(defaultValue);
 	const [error, setError] = React.useState(false);
-	messageMap.set(key, value);
+	messageMap.set(id, value);
 
 	return (
 		<Stack

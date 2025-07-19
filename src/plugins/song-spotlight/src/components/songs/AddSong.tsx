@@ -39,7 +39,7 @@ export default function AddSong({ disabled }: { disabled: boolean }) {
 					title: lang.format("alert.add_song.title", {}),
 					content: (
 						<InputAlert
-							key="addSong"
+							id="addSong"
 							title={Lang.basicFormat(
 								lang.format("alert.add_song.description", {
 									services_seperated_by_commas: humanReadableServices.join(", "),
@@ -54,6 +54,7 @@ export default function AddSong({ disabled }: { disabled: boolean }) {
 					cancelText: lang.format("alert.add_song.cancel", {}),
 					async onConfirm() {
 						const value = getInputAlertMessage("addSong");
+						console.log(value);
 						try {
 							new URL(value);
 						} catch {

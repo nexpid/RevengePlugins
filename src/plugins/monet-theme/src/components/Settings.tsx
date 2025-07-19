@@ -167,7 +167,7 @@ export default () => {
 								title: "Enter Repainter link",
 								content: (
 									<InputAlert
-										key="repainterLink"
+										id="repainterLink"
 										defaultValue={link}
 										placeholder="https://repainter.app/themes/123ABC"
 										importClipboard="Import from clipboard"
