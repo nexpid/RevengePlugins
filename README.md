@@ -49,7 +49,7 @@
 
 - Char Counter — Adds a character counter above the chat input
   - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/char-counter) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/char-counter/)
-- Clean URLs — Removes tracking garbage from links you send and receive
+- Clean URLs — Removes tracking garbage from links sent and received
   - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/clean-urls) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/clean-urls/)
 - Cloud Sync — Syncs your plugins, themes and fonts to the cloud
   - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/cloud-sync) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/cloud-sync/) [<img alt="view_backend_code" src="https://img.shields.io/badge/view_backend_code-494d64?style=for-the-badge" />](https://github.com/nexpid/CloudSync)

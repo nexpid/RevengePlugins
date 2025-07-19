@@ -15,4 +15,4 @@
 Clean URLs
 </h1>
 
-Removes tracking garbage from links you send and receive
+Removes tracking garbage from links sent and received
