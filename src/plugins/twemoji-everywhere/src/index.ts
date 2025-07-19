@@ -4,20 +4,22 @@ import { storage } from "@vendetta/plugin";
 import { Lang } from "$/lang";
 
 import Settings from "./components/Settings";
+import { emojiPacks, type Pack } from "./stuff/packs";
 import patcher from "./stuff/patcher";
-import type { emojipacks } from "./stuff/twemoji";
 
 export const vstorage = storage as {
-	emojipack: keyof typeof emojipacks;
+	emojipack: Pack;
 };
 
 export const lang = new Lang("twemoji_everywhere");
 
 export function onLoad() {
-	vstorage.emojipack ??= RN.Platform.select({
-		default: "default",
-		ios: "twemoji",
-	});
+	if (!emojiPacks[vstorage.emojipack]) {
+		vstorage.emojipack = RN.Platform.select({
+			default: "default",
+			ios: "twemoji",
+		});
+	}
 }
 
 export const onUnload = patcher();

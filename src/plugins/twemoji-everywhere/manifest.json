@@ -1,6 +1,6 @@
 {
 	"name": "Twemoji Everywhere",
-	"description": "Turns all (possible) system emoji into Twemoji 👋😀🎉",
+	"description": "Turns all system emoji used on Discord into Twemoji! 👋😀🎉",
 	"authors": [
 		{
 			"name": "nexpid",

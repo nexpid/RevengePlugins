@@ -2,7 +2,6 @@ import type {
 	ImageSourcePropType,
 	PressableProps,
 	TextInputProps,
-	View,
 	ViewProps,
 } from "react-native";
 import type { SharedValue } from "react-native-reanimated";
@@ -153,7 +152,7 @@ export type Tabs = React.FC<{
 	state: controlState;
 }>;
 
-export type Card = View;
+export type Card = React.FC<ViewProps>;
 
 export type Stack = React.FC<
 	React.PropsWithChildren<

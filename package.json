@@ -21,15 +21,12 @@
 		"@nexpid/vdp-shared": "^1.0.2",
 		"@swc/core": "^1.10.7",
 		"dts-bundle": "^0.7.3",
+		"emoji-regex": "^10.4.0",
 		"esbuild": "^0.20.1",
-		"fflate": "^0.8.2",
 		"fuzzysort": "^3.1.0",
 		"image-size": "2.0.2",
 		"mime": "^4.0.7",
-		"tar-fs": "3.0.8",
-		"tsx": "4.19.4",
-		"twemoji-parser": "^14.0.0",
-		"ws": "^8.18.2"
+		"tsx": "4.19.4"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.1.2",
@@ -39,8 +36,10 @@
 		"chokidar": "^4.0.3",
 		"detect-libc": "^2.0.4",
 		"picocolors": "^1.1.1",
+		"tar-fs": "3.0.8",
 		"typescript": "^5.8.3",
 		"vendetta-types": "^2.4.21",
+		"ws": "^8.18.2",
 		"zustand": "^4.5.5"
 	},
 	"pnpm": {

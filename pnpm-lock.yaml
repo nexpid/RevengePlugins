@@ -25,12 +25,12 @@ importers:
       dts-bundle:
         specifier: ^0.7.3
         version: 0.7.3
+      emoji-regex:
+        specifier: ^10.4.0
+        version: 10.4.0
       esbuild:
         specifier: ^0.20.1
         version: 0.20.2
-      fflate:
-        specifier: ^0.8.2
-        version: 0.8.2
       fuzzysort:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=7d2bfee4383dbe57e7f3cf7fb56e46de30a9f1bc072e21a8b4820a32c5a4b10a)
@@ -40,18 +40,9 @@ importers:
       mime:
         specifier: ^4.0.7
         version: 4.0.7
-      tar-fs:
-        specifier: 3.0.8
-        version: 3.0.8
       tsx:
         specifier: 4.19.4
         version: 4.19.4
-      twemoji-parser:
-        specifier: ^14.0.0
-        version: 14.0.0
-      ws:
-        specifier: ^8.18.2
-        version: 8.18.2
     devDependencies:
       '@biomejs/biome':
         specifier: ^2.1.2
@@ -74,12 +65,18 @@ importers:
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
+      tar-fs:
+        specifier: 3.0.8
+        version: 3.0.8
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
       vendetta-types:
         specifier: ^2.4.21
         version: 2.4.21(react-native@0.74.3(@babel/core@7.28.0)(@babel/preset-env@7.25.0(@babel/core@7.28.0))(react@18.3.1))(react@18.3.1)
+      ws:
+        specifier: ^8.18.2
+        version: 8.18.2
       zustand:
         specifier: ^4.5.5
         version: 4.5.5(react@18.3.1)
@@ -1840,6 +1837,9 @@ packages:
   electron-to-chromium@1.5.187:
     resolution: {integrity: sha512-cl5Jc9I0KGUoOoSbxvTywTa40uspGJt/BDBoDLoxJRSBpWh4FFXBsjNRHfQrONsV/OoEjDfHUmZQa2d6Ze4YgA==}
 
+  emoji-regex@10.4.0:
+    resolution: {integrity: sha512-EC+0oUMY1Rqm4O6LLrgjtYDvcVYTy7chDnM4Q7030tP4Kwj3u/pR6gP9ygnp2CJMK5Gq+9Q2oqmrFJAz01DXjw==}
+
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
 
@@ -1934,9 +1934,6 @@ packages:
 
   fb-watchman@2.0.2:
     resolution: {integrity: sha512-p5161BqbuCaSnB8jIbzQHOlpgsPmK5rJVDfDKO91Axs5NC1uu3HRQm6wt9cd9/+GtQQIO53JdGXXoyDpTAsgYA==}
-
-  fflate@0.8.2:
-    resolution: {integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==}
 
   fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
@@ -2946,9 +2943,6 @@ packages:
     resolution: {integrity: sha512-gK5GVzDkJK1SI1zwHf32Mqxf2tSJkNx+eYcNly5+nHvWqXUJYUkWBQtKauoESz3ymezAI++ZwT855x5p5eop+Q==}
     engines: {node: '>=18.0.0'}
     hasBin: true
-
-  twemoji-parser@14.0.0:
-    resolution: {integrity: sha512-9DUOTGLOWs0pFWnh1p6NF+C3CkQ96PWmEFwhOVmT3WbecRC+68AIqpsnJXygfkFcp4aXbOp8Dwbhh/HQgvoRxA==}
 
   type-detect@4.0.8:
     resolution: {integrity: sha512-0fr/mIH1dlO+x7TlcMy+bIDqKPsw/70tVyeHW787goQjhmqaZe10uwLujubK9q9Lg6Fiho1KUKDYz0Z7k7g5/g==}
@@ -5122,6 +5116,8 @@ snapshots:
 
   electron-to-chromium@1.5.187: {}
 
+  emoji-regex@10.4.0: {}
+
   emoji-regex@8.0.0: {}
 
   encodeurl@1.0.2: {}
@@ -5252,8 +5248,6 @@ snapshots:
   fb-watchman@2.0.2:
     dependencies:
       bser: 2.1.1
-
-  fflate@0.8.2: {}
 
   fill-range@7.1.1:
     dependencies:
@@ -6392,8 +6386,6 @@ snapshots:
       get-tsconfig: 4.7.6
     optionalDependencies:
       fsevents: 2.3.3
-
-  twemoji-parser@14.0.0: {}
 
   type-detect@4.0.8: {}
 

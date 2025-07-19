@@ -1,8 +1,8 @@
 import { ReactNative as RN } from "@vendetta/metro/common";
 
-import { getSrc } from "../stuff/twemoji";
+import { getSrc } from "../stuff/parser";
 
-export default function({
+export default function CustomTwemoji({
 	emoji,
 	src = getSrc(emoji),
 	size = 16,

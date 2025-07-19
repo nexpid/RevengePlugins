@@ -24,6 +24,7 @@ export const { showSimpleActionSheet } = findByProps(
 		key: "CardOverflow";
 		header: {
 			title: string;
+			subtitle?: string;
 			icon?: React.ReactNode;
 			onClose?: () => void;
 		};

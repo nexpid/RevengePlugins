@@ -69,7 +69,7 @@
   - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/plugin-embeds) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/plugin-embeds/)
 - Song Spotlight — Show off songs on your Discord profile!
   - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/song-spotlight) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/song-spotlight/) [<img alt="view_backend_code" src="https://img.shields.io/badge/view_backend_code-494d64?style=for-the-badge" />](https://github.com/nexpid/SongSpotlight)
-- Twemoji Everywhere — Turns all (possible) system emoji into Twemoji 👋😀🎉
+- Twemoji Everywhere — Turns all system emoji used on Discord into Twemoji! 👋😀🎉
   - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/twemoji-everywhere) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/twemoji-everywhere/)
 - Use System Emoji — Replaces Twemoji with system emoji in messages
   - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/use-system-emoji) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/use-system-emoji/)

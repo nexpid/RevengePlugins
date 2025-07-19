@@ -15,4 +15,4 @@
 Twemoji Everywhere
 </h1>
 
-Turns all (possible) system emoji into Twemoji 👋😀🎉
+Turns all system emoji used on Discord into Twemoji! 👋😀🎉

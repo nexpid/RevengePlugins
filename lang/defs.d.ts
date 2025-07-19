@@ -66,7 +66,10 @@ export default interface LangValues {
 	};
 	"twemoji_everywhere": {
 		values: typeof import("./values/base/twemoji_everywhere.json");
-		fillers: null;
+		fillers: {
+			"settings.emojipack.maintained_by": { "maintainer": string };
+			"settings.emojipack.maintained_by.short": { "maintainer": string };
+		};
 	};
 	"userpfp": {
 		values: typeof import("./values/base/userpfp.json");
