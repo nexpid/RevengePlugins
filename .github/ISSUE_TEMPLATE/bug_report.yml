@@ -57,21 +57,18 @@ body:
     id: sysinfo
     attributes:
       label: System Info
-      description: Enter your system information (use the **sysinfo** plugin if you need hep)
+      description: Enter your system information
       value: |
-        Device:
-        Manufacturer:
-        Brand:
+        Client: <!-- what discord client mod you're using -->
+        Client Version: <!-- check Info -> About -> mod's version -->
+        Discord Version: <!-- check Info -> About -> Discord -->
 
-        OS:
-        Version:
+        Loader: <!-- check Info -> About -> Loader -->
+        OS: <!-- check Info -> About -> Operating System -->
+        Manufacturer: <!-- check Info -> About -> Manufacturer -->
+        Brand: <!-- check Info -> About -> Brand -->
+        Model: <!-- check Info -> About -> Model -->
+        Codename: <!-- check Info -> About -> Codename -->
 
-        Discord Branch:
-        Discord Version:
-        Discord Build:
-        Vendetta Version:
-
-        React Version:
-        Hermes Bytecode:
     validations:
       required: true
