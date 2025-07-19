@@ -29,7 +29,10 @@ export default () => {
 							source={getAssetIDByName("MagnifyingGlassIcon")}
 						/>
 					}
-					onValueChange={() => (vstorage.config.redirect = !vstorage.config.redirect)}
+					onValueChange={() => (vstorage.config = {
+						...vstorage.config,
+						redirect: !vstorage.config.redirect,
+					})}
 					value={vstorage.config.redirect}
 				/>
 				<FormSwitchRow
@@ -38,7 +41,10 @@ export default () => {
 						vstorage.config.referrals ? "/" : "?tag=nexpid-50"
 					}`}
 					leading={<FormRow.Icon source={getAssetIDByName("QuestsIcon")} />}
-					onValueChange={() => (vstorage.config.referrals = !vstorage.config.referrals)}
+					onValueChange={() => (vstorage.config = {
+						...vstorage.config,
+						referrals: !vstorage.config.referrals,
+					})}
 					value={vstorage.config.referrals}
 				/>
 			</BetterTableRowGroup>
