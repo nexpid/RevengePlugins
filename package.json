@@ -13,9 +13,10 @@
 		"serve": "tsx scripts/serve/index.ts",
 		"crowdin": "tsx scripts/crowdin/index.ts",
 		"declarations": "tsx scripts/declarations/index.ts",
-		"ci": "pnpm lint && pnpm format && tsc --noEmit",
+		"ci": "pnpm lint && pnpm format && pnpm check",
 		"lint": "biome check --fix --unsafe",
-		"format": "dprint fmt"
+		"format": "dprint fmt",
+		"check": "tsc"
 	},
 	"dependencies": {
 		"@nexpid/vdp-shared": "^1.0.2",

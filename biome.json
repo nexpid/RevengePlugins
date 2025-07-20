@@ -14,11 +14,7 @@
 		"enabled": false
 	},
 	"assist": {
-		"actions": {
-			"source": {
-				"organizeImports": "on"
-			}
-		}
+		"enabled": false
 	},
 	"json": {
 		"parser": {

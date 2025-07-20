@@ -9,10 +9,10 @@
 	},
 	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": {
-		"source.fixAll.biome": "explicit",
-		"source.organizeImports.biome": "explicit"
+		"source.fixAll.biome": "explicit"
 	},
 	"[typescript][typescriptreact][javascript][javascriptreact][yaml][json][jsonc][markdown]": {
 		"editor.defaultFormatter": "dprint.dprint"
-	}
+	},
+	"files.insertFinalNewline": true
 }
