@@ -17,7 +17,6 @@ export default function() {
 			const { source } = x;
 
 			if (source?.uri?.startsWith("asset:/emoji-")) {
-				console.log(source.uri.split("-")[1].split(".")[0]);
 				source.uri = getSrc(source.uri.split("-")[1].split(".")[0]);
 			}
 
