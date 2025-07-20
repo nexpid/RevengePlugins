@@ -9,6 +9,6 @@
 	],
 	"main": "src/index.ts",
 	"vendetta": {
-		"icon": "img_nitro_emojis"
+		"icon": "StarShootingIcon"
 	}
 }
