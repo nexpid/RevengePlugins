@@ -4,7 +4,10 @@ import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 import type { StyleSheet } from "react-native";
 
+import { before } from "@vendetta/patcher";
 import type Modal from "./components/Modal";
+import { RNChatModule } from "./deps";
+import type { ChatRowTypeMessage } from "./typings";
 
 const ThemeStore = findByStoreName("ThemeStore");
 const { triggerHaptic } = findByProps("triggerHaptic");
@@ -194,6 +197,19 @@ export function createThemeContextStyleSheet<
 	}
 
 	return sheet;
+}
+
+export function patchRows(callback: (rows: ChatRowTypeMessage[]) => void) {
+	return before("updateRows", RNChatModule, (args) => {
+		const rows = JSON.parse(args[1]);
+		try {
+			callback(rows);
+		} catch (e) {
+			console.error("[nexpid.patchRows]", e);
+		}
+
+		args[1] = JSON.stringify(rows);
+	});
 }
 
 // ...
