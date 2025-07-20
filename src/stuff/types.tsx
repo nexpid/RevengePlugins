@@ -37,10 +37,12 @@ export const getDiscordTheme = () => {
 	return theme;
 };
 
-export const resolveCustomSemantic = (dark: string, light: string) => getDiscordTheme() === "light" ? light : dark;
+export const resolveCustomSemantic = (dark: string, light: string) =>
+	getDiscordTheme() === "light" ? light : dark;
 
 export const lerp = (og: string, target: string, perc: number) => {
-	const hex2rgb = (hex: string) => hex.match(/\w\w/g)?.map(x => Number.parseInt(x, 16)) ?? [0, 0, 0];
+	const hex2rgb = (hex: string) =>
+		hex.match(/\w\w/g)?.map(x => Number.parseInt(x, 16)) ?? [0, 0, 0];
 	const rgb2hex = (rgb: number[]) => `#${rgb.map(x => x.toString(16).padStart(2, "0")).join("")}`;
 
 	const ogR = hex2rgb(og);

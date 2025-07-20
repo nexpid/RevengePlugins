@@ -88,7 +88,8 @@ export const RichAssetList = () => {
 								</RN.View>
 								<RN.Image
 									source={{
-										uri: `https://cdn.discordapp.com/app-assets/${richAssetListAppId}/${item.id}.png?size=128`,
+										uri:
+											`https://cdn.discordapp.com/app-assets/${richAssetListAppId}/${item.id}.png?size=128`,
 									}}
 								/>
 							</RN.View>

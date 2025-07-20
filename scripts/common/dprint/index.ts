@@ -52,9 +52,13 @@ class DprintFormatter {
 						rej(
 							`${out}\n${cleanError}\nDebug dprint: ${
 								debugDprint ? "YES" : "NO"
-							}\nExit code: ${sub.exitCode}\nTrace: [${sub.pid}] dprint ${args.join(" ")}\nStdin:\n${
+							}\nExit code: ${sub.exitCode}\nTrace: [${sub.pid}] dprint ${
+								args.join(" ")
+							}\nStdin:\n${
 								stdin
-									? stdin.split("\n").map((x, i) => ` ${i.toString().padStart(maxStdinCharLength, " ")}  ${x}`).join(
+									? stdin.split("\n").map((x, i) =>
+										` ${i.toString().padStart(maxStdinCharLength, " ")}  ${x}`
+									).join(
 										"\n",
 									)
 									: "  <none>"

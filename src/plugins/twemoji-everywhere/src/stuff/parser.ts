@@ -18,7 +18,9 @@ export function convert(
 	pack: EmojiPack = getPack(),
 ): string {
 	if (!pack.joiner) return emoji;
-	let chars = Array.from(emoji).map(x => x.codePointAt(0)?.toString(16)).filter(x => typeof x === "string");
+	let chars = Array.from(emoji).map(x => x.codePointAt(0)?.toString(16)).filter(x =>
+		typeof x === "string"
+	);
 	if (pack.excludeVariation) chars = chars.filter((x) => x !== "fe0f");
 
 	return chars.join(pack.joiner);

@@ -51,7 +51,8 @@ export function onLoad() {
 	vstorage.iconpack ??= {
 		mode: ConfigIconpackMode.Automatic,
 		custom: {
-			url: "https://raw.githubusercontent.com/Moodzz1/discord-iconpacks/master/Packs/Solar-Duotone/",
+			url:
+				"https://raw.githubusercontent.com/Moodzz1/discord-iconpacks/master/Packs/Solar-Duotone/",
 			suffix: "",
 			config: {
 				biggerStatus: false,

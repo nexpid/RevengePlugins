@@ -28,7 +28,9 @@ export function jollifyManifest(manifest: Readmes.Manifest) {
 		id: author.id,
 	}));
 
-	const matched = commonNouns.find(noun => manifest.name.toLowerCase().includes(noun.toLowerCase()));
+	const matched = commonNouns.find(noun =>
+		manifest.name.toLowerCase().includes(noun.toLowerCase())
+	);
 	if (matched) {
 		manifest.name = manifest.name.replace(
 			new RegExp(matched, "gi"),

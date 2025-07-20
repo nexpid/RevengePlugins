@@ -207,7 +207,8 @@ export const ProfileList = () => {
 									onPress: () => {
 										showConfirmationAlert({
 											title: "Delete Profile",
-											content: "Are you sure you want to delete this profile? This cannot be undone.",
+											content:
+												"Are you sure you want to delete this profile? This cannot be undone.",
 											confirmText: "Delete",
 											confirmColor: "red" as ButtonColors,
 											onConfirm: () => {

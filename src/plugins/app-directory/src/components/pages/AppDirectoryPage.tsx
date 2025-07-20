@@ -299,7 +299,8 @@ export default function AppDirectoryPage({
 													<RN.Image
 														style={collectionStyles.smallAvatar}
 														source={{
-															uri: `https://cdn.discordapp.com/app-icons/${app.id}/${app.icon}.webp?size=60`,
+															uri:
+																`https://cdn.discordapp.com/app-icons/${app.id}/${app.icon}.webp?size=60`,
 														}}
 													/>
 													<RN.View

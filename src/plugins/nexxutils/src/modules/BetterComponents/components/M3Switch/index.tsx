@@ -5,7 +5,13 @@ import { getAssetIDByName } from "@vendetta/ui/assets";
 
 import { Reanimated } from "$/deps";
 
-import { type ColorStyles, getStyles, type IconColorStyles, type LayoutStyles, layoutStyles } from "./styles";
+import {
+	type ColorStyles,
+	getStyles,
+	type IconColorStyles,
+	type LayoutStyles,
+	layoutStyles,
+} from "./styles";
 
 const AnimatedPressable = Reanimated.default.createAnimatedComponent(
 	RN.Pressable,

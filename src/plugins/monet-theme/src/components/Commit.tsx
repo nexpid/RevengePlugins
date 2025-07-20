@@ -177,7 +177,9 @@ export default function Commit({
 							}
 							: {
 								backgroundColor: `rgba(${labelColor[0]}, ${labelColor[1]}, ${labelColor[2]}, 0.3)`,
-								borderColor: `hsla(${labelColor[3]}, ${labelColor[4]}%, ${labelColor[5] + lightenBy}%, 0.18)`,
+								borderColor: `hsla(${labelColor[3]}, ${labelColor[4]}%, ${
+									labelColor[5] + lightenBy
+								}%, 0.18)`,
 							},
 					]}
 				>

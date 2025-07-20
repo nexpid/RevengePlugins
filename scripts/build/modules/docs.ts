@@ -106,9 +106,9 @@ export async function makeDocsIconsHook() {
 												? (subfolderMarker.add(icon.root),
 													`${"  ".repeat(icon.indentation - 1)}- 📂 \`${icon.root}\`\n`)
 												: ""
-										}${"  ".repeat(icon.indentation)}- <img src=${JSON.stringify(icon.location)} alt=${
-											JSON.stringify(icon.alt)
-										} width=20 height=20 /> — \`${icon.path}\``,
+										}${"  ".repeat(icon.indentation)}- <img src=${
+											JSON.stringify(icon.location)
+										} alt=${JSON.stringify(icon.alt)} width=20 height=20 /> — \`${icon.path}\``,
 								)
 								.join("\n")
 						}`,

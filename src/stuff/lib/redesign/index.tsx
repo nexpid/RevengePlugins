@@ -45,14 +45,15 @@ export const ContextMenu = findPropPolyfill(
 
 // inputs
 const _Slider = findPropPolyfill(false, "Slider");
-export const Slider = (props => (
-	<RN.View style={{ marginHorizontal: 16, marginTop: 16, marginBottom: 12 }}>
-		<_Slider
-			{...props}
-			onValueChange={(val: any) => props.value !== val && props.onValueChange?.(val)}
-		/>
-	</RN.View>
-)) as t.Slider;
+export const Slider =
+	(props => (
+		<RN.View style={{ marginHorizontal: 16, marginTop: 16, marginBottom: 12 }}>
+			<_Slider
+				{...props}
+				onValueChange={(val: any) => props.value !== val && props.onValueChange?.(val)}
+			/>
+		</RN.View>
+	)) as t.Slider;
 export const TextInput = findPropPolyfill(false, "TextInput") as t.TextInput;
 
 // tabs

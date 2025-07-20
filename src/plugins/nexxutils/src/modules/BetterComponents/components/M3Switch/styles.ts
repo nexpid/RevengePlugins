@@ -31,7 +31,8 @@ const mdSysColor = {
 	surface: () => resolveCustomSemantic(rawColors.PRIMARY_860, rawColors.PRIMARY_100),
 	onSurface: () => resolveCustomSemantic(rawColors.PRIMARY_200, rawColors.PRIMARY_830),
 	onSurfaceVariant: () => resolveCustomSemantic(rawColors.PRIMARY_300, rawColors.PRIMARY_630),
-	surfaceContainerHighest: () => resolveCustomSemantic(rawColors.PRIMARY_730, rawColors.PRIMARY_200),
+	surfaceContainerHighest: () =>
+		resolveCustomSemantic(rawColors.PRIMARY_730, rawColors.PRIMARY_200),
 
 	outline: () => resolveCustomSemantic(rawColors.PRIMARY_400, rawColors.PRIMARY_500),
 };

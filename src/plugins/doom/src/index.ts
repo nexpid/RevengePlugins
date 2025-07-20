@@ -15,7 +15,9 @@ export function newGameSuggestionURL() {
 		title: "[Game Suggestion]: GAME NAME HERE",
 		labels: "game suggestion",
 		template: "game_suggestion.yml",
-		"discord-username": `@${user.username}${user.discriminator !== "0" ? `#${user.discriminator}` : ""}`,
+		"discord-username": `@${user.username}${
+			user.discriminator !== "0" ? `#${user.discriminator}` : ""
+		}`,
 	});
 	return `https://github.com/nexpid/VendettaDOOM/issues/new?${params}`;
 }

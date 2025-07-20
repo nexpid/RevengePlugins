@@ -184,8 +184,8 @@ function MigrationModal(
 				variant="text-md/medium"
 				color="TEXT_NORMAL"
 			>
-				These domains are being deprecated and plugins on them won't receive any new updates. Please use the new domain
-				instead:
+				These domains are being deprecated and plugins on them won't receive any new updates. Please
+				use the new domain instead:
 			</Text>
 			<Text
 				variant="text-lg/bold"

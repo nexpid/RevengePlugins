@@ -76,13 +76,17 @@ export default function Settings() {
 				title={lang.format("settings.emojipacks.title", {})}
 				icon={getAssetIDByName("emoji-neutral")}
 			>
-				{Object.entries(normalPacks).map(([id, pack]) => <PackExample key={id} pack={pack} id={id as Pack} />)}
+				{Object.entries(normalPacks).map(([id, pack]) => (
+					<PackExample key={id} pack={pack} id={id as Pack} />
+				))}
 			</BetterTableRowGroup>
 			<BetterTableRowGroup
 				title={lang.format("settings.jokepacks.title", {})}
 				icon={getAssetIDByName("emoji-positive")}
 			>
-				{Object.entries(jokePacks).map(([id, pack]) => <PackExample key={id} pack={pack} id={id as Pack} />)}
+				{Object.entries(jokePacks).map(([id, pack]) => (
+					<PackExample key={id} pack={pack} id={id as Pack} />
+				))}
 			</BetterTableRowGroup>
 			<RN.View style={{ height: 16 }} />
 		</RN.ScrollView>

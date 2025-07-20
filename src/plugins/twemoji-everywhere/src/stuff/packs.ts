@@ -31,7 +31,8 @@ export const normalPacks = {
 	},
 	facebook: {
 		title: "settings.emojipacks.choose.facebook",
-		format: src => `https://raw.githubusercontent.com/iamcal/emoji-data/refs/heads/master/img-facebook-64/${src}.png`,
+		format: src =>
+			`https://raw.githubusercontent.com/iamcal/emoji-data/refs/heads/master/img-facebook-64/${src}.png`,
 		joiner: "-",
 		maintainer: "iamcal",
 		source: "https://github.com/iamcal/emoji-data",
@@ -51,7 +52,8 @@ export const normalPacks = {
 	},
 	joypixels: {
 		title: "settings.emojipacks.choose.joypixels",
-		format: src => `https://raw.githubusercontent.com/joypixels/emoji-assets/master/png/64/${src}.png`,
+		format: src =>
+			`https://raw.githubusercontent.com/joypixels/emoji-assets/master/png/64/${src}.png`,
 		joiner: "-",
 		maintainer: "JoyPixels",
 		source: "https://github.com/joypixels/emoji-assets",
@@ -79,7 +81,8 @@ export const normalPacks = {
 	},
 	apple: {
 		title: "settings.emojipacks.choose.apple",
-		format: src => `https://raw.githubusercontent.com/zhdsmy/apple-emoji/ios-17.4/png/160/emoji_u${src}.png`,
+		format: src =>
+			`https://raw.githubusercontent.com/zhdsmy/apple-emoji/ios-17.4/png/160/emoji_u${src}.png`,
 		joiner: "_",
 		maintainer: "zhdsmy",
 		source: "https://github.com/zhdsmy/apple-emoji",

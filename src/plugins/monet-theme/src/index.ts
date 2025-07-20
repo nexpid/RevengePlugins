@@ -12,7 +12,9 @@ import Settings from "./components/Settings";
 import { apply, build } from "./stuff/buildTheme";
 
 export const patchesURL = () =>
-	`https://raw.githubusercontent.com/nexpid/VendettaMonetTheme/${vstorage.patches.commit ?? "main"}/patches.jsonc`;
+	`https://raw.githubusercontent.com/nexpid/VendettaMonetTheme/${
+		vstorage.patches.commit ?? "main"
+	}/patches.jsonc`;
 export const devPatchesURL = "http://192.168.2.22:8730/patches.jsonc";
 
 const ThemeStore = findByStoreName("ThemeStore");

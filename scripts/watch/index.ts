@@ -9,7 +9,14 @@ import pc from "picocolors";
 import { isDev, previewLang } from "../build/lib/common.ts";
 import { makeDocsIconsHook } from "../build/modules/docs.ts";
 import { fixPluginLangs, makeLangDefs } from "../build/modules/lang.ts";
-import { buildPlugin, finishUp, listPlugins, restartBuild, workerResolves, workers } from "../build/modules/plugins.ts";
+import {
+	buildPlugin,
+	finishUp,
+	listPlugins,
+	restartBuild,
+	workerResolves,
+	workers,
+} from "../build/modules/plugins.ts";
 import { writePluginReadmes, writeRootReadme } from "../build/modules/readmes.ts";
 import { logBuild, logBuildErr, logWatch, logWatchErr } from "../common/live/print.ts";
 import { allExtensions, hashMap, slashResolve } from "../common/parser/getImports.ts";
