@@ -2,15 +2,15 @@ import { HTTP_REGEX_MULTI } from "@vendetta/constants";
 import { findByProps } from "@vendetta/metro";
 import { before } from "@vendetta/patcher";
 
-import { RNChatModule } from "$/deps";
-
+import { patchRows } from "$/types";
+import type { ContentRow } from "$/typings";
 import { unsubRulesStore } from "../stores/RulesStore";
 import { cleanUrl } from "./rules";
 
 const Messages = findByProps("sendMessage", "editMessage");
 
-const clean = (text: string) =>
-	text.replace(HTTP_REGEX_MULTI, str => {
+function clean(text: string) {
+	return text.replace(HTTP_REGEX_MULTI, str => {
 		let url: URL;
 		try {
 			url = new URL(str);
@@ -20,31 +20,23 @@ const clean = (text: string) =>
 
 		return cleanUrl(url.toString());
 	});
-
-const handleMessage = (msg: any) => {
-	if (msg?.content) msg.content = clean(msg.content);
-};
-
-interface Content {
-	type?: "link";
-	content: Content[] | string;
-	target?: string;
 }
 
-const handleContent = (content: Content[]) => {
-	for (const thing of content) {
-		if (thing.type === "link" && typeof thing.target === "string") {
-			thing.target = clean(thing.target);
-		}
+function handleMessage(msg: any) {
+	if (msg?.content) msg.content = clean(msg.content);
+}
 
-		if (typeof thing.content === "string") {
-			thing.content = clean(thing.content);
-		} else if (Array.isArray(thing.content)) {
-			thing.content = handleContent(thing.content);
+function handleContent(content: ContentRow[]) {
+	for (const thing of content) {
+		if (thing.type === "link") thing.target = clean(thing.target);
+		if ("content" in thing) {
+			if (typeof thing.content === "string") thing.content = clean(thing.content);
+			else if (Array.isArray(thing.content)) thing.content = handleContent(thing.content);
 		}
+		if ("items" in thing && Array.isArray(thing.items)) thing.items = handleContent(thing.items);
 	}
 	return content;
-};
+}
 
 export default function() {
 	const patches: (() => void)[] = [];
@@ -60,18 +52,13 @@ export default function() {
 		}),
 	);
 
-	patches.push(
-		before("updateRows", RNChatModule, args => {
-			const rows = JSON.parse(args[1]);
-			for (const row of rows) {
-				if (row.message?.content) {
-					row.message.content = handleContent(row.message.content);
-				}
+	patches.push(patchRows((rows) => {
+		for (const row of rows) {
+			if (row.type === 1 && row.message.content) {
+				row.message.content = handleContent(row.message.content);
 			}
-
-			args[1] = JSON.stringify(rows);
-		}),
-	);
+		}
+	}));
 
 	patches.push(unsubRulesStore);
 

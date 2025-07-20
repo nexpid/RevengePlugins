@@ -133,6 +133,10 @@ export type ContentRow = {
 	level: number;
 	content: ContentRow[];
 } | {
+	type: "link";
+	target: string;
+	content: ContentRow[];
+} | {
 	type: "list";
 	ordered: boolean;
 	start?: number;
@@ -152,13 +156,21 @@ export type ContentRow = {
 };
 export type ContentRowIs<Type extends ContentRow["type"]> = Extract<ContentRow, { type: Type }>;
 
+interface MessageEmbed {
+	url: string;
+}
+
 export interface ChatRowTypeMessage {
 	type: 1;
 	message: {
 		id: string;
+		authorId: string;
 		channelId: string;
 		guildId?: string;
-		content: ContentRow[];
+		content?: ContentRow[];
+		embeds?: MessageEmbed[];
+		codedLinks?: any[];
+		communicationDisabled?: boolean;
 	};
 }
 

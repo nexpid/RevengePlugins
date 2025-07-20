@@ -1,16 +1,41 @@
 import { HTTP_REGEX_MULTI } from "@vendetta/constants";
 import { findByProps } from "@vendetta/metro";
-import { before, instead } from "@vendetta/patcher";
+import { instead } from "@vendetta/patcher";
 
-import { RNChatModule } from "$/deps";
-
-import type { Iterable } from "..";
+import { patchRows } from "$/types";
+import type { ContentRow } from "$/typings";
 import { pluginMessageMap } from "./messages";
 import { getCodedLink, runPluginStateCta } from "./plugins";
 import { embedWhitelist } from "./whitelist";
 
 function trail(x: string) {
 	return x.replace(/(\/)?$/, "/");
+}
+function iterate(pluginLinks: string[], rows: ContentRow[]) {
+	for (const row of rows) {
+		if ("content" in row) {
+			if (typeof row.content === "string") {
+				if (row.content.startsWith(invisibleChar)) {
+					row.content = row.content.slice(invisibleChar.length);
+				}
+
+				const links = row.content.match(HTTP_REGEX_MULTI)?.map(trail) ?? [];
+				for (const url of links) {
+					const host = new URL(url).hostname.toLowerCase();
+					if (
+						embedWhitelist.hosts.some(x => x.toLowerCase() === host)
+						|| embedWhitelist.domains.some(x => host.endsWith(`.${x.toLowerCase()}`))
+					) {
+						pluginLinks.push(url);
+					}
+				}
+			} else if (Array.isArray(row.content)) {
+				iterate(pluginLinks, row.content);
+			}
+		} else if ("items" in row && Array.isArray(row.items)) {
+			iterate(pluginLinks, row.items);
+		}
+	}
 }
 
 interface CodedLinkMeta {
@@ -29,40 +54,12 @@ export default () => {
 	const patches: (() => void)[] = [];
 
 	patches.push(
-		before("updateRows", RNChatModule, args => {
-			const rows = JSON.parse(args[1]);
+		patchRows((rows) => {
 			for (const row of rows) {
 				const pluginLinks: string[] = [];
 
-				function iterate(thing: Iterable | Iterable[]) {
-					const stuff = Array.isArray(thing) ? thing : [thing];
-					for (const obj of stuff) {
-						if (typeof obj.content === "string") {
-							if (obj.content.startsWith(invisibleChar)) {
-								obj.content = obj.content.slice(invisibleChar.length);
-							}
-
-							const links = obj.content.match(HTTP_REGEX_MULTI)?.map(trail) ?? [];
-							for (const url of links) {
-								const host = new URL(url).hostname.toLowerCase();
-								if (
-									embedWhitelist.hosts.some(x => x.toLowerCase() === host)
-									|| embedWhitelist.domains.some(x => host.endsWith(`.${x.toLowerCase()}`))
-								) {
-									pluginLinks.push(url);
-								}
-							}
-						} else if (
-							typeof obj.content === "object"
-							&& obj.content !== null
-						) {
-							iterate(obj.content);
-						}
-					}
-				}
-
 				if (row.message) {
-					if (row.message.content) iterate(row.message.content);
+					if (row.message.content) iterate(pluginLinks, row.message.content);
 
 					const cache: CodedLinkMeta[] = [];
 
@@ -72,7 +69,9 @@ export default () => {
 						const link = getCodedLink(plugin);
 						if (!link) continue;
 
-						const embedIndex = row.message.embeds.findIndex((embed: any) => embed?.url && trail(embed.url) === plugin);
+						const embedIndex = row.message.embeds.findIndex((embed) =>
+							embed.url && trail(embed.url) === plugin
+						);
 						if (embedIndex !== -1) {
 							row.message.embeds.splice(
 								embedIndex,
@@ -97,8 +96,6 @@ export default () => {
 					codedLinks.set(id, cache);
 				}
 			}
-
-			args[1] = JSON.stringify(rows);
 		}),
 	);
 

@@ -25,7 +25,12 @@ export default interface LangValues {
 			"log.import.select_theme.fail": { "theme": string };
 			"alert.too_much_data.body": { "storage": string };
 			"page.ignored_plugins.title": { "count": string };
-			"log.import.result": { "plugins": string; "themes": string; "fonts": string; "success": string };
+			"log.import.result": {
+				"plugins": string;
+				"themes": string;
+				"fonts": string;
+				"success": string;
+			};
 			"log.import.reload_for_font": { "name": string };
 		};
 	};
