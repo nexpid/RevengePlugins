@@ -1,12 +1,7 @@
 import { readdir } from "node:fs/promises";
 import type { Worker } from "node:worker_threads";
 
-import {
-	bench,
-	highlight,
-	logScopeFailed,
-	logScopeFinished,
-} from "../../common/statistics/print.ts";
+import { bench, highlight, logScopeFailed, logScopeFinished } from "../../common/statistics/print.ts";
 import { isDev } from "../lib/common.ts";
 
 export async function listPlugins(noDev?: boolean) {
@@ -60,9 +55,7 @@ export function buildPlugin(
 			const status: import("../types").Worker.PluginWorkerResponse = data.data ?? data;
 			if (workerResolves.rejected) return;
 
-			const label = `Built plugin ${
-				highlight(status.result === "yay" ? status.plugin : plugin.name)
-			}`;
+			const label = `Built plugin ${highlight(status.result === "yay" ? status.plugin : plugin.name)}`;
 
 			if (status.result === "yay") {
 				if (!plugin.prcess) logScopeFinished(label, started.stop());

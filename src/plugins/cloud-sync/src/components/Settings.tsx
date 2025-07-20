@@ -1,12 +1,6 @@
 import { logger, plugin, settings } from "@vendetta";
 import { findByStoreName } from "@vendetta/metro";
-import {
-	NavigationNative,
-	React,
-	ReactNative as RN,
-	stylesheet,
-	url,
-} from "@vendetta/metro/common";
+import { NavigationNative, React, ReactNative as RN, stylesheet, url } from "@vendetta/metro/common";
 import { storage } from "@vendetta/plugin";
 import { useProxy } from "@vendetta/storage";
 import { semanticColors } from "@vendetta/ui";
@@ -25,15 +19,7 @@ import { getLocale } from "$/lib/intlProxy";
 import { initState, lang, vstorage } from "..";
 import { useAuthorizationStore } from "../stores/AuthorizationStore";
 import { useCacheStore } from "../stores/CacheStore";
-import {
-	decompressRawData,
-	deleteData,
-	getData,
-	getRawData,
-	type RawData,
-	rawDataURL,
-	saveData,
-} from "../stuff/api";
+import { decompressRawData, deleteData, getData, getRawData, type RawData, rawDataURL, saveData } from "../stuff/api";
 import { canSaveFileNatively, pickFile, saveFile } from "../stuff/files";
 import { openOauth2Modal } from "../stuff/oauth2";
 import { grabEverything, setImportCallback } from "../stuff/syncStuff";

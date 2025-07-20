@@ -3,11 +3,7 @@ import { React, ReactNative as RN } from "@vendetta/metro/common";
 import { semanticColors } from "@vendetta/ui";
 import type { TextProps } from "react-native";
 
-import {
-	resolveSemanticColor,
-	TextStyleSheet,
-	type TextStyleSheetVariant,
-} from "../types";
+import { resolveSemanticColor, TextStyleSheet, type TextStyleSheetVariant } from "../types";
 
 export function TrailingText({ children }: React.PropsWithChildren<object>) {
 	return (

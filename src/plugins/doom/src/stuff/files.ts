@@ -1,7 +1,6 @@
 import { RNFileModule } from "$/deps";
 
-export const downloadSource =
-	"https://raw.githubusercontent.com/nexpid/VendettaDOOM/main/";
+export const downloadSource = "https://raw.githubusercontent.com/nexpid/VendettaDOOM/main/";
 export const storePrefix = "vendetta/DOOM/";
 
 export function existsFile(fileName: string) {

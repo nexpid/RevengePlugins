@@ -1,9 +1,4 @@
-import {
-	NavigationNative,
-	React,
-	ReactNative as RN,
-	stylesheet,
-} from "@vendetta/metro/common";
+import { NavigationNative, React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
 import { semanticColors } from "@vendetta/ui";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { Search } from "@vendetta/ui/components";
@@ -304,8 +299,7 @@ export default function AppDirectoryPage({
 													<RN.Image
 														style={collectionStyles.smallAvatar}
 														source={{
-															uri:
-																`https://cdn.discordapp.com/app-icons/${app.id}/${app.icon}.webp?size=60`,
+															uri: `https://cdn.discordapp.com/app-icons/${app.id}/${app.icon}.webp?size=60`,
 														}}
 													/>
 													<RN.View

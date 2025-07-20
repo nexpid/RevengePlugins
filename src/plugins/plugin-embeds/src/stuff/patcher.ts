@@ -47,9 +47,7 @@ export default () => {
 								const host = new URL(url).hostname.toLowerCase();
 								if (
 									embedWhitelist.hosts.some(x => x.toLowerCase() === host)
-									|| embedWhitelist.domains.some(x =>
-										host.endsWith(`.${x.toLowerCase()}`)
-									)
+									|| embedWhitelist.domains.some(x => host.endsWith(`.${x.toLowerCase()}`))
 								) {
 									pluginLinks.push(url);
 								}
@@ -74,9 +72,7 @@ export default () => {
 						const link = getCodedLink(plugin);
 						if (!link) continue;
 
-						const embedIndex = row.message.embeds.findIndex((embed: any) =>
-							embed?.url && trail(embed.url) === plugin
-						);
+						const embedIndex = row.message.embeds.findIndex((embed: any) => embed?.url && trail(embed.url) === plugin);
 						if (embedIndex !== -1) {
 							row.message.embeds.splice(
 								embedIndex,

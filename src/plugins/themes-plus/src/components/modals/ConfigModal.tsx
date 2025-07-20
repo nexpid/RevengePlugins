@@ -11,13 +11,7 @@ import Modal from "$/components/Modal";
 import ChooseSheet from "$/components/sheets/ChooseSheet";
 import Text from "$/components/Text";
 import { Lang } from "$/lang";
-import {
-	RowButton,
-	SegmentedControlPages,
-	Tabs,
-	TextInput,
-	useSegmentedControlState,
-} from "$/lib/redesign";
+import { RowButton, SegmentedControlPages, Tabs, TextInput, useSegmentedControlState } from "$/lib/redesign";
 
 import { ConfigIconpackMode, lang, vstorage } from "../..";
 import { state } from "../../stuff/active";
@@ -261,9 +255,8 @@ const tabs = {
 											}
 											selected={vstorage.iconpack.custom.config
 												.biggerStatus}
-											onPress={() => (vstorage.iconpack.custom.config.biggerStatus =
-												!vstorage.iconpack.custom
-													.config.biggerStatus)}
+											onPress={() => (vstorage.iconpack.custom.config.biggerStatus = !vstorage.iconpack.custom
+												.config.biggerStatus)}
 										/>
 									</BetterTableRowGroup>
 								</>

@@ -33,9 +33,7 @@ async function refetchPlugins(pluh: Record<string, string>, catchup?: boolean) {
 
 	if (refetching[0]) {
 		showToast(
-			`Rejuvenated ${refetching.length} plugin${refetching.length !== 1 ? "s" : ""}${
-				catchup ? " (catchup)" : ""
-			}`,
+			`Rejuvenated ${refetching.length} plugin${refetching.length !== 1 ? "s" : ""}${catchup ? " (catchup)" : ""}`,
 			getAssetIDByName("AppsIcon"),
 		);
 	}

@@ -385,23 +385,15 @@ export async function writeRootReadme() {
 
 			"## 📊 Stats\n",
 
-			`- I've coded a total of **${plugins.length}** ${
-				plural(plugins.length, "plugin", "plugins")
-			}`,
+			`- I've coded a total of **${plugins.length}** ${plural(plugins.length, "plugin", "plugins")}`,
 			`- I finished **${stats.finished}** ${
 				plural(stats.finished, "plugin", "plugins")
-			}, and I'm working on **${stats.unfinished}** ${
-				plural(stats.unfinished, "plugin", "plugins")
-			}`,
-			`- **${stats.discontinued}** of my plugins ${
-				plural(stats.discontinued, "is", "are")
-			} discontinued.\n`,
+			}, and I'm working on **${stats.unfinished}** ${plural(stats.unfinished, "plugin", "plugins")}`,
+			`- **${stats.discontinued}** of my plugins ${plural(stats.discontinued, "is", "are")} discontinued.\n`,
 
 			// header
 			"<div align=\"center\">",
-			`<img alt="Stats Pie Chart" src=${
-				JSON.stringify(`https://quickchart.io/chart?c=${chart}`)
-			} width="600" />`,
+			`<img alt="Stats Pie Chart" src=${JSON.stringify(`https://quickchart.io/chart?c=${chart}`)} width="600" />`,
 			// footer
 			"</div>\n",
 
@@ -419,9 +411,7 @@ export async function writeRootReadme() {
 										`- ${plugin.name} — ${plugin.description}`,
 										plugin.discontinuedFor
 										&& `  - **Discontinued due to:** ${plugin.discontinuedFor}`,
-										`  - ${
-											plugin.badges.links.map(link => makeBadge(link, true)).join("  ")
-										}`,
+										`  - ${plugin.badges.links.map(link => makeBadge(link, true)).join("  ")}`,
 									]
 										.filter(x => !!x)
 										.join("\n")

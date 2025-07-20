@@ -40,8 +40,7 @@ export type SongInfo =
 		}
 	);
 
-const randomCover = () =>
-	`https://cdn.discordapp.com/embed/avatars/${Math.floor(Math.random() * 5) + 1}.png`;
+const randomCover = () => `https://cdn.discordapp.com/embed/avatars/${Math.floor(Math.random() * 5) + 1}.png`;
 
 const skeletonSongInfoBase = (() => ({
 	service: "spotify",

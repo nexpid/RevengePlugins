@@ -25,5 +25,4 @@ export const isDev = process.argv.includes("--dev")
 export const previewLang = isDev
 	&& (process.argv.includes("-pl") || process.argv.includes("--preview-lang"));
 
-export const plural = (count: number, singular: string, plural: string) =>
-	count === 1 ? singular : plural;
+export const plural = (count: number, singular: string, plural: string) => count === 1 ? singular : plural;

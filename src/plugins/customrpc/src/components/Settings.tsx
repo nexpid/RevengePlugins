@@ -1,9 +1,4 @@
-import {
-	clipboard,
-	NavigationNative,
-	React,
-	ReactNative as RN,
-} from "@vendetta/metro/common";
+import { clipboard, NavigationNative, React, ReactNative as RN } from "@vendetta/metro/common";
 import { useProxy } from "@vendetta/storage";
 import { showConfirmationAlert } from "@vendetta/ui/alerts";
 import { getAssetIDByName } from "@vendetta/ui/assets";
@@ -66,12 +61,11 @@ export default () => {
 				onPress={() => {
 					showConfirmationAlert({
 						title: "String Variables",
-						content:
-							`String variables can be used in any text component\nHere's the entire list:\n\n${
-								stringVariables
-									.map(x => `**\`${x.match}\`**\n — ${x.description}`)
-									.join("\n")
-							}`,
+						content: `String variables can be used in any text component\nHere's the entire list:\n\n${
+							stringVariables
+								.map(x => `**\`${x.match}\`**\n — ${x.description}`)
+								.join("\n")
+						}`,
 						confirmText: "Dismiss",
 						confirmColor: "brand" as ButtonColors,
 						onConfirm: () => undefined,

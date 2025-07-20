@@ -34,8 +34,7 @@ export const LiveRawActivityView = () => {
 					: vstorage.settings.display
 					? (
 						<Text variant="text-md/semibold">
-							Display activity setting is disabled. You need to actually enable it for the
-							raw activity to show up lmao
+							Display activity setting is disabled. You need to actually enable it for the raw activity to show up lmao
 						</Text>
 					)
 					: (

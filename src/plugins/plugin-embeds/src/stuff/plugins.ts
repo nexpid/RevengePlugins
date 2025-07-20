@@ -68,9 +68,7 @@ export function runPluginStateCta(plugin: string) {
 	const txtLog = state.installed ? "uninstall" : "install";
 
 	promise
-		.then(() =>
-			showToast(`${txtStatus} ${info.name}`, getAssetIDByName("CircleCheckIcon-primary"))
-		)
+		.then(() => showToast(`${txtStatus} ${info.name}`, getAssetIDByName("CircleCheckIcon-primary")))
 		.catch((err) => {
 			logger.error(err);
 			showToast(

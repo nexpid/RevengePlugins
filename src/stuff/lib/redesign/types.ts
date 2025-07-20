@@ -1,9 +1,4 @@
-import type {
-	ImageSourcePropType,
-	PressableProps,
-	TextInputProps,
-	ViewProps,
-} from "react-native";
+import type { ImageSourcePropType, PressableProps, TextInputProps, ViewProps } from "react-native";
 import type { SharedValue } from "react-native-reanimated";
 
 export type ButtonVariant =

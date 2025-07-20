@@ -1,11 +1,5 @@
 import { findByProps } from "@vendetta/metro";
-import {
-	clipboard,
-	React,
-	ReactNative as RN,
-	stylesheet,
-	url,
-} from "@vendetta/metro/common";
+import { clipboard, React, ReactNative as RN, stylesheet, url } from "@vendetta/metro/common";
 import { rawColors, semanticColors } from "@vendetta/ui";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
@@ -16,10 +10,7 @@ import intlProxy from "$/lib/intlProxy";
 import { Button } from "$/lib/redesign";
 import { managePage } from "$/lib/ui";
 
-import {
-	type APICollectionApplication,
-	getAppDirectoryApplication,
-} from "../../stuff/api";
+import { type APICollectionApplication, getAppDirectoryApplication } from "../../stuff/api";
 import { parse } from "../../stuff/markdown";
 import { openOauth2Modal } from "../../stuff/oauth2";
 import { inServers, parseDesc } from "../../stuff/util";

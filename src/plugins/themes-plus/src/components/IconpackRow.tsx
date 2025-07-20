@@ -12,11 +12,7 @@ import { formatBytes } from "$/types";
 
 import { lang, vstorage } from "..";
 import { state, useState } from "../stuff/active";
-import {
-	installIconpack,
-	isPackInstalled,
-	uninstallIconpack,
-} from "../stuff/packInstaller";
+import { installIconpack, isPackInstalled, uninstallIconpack } from "../stuff/packInstaller";
 import type { Iconpack } from "../types";
 import ProgressCircle from "./ProgressCircle";
 

@@ -7,9 +7,7 @@ function replaceHook(str: string, hook: string, replacement: string) {
 	const [prefix, rest] = str.split(`<!-- ${hook} start -->`);
 	const [_, suffix] = rest.split(`<!-- ${hook} end -->`);
 
-	return `${prefix}<!-- ${hook} start -->${replacement}<!-- ${hook} end -->${
-		suffix || ""
-	}`;
+	return `${prefix}<!-- ${hook} start -->${replacement}<!-- ${hook} end -->${suffix || ""}`;
 }
 
 export async function makeDocsIconsHook() {
@@ -108,9 +106,7 @@ export async function makeDocsIconsHook() {
 												? (subfolderMarker.add(icon.root),
 													`${"  ".repeat(icon.indentation - 1)}- 📂 \`${icon.root}\`\n`)
 												: ""
-										}${"  ".repeat(icon.indentation)}- <img src=${
-											JSON.stringify(icon.location)
-										} alt=${
+										}${"  ".repeat(icon.indentation)}- <img src=${JSON.stringify(icon.location)} alt=${
 											JSON.stringify(icon.alt)
 										} width=20 height=20 /> — \`${icon.path}\``,
 								)

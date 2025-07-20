@@ -1,10 +1,5 @@
 import { findByProps } from "@vendetta/metro";
-import {
-	NavigationNative,
-	React,
-	ReactNative as RN,
-	stylesheet,
-} from "@vendetta/metro/common";
+import { NavigationNative, React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
 import { useProxy } from "@vendetta/storage";
 import { semanticColors } from "@vendetta/ui";
 import { getAssetIDByName } from "@vendetta/ui/assets";

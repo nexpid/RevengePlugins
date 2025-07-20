@@ -1,12 +1,6 @@
 import { logger } from "@vendetta";
 import { getDebugInfo } from "@vendetta/debug";
-import {
-	clipboard,
-	NavigationNative,
-	React,
-	ReactNative as RN,
-	stylesheet,
-} from "@vendetta/metro/common";
+import { clipboard, NavigationNative, React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
 import { useProxy } from "@vendetta/storage";
 import { semanticColors } from "@vendetta/ui";
 import { showConfirmationAlert } from "@vendetta/ui/alerts";

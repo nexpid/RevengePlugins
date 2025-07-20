@@ -22,9 +22,7 @@ export async function run(data?: FullPlugin[]) {
 				cache: "no-store",
 			})
 		).json()) as FullPlugin[]);
-	lastPluginCache = res.map(x =>
-		typeof x === "string" ? properLink(x) : properLink(x.vendetta.original)
-	);
+	lastPluginCache = res.map(x => typeof x === "string" ? properLink(x) : properLink(x.vendetta.original));
 }
 
 export function initThing(): () => void {

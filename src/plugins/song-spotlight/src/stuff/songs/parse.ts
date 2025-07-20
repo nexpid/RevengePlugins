@@ -41,9 +41,7 @@ const services = [
 			if (!isValid) return null;
 
 			const embedded = await fetch(
-				`https://soundcloud.com/oembed?format=json&url=${
-					encodeURIComponent(link.toString())
-				}`,
+				`https://soundcloud.com/oembed?format=json&url=${encodeURIComponent(link.toString())}`,
 				{
 					cache: "force-cache",
 					headers: {

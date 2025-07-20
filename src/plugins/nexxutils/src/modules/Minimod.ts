@@ -12,8 +12,7 @@ const GuildMemberStore = findByStoreName("GuildMemberStore");
 export default new Module({
 	id: "minimod",
 	label: "Minimod",
-	sublabel:
-		"Lets you see some moderator-only things. Similiar to the 'ShowHiddenThings' Vencord plugin",
+	sublabel: "Lets you see some moderator-only things. Similiar to the 'ShowHiddenThings' Vencord plugin",
 	category: ModuleCategory.Fun,
 	icon: NerdEmoji,
 	settings: {

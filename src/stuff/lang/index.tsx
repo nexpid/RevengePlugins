@@ -65,8 +65,7 @@ export class Lang<Plugin extends keyof LangValues> {
 
 	format<Key extends keyof LangValues[Plugin]["values"]>(
 		_key: Key,
-		input: Key extends keyof LangValues[Plugin]["fillers"]
-			? LangValues[Plugin]["fillers"][Key]
+		input: Key extends keyof LangValues[Plugin]["fillers"] ? LangValues[Plugin]["fillers"][Key]
 			: Record<string, never>,
 	): string {
 		const key = _key as string;

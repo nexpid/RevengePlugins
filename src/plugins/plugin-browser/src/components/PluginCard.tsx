@@ -20,9 +20,7 @@ export default function PluginCard({
 }) {
 	const { usableLink, trueLink, proxiedLink, githubLink } = React.useMemo(() => {
 		const id = item.vendetta.original;
-		const trueLink = `https://${
-			id.replace(/^vendetta\.nexpid\.xyz\//, "revenge.nexpid.xyz/")
-		}`;
+		const trueLink = `https://${id.replace(/^vendetta\.nexpid\.xyz\//, "revenge.nexpid.xyz/")}`;
 		const proxiedLink = `${constants.proxyUrl}${id}`;
 
 		let usableLink = vstorage.dangerZone ? trueLink : proxiedLink;

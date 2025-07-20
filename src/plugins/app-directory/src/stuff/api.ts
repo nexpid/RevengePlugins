@@ -177,8 +177,7 @@ export async function searchAppDirectory(
 ): Promise<APIAppDirectorySearch> {
 	const locale = getLocale();
 
-	const cacheKey =
-		`app_directory_search|${query},${page},${category},${guildId},${locale}`;
+	const cacheKey = `app_directory_search|${query},${page},${category},${guildId},${locale}`;
 
 	const params = new URLSearchParams();
 	params.append("query", query);

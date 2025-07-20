@@ -59,9 +59,7 @@ const Message = ({
 			onPress={() => {
 				popModal();
 				url.openDeeplink(
-					`https://discord.com/channels/${
-						channel?.guild_id ?? "@me"
-					}/${channelId}/${message.id}`,
+					`https://discord.com/channels/${channel?.guild_id ?? "@me"}/${channelId}/${message.id}`,
 				);
 			}}
 			onLongPress={() => {

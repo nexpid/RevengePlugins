@@ -101,9 +101,7 @@ export async function getRawData(): Promise<RawData> {
 	});
 }
 export function rawDataURL() {
-	return `${constants.api}api/data/raw?auth=${
-		encodeURIComponent(useAuthorizationStore.getState().token ?? "")
-	}`;
+	return `${constants.api}api/data/raw?auth=${encodeURIComponent(useAuthorizationStore.getState().token ?? "")}`;
 }
 
 export async function decompressRawData(

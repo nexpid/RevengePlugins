@@ -5,21 +5,14 @@ import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 import type { ImageSourcePropType } from "react-native";
 
-import {
-	ActionSheet,
-	hideActionSheet,
-	showSimpleActionSheet,
-} from "$/components/ActionSheet";
+import { ActionSheet, hideActionSheet, showSimpleActionSheet } from "$/components/ActionSheet";
 import { BetterTableRowGroup } from "$/components/BetterTableRow";
 import Text from "$/components/Text";
 import { PressableScale } from "$/lib/redesign";
 import { getDiscordTheme } from "$/types";
 
 import { vstorage } from "../..";
-import wallpapers, {
-	type Collection,
-	type CollectionEntry,
-} from "../../stuff/wallpapers";
+import wallpapers, { type Collection, type CollectionEntry } from "../../stuff/wallpapers";
 import AddBackgroundSheet from "../sheets/AddBackgroundSheet";
 
 function Wallpaper({

@@ -4,16 +4,14 @@ export const highlight = pc.yellow;
 
 export const logDebug = (message: string) => console.log(pc.gray(message));
 export const logHeader = (name: string) => console.log(`\n${pc.bold(pc.green(name))}`);
-export const logCompleted = (time: number) =>
-	console.log(pc.cyan(`\nCompleted in ${pc.bold(`${time}ms`)}`));
+export const logCompleted = (time: number) => console.log(pc.cyan(`\nCompleted in ${pc.bold(`${time}ms`)}`));
 
 export const logFinished = (scope: string, time: number) =>
 	console.log(pc.magenta(` Finished ${scope} in ${pc.bold(`${time}ms`)}`));
 
 export const logScopeFinished = (scope: string, time: number) =>
 	console.log(`  ${scope} ${pc.italic(pc.gray(`${time}ms`))}`);
-export const logScopeFailed = (scope: string) =>
-	console.log(`\n${pc.red(`${pc.bold("FAILED!")} During:`)} ${scope}`);
+export const logScopeFailed = (scope: string) => console.log(`\n${pc.red(`${pc.bold("FAILED!")} During:`)} ${scope}`);
 
 export function bench() {
 	let start = performance.now();

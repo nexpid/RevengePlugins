@@ -1,9 +1,4 @@
-import {
-	clipboard,
-	NavigationNative,
-	React,
-	ReactNative as RN,
-} from "@vendetta/metro/common";
+import { clipboard, NavigationNative, React, ReactNative as RN } from "@vendetta/metro/common";
 import { showConfirmationAlert, showInputAlert } from "@vendetta/ui/alerts";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { Forms, Search } from "@vendetta/ui/components";
@@ -212,8 +207,7 @@ export const ProfileList = () => {
 									onPress: () => {
 										showConfirmationAlert({
 											title: "Delete Profile",
-											content:
-												"Are you sure you want to delete this profile? This cannot be undone.",
+											content: "Are you sure you want to delete this profile? This cannot be undone.",
 											confirmText: "Delete",
 											confirmColor: "red" as ButtonColors,
 											onConfirm: () => {

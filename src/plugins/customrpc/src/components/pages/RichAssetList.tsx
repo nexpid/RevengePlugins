@@ -1,10 +1,5 @@
 import { findByProps } from "@vendetta/metro";
-import {
-	NavigationNative,
-	React,
-	ReactNative as RN,
-	stylesheet,
-} from "@vendetta/metro/common";
+import { NavigationNative, React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
 import { semanticColors } from "@vendetta/ui";
 import { Search } from "@vendetta/ui/components";
 
@@ -93,8 +88,7 @@ export const RichAssetList = () => {
 								</RN.View>
 								<RN.Image
 									source={{
-										uri:
-											`https://cdn.discordapp.com/app-assets/${richAssetListAppId}/${item.id}.png?size=128`,
+										uri: `https://cdn.discordapp.com/app-assets/${richAssetListAppId}/${item.id}.png?size=128`,
 									}}
 								/>
 							</RN.View>

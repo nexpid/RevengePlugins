@@ -35,6 +35,11 @@
 				"noUnreachable": "off",
 				"noUnreachableSuper": "off",
 				"noUnusedVariables": "warn",
+				"noUnusedImports": {
+					"level": "warn",
+					"fix": "safe",
+					"options": {}
+				},
 				"useJsxKeyInIterable": "warn"
 			},
 			"style": {

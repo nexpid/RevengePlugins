@@ -190,9 +190,9 @@ server.listen(port, async () => {
 	logDebug("Server and WSS started on:");
 	for (const int of interfaces) {
 		logDebug(
-			`  - http://${int.address}${pc.white(`:${port}`)}${
-				" ".repeat(longestInterface - int.address.length)
-			}  ${pc.bold(int.group)}`,
+			`  - http://${int.address}${pc.white(`:${port}`)}${" ".repeat(longestInterface - int.address.length)}  ${
+				pc.bold(int.group)
+			}`,
 		);
 	}
 });

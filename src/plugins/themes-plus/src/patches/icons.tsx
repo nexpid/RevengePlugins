@@ -81,9 +81,7 @@ export default function patchIcons(
 					const [ext, ...base] = file.split(".").reverse();
 
 					asset = {
-						httpServerLocation: `//_/external${parent[0] ? "/" : ""}${
-							parent.reverse().join("/")
-						}`,
+						httpServerLocation: `//_/external${parent[0] ? "/" : ""}${parent.reverse().join("/")}`,
 						width: source.width,
 						height: source.height,
 						name: base.reverse().join("."),
@@ -138,9 +136,7 @@ export default function patchIcons(
 				if (useIconpack) {
 					props.source = {
 						uri: isInstalled
-							? `file://${fullIconsPath}${iconpack.id}/${
-								flattenFilePath(assetIconpackLocation)
-							}`
+							? `file://${fullIconsPath}${iconpack.id}/${flattenFilePath(assetIconpackLocation)}`
 							: iconpack.load + assetIconpackLocation,
 						headers: {
 							"cache-contorl": "public, max-age=3600",

@@ -1,21 +1,12 @@
 import { findByName, findByStoreName } from "@vendetta/metro";
-import {
-	NavigationNative,
-	React,
-	ReactNative as RN,
-	stylesheet,
-} from "@vendetta/metro/common";
+import { NavigationNative, React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
 import { semanticColors } from "@vendetta/ui";
 import { Button } from "@vendetta/ui/components";
 
 import { ActionSheet } from "$/components/ActionSheet";
 import Text from "$/components/Text";
 
-import {
-	ActivityType,
-	type SettingsActivity,
-	settingsActivityToRaw,
-} from "../stuff/activity";
+import { ActivityType, type SettingsActivity, settingsActivityToRaw } from "../stuff/activity";
 import {
 	ActivityTypeActionSheet,
 	ApplicationActionSheet,

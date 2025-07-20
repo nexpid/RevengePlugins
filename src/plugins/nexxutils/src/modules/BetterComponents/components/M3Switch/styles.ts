@@ -26,15 +26,12 @@ const mdSysColor = {
 	primary: () => resolveCustomSemantic(rawColors.BRAND_300, rawColors.BRAND_560),
 	onPrimary: () => resolveCustomSemantic(rawColors.BRAND_730, rawColors.WHITE),
 	primaryContainer: () => resolveCustomSemantic(rawColors.BRAND_630, rawColors.BRAND_200),
-	onPrimaryContainer: () =>
-		resolveCustomSemantic(rawColors.BRAND_200, rawColors.BRAND_630),
+	onPrimaryContainer: () => resolveCustomSemantic(rawColors.BRAND_200, rawColors.BRAND_630),
 
 	surface: () => resolveCustomSemantic(rawColors.PRIMARY_860, rawColors.PRIMARY_100),
 	onSurface: () => resolveCustomSemantic(rawColors.PRIMARY_200, rawColors.PRIMARY_830),
-	onSurfaceVariant: () =>
-		resolveCustomSemantic(rawColors.PRIMARY_300, rawColors.PRIMARY_630),
-	surfaceContainerHighest: () =>
-		resolveCustomSemantic(rawColors.PRIMARY_730, rawColors.PRIMARY_200),
+	onSurfaceVariant: () => resolveCustomSemantic(rawColors.PRIMARY_300, rawColors.PRIMARY_630),
+	surfaceContainerHighest: () => resolveCustomSemantic(rawColors.PRIMARY_730, rawColors.PRIMARY_200),
 
 	outline: () => resolveCustomSemantic(rawColors.PRIMARY_400, rawColors.PRIMARY_500),
 };

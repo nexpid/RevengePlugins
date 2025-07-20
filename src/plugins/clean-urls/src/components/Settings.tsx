@@ -37,9 +37,7 @@ export default () => {
 				/>
 				<FormSwitchRow
 					label="Remove referral parameters"
-					subLabel={`https://amazon.com/product${
-						vstorage.config.referrals ? "/" : "?tag=nexpid-50"
-					}`}
+					subLabel={`https://amazon.com/product${vstorage.config.referrals ? "/" : "?tag=nexpid-50"}`}
 					leading={<FormRow.Icon source={getAssetIDByName("QuestsIcon")} />}
 					onValueChange={() => (vstorage.config = {
 						...vstorage.config,

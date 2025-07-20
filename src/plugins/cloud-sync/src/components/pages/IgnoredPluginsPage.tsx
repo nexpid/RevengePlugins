@@ -108,9 +108,7 @@ export default function IgnoredPluginsPage() {
 			style={{ paddingHorizontal: 10, paddingTop: 10 }}
 			contentContainerStyle={{ paddingBottom: 20 }}
 			ItemSeparatorComponent={() => <RN.View style={{ height: 8 }} />}
-			data={sizedPlugins.filter(x =>
-				x.plugin.manifest.name.toLowerCase().includes(search)
-			)}
+			data={sizedPlugins.filter(x => x.plugin.manifest.name.toLowerCase().includes(search))}
 			renderItem={({ item: { id, plugin, size } }) => {
 				return (
 					<RowButton

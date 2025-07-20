@@ -70,9 +70,7 @@ export function patchPanelUI(tabs: PinToSettingsTabs, patches: (() => void)[]) {
 								)?.children;
 
 								if (sections) {
-									const index = sections.findIndex((c: any) =>
-										titles.includes(c?.props.label)
-									);
+									const index = sections.findIndex((c: any) => titles.includes(c?.props.label));
 
 									sections.splice(
 										-~index || 4,

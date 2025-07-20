@@ -4,14 +4,7 @@
 // class as a namespace facilitates this.
 
 import { ViewingConditions } from "./cam16";
-import {
-	argbFromLinrgb,
-	argbFromLstar,
-	matrixMultiply,
-	sanitizeDegreesDouble,
-	signum,
-	yFromLstar,
-} from "./utils";
+import { argbFromLinrgb, argbFromLstar, matrixMultiply, sanitizeDegreesDouble, signum, yFromLstar } from "./utils";
 
 /**
  * A class that solves the HCT equation.

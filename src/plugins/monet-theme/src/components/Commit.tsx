@@ -7,10 +7,7 @@ import Text from "$/components/Text";
 import { getLocale } from "$/lib/intlProxy";
 import { PressableScale, Stack } from "$/lib/redesign";
 import { getDiscordTheme } from "$/types";
-import {
-	conventionalCommitRegex,
-	parseConventionalCommit,
-} from "../stuff/conventionalCommits";
+import { conventionalCommitRegex, parseConventionalCommit } from "../stuff/conventionalCommits";
 
 export interface CommitUser {
 	login: string;
@@ -175,18 +172,12 @@ export default function Commit({
 						styles.label,
 						getDiscordTheme() === "light"
 							? {
-								backgroundColor: `rgb(${labelColor[0]}, ${labelColor[1]}, ${
-									labelColor[2]
-								})`,
+								backgroundColor: `rgb(${labelColor[0]}, ${labelColor[1]}, ${labelColor[2]})`,
 								borderWidth: 0,
 							}
 							: {
-								backgroundColor: `rgba(${labelColor[0]}, ${labelColor[1]}, ${
-									labelColor[2]
-								}, 0.3)`,
-								borderColor: `hsla(${labelColor[3]}, ${labelColor[4]}%, ${
-									labelColor[5] + lightenBy
-								}%, 0.18)`,
+								backgroundColor: `rgba(${labelColor[0]}, ${labelColor[1]}, ${labelColor[2]}, 0.3)`,
+								borderColor: `hsla(${labelColor[3]}, ${labelColor[4]}%, ${labelColor[5] + lightenBy}%, 0.18)`,
 							},
 					]}
 				>
@@ -196,9 +187,7 @@ export default function Commit({
 								color: `hsl(0, 0%, ${lightnessSwitch}%)`,
 							}
 							: {
-								color: `hsl(${labelColor[3]}, ${labelColor[4]}%, ${
-									labelColor[5] + lightenBy
-								}%)`,
+								color: `hsl(${labelColor[3]}, ${labelColor[4]}%, ${labelColor[5] + lightenBy}%)`,
 							}}
 					>
 						{labelTitle.type}

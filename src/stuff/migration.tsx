@@ -184,8 +184,8 @@ function MigrationModal(
 				variant="text-md/medium"
 				color="TEXT_NORMAL"
 			>
-				These domains are being deprecated and plugins on them won't receive any new
-				updates. Please use the new domain instead:
+				These domains are being deprecated and plugins on them won't receive any new updates. Please use the new domain
+				instead:
 			</Text>
 			<Text
 				variant="text-lg/bold"
@@ -234,9 +234,7 @@ export async function runMigration() {
 					const parser = invalidDomains.find(x => x.match.test(plugin));
 					const newId = parser && plugin.match(parser.match)?.groups?.plugin;
 					if (newId) {
-						const newPlugin = `https://revenge.nexpid.xyz/${
-							specialChange[newId] ?? newId
-						}/`;
+						const newPlugin = `https://revenge.nexpid.xyz/${specialChange[newId] ?? newId}/`;
 						console.log(
 							"FROM",
 							plugin,
