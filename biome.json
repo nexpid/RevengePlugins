@@ -36,7 +36,7 @@
 				"noUnreachableSuper": "off",
 				"noUnusedVariables": "warn",
 				"noUnusedImports": {
-					"level": "warn",
+					"level": "info",
 					"fix": "safe",
 					"options": {}
 				},
