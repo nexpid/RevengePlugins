@@ -12,9 +12,11 @@ const UserProfileRow = findByName("UserProfileRow", false);
 export default new Module({
 	id: "no-invite-to-servers",
 	label: "No Invite to Servers",
-	sublabel: "Removes the 'Invite to Servers' button from profiles",
-	category: ModuleCategory.Fixes,
-	icon: getAssetIDByName("UserPlusIcon"),
+	meta: {
+		sublabel: "Removes the 'Invite to Servers' button from profiles",
+		category: ModuleCategory.Fixes,
+		icon: getAssetIDByName("UserPlusIcon"),
+	},
 	handlers: {
 		onStart() {
 			if (!UserProfileRow) return;

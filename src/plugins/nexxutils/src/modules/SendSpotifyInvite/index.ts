@@ -11,9 +11,11 @@ const MediaKeyboardListHeader = findByTypeName("MediaKeyboardListHeader");
 export default new Module({
 	id: "send-spotify-invite",
 	label: "Send Spotify invite",
-	sublabel: "Adds an option to send a Spotify Listen Along invite in chat",
-	category: ModuleCategory.Useful,
-	icon: getAssetIDByName("img_account_sync_spotify_white"),
+	meta: {
+		sublabel: "Adds an option to send a Spotify Listen Along invite in chat",
+		category: ModuleCategory.Useful,
+		icon: getAssetIDByName("img_account_sync_spotify_white"),
+	},
 	handlers: {
 		onStart() {
 			this.patches.add(
@@ -33,5 +35,4 @@ export default new Module({
 		},
 		onStop() {},
 	},
-	disabled: false,
 });

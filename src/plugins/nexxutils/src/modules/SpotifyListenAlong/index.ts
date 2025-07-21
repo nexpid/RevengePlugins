@@ -13,11 +13,13 @@ const PlayOnSpotifyButton = findByProps("PlayOnSpotifyButton");
 export default new Module({
 	id: "spotify-listen-along",
 	label: "Add Listen Along",
-	sublabel: "Adds a Listen Along button to Spotify activites",
-	category: ModuleCategory.Useful,
-	icon: getAssetIDByName("MusicIcon"),
-	extra: {
-		credits: ["1001086404203389018"],
+	meta: {
+		sublabel: "Adds a Listen Along button to Spotify activites",
+		category: ModuleCategory.Useful,
+		icon: getAssetIDByName("MusicIcon"),
+		extra: {
+			credits: ["1001086404203389018"],
+		},
 	},
 	handlers: {
 		onStart() {

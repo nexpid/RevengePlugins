@@ -1,4 +1,4 @@
-import type { Module } from "../stuff/Module";
+import type { AnyModule } from "../stuff/Module";
 import BetterComponents from "./BetterComponents";
 import ColorfulChannels from "./ColorfulChannels";
 import Minimod from "./Minimod";
@@ -16,4 +16,4 @@ export default [
 	SendSpotifyInvite,
 	SpotifyListenAlong,
 	TenorGifFix,
-].sort((a, b) => (a.id < b.id ? -1 : 1)) as Module<any>[];
+].sort((a, b) => (a.id < b.id ? -1 : 1)) as AnyModule[];

@@ -6,6 +6,7 @@ import { showConfirmationAlert } from "@vendetta/ui/alerts";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 
+import NerdEmoji from "../../../assets/MiniMod/NerdEmoji.png";
 import { Module, ModuleCategory } from "../../stuff/Module";
 import M3Snackbar from "./components/M3Snackbar";
 import M3Switch from "./components/M3Switch";
@@ -19,11 +20,14 @@ const _Alert = findByDisplayName("FluxContainer(Alert)");
 export default new Module({
 	id: "better-components",
 	label: "Better Components",
-	sublabel: "Alters the way some Discord components look",
-	category: ModuleCategory.Useful,
-	icon: getAssetIDByName("BicycleIcon"),
-	extra: {
-		note: "The Alert option has been temporarily disabled by nexpid",
+	meta: {
+		sublabel: "Alters the way some Discord components look",
+		category: ModuleCategory.Useful,
+		icon: getAssetIDByName("BicycleIcon"),
+		thumbnail: NerdEmoji,
+		extra: {
+			disabled: true,
+		},
 	},
 	settings: {
 		switch: {
@@ -150,6 +154,7 @@ export default new Module({
 						})),
 				);
 			}
+
 			// FIX fix Alert patch
 			// if (this.storage.options.alert !== "Default") {
 			// 	this.patches.add(

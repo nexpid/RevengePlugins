@@ -122,9 +122,11 @@ const ChannelInfo = findByName("ChannelInfo", false);
 export default new Module({
 	id: "colorful-channels",
 	label: "Colorful Channels",
-	sublabel: "Makes channel icons with symbols more colorful",
-	category: ModuleCategory.Useful,
-	icon: getAssetIDByName("LockIcon"),
+	meta: {
+		sublabel: "Makes channel icons with symbols more colorful",
+		category: ModuleCategory.Useful,
+		icon: getAssetIDByName("LockIcon"),
+	},
 	settings: {
 		nsfwTag: {
 			label: "NSFW tag",

@@ -22,9 +22,11 @@ function parseURL(url: string) {
 export default new Module({
 	id: "tenor-gif-fix",
 	label: "Tenor GIF Fix",
-	sublabel: "Downloads Tenor links as GIFs instead of videos",
-	category: ModuleCategory.Fixes,
-	icon: getAssetIDByName("GifIcon"),
+	meta: {
+		sublabel: "Downloads Tenor links as GIFs instead of videos",
+		category: ModuleCategory.Fixes,
+		icon: getAssetIDByName("GifIcon"),
+	},
 	handlers: {
 		onStart() {
 			// STUB[epic=plugin] older versions
