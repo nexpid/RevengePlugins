@@ -89,6 +89,16 @@ export default function() {
 				);
 				patches.push(patch);
 			},
+			shotgun: (parent: any, callback?: (args: any[], ret: any) => any, oneTime?: boolean) => {
+				let p = 0;
+				for (const [key, val] of Object.entries(parent)) {
+					if (typeof val === "function") {
+						globalThis.nx.p.snipe(key, parent, callback, oneTime);
+						p++;
+					}
+				}
+				return p;
+			},
 			props: {
 				collect: (
 					key: string,
