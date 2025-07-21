@@ -41,7 +41,7 @@
 		"typescript": "^5.8.3",
 		"vendetta-types": "^2.4.21",
 		"ws": "^8.18.2",
-		"zustand": "^4.5.5"
+		"zustand": "^5.0.6"
 	},
 	"pnpm": {
 		"patchedDependencies": {

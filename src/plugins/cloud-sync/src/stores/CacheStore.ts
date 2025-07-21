@@ -1,7 +1,6 @@
 import { findByStoreName } from "@vendetta/metro";
-import { createJSONStorage, persist } from "zustand/middleware";
 
-import { RNCacheModule, zustand } from "$/deps";
+import { RNCacheModule, zustand, zustandMW } from "$/deps";
 import { fluxSubscribe } from "$/types";
 
 import type { UserData } from "../types";
@@ -21,7 +20,7 @@ export const useCacheStore = zustand.create<
 	CacheState,
 	[["zustand/persist", { dir: CacheState["dir"] }]]
 >(
-	persist(
+	zustandMW.persist(
 		(set, get) => ({
 			data: undefined,
 			at: undefined,
@@ -44,7 +43,7 @@ export const useCacheStore = zustand.create<
 		}),
 		{
 			name: "cloudsync-cache",
-			storage: createJSONStorage(() => RNCacheModule),
+			storage: zustandMW.createJSONStorage(() => RNCacheModule),
 			partialize: ({ dir }) => ({ dir }),
 			onRehydrateStorage: () => state => state?.init(),
 		},

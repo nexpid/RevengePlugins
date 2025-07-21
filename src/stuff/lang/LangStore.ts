@@ -1,7 +1,5 @@
-import { createJSONStorage, persist } from "zustand/middleware";
-
 import constants from "$/constants";
-import { RNCacheModule, zustand } from "$/deps";
+import { RNCacheModule, zustand, zustandMW } from "$/deps";
 
 import type LangValues from "../../../lang/defs";
 
@@ -23,7 +21,7 @@ export const useLangStore = zustand.create<
 		],
 	]
 >(
-	persist(
+	zustandMW.persist(
 		(set, get) => ({
 			values: {},
 			lastModified: null,
@@ -55,7 +53,7 @@ export const useLangStore = zustand.create<
 		}),
 		{
 			name: "nexpid-lang",
-			storage: createJSONStorage(() => RNCacheModule),
+			storage: zustandMW.createJSONStorage(() => RNCacheModule),
 			partialize: state => ({
 				values: state.values,
 				lastModified: state.lastModified,
