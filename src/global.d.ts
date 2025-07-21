@@ -60,6 +60,11 @@ interface Window {
 				callback?: (args: any[], ret: any) => any,
 				oneTime?: boolean,
 			) => void;
+			shotgun: (
+				parent: any,
+				callback?: (args: any[], ret: any) => any,
+				oneTime?: boolean,
+			) => void;
 			props: {
 				collect: (
 					key: string,
@@ -71,4 +76,5 @@ interface Window {
 			};
 		};
 	};
+	nativeModuleProxy?: any;
 }

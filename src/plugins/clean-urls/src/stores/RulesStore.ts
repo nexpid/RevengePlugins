@@ -1,6 +1,4 @@
-import { createJSONStorage, persist } from "zustand/middleware";
-
-import { RNCacheModule, zustand } from "$/deps";
+import { RNCacheModule, zustand, zustandMW } from "$/deps";
 import { fluxSubscribe } from "$/types";
 
 import { listUrl } from "..";
@@ -37,7 +35,7 @@ export const useRulesStore = zustand.create<
 		],
 	]
 >(
-	persist(
+	zustandMW.persist(
 		(set, get) => ({
 			rules: null,
 			lastModified: null,
@@ -55,7 +53,7 @@ export const useRulesStore = zustand.create<
 		}),
 		{
 			name: "clean-urls-rules",
-			storage: createJSONStorage(() => RNCacheModule),
+			storage: zustandMW.createJSONStorage(() => RNCacheModule),
 			partialize: state => ({
 				rules: state.rules,
 				lastModified: state.lastModified,

@@ -49,7 +49,7 @@ function findTypes(path: string, packageJson: any) {
 	return maps.find(x => existsSync(join(path, x)));
 }
 
-export async function rollupDts(path: string, pkg: string, out: string) {
+export async function findRootTypes(path: string) {
 	const packageJson = JSON.parse(
 		await readFileString(join(path, "package.json")),
 	) as any;
@@ -62,17 +62,23 @@ export async function rollupDts(path: string, pkg: string, out: string) {
 		);
 	}
 
+	return types;
+}
+
+export async function rollupDts(path: string, pkg: string, out: string, types?: string) {
+	if (!types) types = join(path, await findRootTypes(path));
+
 	if (verbose) {
 		console.log(
 			picocolors.magenta(
-				`rolling up!!!!\nSOURCE ${join(path, types)}\nDESTINATION ${out}\nGLHF`,
+				`rolling up!!!!\nSOURCE ${types}\nDESTINATION ${out}\nGLHF`,
 			),
 		);
 	}
 
 	bundle({
 		name: pkg,
-		main: join(path, types),
+		main: types,
 		out,
 		verbose,
 		indent: "\t",

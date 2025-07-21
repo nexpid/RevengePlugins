@@ -1,6 +1,6 @@
 import { existsSync } from "node:fs";
-import { readdir, rm } from "node:fs/promises";
-import { join } from "node:path";
+import { readdir, rm, } from "node:fs/promises";
+import { join, } from "node:path";
 
 import {
 	bench,
@@ -14,10 +14,46 @@ import {
 import { readFileString } from "../fs";
 import { cleanPath, getTarball, rollupDts, unzipTarball } from "./lib/registry";
 
+function startLocal(txt: string) {
+	if (txt.startsWith("../") || txt.startsWith("./")) return txt;
+	else return `./${txt}`;
+}
+
+function moddy(mods: { path: string, name: string }[]) {
+	const text: string[] = [];
+
+	let i = 0;
+	for (const mod of mods) text.push(`import * as _${i++} from ${JSON.stringify(startLocal(mod.path))};`);
+	text.push("");
+
+	i = 0;
+	for (const mod of mods) text.push(`declare ${JSON.stringify(mod.name)} { export = _${i++} }`);
+
+	return text.join("\n");
+}
+
+type RawDependency = string | {
+	from: string;
+	as: {
+		name: string;
+		file: string;
+	}[]
+}
+interface Dependency {
+	pkg: string;
+	ver: string;
+	as: {
+		name: string;
+		file: string;
+	}[]
+}
+
+const keep = process.argv.includes("--keep");
+
 const offset = performance.now();
 
 const reg = JSON.parse(await readFileString("declarations/reg.json")) as {
-	dependencies: string[];
+	dependencies: RawDependency[];
 };
 
 logDebug("Clearing declarations folder");
@@ -29,27 +65,33 @@ for (const file of await readdir("declarations")) {
 }
 if (existsSync("temp")) await rm("temp", { recursive: true, force: true });
 
-const dependencies = reg.dependencies.map(x => ({
-	pkg: x.split("@").slice(0, -1).join("@"),
-	ver: x.split("@").slice(-1)[0],
-}));
+const dependencies = reg.dependencies.map((dep) => {
+	const join = typeof dep === "string" ? dep.split("@") : dep.from.split("@");
+	const obj: Dependency = {
+		pkg: join.slice(0, -1).join("@"),
+		ver: join.slice(-1)[0],
+		as: []
+	}
+
+	if (typeof dep !== "string") obj.as = dep.as;
+	
+	return obj;
+});
 
 const tarballPreparation = bench();
 logHeader("Preparing tarballs");
 
 const artifacts = new Set<{
-	pkg: string;
-	ver: string;
+	dep: Dependency;
 	data: Buffer;
 }>();
 await runTask(
 	`Downloaded ${highlight("package")} tarballs`,
 	Promise.all(
-		dependencies.map(({ pkg, ver }) =>
-			getTarball(pkg, ver).then(data =>
+		dependencies.map((dep) =>
+			getTarball(dep.pkg, dep.ver).then(data =>
 				artifacts.add({
-					pkg,
-					ver,
+					dep,
 					data,
 				})
 			)
@@ -58,16 +100,16 @@ await runTask(
 );
 
 const artifactPaths = new Set<{
+	dep: Dependency;
 	path: string;
-	pkg: string;
 }>();
 await runTask(
 	`Unzipped ${highlight("package")} tarballs`,
-	Promise.all([...artifacts.values()].map(({ pkg, ver, data }) =>
+	Promise.all([...artifacts.values()].map(({ dep, data }) =>
 		unzipTarball(
-			join("temp", `${cleanPath(pkg)}@${ver}`),
+			join("temp", `${cleanPath(dep.pkg)}@${dep.ver}`),
 			data,
-		).then(path => artifactPaths.add({ pkg, path }))
+		).then(path => artifactPaths.add({ dep, path }))
 	)),
 );
 
@@ -78,23 +120,23 @@ const makingDeclarations = bench();
 logHeader("Making declarations");
 
 let anyErrors = false;
-for (const { path, pkg } of [...artifactPaths.values()]) {
-	await runTask(
-		`Rolled up ${highlight(pkg)}`,
-		rollupDts(
-			path,
-			pkg,
-			join(import.meta.dirname, "../../", "declarations", `${cleanPath(pkg)}.d.ts`),
-		).catch(
-			err =>
-				void (logDebug(`Couldn't rollup ${highlight(pkg)}!`),
-					console.error(err),
-					(anyErrors = true)),
-		),
-	);
+for (const { path, dep } of [...artifactPaths.values()]) {
+		await runTask(
+			`Rolled up ${highlight(dep.pkg)}`,
+			rollupDts(
+				path,
+				dep.pkg,
+				join(import.meta.dirname, "../../", "declarations", `${cleanPath(dep.pkg)}.d.ts`),
+			).catch(
+				err =>
+					void (logDebug(`Couldn't rollup ${highlight(dep.pkg)}!`),
+						console.error(err),
+						(anyErrors = true)),
+			),
+		);	
 }
 
-if (!anyErrors) await rm("temp", { recursive: true, force: true });
+if (!anyErrors && !keep) await rm("temp", { recursive: true, force: true });
 logFinished("rolling up .d.ts", makingDeclarations.stop());
 
 logCompleted(Math.floor(performance.now() - offset));

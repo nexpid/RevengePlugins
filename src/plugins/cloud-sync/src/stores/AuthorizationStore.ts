@@ -1,8 +1,7 @@
 // https://github.com/decor-discord/vendetta-plugin/blob/main/src/lib/stores/AuthorizationStore.ts
 import { findByStoreName } from "@vendetta/metro";
-import { createJSONStorage, persist } from "zustand/middleware";
 
-import { RNCacheModule, zustand } from "$/deps";
+import { RNCacheModule, zustand, zustandMW } from "$/deps";
 import { fluxSubscribe } from "$/types";
 
 const UserStore = findByStoreName("UserStore");
@@ -19,7 +18,7 @@ export const useAuthorizationStore = zustand.create<
 	AuthorizationState,
 	[["zustand/persist", { tokens: AuthorizationState["tokens"] }]]
 >(
-	persist(
+	zustandMW.persist(
 		(set, get) => ({
 			token: undefined,
 			tokens: {},
@@ -41,7 +40,7 @@ export const useAuthorizationStore = zustand.create<
 		}),
 		{
 			name: "cloudsync-auth",
-			storage: createJSONStorage(() => RNCacheModule),
+			storage: zustandMW.createJSONStorage(() => RNCacheModule),
 			partialize: ({ tokens }) => ({ tokens }),
 			onRehydrateStorage: () => state => state?.init(),
 		},

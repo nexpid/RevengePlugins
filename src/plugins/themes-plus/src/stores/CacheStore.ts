@@ -1,6 +1,4 @@
-import { createJSONStorage, persist } from "zustand/middleware";
-
-import { RNCacheModule, zustand } from "$/deps";
+import { RNCacheModule, zustand, zustandMW } from "$/deps";
 
 interface CacheState {
 	cache: Record<string, string>;
@@ -13,7 +11,7 @@ export const useCacheStore = zustand.create<
 	CacheState,
 	[["zustand/persist", { cache: CacheState["cache"] }]]
 >(
-	persist(
+	zustandMW.persist(
 		(set, get) => ({
 			cache: {},
 			isCached: link => !!get().cache[link],
@@ -26,7 +24,7 @@ export const useCacheStore = zustand.create<
 		}),
 		{
 			name: "themes-plus-cache",
-			storage: createJSONStorage(() => RNCacheModule),
+			storage: zustandMW.createJSONStorage(() => RNCacheModule),
 			partialize: state => ({ cache: state.cache }),
 		},
 	),
