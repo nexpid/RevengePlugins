@@ -71,4 +71,5 @@ interface Window {
 			};
 		};
 	};
+	nativeModuleProxy?: any;
 }

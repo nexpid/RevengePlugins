@@ -1,5 +1,5 @@
 import type * as _FlashList from "@shopify/flash-list";
-import { find, findByName, findByProps } from "@vendetta/metro";
+import { find, findByProps } from "@vendetta/metro";
 import { ReactNative as RN } from "@vendetta/metro/common";
 import type * as _Reanimated from "react-native-reanimated";
 import type { StateStorage } from "zustand/middleware";
@@ -24,9 +24,12 @@ export const { default: Video } = findByProps(
 
 export const Joi = findByProps("isJoi") as unknown as typeof import("joi");
 
-export const zustand = (findByProps("create", "useStore") ?? {
-	create: findByName("create"),
-}) as typeof import("zustand");
+export const zustand = findByProps("create", "useStore") as typeof import("zustand");
+
+export const zustandMW = findByProps(
+	"createJSONStorage",
+	"persist",
+) as typeof import("zustand/middleware");
 
 export const DocumentPicker = findByProps(
 	"pickSingle",
@@ -136,50 +139,92 @@ export class MobileAudioSound {
 //
 // raw native modules
 //
-export const RNCacheModule = (RN.NativeModules.MMKVManager
-	?? RN.NativeModules.NativeCacheModule) as StateStorage;
 
-export const RNChatModule = (RN.NativeModules.DCDChatManager
-	?? RN.NativeModules.NativeChatModule) as {
-		updateRows: (id: string, json: string) => any;
-	};
+// ripped straight from https://github.com/revenge-mod/revenge-bundle/blob/0a90d762e5c9996bb6613edd136fafe2b8f25908/src/lib/api/native/modules/index.ts
+// why the fuck isnt that exported
+const nmp = window.nativeModuleProxy;
 
-export const RNFileModule = (RN.NativeModules.RTNFileManager
-	?? RN.NativeModules.DCDFileManager
-	?? RN.NativeModules.NativeFileModule) as {
-		readFile(path: string, encoding: "base64" | "utf8"): Promise<string>;
-		fileExists(path: string): Promise<boolean>;
-		removeFile(
-			storageDir: "documents" | "cache",
-			path: string,
-		): Promise<boolean>;
-		writeFile(
-			storageDir: "cache" | "documents",
-			path: string,
-			data: string,
-			encoding: "base64" | "utf8",
-		): Promise<string>;
+function getNativeModule<T = any>(...names: string[]): T | undefined {
+	for (const name of names) {
+		if (globalThis.__turboModuleProxy) {
+			const module = globalThis.__turboModuleProxy(name);
+			if (module) return module as T;
+		}
 
-		clearFolder(
-			storageDir: "documents" | "cache",
-			path: string,
-		): Promise<boolean>;
-		saveFileToGallery(
-			uri: `file://${string}`,
-			fileName: string,
-			fileType: "PNG" | "JPEG",
-		): Promise<string>;
-		readAsset(path: string, encoding: "base64" | "utf8"): void;
-		getSize(uri: string): Promise<boolean>;
+		if (nmp[name]) return nmp[name] as T;
+	}
 
-		/** Doesn't end with / */
-		CacheDirPath: string;
-		/** Doesn't end with / */
+	return undefined;
+}
+
+export const RNCacheModule = getNativeModule<StateStorage>(
+	"NativeCacheModule",
+	"MMKVManager",
+)!;
+
+export const RNChatModule = getNativeModule<{
+	updateRows: (id: string, json: string) => any;
+}>(
+	"NativeChatModule",
+	"DCDChatManager",
+)!;
+
+export const RNFileModule = getNativeModule<{
+	/**
+	 * @param path **Full** path to file
+	 */
+	fileExists: (path: string) => Promise<boolean>;
+	/**
+	 * Allowed URI schemes on Android: `file://`, `content://` ([See here](https://developer.android.com/reference/android/content/ContentResolver#accepts-the-following-uri-schemes:_3))
+	 */
+	getSize: (uri: string) => Promise<boolean>;
+	/**
+	 * @param path **Full** path to file
+	 * @param encoding Set to `base64` in order to encode response
+	 */
+	readFile(path: string, encoding: "base64" | "utf8"): Promise<string>;
+	saveFileToGallery?(uri: string, fileName: string, fileType: "PNG" | "JPEG"): Promise<string>;
+	/**
+	 * @param storageDir Either `cache` or `documents`.
+	 * @param path Path in `storageDir`, parents are recursively created.
+	 * @param data The data to write to the file
+	 * @param encoding Set to `base64` if `data` is base64 encoded.
+	 * @returns Promise that resolves to path of the file once it got written
+	 */
+	writeFile(
+		storageDir: "cache" | "documents",
+		path: string,
+		data: string,
+		encoding: "base64" | "utf8",
+	): Promise<string>;
+	/**
+	 * Removes a file from the path given.
+	 * (!) On Android, this always returns false, regardless if it fails or not!
+	 * @param storageDir Either `cache` or `documents`
+	 * @param path Path to the file to be removed
+	 */
+	removeFile(storageDir: "cache" | "documents", path: string): Promise<unknown>;
+	/**
+	 * Clear the folder from the path given
+	 * (!) On Android, this only clears all *files* and not subdirectories!
+	 * @param storageDir Either `cache` or `documents`
+	 * @param path Path to the folder to be cleared
+	 * @returns Whether the clearance succeeded
+	 */
+	clearFolder(storageDir: "cache" | "documents", path: string): Promise<boolean>;
+	getConstants: () => {
+		/**
+		 * The path the `documents` storage dir (see {@link writeFile}) represents.
+		 */
 		DocumentsDirPath: string;
-		getConstants: () => {
-			/** Doesn't end with / */
-			CacheDirPath: string;
-			/** Doesn't end with / */
-			DocumentsDirPath: string;
-		};
+		CacheDirPath: string;
 	};
+	/**
+	 * Will apparently cease to exist some time in the future so please use {@link getConstants} instead.
+	 * @deprecated
+	 */
+	DocumentsDirPath: string;
+}>(
+	"NativeFileModule",
+	"DCDFileManager",
+)!;
