@@ -16,7 +16,7 @@ export default new Module({
 	id: "spotify-listen-along",
 	label: "Add Listen Along",
 	meta: {
-		sublabel: "Adds a Listen Along button to Spotify activites",
+		sublabel: "Ports the Spotify listen along feature from desktop to mobile in Spotify activities",
 		category: ModuleCategory.Useful,
 		icon: getAssetIDByName("MusicIcon"),
 		thumbnail: {

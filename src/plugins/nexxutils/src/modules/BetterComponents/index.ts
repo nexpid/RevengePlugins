@@ -21,7 +21,8 @@ export default new Module({
 	id: "better-components",
 	label: "Better Components",
 	meta: {
-		sublabel: "Alters the way some Discord components look",
+		sublabel:
+			"Gives Discord a glow up by changing some of its core components to Material Design (or Tabs V2) alternatives",
 		category: ModuleCategory.Useful,
 		icon: getAssetIDByName("BicycleIcon"),
 		thumbnail: NerdEmoji,

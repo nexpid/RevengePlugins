@@ -139,7 +139,7 @@ export default new Module({
 	id: "colorful-channels",
 	label: "Colorful Channels",
 	meta: {
-		sublabel: "Makes channel icons with symbols more colorful",
+		sublabel: "Gives channel icons with symbols colors to make them more aesthetically pleasing",
 		category: ModuleCategory.Useful,
 		icon: getAssetIDByName("LockIcon"),
 		thumbnail: {

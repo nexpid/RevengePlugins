@@ -14,7 +14,8 @@ export default new Module({
 	id: "send-spotify-invite",
 	label: "Send Spotify invite",
 	meta: {
-		sublabel: "Adds an option to send a Spotify Listen Along invite in chat",
+		sublabel:
+			"Adds a button in the chat attachment menu to invite the channel to listen along to spotify",
 		category: ModuleCategory.Useful,
 		icon: getAssetIDByName("img_account_sync_spotify_white"),
 		thumbnail: {

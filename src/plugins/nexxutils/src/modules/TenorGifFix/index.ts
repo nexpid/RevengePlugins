@@ -25,7 +25,8 @@ export default new Module({
 	id: "tenor-gif-fix",
 	label: "Tenor GIF Fix",
 	meta: {
-		sublabel: "Downloads Tenor links as GIFs instead of videos",
+		sublabel:
+			"Fixes a several-year old bug which downloads gifs from Tenor as videos instead of gif files",
 		category: ModuleCategory.Fixes,
 		icon: getAssetIDByName("GifIcon"),
 		thumbnail: {
