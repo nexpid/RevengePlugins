@@ -2,6 +2,8 @@ import { findByProps } from "@vendetta/metro";
 import { React } from "@vendetta/metro/common";
 import { after } from "@vendetta/patcher";
 import { getAssetIDByName } from "@vendetta/ui/assets";
+import dark from "./dark.png";
+import light from "./light.png";
 
 import { Module, ModuleCategory } from "../../stuff/Module";
 import ClassicListenButton from "./components/ClassicListenButton";
@@ -17,6 +19,10 @@ export default new Module({
 		sublabel: "Adds a Listen Along button to Spotify activites",
 		category: ModuleCategory.Useful,
 		icon: getAssetIDByName("MusicIcon"),
+		thumbnail: {
+			dark,
+			light,
+		},
 		extra: {
 			credits: ["1001086404203389018"],
 		},

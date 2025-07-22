@@ -1,22 +1,15 @@
 import { logger } from "@vendetta";
-import { React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
+import { React } from "@vendetta/metro/common";
 import { semanticColors } from "@vendetta/ui";
 import { getAssetIDByName } from "@vendetta/ui/assets";
-import { Forms } from "@vendetta/ui/components";
 import { showToast } from "@vendetta/ui/toasts";
 import type { ImageSourcePropType } from "react-native";
 
-import { ActionSheet } from "$/components/ActionSheet";
-import ChooseSheet from "$/components/sheets/ChooseSheet";
 import SmartMention from "$/components/SmartMention";
-import Text from "$/components/Text";
-import { Button } from "$/lib/redesign";
 import { openModal, resolveSemanticColor } from "$/types";
 
 import { vstorage } from "..";
 import ErrorViewerModal from "../components/modals/ErrorViewerModal";
-
-const { FormRow, FormSwitchRow, FormDivider } = Forms;
 
 export enum ModuleCategory {
 	Useful = 0,
@@ -188,7 +181,10 @@ export interface ModuleMeta {
 	sublabel: string;
 	category: ModuleCategory;
 	icon?: ImageSourcePropType;
-	thumbnail?: ImageSourcePropType;
+	thumbnail?: ImageSourcePropType | {
+		dark: ImageSourcePropType;
+		light: ImageSourcePropType;
+	};
 	extra?: ModuleExtra;
 	disabled?: boolean;
 }
@@ -240,14 +236,6 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 		this.handlers = handlers;
 	}
 
-	private callable<Args extends any[]>(
-		val: any | ((...args: any[]) => any),
-		...args: Args
-	) {
-		if (typeof val === "function") return val(...args);
-		return val;
-	}
-
 	get storage(): {
 		enabled: boolean;
 		options: {
@@ -272,213 +260,6 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 		}
 
 		return vstorage.modules[this.id] as any;
-	}
-
-	get component(): React.FunctionComponent {
-		return (() => {
-			const [_, forceUpdate] = React.useReducer(x => ~x, 0);
-			const [hidden, setHidden] = React.useState(true);
-
-			const styles = stylesheet.createThemedStyleSheet({
-				icon: {
-					width: 18,
-					height: 18,
-					tintColor: semanticColors.TEXT_NORMAL,
-				},
-				row: {
-					flexDirection: "row",
-					justifyContent: "flex-start",
-					alignItems: "center",
-					padding: 12,
-				},
-				rowTailing: {
-					marginLeft: "auto",
-					textAlign: "right",
-					paddingLeft: 16,
-				},
-				androidRipple: {
-					color: semanticColors.ANDROID_RIPPLE,
-					cornerRadius: 8,
-				} as any,
-			});
-
-			return (
-				<>
-					<FormRow
-						label={[
-							<RN.Text
-								key="label"
-								style={{
-									color: resolveSemanticColor(
-										semanticColors.TEXT_NORMAL,
-									),
-								}}
-							>
-								{this.label}
-							</RN.Text>,
-						]}
-						trailing={
-							<FormRow.Arrow
-								style={{
-									transform: [
-										{ rotate: `${hidden ? 180 : 90}deg` },
-									],
-								}}
-							/>
-						}
-						onPress={() => {
-							setHidden(!hidden);
-							RN.LayoutAnimation.configureNext(
-								RN.LayoutAnimation.Presets.easeInEaseOut,
-							);
-						}}
-					/>
-					{!hidden && (
-						<>
-							<FormDivider />
-							<RN.View style={{ paddingHorizontal: 15 }}>
-								<FormSwitchRow
-									label="Enabled"
-									onValueChange={() => {
-										if (this.meta.disabled) return;
-										this.toggle();
-										forceUpdate();
-									}}
-									leading={
-										<FormRow.Icon
-											source={getAssetIDByName(
-												"SettingsIcon",
-											)}
-										/>
-									}
-									value={this.storage.enabled}
-									disabled={this.meta.disabled}
-								/>
-								{Object.entries(this.settings).map(
-									([id, setting]) =>
-										setting.type === "button"
-											? (
-												<RN.View
-													key={id}
-													style={{ marginVertical: 12 }}
-												>
-													<Button
-														size="md"
-														variant="primary"
-														text={setting.label}
-														onPress={() => {
-															setting.action.bind(
-																this as any,
-															)();
-														}}
-														icon={setting.icon}
-														disabled={setting.disabled}
-													/>
-												</RN.View>
-											)
-											: (
-													setting.predicate
-														? setting.predicate?.bind(
-															this as any,
-														)()
-														: true
-												)
-											? (
-												setting.type === "toggle"
-													? (
-														<FormSwitchRow
-															key={id}
-															label={setting.label}
-															subLabel={this.callable(
-																setting.subLabel,
-																this.storage.options[
-																	id
-																],
-															)}
-															onValueChange={() => {
-																// @ts-expect-error type string cannot be used to index type
-																this.storage.options[
-																	id
-																] = !this.storage
-																	.options[id];
-																this.restart();
-																forceUpdate();
-															}}
-															leading={
-																<FormRow.Icon
-																	source={setting.icon}
-																/>
-															}
-															value={this.storage.options[id]}
-															disabled={setting.disabled}
-														/>
-													)
-													: (
-														setting.type === "choose" && (
-															<FormRow
-																label={setting.label}
-																subLabel={this.callable(
-																	setting.subLabel,
-																	this.storage
-																		.options[id],
-																)}
-																onPress={() => {
-																	!setting.disabled && ActionSheet.open(
-																		ChooseSheet,
-																		{
-																			title: setting.label,
-																			value: this
-																				.storage
-																				.options[
-																					id
-																				] as any,
-																			options: setting.choices.map(
-																				x => ({
-																					name: x,
-																					value: x,
-																				}),
-																			),
-																			callback: val => {
-																				// @ts-expect-error type string cannot be used to index type
-																				this.storage.options[
-																					id
-																				] = val;
-																				this.restart();
-																				forceUpdate();
-																			},
-																		},
-																	);
-																}}
-																leading={
-																	<FormRow.Icon
-																		source={setting.icon}
-																	/>
-																}
-																trailing={
-																	<Text
-																		variant="text-md/medium"
-																		color="TEXT_MUTED"
-																	>
-																		{/* @ts-expect-error type string cannot be used to index type*/}
-																		{this.storage
-																			.options[
-																				id
-																			]}
-																	</Text>
-																}
-																disabled={setting.disabled}
-															/>
-														)
-													)
-											)
-											: null,
-								)}
-							</RN.View>
-						</>
-					)}
-				</>
-			);
-		}).bind(this);
 	}
 
 	toggle() {

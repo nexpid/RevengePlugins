@@ -14,24 +14,6 @@ import {
 import { readFileString } from "../fs";
 import { cleanPath, getTarball, rollupDts, unzipTarball } from "./lib/registry";
 
-function startLocal(txt: string) {
-	if (txt.startsWith("../") || txt.startsWith("./")) return txt;
-	else return `./${txt}`;
-}
-
-function moddy(mods: { path: string, name: string }[]) {
-	const text: string[] = [];
-
-	let i = 0;
-	for (const mod of mods) text.push(`import * as _${i++} from ${JSON.stringify(startLocal(mod.path))};`);
-	text.push("");
-
-	i = 0;
-	for (const mod of mods) text.push(`declare ${JSON.stringify(mod.name)} { export = _${i++} }`);
-
-	return text.join("\n");
-}
-
 type RawDependency = string | {
 	from: string;
 	as: {

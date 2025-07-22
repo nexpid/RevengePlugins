@@ -5,7 +5,7 @@ import { getAssetIDByName } from "@vendetta/ui/assets";
 
 import intlProxy from "$/lib/intlProxy";
 
-import { Module, ModuleCategory } from "../stuff/Module";
+import { Module, ModuleCategory } from "../../stuff/Module";
 
 const UserProfileRow = findByName("UserProfileRow", false);
 

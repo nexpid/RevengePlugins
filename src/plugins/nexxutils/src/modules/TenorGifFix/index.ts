@@ -1,8 +1,10 @@
 import { findByProps } from "@vendetta/metro";
 import { before } from "@vendetta/patcher";
 import { getAssetIDByName } from "@vendetta/ui/assets";
+import dark from "./dark.png";
+import light from "./light.png";
 
-import { Module, ModuleCategory } from "../stuff/Module";
+import { Module, ModuleCategory } from "../../stuff/Module";
 
 const MediaManager = findByProps("downloadMediaAsset");
 
@@ -26,6 +28,10 @@ export default new Module({
 		sublabel: "Downloads Tenor links as GIFs instead of videos",
 		category: ModuleCategory.Fixes,
 		icon: getAssetIDByName("GifIcon"),
+		thumbnail: {
+			dark,
+			light,
+		},
 	},
 	handlers: {
 		onStart() {
