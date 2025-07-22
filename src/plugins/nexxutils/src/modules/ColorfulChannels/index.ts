@@ -20,6 +20,8 @@ import stageLock from "../../../assets/ColorfulChannels/stage/lock.png";
 import textController from "../../../assets/ColorfulChannels/text/controller.png";
 import textLock from "../../../assets/ColorfulChannels/text/lock.png";
 import textWarning from "../../../assets/ColorfulChannels/text/warning.png";
+import voiceLock from "../../../assets/ColorfulChannels/voice/lock.png";
+import voiceWarning from "../../../assets/ColorfulChannels/voice/warning.png";
 import warning from "../../../assets/ColorfulChannels/warning.png";
 import warningBottom from "../../../assets/ColorfulChannels/warningBottom.png";
 import { Module, ModuleCategory } from "../../stuff/Module";
@@ -81,6 +83,18 @@ const glyphs = [
 		name: "Text",
 		kind: GlyphKind.Controller,
 		base: textController,
+	},
+
+	// Voice
+	{
+		name: "Voice",
+		kind: GlyphKind.Lock,
+		base: voiceLock,
+	},
+	{
+		name: "Voice",
+		kind: GlyphKind.Warning,
+		base: voiceWarning,
 	},
 
 	// Forum (warning is unused)
