@@ -37,7 +37,7 @@ export const getDiscordTheme = () => {
 	return theme;
 };
 
-export const resolveCustomSemantic = (dark: string, light: string) =>
+export const resolveCustomSemantic = (dark: any, light: any) =>
 	getDiscordTheme() === "light" ? light : dark;
 
 export const lerp = (og: string, target: string, perc: number) => {

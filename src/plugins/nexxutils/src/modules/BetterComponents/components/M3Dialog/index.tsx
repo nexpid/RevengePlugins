@@ -53,7 +53,6 @@ export default function({
 			flexWrap: "wrap",
 			gap: 8,
 			paddingLeft: 8,
-			marginRight: -24,
 			paddingVertical: 24,
 		},
 	});

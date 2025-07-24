@@ -1,58 +1,40 @@
 import { ReactNative as RN } from "@vendetta/metro/common";
-import { ErrorBoundary } from "@vendetta/ui/components";
 
 import { BetterTableRowGroup } from "$/components/BetterTableRow";
 import Text from "$/components/Text";
-
-import { version } from "..";
+import { ErrorBoundary } from "@vendetta/ui/components";
 import modules from "../modules";
 import { moduleCategoryMap } from "../stuff/Module";
-import SillyAvatar from "./SillyAvatar";
+import { Header } from "./Header";
+import { ModuleInfo } from "./ModuleInfo";
 
 export default () => {
 	return (
 		<RN.ScrollView>
-			<RN.View
-				style={{
-					marginHorizontal: 20,
-					marginTop: 20,
-					marginBottom: 10,
-					flexDirection: "row",
-					justifyContent: "center",
-					alignItems: "center",
-				}}
-			>
-				<SillyAvatar />
-				<Text variant="text-lg/semibold" color="TEXT_NORMAL">
-					NexxUtils v{version}
-				</Text>
-			</RN.View>
+			<Header />
 			{moduleCategoryMap.map(({ category, title, icon }) => {
-				const mods = modules.filter(x => x.category === category);
+				const mods = modules.filter(x => x.meta.category === category);
+				const noMods = mods.length === 0;
 				return (
 					<BetterTableRowGroup
 						key={title}
 						title={title}
 						icon={icon}
-						padding={mods.length === 0}
+						padding={noMods}
 					>
-						{mods.length > 0
-							? (
-								mods.map(x => (
-									<ErrorBoundary key={x.id}>
-										<x.component />
-									</ErrorBoundary>
-								))
-							)
-							: (
-								<Text
-									variant="text-md/semibold"
-									color="TEXT_NORMAL"
-									style={{ fontStyle: "italic" }}
-								>
-									{`No plugins in the ${title} category yet!`}
-								</Text>
-							)}
+						{mods.map(module => (
+							<ErrorBoundary key={module.id}>
+								<ModuleInfo module={module} />
+							</ErrorBoundary>
+						))}
+						{noMods && (
+							<Text
+								variant="text-md/semibold"
+								color="TEXT_NORMAL"
+							>
+								{`No plugins in the ${title} category yet!`}
+							</Text>
+						)}
 					</BetterTableRowGroup>
 				);
 			})}

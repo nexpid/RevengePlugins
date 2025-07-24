@@ -1,8 +1,10 @@
 import { findByProps } from "@vendetta/metro";
 import { before } from "@vendetta/patcher";
 import { getAssetIDByName } from "@vendetta/ui/assets";
+import dark from "./dark.png";
+import light from "./light.png";
 
-import { Module, ModuleCategory } from "../stuff/Module";
+import { Module, ModuleCategory } from "../../stuff/Module";
 
 const MediaManager = findByProps("downloadMediaAsset");
 
@@ -22,9 +24,16 @@ function parseURL(url: string) {
 export default new Module({
 	id: "tenor-gif-fix",
 	label: "Tenor GIF Fix",
-	sublabel: "Downloads Tenor links as GIFs instead of videos",
-	category: ModuleCategory.Fixes,
-	icon: getAssetIDByName("GifIcon"),
+	meta: {
+		sublabel:
+			"Fixes a several-year old bug which downloads gifs from Tenor as videos instead of gif files",
+		category: ModuleCategory.Fixes,
+		icon: getAssetIDByName("GifIcon"),
+		thumbnail: {
+			dark,
+			light,
+		},
+	},
 	handlers: {
 		onStart() {
 			// STUB[epic=plugin] older versions
