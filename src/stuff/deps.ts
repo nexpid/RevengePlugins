@@ -1,5 +1,5 @@
 import type * as _FlashList from "@shopify/flash-list";
-import { find, findByProps } from "@vendetta/metro";
+import { find, findByProps, findByName } from "@vendetta/metro";
 import { ReactNative as RN } from "@vendetta/metro/common";
 import type * as _Reanimated from "react-native-reanimated";
 import type { StateStorage } from "zustand/middleware";
@@ -24,7 +24,9 @@ export const { default: Video } = findByProps(
 
 export const Joi = findByProps("isJoi") as unknown as typeof import("joi");
 
-export const zustand = findByProps("create", "useStore") as typeof import("zustand");
+export const zustand = (findByProps("create", "useStore") as {
+	create: findByName("create")
+}) as typeof import("zustand");
 
 export const zustandMW = findByProps(
 	"createJSONStorage",
