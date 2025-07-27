@@ -1,22 +1,15 @@
 import { logger } from "@vendetta";
-import { React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
+import { React } from "@vendetta/metro/common";
 import { semanticColors } from "@vendetta/ui";
 import { getAssetIDByName } from "@vendetta/ui/assets";
-import { Forms } from "@vendetta/ui/components";
 import { showToast } from "@vendetta/ui/toasts";
 import type { ImageSourcePropType } from "react-native";
 
-import { ActionSheet } from "$/components/ActionSheet";
-import ChooseSheet from "$/components/sheets/ChooseSheet";
 import SmartMention from "$/components/SmartMention";
-import Text from "$/components/Text";
-import { Button } from "$/lib/redesign";
 import { openModal, resolveSemanticColor } from "$/types";
 
 import { vstorage } from "..";
 import ErrorViewerModal from "../components/modals/ErrorViewerModal";
-
-const { FormRow, FormSwitchRow, FormDivider } = Forms;
 
 export enum ModuleCategory {
 	Useful = 0,
@@ -45,29 +38,28 @@ export const moduleCategoryMap = [
 	icon: number;
 }[];
 
-type ModuleSetting =
+export type ModuleSetting =
 	& {
 		label: string;
 		icon?: number;
 		disabled?: boolean;
+		predicate?: (this: AnyModule) => boolean;
 	}
 	& (
 		| {
 			subLabel?: string | ((value: boolean) => string);
 			type: "toggle";
 			default: boolean;
-			predicate?: (this: Module<any>) => void;
 		}
 		| {
 			type: "button";
-			action: (this: Module<any>) => void;
+			action: (this: AnyModule) => void;
 		}
 		| {
 			subLabel?: string | ((value: string) => string);
 			type: "choose";
 			choices: string[];
 			default: string;
-			predicate?: (this: Module<any>) => void;
 		}
 	);
 
@@ -86,10 +78,92 @@ class Patches {
 	}
 }
 
-interface ModuleExtra {
-	credits?: string[];
-	note?: string;
-	warning?: string;
+interface InternalModuleExtra {
+	id: string;
+	content?: React.ReactNode;
+	color?: string;
+	icon: string;
+	action?: () => any;
+}
+
+export function getModuleExtras(module: AnyModule) {
+	const extras: InternalModuleExtra[] = [];
+
+	if (Object.keys(module.errors).length > 0) {
+		extras.push({
+			id: "errors",
+			content: `Encountered ${Object.keys(module.errors).length} error${
+				Object.keys(module.errors).length !== 1 ? "s" : ""
+			}`,
+			color: resolveSemanticColor(semanticColors.TEXT_DANGER),
+			icon: "WarningIcon",
+			action: () => {
+				openModal(
+					"error-viewer",
+					ErrorViewerModal({
+						errors: module.errors,
+						module: module.label,
+						clearEntry: e => {
+							delete module.errors[e];
+							module.refresh();
+						},
+					}),
+				);
+			},
+		});
+	}
+
+	const extra = module.meta.extra;
+	if (extra?.warning) {
+		extras.push({
+			id: "warning",
+			content: extra.warning,
+			color: resolveSemanticColor(semanticColors.TEXT_WARNING),
+			icon: "BugIcon",
+		});
+	}
+
+	if (module.meta.disabled) {
+		extras.push({
+			id: "disabled",
+			content: "This plugin has been temporarily disabled by nexpid",
+			color: resolveSemanticColor(semanticColors.ICON_MUTED),
+			icon: "FireIcon",
+		});
+	} else if (extra?.disabled) {
+		extras.push({
+			id: "disabled",
+			content: "One or more features in this plugin have been temporarily disabled by nexpid",
+			color: resolveSemanticColor(semanticColors.ICON_MUTED),
+			icon: "ScreenXIcon",
+		});
+	}
+
+	if (extra?.credits) {
+		extras.push({
+			id: "credits",
+			content: [
+				"Additional credits go to: ",
+				...extra.credits.map((x, i, a) => (
+					<>
+						{!Number.isNaN(Number(x))
+							? (
+								<SmartMention
+									key={x}
+									userId={x}
+									loadUsername={true}
+								/>
+							)
+							: x}
+						{i !== a.length - 1 ? ", " : ""}
+					</>
+				)),
+			],
+			icon: "HandRequestSpeakIcon",
+		});
+	}
+
+	return extras;
 }
 
 enum ModuleErrorLabel {
@@ -97,71 +171,69 @@ enum ModuleErrorLabel {
 	OnStop = "Stop Function",
 }
 
-export class Module<Settings extends Record<string, ModuleSetting>> {
-	id: string;
-	label: string;
+interface ModuleExtra {
+	credits?: string[];
+	warning?: string;
+	disabled?: boolean;
+}
+
+export interface ModuleMeta {
 	sublabel: string;
 	category: ModuleCategory;
 	icon?: ImageSourcePropType;
-	settings: Settings;
+	thumbnail?: ImageSourcePropType | {
+		dark: ImageSourcePropType;
+		light: ImageSourcePropType;
+	};
 	extra?: ModuleExtra;
+	disabled?: boolean;
+}
+
+export type AnyModule = Module<Record<string, ModuleSetting>>;
+
+export class Module<Settings extends Record<string, ModuleSetting>> {
+	id: string;
+	label: string;
+	meta: ModuleMeta;
+	settings: Settings;
 	errors: Record<string, string> = {};
-	disabled = false;
 
 	private handlers: {
 		onStart: (this: Module<Settings>) => void;
 		onStop: (this: Module<Settings>) => void;
 	};
 	private started = false;
+	private listeners = new Set<() => void>();
 
+	disabledReason: string | undefined;
 	patches = new Patches();
 
 	constructor({
 		id,
 		label,
-		sublabel,
-		category,
-		icon,
+		meta,
 		settings,
-		extra,
 		handlers,
-		disabled,
 	}: {
 		id: string;
 		label: string;
-		sublabel: string;
-		category: ModuleCategory;
-		icon?: ImageSourcePropType;
+		meta: ModuleMeta;
 		settings?: Settings;
-		extra?: ModuleExtra;
 		handlers: {
 			onStart: (this: Module<Settings>) => void;
 			onStop: (this: Module<Settings>) => void;
 		};
-		disabled?: boolean;
 	}) {
 		this.id = id;
 		this.label = label;
-		this.sublabel = sublabel;
-		this.category = category;
-		this.icon = icon;
+		this.meta = meta;
 		this.settings = Object.fromEntries(
 			Object.entries(settings ?? {}).map(([x, y]) => {
 				if ("default" in y) y.icon ??= getAssetIDByName("PencilIcon");
 				return [x, y];
 			}),
 		) as Settings;
-		this.extra = extra;
 		this.handlers = handlers;
-		this.disabled = disabled ?? false;
-	}
-
-	private callable<Args extends any[]>(
-		val: any | ((...args: any[]) => any),
-		...args: Args
-	) {
-		if (typeof val === "function") return val(...args);
-		return val;
 	}
 
 	get storage(): {
@@ -190,378 +262,23 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 		return vstorage.modules[this.id] as any;
 	}
 
-	get component(): React.FunctionComponent {
-		return (() => {
-			const [_, forceUpdate] = React.useReducer(x => ~x, 0);
-			const [hidden, setHidden] = React.useState(true);
-
-			const styles = stylesheet.createThemedStyleSheet({
-				icon: {
-					width: 18,
-					height: 18,
-					tintColor: semanticColors.TEXT_NORMAL,
-				},
-				row: {
-					flexDirection: "row",
-					justifyContent: "flex-start",
-					alignItems: "center",
-					padding: 12,
-				},
-				rowTailing: {
-					marginLeft: "auto",
-					textAlign: "right",
-					paddingLeft: 16,
-				},
-				androidRipple: {
-					color: semanticColors.ANDROID_RIPPLE,
-					cornerRadius: 8,
-				} as any,
-			});
-
-			const extra: {
-				content: any;
-				color: string;
-				icon: string;
-				action?: () => any;
-			}[] = [];
-
-			if (this.disabled) {
-				extra.push({
-					content: "This plugin has been temporarily disabled by nexpid",
-					color: "TEXT_MUTED",
-					icon: "BeakerIcon",
-				});
-			}
-
-			if (this.extra?.credits) {
-				extra.push({
-					content: [
-						"Additional credits go to: ",
-						...this.extra.credits.map((x, i, a) => (
-							<>
-								{!Number.isNaN(Number(x))
-									? (
-										<SmartMention
-											key={x}
-											userId={x}
-											loadUsername={true}
-										/>
-									)
-									: x}
-								{i !== a.length - 1 ? ", " : ""}
-							</>
-						)),
-					],
-					color: "TEXT_NORMAL",
-					icon: "LinkIcon",
-				});
-			}
-			if (this.extra?.warning) {
-				extra.push({
-					content: this.extra.warning,
-					color: "TEXT_WARNING",
-					icon: "WarningIcon",
-				});
-			}
-			if (this.extra?.note) {
-				extra.push({
-					content: this.extra.note,
-					color: "TEXT_MUTED",
-					icon: "BeakerIcon",
-				});
-			}
-
-			if (Object.keys(this.errors).length > 0) {
-				extra.push({
-					content: `Encountered ${Object.keys(this.errors).length} error${
-						Object.keys(this.errors).length !== 1 ? "s" : ""
-					}`,
-					color: "TEXT_DANGER",
-					icon: "WarningIcon",
-					action: () => {
-						openModal(
-							"error-viewer",
-							ErrorViewerModal({
-								errors: this.errors,
-								module: this.label,
-								clearEntry: e => {
-									delete this.errors[e];
-									forceUpdate();
-								},
-							}),
-						);
-					},
-				});
-			}
-
-			return (
-				<>
-					<FormRow
-						label={[
-							<RN.Text
-								key="label"
-								style={{
-									color: resolveSemanticColor(
-										semanticColors[
-											extra[extra.length - 1]?.color
-												?? "TEXT_NORMAL"
-										],
-									),
-								}}
-							>
-								{this.label}
-							</RN.Text>,
-							extra[0] && <RN.View style={{ paddingRight: 12 }} />,
-							extra
-								.sort(() => -1)
-								.map(x => (
-									<React.Fragment key={x.content}>
-										<RN.Image
-											resizeMode="cover"
-											style={[
-												styles.icon,
-												{
-													tintColor: resolveSemanticColor(semanticColors[x.color]),
-												},
-											]}
-											source={getAssetIDByName(x.icon)}
-										/>
-										<RN.View style={{ width: 8 }} />
-									</React.Fragment>
-								)),
-						]}
-						subLabel={this.sublabel}
-						leading={this.icon && <FormRow.Icon source={this.icon} />}
-						trailing={
-							<FormRow.Arrow
-								style={{
-									transform: [
-										{ rotate: `${hidden ? 180 : 90}deg` },
-									],
-								}}
-							/>
-						}
-						onPress={() => {
-							setHidden(!hidden);
-							RN.LayoutAnimation.configureNext(
-								RN.LayoutAnimation.Presets.easeInEaseOut,
-							);
-						}}
-					/>
-					{!hidden && (
-						<>
-							<FormDivider />
-							<RN.View style={{ paddingHorizontal: 15 }}>
-								{extra[0] && (
-									<RN.View>
-										{extra.map(x => {
-											const children = (
-												<>
-													<RN.Image
-														resizeMode="cover"
-														style={[
-															styles.icon,
-															{ marginRight: 12 },
-															{
-																tintColor: resolveSemanticColor(semanticColors[x.color]),
-															},
-														]}
-														source={getAssetIDByName(x.icon)}
-													/>
-													<Text
-														key="content"
-														variant="text-md/semibold"
-														color={x.color}
-														style={{ marginRight: 12 }}
-													>
-														{x.content}
-													</Text>
-													{x.action && (
-														<RN.View
-															style={styles.rowTailing}
-														>
-															<FormRow.Arrow />
-														</RN.View>
-													)}
-												</>
-											);
-
-											return x.action
-												? (
-													<RN.Pressable
-														key="children"
-														style={styles.row}
-														android_ripple={styles.androidRipple}
-														onPress={x.action}
-													>
-														{children}
-													</RN.Pressable>
-												)
-												: (
-													<RN.View key="children" style={styles.row}>
-														{children}
-													</RN.View>
-												);
-										})}
-									</RN.View>
-								)}
-								<FormSwitchRow
-									label="Enabled"
-									onValueChange={() => {
-										if (this.disabled) return;
-										this.toggle();
-										forceUpdate();
-									}}
-									leading={
-										<FormRow.Icon
-											source={getAssetIDByName(
-												"SettingsIcon",
-											)}
-										/>
-									}
-									value={this.storage.enabled}
-									disabled={this.disabled}
-								/>
-								{Object.entries(this.settings).map(
-									([id, setting]) =>
-										setting.type === "button"
-											? (
-												<RN.View
-													key={id}
-													style={{ marginVertical: 12 }}
-												>
-													<Button
-														size="md"
-														variant="primary"
-														text={setting.label}
-														onPress={() => {
-															setting.action.bind(
-																this,
-															)();
-														}}
-														icon={setting.icon}
-														disabled={setting.disabled}
-													/>
-												</RN.View>
-											)
-											: (
-													setting.predicate
-														? setting.predicate?.bind(
-															this,
-														)()
-														: true
-												)
-											? (
-												setting.type === "toggle"
-													? (
-														<FormSwitchRow
-															key={id}
-															label={setting.label}
-															subLabel={this.callable(
-																setting.subLabel,
-																this.storage.options[
-																	id
-																],
-															)}
-															onValueChange={() => {
-																// @ts-expect-error type string cannot be used to index type
-																this.storage.options[
-																	id
-																] = !this.storage
-																	.options[id];
-																this.restart();
-																forceUpdate();
-															}}
-															leading={
-																<FormRow.Icon
-																	source={setting.icon}
-																/>
-															}
-															value={this.storage.options[id]}
-															disabled={setting.disabled}
-														/>
-													)
-													: (
-														setting.type === "choose" && (
-															<FormRow
-																label={setting.label}
-																subLabel={this.callable(
-																	setting.subLabel,
-																	this.storage
-																		.options[id],
-																)}
-																onPress={() => {
-																	!setting.disabled && ActionSheet.open(
-																		ChooseSheet,
-																		{
-																			title: setting.label,
-																			value: this
-																				.storage
-																				.options[
-																					id
-																				] as any,
-																			options: setting.choices.map(
-																				x => ({
-																					name: x,
-																					value: x,
-																				}),
-																			),
-																			callback: val => {
-																				// @ts-expect-error type string cannot be used to index type
-																				this.storage.options[
-																					id
-																				] = val;
-																				this.restart();
-																				forceUpdate();
-																			},
-																		},
-																	);
-																}}
-																leading={
-																	<FormRow.Icon
-																		source={setting.icon}
-																	/>
-																}
-																trailing={
-																	<Text
-																		variant="text-md/medium"
-																		color="TEXT_MUTED"
-																	>
-																		{/* @ts-expect-error type string cannot be used to index type*/}
-																		{this.storage
-																			.options[
-																				id
-																			]}
-																	</Text>
-																}
-																disabled={setting.disabled}
-															/>
-														)
-													)
-											)
-											: null,
-								)}
-							</RN.View>
-						</>
-					)}
-				</>
-			);
-		}).bind(this);
-	}
-
 	toggle() {
 		this.storage.enabled = !this.storage.enabled;
 		if (this.storage.enabled) this.start();
 		else this.stop();
+		this.refresh();
 	}
 	restart() {
 		if (this.storage.enabled) {
 			this.stop();
 			this.start();
 		}
+		this.refresh();
 	}
 	start() {
-		if (this.disabled || this.started) return;
+		if (this.meta.disabled || this.started) return;
+
+		this.disabledReason = undefined;
 		try {
 			this.started = true;
 			this.handlers.onStart.bind(this)();
@@ -577,10 +294,14 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 				"NexxUtils module errored on starting!",
 				getAssetIDByName("CircleXIcon-primary"),
 			);
+			this.disabledReason = "Disabled due to an error";
 		}
+		this.refresh();
 	}
 	stop() {
 		if (!this.started) return;
+
+		this.disabledReason = undefined;
 		try {
 			this.started = false;
 			this.handlers.onStop.bind(this)();
@@ -596,6 +317,22 @@ export class Module<Settings extends Record<string, ModuleSetting>> {
 				"NexxUtils module errored on stopping!",
 				getAssetIDByName("CircleXIcon-primary"),
 			);
+			this.disabledReason = "Disabled due to an error";
 		}
+		this.refresh();
+	}
+
+	refresh() {
+		this.listeners.forEach(x => x());
+	}
+	useRefresh() {
+		const [_, refresh] = React.useReducer((x) => ~x, 0);
+
+		React.useEffect(() => {
+			this.listeners.add(refresh);
+			return () => {
+				this.listeners.delete(refresh);
+			};
+		}, []);
 	}
 }

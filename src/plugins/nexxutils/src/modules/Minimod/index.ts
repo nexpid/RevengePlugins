@@ -1,8 +1,10 @@
 import { findByStoreName } from "@vendetta/metro";
 
 import { patchRows } from "$/types";
-import NerdEmoji from "../../assets/MiniMod/NerdEmoji.png";
-import { Module, ModuleCategory } from "../stuff/Module";
+import NerdEmoji from "../../../assets/MiniMod/NerdEmoji.png";
+import { Module, ModuleCategory } from "../../stuff/Module";
+import dark from "./dark.png";
+import light from "./light.png";
 
 // It's just like Among Us
 // [20/07/2025] So true!
@@ -11,10 +13,16 @@ const GuildMemberStore = findByStoreName("GuildMemberStore");
 export default new Module({
 	id: "minimod",
 	label: "Minimod",
-	sublabel:
-		"Lets you see some moderator-only things. Similiar to the 'ShowHiddenThings' Vencord plugin",
-	category: ModuleCategory.Fun,
-	icon: NerdEmoji,
+	meta: {
+		sublabel:
+			"Lets you see some moderator-only things. Inspired by the 'ShowHiddenThings' Vencord plugin",
+		category: ModuleCategory.Fun,
+		icon: NerdEmoji,
+		thumbnail: {
+			dark,
+			light,
+		},
+	},
 	settings: {
 		showTimeouts: {
 			label: "Show timeouts",

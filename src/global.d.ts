@@ -75,6 +75,9 @@ interface Window {
 				redeem: (key: string, save?: boolean) => object | undefined;
 			};
 		};
+		q: {
+			toggleTheme: () => void;
+		};
 	};
 	nativeModuleProxy?: any;
 }

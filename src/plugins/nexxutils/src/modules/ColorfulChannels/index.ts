@@ -7,22 +7,26 @@ import { getAssetByID, getAssetIDByName } from "@vendetta/ui/assets";
 import TextBadge from "$/components/TextBadge";
 
 import { resolveSemanticColor } from "$/types";
-import announcementLock from "../../assets/ColorfulChannels/announcement/lock.png";
-import announcementWarning from "../../assets/ColorfulChannels/announcement/warning.png";
-import controller from "../../assets/ColorfulChannels/controller.png";
-import forumLock from "../../assets/ColorfulChannels/forum/lock.png";
-import forumWarning from "../../assets/ColorfulChannels/forum/warning.png";
-import imageLock from "../../assets/ColorfulChannels/image/lock.png";
-import imageWarning from "../../assets/ColorfulChannels/image/warning.png";
-import lock from "../../assets/ColorfulChannels/lock.png";
-import lockBottom from "../../assets/ColorfulChannels/lockBottom.png";
-import stageLock from "../../assets/ColorfulChannels/stage/lock.png";
-import textController from "../../assets/ColorfulChannels/text/controller.png";
-import textLock from "../../assets/ColorfulChannels/text/lock.png";
-import textWarning from "../../assets/ColorfulChannels/text/warning.png";
-import warning from "../../assets/ColorfulChannels/warning.png";
-import warningBottom from "../../assets/ColorfulChannels/warningBottom.png";
-import { Module, ModuleCategory } from "../stuff/Module";
+import announcementLock from "../../../assets/ColorfulChannels/announcement/lock.png";
+import announcementWarning from "../../../assets/ColorfulChannels/announcement/warning.png";
+import controller from "../../../assets/ColorfulChannels/controller.png";
+import forumLock from "../../../assets/ColorfulChannels/forum/lock.png";
+import forumWarning from "../../../assets/ColorfulChannels/forum/warning.png";
+import imageLock from "../../../assets/ColorfulChannels/image/lock.png";
+import imageWarning from "../../../assets/ColorfulChannels/image/warning.png";
+import lock from "../../../assets/ColorfulChannels/lock.png";
+import lockBottom from "../../../assets/ColorfulChannels/lockBottom.png";
+import stageLock from "../../../assets/ColorfulChannels/stage/lock.png";
+import textController from "../../../assets/ColorfulChannels/text/controller.png";
+import textLock from "../../../assets/ColorfulChannels/text/lock.png";
+import textWarning from "../../../assets/ColorfulChannels/text/warning.png";
+import voiceLock from "../../../assets/ColorfulChannels/voice/lock.png";
+import voiceWarning from "../../../assets/ColorfulChannels/voice/warning.png";
+import warning from "../../../assets/ColorfulChannels/warning.png";
+import warningBottom from "../../../assets/ColorfulChannels/warningBottom.png";
+import { Module, ModuleCategory } from "../../stuff/Module";
+import dark from "./dark.png";
+import light from "./light.png";
 
 enum GlyphKind {
 	Lock = "Lock",
@@ -81,6 +85,18 @@ const glyphs = [
 		base: textController,
 	},
 
+	// Voice
+	{
+		name: "Voice",
+		kind: GlyphKind.Lock,
+		base: voiceLock,
+	},
+	{
+		name: "Voice",
+		kind: GlyphKind.Warning,
+		base: voiceWarning,
+	},
+
 	// Forum (warning is unused)
 	{
 		name: "Forum",
@@ -122,9 +138,15 @@ const ChannelInfo = findByName("ChannelInfo", false);
 export default new Module({
 	id: "colorful-channels",
 	label: "Colorful Channels",
-	sublabel: "Makes channel icons with symbols more colorful",
-	category: ModuleCategory.Useful,
-	icon: getAssetIDByName("LockIcon"),
+	meta: {
+		sublabel: "Gives channel icons with symbols colors to make them more aesthetically pleasing",
+		category: ModuleCategory.Useful,
+		icon: getAssetIDByName("LockIcon"),
+		thumbnail: {
+			dark,
+			light,
+		},
+	},
 	settings: {
 		nsfwTag: {
 			label: "NSFW tag",

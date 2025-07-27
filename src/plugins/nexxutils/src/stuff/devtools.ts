@@ -1,10 +1,11 @@
-import { findByStoreName } from "@vendetta/metro";
+import { findByProps, findByStoreName } from "@vendetta/metro";
 import { after, before } from "@vendetta/patcher";
 import { semanticColors } from "@vendetta/ui";
 
 import { resolveSemanticColor } from "$/types";
 
 const ThemeStore = findByStoreName("ThemeStore");
+const { updateTheme } = findByProps("updateTheme");
 
 export default function() {
 	const patches: (() => void)[] = [];
@@ -203,6 +204,13 @@ export default function() {
 						);
 					} else return coll.get();
 				},
+			},
+		},
+		q: {
+			toggleTheme() {
+				const theme = ThemeStore.theme;
+				if (theme === "light") updateTheme("darker");
+				else updateTheme("light");
 			},
 		},
 	};

@@ -2,6 +2,8 @@ import { findByProps } from "@vendetta/metro";
 import { React } from "@vendetta/metro/common";
 import { after } from "@vendetta/patcher";
 import { getAssetIDByName } from "@vendetta/ui/assets";
+import dark from "./dark.png";
+import light from "./light.png";
 
 import { Module, ModuleCategory } from "../../stuff/Module";
 import ClassicListenButton from "./components/ClassicListenButton";
@@ -13,11 +15,17 @@ const PlayOnSpotifyButton = findByProps("PlayOnSpotifyButton");
 export default new Module({
 	id: "spotify-listen-along",
 	label: "Add Listen Along",
-	sublabel: "Adds a Listen Along button to Spotify activites",
-	category: ModuleCategory.Useful,
-	icon: getAssetIDByName("MusicIcon"),
-	extra: {
-		credits: ["1001086404203389018"],
+	meta: {
+		sublabel: "Ports the Spotify listen along feature from desktop to mobile in Spotify activities",
+		category: ModuleCategory.Useful,
+		icon: getAssetIDByName("MusicIcon"),
+		thumbnail: {
+			dark,
+			light,
+		},
+		extra: {
+			credits: ["1001086404203389018"],
+		},
 	},
 	handlers: {
 		onStart() {
