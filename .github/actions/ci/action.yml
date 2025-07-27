@@ -21,7 +21,7 @@ runs:
 
     - name: typecheck
       if: ${{ !env.ACT }}
-      run: pnpm tsc --noEmit
+      run: pnpm check
       shell: bash
 
     - name: checkout
