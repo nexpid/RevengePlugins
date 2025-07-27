@@ -1,3 +1,8 @@
 {
-	"status": "finished"
+	"status": "broken",
+	"usable": true,
+	"reason": {
+		"cause": "Broken due to",
+		"reason": "Kazum Kiryu escaped containment"
+	}
 }

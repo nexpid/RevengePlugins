@@ -8,7 +8,6 @@ import { listPlugins } from "./plugins.ts";
 
 const mdNote = makeMdNote("scripts/build/modules/readmes.ts", "md");
 const links = {
-	proxied: "https://bn-plugins.github.io/vd-proxy/vendetta.nexpid.xyz/",
 	base: "https://revenge.nexpid.xyz/",
 	code: "./plugins/",
 	external: {
@@ -17,11 +16,10 @@ const links = {
 };
 
 const LabelColor = {
-	Status: "#24273a",
-	ProxiedLink: "#181926",
-	UnproxiedLink: "#1e2030",
-	CodeLink: "#363a4f",
-	ExternalLink: "#494d64",
+	status: "#24273a",
+	pluginLink: "#1e2030",
+	codeLink: "#363a4f",
+	externalLink: "#494d64",
 };
 
 const categories = {
@@ -33,9 +31,13 @@ const categories = {
 		label: "❌ Unfinished",
 		color: "#b8c0e0",
 	},
+	broken: {
+		label: "⛓️‍💥 Broken",
+		color: "#ed8796",
+	},
 	discontinued: {
 		label: "🎫 Discontinued",
-		color: "#ed8796",
+		color: "#f5a97f",
 	},
 };
 
@@ -130,18 +132,15 @@ async function listPluginMetadatas(noDev?: boolean) {
 			await readFileString(join("src/plugins/", plugin, "status.json")),
 		);
 
-		const proxied = !!status.proxied;
-
 		plugins.push({
 			id: plugin,
 			name: manifest.name,
 			description: manifest.description,
 			status: status.status,
-			proxied,
-			discontinuedFor: status.discontinuedFor,
+			reason: status.reason,
 			badges: {
 				status: {
-					color: LabelColor.Status,
+					color: LabelColor.status,
 					text: "plugin_status",
 					value: {
 						color: categories[status.status].color,
@@ -149,27 +148,22 @@ async function listPluginMetadatas(noDev?: boolean) {
 					},
 				},
 				links: [
-					proxied
+					(status.status === "finished" || status.usable)
 						? {
-							text: "copy_proxied_link",
-							color: LabelColor.ProxiedLink,
-							link: links.proxied + plugin,
+							text: "copy_link",
+							color: LabelColor.pluginLink,
+							link: links.base + plugin,
 						}
 						: null,
 					{
-						text: "copy_link",
-						color: LabelColor.UnproxiedLink,
-						link: links.base + plugin,
-					},
-					{
 						text: "view_code",
-						color: LabelColor.CodeLink,
+						color: LabelColor.codeLink,
 						link: `${links.code + plugin}/`,
 					},
 					status.external?.backend
 						? {
 							text: "view_backend_code",
-							color: LabelColor.ExternalLink,
+							color: LabelColor.externalLink,
 							link: links.external.backend
 								+ status.external.backend,
 						}
@@ -198,7 +192,7 @@ export async function writePluginReadmes(filter: string[] = []) {
 				makeBadge(plugin.badges.status),
 				"<br/>",
 				plugin.badges.links
-					.filter(x => x.color !== LabelColor.CodeLink)
+					.filter(x => x.color !== LabelColor.codeLink)
 					.map(badge => makeBadge(badge))
 					.join("\n"),
 				// footer
@@ -220,6 +214,8 @@ export async function writeRootReadme() {
 		finished: plugins.filter(plugin => plugin.status === "finished").length,
 		unfinished: plugins.filter(plugin => plugin.status === "unfinished")
 			.length,
+		broken: plugins.filter(plugin => plugin.status === "broken")
+			.length,
 		discontinued: plugins.filter(plugin => plugin.status === "discontinued")
 			.length,
 	};
@@ -231,6 +227,7 @@ export async function writeRootReadme() {
 				labels: [
 					stats.finished > 0 && "Finished",
 					stats.unfinished > 0 && "Unfinished",
+					stats.broken > 0 && "Broken",
 					stats.discontinued > 0 && "Discontinued",
 				].filter(x => !!x),
 				datasets: [
@@ -238,11 +235,13 @@ export async function writeRootReadme() {
 						data: [
 							stats.finished,
 							stats.unfinished,
+							stats.broken,
 							stats.discontinued,
 						].filter(x => x > 0),
 						backgroundColor: [
 							stats.finished > 0 && categories.finished.color,
 							stats.unfinished > 0 && categories.unfinished.color,
+							stats.broken > 0 && categories.broken.color,
 							stats.discontinued > 0
 							&& categories.discontinued.color,
 						].filter(x => !!x),
@@ -331,7 +330,7 @@ export async function writeRootReadme() {
 			makeEndpointBadge({
 				endpoint: "github/stars/nexpid/RevengePlugins",
 				text: "stars",
-				color: LabelColor.Status,
+				color: LabelColor.status,
 				icon: shields.stars.icon,
 				value: {
 					color: shields.stars.color,
@@ -341,7 +340,7 @@ export async function writeRootReadme() {
 			makeEndpointBadge({
 				endpoint: "github/issues/nexpid/RevengePlugins",
 				text: "issues",
-				color: LabelColor.Status,
+				color: LabelColor.status,
 				icon: shields.issues.icon,
 				value: {
 					color: shields.issues.color,
@@ -351,7 +350,7 @@ export async function writeRootReadme() {
 			makeEndpointBadge({
 				endpoint: "github/issues-pr/nexpid/RevengePlugins",
 				text: "pull requests",
-				color: LabelColor.Status,
+				color: LabelColor.status,
 				icon: shields.pulls.icon,
 				value: {
 					color: shields.pulls.color,
@@ -361,7 +360,7 @@ export async function writeRootReadme() {
 			makeEndpointBadge({
 				endpoint: "discord/1205207689832038522",
 				text: "support",
-				color: LabelColor.Status,
+				color: LabelColor.status,
 				icon: shields.discord.icon,
 				value: {
 					color: shields.discord.color,
@@ -395,7 +394,9 @@ export async function writeRootReadme() {
 			}`,
 			`- **${stats.discontinued}** of my plugins ${
 				plural(stats.discontinued, "is", "are")
-			} discontinued.\n`,
+			} discontinued and **${stats.broken}** of my plugins ${
+				plural(stats.broken, "is", "are")
+			} broken right now.\n`,
 
 			// header
 			"<div align=\"center\">",
@@ -417,8 +418,7 @@ export async function writeRootReadme() {
 								.map(plugin =>
 									[
 										`- ${plugin.name} — ${plugin.description}`,
-										plugin.discontinuedFor
-										&& `  - **Discontinued due to:** ${plugin.discontinuedFor}`,
+										plugin.reason && `  - **${plugin.reason.cause}:** ${plugin.reason.reason}`,
 										`  - ${plugin.badges.links.map(link => makeBadge(link, true)).join("  ")}`,
 									]
 										.filter(x => !!x)

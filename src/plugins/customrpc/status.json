@@ -1,4 +1,7 @@
 {
-	"status": "unfinished",
-	"usable": true
+	"status": "discontinued",
+	"reason": {
+		"cause": "Discontinued due to",
+		"reason": "CustomRPC is no longer maintained, use Rich Presence by siguma"
+	}
 }

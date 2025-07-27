@@ -1,4 +1,7 @@
 {
-	"status": "finished",
-	"proxied": false
+	"status": "discontinued",
+	"reason": {
+		"cause": "Discontinued due to",
+		"reason": "Superseeded by Discord's bookmarks feature (nitro only)"
+	}
 }
