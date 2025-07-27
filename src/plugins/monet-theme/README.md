@@ -4,11 +4,9 @@
 -->
 
 <div align="center">
-<img alt="plugin_status" src="https://img.shields.io/badge/plugin_status-finished-a6da95?style=for-the-badge&labelColor=24273a" />
+<img alt="plugin_status" src="https://img.shields.io/badge/plugin_status-unfinished-b8c0e0?style=for-the-badge&labelColor=24273a" />
 <br/>
-<a href="https://revenge.nexpid.xyz/monet-theme">
-<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />
-</a>
+
 </div>
 
 <h1 align="center">
