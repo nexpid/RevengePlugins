@@ -27,17 +27,17 @@ const categories = {
 		label: "✅ Finished",
 		color: "#a6da95",
 	},
-	unfinished: {
-		label: "❌ Unfinished",
-		color: "#b8c0e0",
-	},
 	broken: {
-		label: "⛓️‍💥 Broken",
+		label: "❌ Broken",
 		color: "#ed8796",
 	},
-	discontinued: {
-		label: "🎫 Discontinued",
+	unfinished: {
+		label: "⏳ Unfinished",
 		color: "#f5a97f",
+	},
+	discontinued: {
+		label: "💀 Discontinued",
+		color: "#b8c0e0",
 	},
 };
 
@@ -226,8 +226,8 @@ export async function writeRootReadme() {
 			data: {
 				labels: [
 					stats.finished > 0 && "Finished",
-					stats.unfinished > 0 && "Unfinished",
 					stats.broken > 0 && "Broken",
+					stats.unfinished > 0 && "Unfinished",
 					stats.discontinued > 0 && "Discontinued",
 				].filter(x => !!x),
 				datasets: [
@@ -240,8 +240,8 @@ export async function writeRootReadme() {
 						].filter(x => x > 0),
 						backgroundColor: [
 							stats.finished > 0 && categories.finished.color,
-							stats.unfinished > 0 && categories.unfinished.color,
 							stats.broken > 0 && categories.broken.color,
+							stats.unfinished > 0 && categories.unfinished.color,
 							stats.discontinued > 0
 							&& categories.discontinued.color,
 						].filter(x => !!x),
@@ -324,7 +324,7 @@ export async function writeRootReadme() {
 			`${mdNote}\n`,
 
 			"<h1 align=\"center\">👊 Revenge Plugins</h1>",
-			"<p align=\"center\">A collection of all my awesome plugins for <a href=\"https://github.com/revenge-mod/revenge-bundle#%EF%B8%8F-download\">Revenge</a>.</p>\n",
+			"<p align=\"center\">A collection of all my awesome plugins for <a href=\"https://github.com/revenge-mod/revenge-bundle\">Revenge</a>.</p>\n",
 			// header
 			"<div align=\"center\">",
 			makeEndpointBadge({
