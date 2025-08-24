@@ -1,6 +1,6 @@
 {
 	"status": "finished",
 	"external": {
-		"backend": "CloudSync"
+		"backend": "nexpid/CloudSync"
 	}
 }

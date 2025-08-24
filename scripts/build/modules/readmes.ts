@@ -11,7 +11,7 @@ const links = {
 	base: "https://revenge.nexpid.xyz/",
 	code: "./plugins/",
 	external: {
-		backend: "https://github.com/nexpid/",
+		backend: "https://github.com/",
 	},
 };
 
