@@ -23,8 +23,8 @@ export default function PluginCard({
 		const trueLink = `https://${id.replace(/^vendetta\.nexpid\.xyz\//, "revenge.nexpid.xyz/")}`;
 		const proxiedLink = `${constants.proxyUrl}${id}`;
 
-		let usableLink = vstorage.dangerZone ? trueLink : proxiedLink;
-		if (!vstorage.dangerZone && plugins[trueLink]) usableLink = trueLink;
+		let usableLink = vstorage.settings.dangerZone ? trueLink : proxiedLink;
+		if (!vstorage.settings.dangerZone && plugins[trueLink]) usableLink = trueLink;
 
 		return {
 			usableLink,
@@ -156,7 +156,7 @@ export default function PluginCard({
 				},
 				{
 					label: lang.format(
-						vstorage.dangerZone
+						vstorage.settings.dangerZone
 							? "sheet.plugin.copy_proxied_link"
 							: "sheet.plugin.copy_unproxied_link",
 						{},
@@ -167,7 +167,7 @@ export default function PluginCard({
 							lang.format("toast.copy_link", {}),
 							getAssetIDByName("CopyIcon"),
 						);
-						clipboard.setString(vstorage.dangerZone ? proxiedLink : trueLink);
+						clipboard.setString(vstorage.settings.dangerZone ? proxiedLink : trueLink);
 					},
 				},
 				...(githubLink

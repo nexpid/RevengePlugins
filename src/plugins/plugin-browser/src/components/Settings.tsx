@@ -21,20 +21,20 @@ export function Settings() {
 					subLabel={lang.format("settings.danger_zone.description", {})}
 					leading={<FormRow.Icon source={getAssetIDByName("WarningIcon")} />}
 					onValueChange={() => {
-						if (!vstorage.dangerZone && !settings.developerSettings) {
+						if (!vstorage.settings.dangerZone && !settings.developerSettings) {
 							return showConfirmationAlert({
 								title: lang.format("alert.danger_zone.title", {}),
 								content: lang.format("alert.danger_zone.body", {}),
 								confirmText: lang.format("alert.danger_zone.enable", {}),
 								onConfirm() {
-									vstorage.dangerZone = true;
+									vstorage.settings.dangerZone = true;
 								},
 								cancelText: lang.format("alert.danger_zone.cancel", {}),
 							});
 						}
-						vstorage.dangerZone = !vstorage.dangerZone;
+						vstorage.settings.dangerZone = !vstorage.settings.dangerZone;
 					}}
-					value={vstorage.dangerZone}
+					value={vstorage.settings.dangerZone}
 				/>
 			</BetterTableRowGroup>
 		</ScrollView>

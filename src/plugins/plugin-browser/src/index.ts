@@ -6,15 +6,28 @@ import { Settings } from "./components/Settings";
 import patcher from "./stuff/patcher";
 
 export const vstorage = storage as {
-	pluginCache: string[];
-	dangerZone: boolean;
+	state: {
+		// prevent cloud sync from syncing this
+		__no_sync: true;
+		pluginCache: string[];
+	};
+	settings: {
+		dangerZone: boolean;
+	};
 };
 
 export const lang = new Lang("plugin_browser");
 
 export function onLoad() {
-	vstorage.pluginCache ??= [];
-	vstorage.dangerZone ??= false;
+	storage.state ??= {};
+	vstorage.state.__no_sync = true;
+	vstorage.state.pluginCache ??= storage.pluginCache ?? [];
+
+	storage.settings ??= {};
+	vstorage.settings.dangerZone ??= storage.dangerZone ?? false;
+
+	delete storage.pluginCache;
+	delete storage.dangerZone;
 }
 
 export const onUnload = patcher();

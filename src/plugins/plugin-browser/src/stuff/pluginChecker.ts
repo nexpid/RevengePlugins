@@ -7,12 +7,12 @@ import { properLink } from "./util";
 
 let lastPluginCache: string[] = [];
 export function getChanges(): string[] {
-	if (!lastPluginCache[0] || !vstorage.pluginCache[0]) return [];
-	return lastPluginCache.filter(id => !vstorage.pluginCache.includes(id));
+	if (!lastPluginCache[0] || !vstorage.state.pluginCache[0]) return [];
+	return lastPluginCache.filter(id => !vstorage.state.pluginCache.includes(id));
 }
 
 export function updateChanges() {
-	vstorage.pluginCache = lastPluginCache;
+	vstorage.state.pluginCache = lastPluginCache;
 }
 
 export async function run(data?: FullPlugin[]) {
