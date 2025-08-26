@@ -13,13 +13,16 @@ export async function listPlugins(noDev?: boolean) {
 	const plugins = await readdir("src/plugins");
 	const lang = await readdir("lang/values/base");
 
-	return plugins
-		.filter(x => (x.endsWith(".dev") ? isDev && !noDev : true))
+	const list = plugins
+		.filter(x => (x.endsWith(".dev") ? isDev && !noDev : true));
+
+	return list
 		.map(plugin => {
 			const langName = plugin.replaceAll("-", "_");
 			return {
 				name: plugin,
 				lang: lang.includes(`${langName}.json`) ? langName : null,
+				plugins: list,
 			};
 		});
 }

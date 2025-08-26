@@ -67,7 +67,7 @@
 	},
 	"packageManager": "pnpm@10.13.1",
 	"engines": {
-		"node": "24.2.0",
+		"node": ">=24.2.0",
 		"dprint": "0.50.1"
 	}
 }

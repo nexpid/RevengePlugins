@@ -32,6 +32,7 @@ declare const IS_DEV: boolean;
 declare const PREVIEW_LANG: boolean;
 declare const DEFAULT_LANG: Record<string, string> | undefined;
 declare const DEV_LANG: Record<string, Record<string, string>> | undefined;
+declare const PLUGINS_LIST: string[];
 
 // simple Buffer type
 type Encoding = "base64" | "utf8" | "ascii";

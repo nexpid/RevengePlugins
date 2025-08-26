@@ -21,6 +21,7 @@ const { isDev, previewLang } = workerData;
 async function buildPlugin(
 	plugin: string,
 	lang: string | null,
+	plugins: string[],
 	prcess?: string,
 ) {
 	const manifest: import("../../types").Readmes.Manifest = JSON.parse(
@@ -95,6 +96,7 @@ async function buildPlugin(
 				: langValues
 				? JSON.stringify(langValues)
 				: "undefined",
+			PLUGINS_LIST: JSON.stringify(plugins),
 		},
 		loader: {
 			".html": "text",
@@ -253,7 +255,7 @@ else throw new Error("why is parentPort missing???");
 parentPort.addListener("message", data =>
 	data.finishUp
 		? finishUp.get(data.finishUp)?.()
-		: buildPlugin(data.name, data.lang, data.prcess)
+		: buildPlugin(data.name, data.lang, data.plugins, data.prcess)
 			.then(plugin =>
 				parentPort!.postMessage({
 					result: "yay",

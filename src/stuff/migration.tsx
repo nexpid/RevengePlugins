@@ -2,6 +2,7 @@ import { React, ReactNative } from "@vendetta/metro/common";
 import { installPlugin, plugins, removePlugin } from "@vendetta/plugins";
 import { createMMKVBackend } from "@vendetta/storage";
 import { showConfirmationAlert } from "@vendetta/ui/alerts";
+import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 import { RichText } from "./components/RichText";
 import Text from "./components/Text";
@@ -15,9 +16,13 @@ interface InvalidDomain {
 	label: string;
 }
 
-const specialChange = {
+const specialIDs = {
 	usrpfp: "userpfp",
-} satisfies Record<string, string>;
+} as Record<string, string>;
+const allowedPluginIDs = [
+	PLUGINS_LIST,
+	Object.keys(specialIDs),
+].flat();
 
 const invalidDomains: InvalidDomain[] = [{
 	match: /vendetta\.nexpid\.xyz\/(?<plugin>.+)\/$/i,
@@ -127,8 +132,7 @@ function MigrationModal(
 				>
 					<Reanimated.default.Image
 						source={{
-							uri:
-								"https://cdn.discordapp.com/avatars/853550207039832084/0f03d6ee1ac3acca0dfefcb556b734ec.png?size=128",
+							uri: "https://api.lanyard.rest/853550207039832084.webp?size=128",
 							width: 128,
 							height: 128,
 						}}
@@ -160,7 +164,11 @@ function MigrationModal(
 						style={{ flex: 0 }}
 					>
 						You might know me. I made {affectedPlugin
-							? <RichText.Bold>{affectedPlugin}</RichText.Bold>
+							? (
+								<>
+									a plugin you use, <RichText.Bold>{affectedPlugin}</RichText.Bold>
+								</>
+							)
 							: "some of the plugins you use"}!
 					</Text>
 				</Stack>
@@ -170,8 +178,8 @@ function MigrationModal(
 				color="TEXT_NORMAL"
 			>
 				{affectedPlugin
-					? `My ${affectedPlugin} plugin which you use has`
-					: "Some of my plugins which you use have"} one of these domains:
+					? "The plugin you use has"
+					: "Some of my plugins you use have"} one of these domains:
 			</Text>
 			<Text
 				variant="text-md/bold"
@@ -207,14 +215,28 @@ export async function runMigration() {
 		)
 	) return;
 
-	const affected: string[] = [];
+	const affected: {
+		id: string;
+		link: string;
+		name: string;
+	}[] = [];
 	const isOutdated = new Set<string>();
 	for (const plugin of Object.keys(plugins)) {
-		const match = invalidDomains.find(x => x.match.test(plugin));
-		if (match) affected.push(plugins[plugin].manifest.name);
-		if (match) isOutdated.add(match.label);
-		if (match && plugin.includes("bn-plugins.github.io/vd-proxy")) {
-			isOutdated.add("proxied plugin links");
+		const parser = invalidDomains.find(x => x.match.test(plugin));
+		const id = parser && plugin.match(parser.match)?.groups?.plugin;
+
+		console.log(allowedPluginIDs, id);
+		if (id && allowedPluginIDs.includes(id)) {
+			affected.push({
+				id,
+				link: plugin,
+				name: plugins[plugin].manifest.name,
+			});
+			isOutdated.add(parser.label);
+
+			if (plugin.includes("bn-plugins.github.io/vd-proxy")) {
+				isOutdated.add("proxied plugin links");
+			}
 		}
 	}
 
@@ -223,33 +245,45 @@ export async function runMigration() {
 			// @ts-expect-error Missing from typings
 			children: (
 				<MigrationModal
-					affectedPlugin={affected.length === 1 ? affected[0] : undefined}
+					affectedPlugin={affected.length === 1 ? affected[0].name : undefined}
 					domains={[...isOutdated.values()]}
 				/>
 			),
 			confirmText: "Migrate now",
 			async onConfirm() {
-				// take all plugins that are bad & make good :blush:
-				for (const plugin of Object.keys(plugins)) {
-					const parser = invalidDomains.find(x => x.match.test(plugin));
-					const newId = parser && plugin.match(parser.match)?.groups?.plugin;
-					if (newId) {
-						const newPlugin = `https://revenge.nexpid.xyz/${specialChange[newId] ?? newId}/`;
+				showToast("Starting migration");
+
+				console.log("MIGRATION STARTS HERE, AFFECTED", affected);
+				try {
+					// take all plugins that are bad & make good :blush:
+					for (const { id, link, name } of affected) {
+						const newPlugin = `https://revenge.nexpid.xyz/${specialIDs[id] ?? id}/`;
 						console.log(
 							"FROM",
-							plugin,
+							link,
 							"TO",
 							newPlugin,
 						);
 
-						await createMMKVBackend(newPlugin).set(await createMMKVBackend(plugin).get());
-						await installPlugin(newPlugin);
+						await createMMKVBackend(newPlugin).set(await createMMKVBackend(link).get());
+						if (!plugins[newPlugin]) await installPlugin(newPlugin);
 						// returns a promise (bug in types)
-						await removePlugin(plugin);
+						await removePlugin(link);
+						showToast(`Migrated ${name}`);
 					}
+					console.log("MIGRATION ENDS HERE");
+				} catch (e) {
+					console.error("Migration error", e);
+					return showToast(
+						`Got an error! ${e} (ping nexpid about this!!!)`,
+						getAssetIDByName("CircleXIcon-primary"),
+					);
 				}
 
-				showToast("Migrated successfully! Please reload your client to apply changes");
+				showToast(
+					"Migrated successfully! Please reload your client to apply changes",
+					getAssetIDByName("CircleCheckIcon-primary"),
+				);
 			},
 			cancelText: "Remind me later",
 			secondaryConfirmText: "I understand (don't show again)",
