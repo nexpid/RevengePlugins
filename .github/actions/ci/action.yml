@@ -2,35 +2,35 @@ name: Setup
 description: Sets up the workspace
 
 runs:
-  using: composite
-  steps:
-    - name: setup workspace
-      uses: ./.github/actions/setup
-      with:
-        setup-dprint: true
+    using: composite
+    steps:
+        - name: setup workspace
+          uses: ./.github/actions/setup
+          with:
+              setup-dprint: true
 
-    - name: lint
-      if: ${{ !env.ACT }}
-      run: pnpm lint
-      shell: bash
+        - name: lint
+          if: ${{ !env.ACT }}
+          run: pnpm lint
+          shell: bash
 
-    - name: format
-      if: ${{ !env.ACT }}
-      run: pnpm format
-      shell: bash
+        - name: format
+          if: ${{ !env.ACT }}
+          run: pnpm format
+          shell: bash
 
-    - name: typecheck
-      if: ${{ !env.ACT }}
-      run: pnpm check
-      shell: bash
+        - name: typecheck
+          if: ${{ !env.ACT }}
+          run: pnpm check
+          shell: bash
 
-    - name: checkout
-      if: ${{ !env.ACT }}
-      run: |
-        if [ ! -z "$(git status -s)" ]; then
-          git add .
-          git commit -m "chore: run ci" || true
-          git pull --ff-only
-          git push
-        fi
-      shell: bash
+        - name: checkout
+          if: ${{ !env.ACT }}
+          run: |
+              if [ ! -z "$(git status -s)" ]; then
+                  git add .
+                  git commit -m "chore: run ci" || true
+                  git pull --ff-only
+                  git push
+              fi
+          shell: bash

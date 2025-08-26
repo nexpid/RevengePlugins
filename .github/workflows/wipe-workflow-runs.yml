@@ -1,24 +1,24 @@
 name: Wipe workflow runs (daily)
 
 on:
-  schedule:
-    - cron: "0 12 * * *"
-  workflow_dispatch:
+    schedule:
+        - cron: "0 12 * * *"
+    workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: true
+    group: ${{ github.workflow }}
+    cancel-in-progress: true
 
 jobs:
-  delete:
-    runs-on: ubuntu-latest
-    permissions:
-      actions: write
-      contents: read
+    delete:
+        runs-on: ubuntu-latest
+        permissions:
+            actions: write
+            contents: read
 
-    steps:
-      - name: wipe workflow runs
-        uses: Mattraks/delete-workflow-runs@v2
-        with:
-          retain_days: 7
-          keep_minimum_runs: 6
+        steps:
+            - name: wipe workflow runs
+              uses: Mattraks/delete-workflow-runs@v2
+              with:
+                  retain_days: 7
+                  keep_minimum_runs: 6

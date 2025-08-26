@@ -3,72 +3,72 @@ description: Report a bug in a plugin!
 title: "[Plugin Name] Short bug description"
 labels: [bug]
 body:
-  - type: markdown
-    attributes:
-      value: |
-        ## Thank you for taking the time to report a plugin bug! Make sure to fill in the issue title.
-  - type: checkboxes
-    attributes:
-      label: Check all the boxes below
-      options:
-        - label: I have checked that this bug hasn't already been reported
+    - type: markdown
+      attributes:
+          value: |
+              ## Thank you for taking the time to report a plugin bug! Make sure to fill in the issue title.
+    - type: checkboxes
+      attributes:
+          label: Check all the boxes below
+          options:
+              - label: I have checked that this bug hasn't already been reported
+                required: true
+    - type: input
+      id: discord-username
+      attributes:
+          label: Discord username
+          description: Enter your discord @username
+      validations:
+          required: false
+    - type: textarea
+      id: elaborate
+      attributes:
+          label: Elaborate
+          description: Detailed information about the bug
+      validations:
+          required: false
+    - type: textarea
+      id: steps
+      attributes:
+          label: Steps to Reproduce
+          description: How to reproduce this bug
+          placeholder: |
+              1. Go to Settings
+              2. Do this
+              3. Do that
+              4. Discord crashes
+      validations:
           required: true
-  - type: input
-    id: discord-username
-    attributes:
-      label: Discord username
-      description: Enter your discord @username
-    validations:
-      required: false
-  - type: textarea
-    id: elaborate
-    attributes:
-      label: Elaborate
-      description: Detailed information about the bug
-    validations:
-      required: false
-  - type: textarea
-    id: steps
-    attributes:
-      label: Steps to Reproduce
-      description: How to reproduce this bug
-      placeholder: |
-        1. Go to Settings
-        2. Do this
-        3. Do that
-        4. Discord crashes
-    validations:
-      required: true
-  - type: textarea
-    id: crash-info
-    attributes:
-      label: Crash Info
-      description: If this bug causes a crash, enter the Message and Stack Trace
-    validations:
-      required: false
-  - type: textarea
-    id: bug-screenshot
-    attributes:
-      label: Bug Screenshot
-      description: If this bug doesn't cause a crash, provide a screenshot of it
-    validations:
-      required: false
-  - type: textarea
-    id: sysinfo
-    attributes:
-      label: System Info
-      description: Enter your system information
-      value: |
-        Client: <!-- what discord client mod you're using -->
-        Client Version: <!-- check Info -> About -> mod's version -->
-        Discord Version: <!-- check Info -> About -> Discord -->
+    - type: textarea
+      id: crash-info
+      attributes:
+          label: Crash Info
+          description: If this bug causes a crash, enter the Message and Stack Trace
+      validations:
+          required: false
+    - type: textarea
+      id: bug-screenshot
+      attributes:
+          label: Bug Screenshot
+          description: If this bug doesn't cause a crash, provide a screenshot of it
+      validations:
+          required: false
+    - type: textarea
+      id: sysinfo
+      attributes:
+          label: System Info
+          description: Enter your system information
+          value: |
+              Client: <!-- what discord client mod you're using -->
+              Client Version: <!-- check Info -> About -> mod's version -->
+              Discord Version: <!-- check Info -> About -> Discord -->
 
-        Loader: <!-- check Info -> About -> Loader -->
-        OS: <!-- check Info -> About -> Operating System -->
-        Manufacturer: <!-- check Info -> About -> Manufacturer -->
-        Brand: <!-- check Info -> About -> Brand -->
-        Model: <!-- check Info -> About -> Model -->
-        Codename: <!-- check Info -> About -> Codename -->
+              Loader: <!-- check Info -> About -> Loader -->
+              OS: <!-- check Info -> About -> Operating System -->
+              Manufacturer: <!-- check Info -> About -> Manufacturer -->
+              Brand: <!-- check Info -> About -> Brand -->
+              Model: <!-- check Info -> About -> Model -->
+              Codename: <!-- check Info -> About -> Codename -->
 
-    validations:
-      required: true
+      validations:
+          required: true

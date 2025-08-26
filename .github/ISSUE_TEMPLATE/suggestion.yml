@@ -3,27 +3,27 @@ description: Suggest an idea for a plugin!
 title: "[Plugin Name] Short suggestion description"
 labels: [suggestion]
 body:
-  - type: markdown
-    attributes:
-      value: |
-        ## Thanks for taking the time to suggest a plugin! Make sure to fill in the issue title.
-  - type: checkboxes
-    attributes:
-      label: Check all the boxes below
-      options:
-        - label: I have checked that this hasn't already been suggested
+    - type: markdown
+      attributes:
+          value: |
+              ## Thanks for taking the time to suggest a plugin! Make sure to fill in the issue title.
+    - type: checkboxes
+      attributes:
+          label: Check all the boxes below
+          options:
+              - label: I have checked that this hasn't already been suggested
+                required: true
+    - type: input
+      id: discord-username
+      attributes:
+          label: Discord username
+          description: Enter your discord @username
+      validations:
+          required: false
+    - type: textarea
+      id: elaborate
+      attributes:
+          label: Elaborate
+          description: A more detailed description of your suggestion
+      validations:
           required: true
-  - type: input
-    id: discord-username
-    attributes:
-      label: Discord username
-      description: Enter your discord @username
-    validations:
-      required: false
-  - type: textarea
-    id: elaborate
-    attributes:
-      label: Elaborate
-      description: A more detailed description of your suggestion
-    validations:
-      required: true

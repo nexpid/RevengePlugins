@@ -2,48 +2,48 @@ name: Setup
 description: Sets up the workspace
 
 inputs:
-  root:
-    description: Where the package files are located
-    default: ""
-    required: false
-  setup-dprint:
-    description: Whether to setup dprint
-    default: "false"
-    required: false
+    root:
+        description: Where the package files are located
+        default: ""
+        required: false
+    setup-dprint:
+        description: Whether to setup dprint
+        default: "false"
+        required: false
 
 runs:
-  using: composite
-  steps:
-    - uses: pnpm/action-setup@v4
-      with:
-        package_json_file: ${{ inputs.root }}package.json
+    using: composite
+    steps:
+        - uses: pnpm/action-setup@v4
+          with:
+              package_json_file: ${{ inputs.root }}package.json
 
-    - uses: actions/setup-node@v4
-      with:
-        node-version-file: ${{ inputs.root }}package.json
-        cache: "pnpm"
-        cache-dependency-path: ${{ inputs.root }}pnpm-lock.yaml
+        - uses: actions/setup-node@v4
+          with:
+              node-version-file: ${{ inputs.root }}package.json
+              cache: "pnpm"
+              cache-dependency-path: ${{ inputs.root }}pnpm-lock.yaml
 
-    - name: install
-      working-directory: ${{ inputs.root }}
-      shell: bash
-      run: pnpm install --frozen-lockfile
+        - name: install
+          working-directory: ${{ inputs.root }}
+          shell: bash
+          run: pnpm install --frozen-lockfile
 
-    # Modified version of dprint/check github workflow
-    - name: install dprint
-      if: ${{ inputs.setup-dprint }}
-      working-directory: ${{ inputs.root }}
-      run: |
-        version=$(node -e 'import("fs").then(fs => process.stdout.write(JSON.parse(fs.readFileSync("package.json", "utf8")).engines.dprint))')
-        curl -fsSL https://dprint.dev/install.sh | sh -s $version > /dev/null 2>&1
-        echo "DPRINT_INSTALL=$HOME/.dprint" >> $GITHUB_ENV
-        echo "/home/runner/.dprint/bin" >> $GITHUB_PATH
+        # Modified version of dprint/check github workflow
+        - name: install dprint
+          if: ${{ inputs.setup-dprint }}
+          working-directory: ${{ inputs.root }}
+          run: |
+              version=$(node -e 'import("fs").then(fs => process.stdout.write(JSON.parse(fs.readFileSync("package.json", "utf8")).engines.dprint))')
+              curl -fsSL https://dprint.dev/install.sh | sh -s $version > /dev/null 2>&1
+              echo "DPRINT_INSTALL=$HOME/.dprint" >> $GITHUB_ENV
+              echo "/home/runner/.dprint/bin" >> $GITHUB_PATH
 
-        echo Path is $GITHUB_PATH
-        echo Dprint install is $DPRINT_INSTALL
-      shell: bash
+              echo Path is $GITHUB_PATH
+              echo Dprint install is $DPRINT_INSTALL
+          shell: bash
 
-    - run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      shell: bash
+        - run: |
+              git config --global user.name "github-actions[bot]"
+              git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          shell: bash

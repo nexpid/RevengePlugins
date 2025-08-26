@@ -1,117 +1,117 @@
 name: Merge dev to main and sync crowdin (weekly)
 
 on:
-  schedule:
-    - cron: "0 12 * * 0"
-  workflow_dispatch:
+    schedule:
+        - cron: "0 12 * * 0"
+    workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: true
+    group: ${{ github.workflow }}
+    cancel-in-progress: true
 
 jobs:
-  crowdin:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    crowdin:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
 
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-        with:
-          ref: dev
+        steps:
+            - name: checkout
+              uses: actions/checkout@v4
+              with:
+                  ref: dev
 
-      - name: sync crowdin
-        uses: crowdin/github-action@v2
-        with:
-          config: crowdin.yml
-          download_translations: true
-          push_translations: true
-          commit_message: "chore(i18n): sync translations"
-          localization_branch_name: i18n
-          create_pull_request: false
-          skip_ref_checkout: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
-          CROWDIN_API_TOKEN: ${{ secrets.CROWDIN_API_TOKEN }}
-  i18n-to-dev:
-    needs: crowdin
+            - name: sync crowdin
+              uses: crowdin/github-action@v2
+              with:
+                  config: crowdin.yml
+                  download_translations: true
+                  push_translations: true
+                  commit_message: "chore(i18n): sync translations"
+                  localization_branch_name: i18n
+                  create_pull_request: false
+                  skip_ref_checkout: true
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+                  CROWDIN_API_TOKEN: ${{ secrets.CROWDIN_API_TOKEN }}
+    i18n-to-dev:
+        needs: crowdin
 
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
 
-    steps:
-      - name: checkout dev
-        uses: actions/checkout@v4
-        with:
-          path: dev
-          ref: dev
+        steps:
+            - name: checkout dev
+              uses: actions/checkout@v4
+              with:
+                  path: dev
+                  ref: dev
 
-      - name: checkout i18n
-        uses: actions/checkout@v4
-        with:
-          path: i18n
-          ref: i18n
+            - name: checkout i18n
+              uses: actions/checkout@v4
+              with:
+                  path: i18n
+                  ref: i18n
 
-      - name: setup workspace
-        uses: ./dev/.github/actions/setup
-        with:
-          root: dev/
+            - name: setup workspace
+              uses: ./dev/.github/actions/setup
+              with:
+                  root: dev/
 
-      - name: merge main to dev
-        working-directory: dev
-        run: |
-          # FIX: git fetches shallowly
-          git fetch --unshallow
-          git fetch origin
+            - name: merge main to dev
+              working-directory: dev
+              run: |
+                  # FIX: git fetches shallowly
+                  git fetch --unshallow
+                  git fetch origin
 
-          git checkout main
-          git pull origin main
+                  git checkout main
+                  git pull origin main
 
-          git checkout dev
-          git merge main
+                  git checkout dev
+                  git merge main
 
-          git push origin dev
+                  git push origin dev
 
-      - name: write lang files
-        working-directory: dev
-        run: |
-          rm lang/values/*.json
-          pnpm crowdin ../i18n/lang/values
+            - name: write lang files
+              working-directory: dev
+              run: |
+                  rm lang/values/*.json
+                  pnpm crowdin ../i18n/lang/values
 
-      - name: deploy
-        working-directory: dev
-        run: |
-          if [ ! -z "$(git status -s)" ]; then
-            git add .
-            git commit -m "chore(i18n): sync translations" || true
-            git pull --ff-only
-            git push
-          fi
-  merge:
-    needs: i18n-to-dev
+            - name: deploy
+              working-directory: dev
+              run: |
+                  if [ ! -z "$(git status -s)" ]; then
+                    git add .
+                    git commit -m "chore(i18n): sync translations" || true
+                    git pull --ff-only
+                    git push
+                  fi
+    merge:
+        needs: i18n-to-dev
 
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
 
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-        with:
-          ref: main
+        steps:
+            - name: checkout
+              uses: actions/checkout@v4
+              with:
+                  ref: main
 
-      - name: merge dev to main
-        run: |
-          # FIX: git fetches shallowly
-          git fetch --unshallow
+            - name: merge dev to main
+              run: |
+                  # FIX: git fetches shallowly
+                  git fetch --unshallow
 
-          git checkout dev
-          git pull origin dev
+                  git checkout dev
+                  git pull origin dev
 
-          git checkout main
-          git merge dev
+                  git checkout main
+                  git merge dev
 
-          git push origin main
+                  git push origin main

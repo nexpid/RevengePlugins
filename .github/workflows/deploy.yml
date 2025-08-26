@@ -1,89 +1,89 @@
 name: Deploy main branch
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - src/**/*.*
-  workflow_dispatch:
-  schedule:
-    - cron: "0 12 1 1,12 *" # At 12:00 on January 1st & December 1st
+    push:
+        branches:
+            - main
+        paths:
+            - src/**/*.*
+    workflow_dispatch:
+    schedule:
+        - cron: "0 12 1 1,12 *" # At 12:00 on January 1st & December 1st
 
 concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: true
+    group: ${{ github.workflow }}
+    cancel-in-progress: true
 
 jobs:
-  ci:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    ci:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
 
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
+        steps:
+            - name: checkout
+              uses: actions/checkout@v4
 
-      - name: setup workspace
-        uses: ./.github/actions/ci
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
+            - name: setup workspace
+              uses: ./.github/actions/ci
+    build:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
 
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
+        steps:
+            - name: checkout
+              uses: actions/checkout@v4
 
-      - name: setup workspace
-        uses: ./.github/actions/setup
-        with:
-          setup-dprint: true
+            - name: setup workspace
+              uses: ./.github/actions/setup
+              with:
+                  setup-dprint: true
 
-      - name: build plugins
-        run: pnpm build
+            - name: build plugins
+              run: pnpm build
 
-      - name: update stuff
-        if: ${{ !env.ACT }}
-        run: |
-          if [ ! -z "$(git status -s)" ]; then
-            git add .
-            git commit -m "chore: update docs and lang" || true
-            git pull --ff-only
-            git push
-          fi
-        shell: bash
+            - name: update stuff
+              if: ${{ !env.ACT }}
+              run: |
+                  if [ ! -z "$(git status -s)" ]; then
+                      git add .
+                      git commit -m "chore: update docs and lang" || true
+                      git pull --ff-only
+                      git push
+                  fi
+              shell: bash
 
-      - name: copy readme and assets
-        run: |
-          cp README.md dist/index.md
-          cp -r assets dist/assets
-          cp scripts/serve/plink.ico dist/favicon.ico
+            - name: copy readme and assets
+              run: |
+                  cp README.md dist/index.md
+                  cp -r assets dist/assets
+                  cp scripts/serve/plink.ico dist/favicon.ico
 
-      - name: build pages
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: dist
-          destination: built
+            - name: build pages
+              uses: actions/jekyll-build-pages@v1
+              with:
+                  source: dist
+                  destination: built
 
-      - name: upload pages artifact
-        uses: actions/upload-pages-artifact@v3
-        if: ${{ !env.ACT }}
-        with:
-          path: built
-  deploy:
-    needs: build
+            - name: upload pages artifact
+              uses: actions/upload-pages-artifact@v3
+              if: ${{ !env.ACT }}
+              with:
+                  path: built
+    deploy:
+        needs: build
 
-    permissions:
-      pages: write
-      id-token: write
+        permissions:
+            pages: write
+            id-token: write
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
 
-    runs-on: ubuntu-latest
-    steps:
-      - name: deploy to pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        runs-on: ubuntu-latest
+        steps:
+            - name: deploy to pages
+              id: deployment
+              uses: actions/deploy-pages@v4

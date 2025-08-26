@@ -2,7 +2,7 @@
 	"useTabs": true,
 	"lineWidth": 100,
 	"yaml": {
-		"indentWidth": 2
+		"indentWidth": 4
 	},
 	"excludes": [
 		"**/node_modules",
