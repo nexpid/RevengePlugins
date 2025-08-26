@@ -4,7 +4,7 @@
 -->
 
 <div align="center">
-<img alt="plugin_status" src="https://img.shields.io/badge/plugin_status-unfinished-b8c0e0?style=for-the-badge&labelColor=24273a" />
+<img alt="plugin_status" src="https://img.shields.io/badge/plugin_status-unfinished-f5a97f?style=for-the-badge&labelColor=24273a" />
 <br/>
 
 </div>

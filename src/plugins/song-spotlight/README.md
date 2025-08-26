@@ -9,7 +9,7 @@
 <a href="https://revenge.nexpid.xyz/song-spotlight">
 <img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />
 </a>
-<a href="https://github.com/nexpid/SongSpotlight">
+<a href="https://github.com/nexpid-labs/SongSpotlight">
 <img alt="view_backend_code" src="https://img.shields.io/badge/view_backend_code-494d64?style=for-the-badge" />
 </a>
 </div>
