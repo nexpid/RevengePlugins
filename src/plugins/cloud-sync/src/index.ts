@@ -54,8 +54,12 @@ const autoSync = async () => {
 	}
 
 	const cache = useCacheStore.getState();
-
 	const everything = await grabEverything();
+
+	// only autosync if user has atleast 1 plugin installed, this sorta fixes
+	// the issue of cloud sync autosyncing if the user's plugin save corrupts
+	if (!Object.keys(everything.plugins).length) return;
+
 	if (JSON.stringify(cache.data) !== JSON.stringify(everything)) {
 		// let's double check
 		const userId = UserStore.getCurrentUser()?.id ?? null;
