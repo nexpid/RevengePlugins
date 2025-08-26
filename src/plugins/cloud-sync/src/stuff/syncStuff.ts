@@ -20,6 +20,32 @@ import {
 	installFont,
 } from "./fonts";
 
+function stripNoCloudSync(obj: unknown) {
+	if (obj && typeof obj === "object") {
+		if (Array.isArray(obj)) {
+			const filtered: typeof obj = [];
+			for (const val of obj) {
+				const rep = stripNoCloudSync(val);
+				if (rep !== undefined) filtered.push(rep);
+			}
+
+			return filtered;
+		} else {
+			// deprecated
+			if ("__no_cloud_sync" in obj) return undefined;
+			if ("__no_sync" in obj) return undefined;
+
+			const filtered: typeof obj = {};
+			for (const [key, value] of Object.entries(obj)) {
+				const rep = stripNoCloudSync(value);
+				if (rep !== undefined) filtered[key] = rep;
+			}
+
+			return filtered;
+		}
+	} else return obj;
+}
+
 export async function grabEverything(debug?: boolean): Promise<UserData> {
 	const sync = {
 		plugins: {},
@@ -36,7 +62,7 @@ export async function grabEverything(debug?: boolean): Promise<UserData> {
 		const storage = await createMMKVBackend(item.id).get();
 		sync.plugins[item.id] = {
 			enabled: item.enabled,
-			storage: JSON.stringify(storage),
+			storage: JSON.stringify(stripNoCloudSync(storage)),
 		};
 	}
 
