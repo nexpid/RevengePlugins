@@ -225,7 +225,6 @@ export async function runMigration() {
 		const parser = invalidDomains.find(x => x.match.test(plugin));
 		const id = parser && plugin.match(parser.match)?.groups?.plugin;
 
-		console.log(allowedPluginIDs, id);
 		if (id && allowedPluginIDs.includes(id)) {
 			affected.push({
 				id,
