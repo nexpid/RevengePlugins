@@ -52,7 +52,7 @@ export function onLoad() {
 		mode: ConfigIconpackMode.Automatic,
 		custom: {
 			url:
-				"https://raw.githubusercontent.com/Moodzz1/discord-iconpacks/master/Packs/Solar-Duotone/",
+				"https://raw.githubusercontent.com/mudrhiod/discord-iconpacks/master/plus/solar-duotone/",
 			suffix: "",
 			config: {
 				biggerStatus: false,
