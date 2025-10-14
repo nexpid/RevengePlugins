@@ -17,11 +17,6 @@ export const Reanimated = findByProps("useSharedValue") as typeof _Reanimated;
 export const FlashList = findByProps("FlashList")
 	.FlashList as typeof _FlashList.FlashList;
 
-export const { default: Video } = findByProps(
-	"DRMType",
-	"FilterType",
-) as typeof import("react-native-video");
-
 export const Joi = findByProps("isJoi") as unknown as typeof import("joi");
 
 export const zustand = (findByProps("create", "useStore") || {
