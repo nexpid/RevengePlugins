@@ -1,10 +1,11 @@
 import { vstorage } from "..";
 import { type RulesType, useRulesStore } from "../stores/RulesStore";
+import { toURL } from "./url";
 
-const useProvider = (
+function applyProvider(
 	provider: RulesType["providers"][string],
 	urlObj: URL,
-): string => {
+): string {
 	const url = urlObj.toString();
 
 	const query = [...urlObj.searchParams.keys()];
@@ -39,8 +40,8 @@ const useProvider = (
 		}
 	}
 
-	return urlObj.toString();
-};
+	return toURL(urlObj);
+}
 
 export function cleanUrl(url: string) {
 	const { rules } = useRulesStore.getState();
@@ -63,11 +64,11 @@ export function cleanUrl(url: string) {
 		}
 
 		try {
-			urlObj = new URL(useProvider(provider, urlObj));
+			urlObj = new URL(applyProvider(provider, urlObj));
 		} catch {
-			return urlObj.toString();
+			return toURL(urlObj);
 		}
 	}
 
-	return urlObj.toString();
+	return toURL(urlObj);
 }
