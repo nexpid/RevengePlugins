@@ -2,12 +2,12 @@ import { logger } from "@vendetta";
 import { findByName, findByProps, findByStoreName } from "@vendetta/metro";
 import { React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
 import { semanticColors } from "@vendetta/ui";
-import { showToast } from "@vendetta/ui/toasts";
 import type { ViewProps } from "react-native";
 
 import { FlashList } from "$/deps";
 
 import { lang } from "..";
+import { useAuthorizationStore } from "../stores/AuthorizationStore";
 import { useCacheStore } from "../stores/CacheStore";
 import { getData, listData } from "../stuff/api";
 import type { UserData } from "../types";
@@ -36,6 +36,9 @@ export default function ProfileSongs({
 	customBorder?: string;
 	style?: ViewProps["style"];
 }) {
+	const { isAuthorized } = useAuthorizationStore();
+	if (!isAuthorized) return null;
+
 	const styles = stylesheet.createThemedStyleSheet({
 		card: {
 			backgroundColor: semanticColors.CARD_PRIMARY_BG,
@@ -66,7 +69,6 @@ export default function ProfileSongs({
 					`failed while checking ${userId} (${variant} variant)`,
 					e,
 				);
-				showToast(":(");
 			});
 	}, [userId]);
 
