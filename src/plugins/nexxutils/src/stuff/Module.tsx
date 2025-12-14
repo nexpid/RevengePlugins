@@ -95,7 +95,7 @@ export function getModuleExtras(module: AnyModule) {
 			content: `Encountered ${Object.keys(module.errors).length} error${
 				Object.keys(module.errors).length !== 1 ? "s" : ""
 			}`,
-			color: resolveSemanticColor(semanticColors.TEXT_DANGER),
+			color: resolveSemanticColor(semanticColors.TEXT_FEEDBACK_CRITICAL),
 			icon: "WarningIcon",
 			action: () => {
 				openModal(

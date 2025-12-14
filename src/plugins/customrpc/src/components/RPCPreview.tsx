@@ -64,7 +64,7 @@ export default ({ edit, act }: { edit: boolean; act: SettingsActivity }) => {
 				<RN.View style={styles.actTypeCont}>
 					<Text
 						variant="eyebrow"
-						color="TEXT_NORMAL"
+						color="TEXT_DEFAULT"
 						onPress={() => {
 							ActionSheet.open(ActivityTypeActionSheet, {
 								type: act.type ?? ActivityType.Playing,
@@ -145,7 +145,7 @@ export default ({ edit, act }: { edit: boolean; act: SettingsActivity }) => {
 							<RN.View style={{ flex: 1 }}>
 								<Text
 									variant="text-md/semibold"
-									color="TEXT_NORMAL"
+									color="TEXT_DEFAULT"
 									onPress={() => {
 										ActionSheet.open(
 											ApplicationActionSheet,
@@ -189,7 +189,7 @@ export default ({ edit, act }: { edit: boolean; act: SettingsActivity }) => {
 								</Text>
 								<Text
 									variant="text-sm/normal"
-									color="TEXT_NORMAL"
+									color="TEXT_DEFAULT"
 									onPress={() => {
 										simpleInput({
 											role: "Details",
@@ -205,7 +205,7 @@ export default ({ edit, act }: { edit: boolean; act: SettingsActivity }) => {
 								</Text>
 								<Text
 									variant="text-sm/normal"
-									color="TEXT_NORMAL"
+									color="TEXT_DEFAULT"
 									onPress={() => {
 										simpleInput({
 											role: "State",
@@ -221,7 +221,7 @@ export default ({ edit, act }: { edit: boolean; act: SettingsActivity }) => {
 								</Text>
 								<Text
 									variant="text-sm/normal"
-									color="TEXT_NORMAL"
+									color="TEXT_DEFAULT"
 									onPress={() => {
 										ActionSheet.open(TimestampActionSheet, {
 											start: act.timestamps.start,

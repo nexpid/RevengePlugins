@@ -28,7 +28,7 @@ const styles = stylesheet.createThemedStyleSheet({
 	},
 	cardHeaderText: {
 		...TextStyleSheet["text-sm/semibold"],
-		color: semanticColors.TEXT_NORMAL,
+		color: semanticColors.TEXT_DEFAULT,
 	},
 	cardImage: {
 		width: "100%",

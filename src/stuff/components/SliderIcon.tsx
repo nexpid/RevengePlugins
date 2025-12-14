@@ -21,7 +21,7 @@ export default function SliderIcon({
 		icon: {
 			width: 24,
 			height: 24,
-			tintColor: semanticColors.INTERACTIVE_NORMAL,
+			tintColor: semanticColors.INTERACTIVE_ICON_DEFAULT,
 			position: "absolute",
 			top: 0,
 		},

@@ -41,7 +41,7 @@ export default function ProfileSongs({
 
 	const styles = stylesheet.createThemedStyleSheet({
 		card: {
-			backgroundColor: semanticColors.CARD_PRIMARY_BG,
+			backgroundColor: semanticColors.CARD_SECONDARY_BG,
 			minHeight: 200,
 		},
 	});

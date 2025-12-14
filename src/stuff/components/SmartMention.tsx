@@ -37,7 +37,7 @@ export default function SmartMention({
 	return (
 		<Text
 			variant="text-md/bold"
-			color={color ?? "TEXT_NORMAL"}
+			color={color ?? "TEXT_DEFAULT"}
 			onPress={() =>
 				UserStore.getUser(userId)
 					? showUserProfile({ userId })

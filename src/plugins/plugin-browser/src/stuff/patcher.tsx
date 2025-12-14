@@ -23,7 +23,7 @@ export default (): () => void => {
 					Object.keys(getChanges()).length,
 				).current;
 				if (changes > 0) {
-					return <TextBadge variant="danger">{changes}</TextBadge>;
+					return <TextBadge variant="destructive">{changes}</TextBadge>;
 				}
 			},
 			title: () => lang.format("plugin.name", {}),

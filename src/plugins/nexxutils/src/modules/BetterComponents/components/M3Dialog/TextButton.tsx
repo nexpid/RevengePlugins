@@ -6,7 +6,7 @@ import { lerp, resolveCustomSemantic, resolveSemanticColor } from "$/types";
 
 const AnimatedPressable = RN.Animated.createAnimatedComponent(RN.Pressable);
 
-export default ({
+export default function TextButton({
 	label,
 	color,
 	disabled,
@@ -14,21 +14,32 @@ export default ({
 	onPress,
 }: {
 	label: string;
-	color: string;
+	color: "BRAND" | "DANGER" | "POSITIVE" | "NORMAL";
 	disabled?: boolean;
 	loading?: boolean;
 	onPress?: () => void;
-}) => {
-	const rawVal = {
-		BRAND: rawColors.BRAND_500,
-		DANGER: rawColors.RED_500,
-		POSITIVE: rawColors.GREEN_500,
-		PRIMARAY: rawColors.PRIMARY_500,
-		NORMAL: rawColors.PRIMARY_500,
+}) {
+	const { raw: rawClr, txt: textClr } = {
+		BRAND: {
+			raw: rawColors.BRAND_500,
+			txt: "TEXT_BRAND",
+		},
+		DANGER: {
+			raw: rawColors.RED_500,
+			txt: "TEXT_FEEDBACK_CRITICAL",
+		},
+		POSITIVE: {
+			raw: rawColors.GREEN_500,
+			txt: "TEXT_FEEDBACK_POSITIVE",
+		},
+		NORMAL: {
+			raw: rawColors.PRIMARY_500,
+			txt: "TEXT_DEFAULT",
+		},
 	}[color];
 	const bleh = resolveCustomSemantic(
-		lerp(rawVal, "#FFFFFF", 0.25),
-		lerp(rawVal, "#000000", 0.15),
+		lerp(rawClr, "#FFFFFF", 0.25),
+		lerp(rawClr, "#000000", 0.15),
 	);
 	const styles = stylesheet.createThemedStyleSheet({
 		container: {
@@ -95,19 +106,17 @@ export default ({
 				? (
 					<RN.ActivityIndicator
 						size="small"
-						color={resolveSemanticColor(
-							semanticColors[`TEXT_${color}`],
-						)}
+						color={resolveSemanticColor(semanticColors[textClr])}
 					/>
 				)
 				: (
 					<Text
 						variant="text-md/semibold"
-						color={enabled ? `TEXT_${color}` : "TEXT_MUTED"}
+						color={enabled ? textClr : "TEXT_MUTED"}
 					>
 						{label}
 					</Text>
 				)}
 		</AnimatedPressable>
 	);
-};
+}

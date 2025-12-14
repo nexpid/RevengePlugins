@@ -12,7 +12,7 @@ export default function TextBadge({
 	shiny,
 }: React.PropsWithChildren<{
 	style?: ViewStyle;
-	variant: "primary" | "danger";
+	variant: "primary" | "destructive";
 	shiny?: boolean;
 }>) {
 	const [width, setWidth] = React.useState(0);
@@ -91,7 +91,6 @@ export default function TextBadge({
 			)}
 			<Text
 				variant="text-xxs/bold"
-				color="STATUS_DANGER_TEXT"
 				align="center"
 				style={{
 					textTransform: "uppercase",

@@ -110,7 +110,7 @@ export const ApplicationList = () => {
 								>
 									<Text
 										variant="text-md/semibold"
-										color="TEXT_NORMAL"
+										color="TEXT_DEFAULT"
 									>
 										{item.name}
 									</Text>

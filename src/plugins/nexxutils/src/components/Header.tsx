@@ -23,7 +23,7 @@ export function Header() {
 			<RN.View
 				style={styles.info}
 			>
-				<Text variant="display-md" color="TEXT_NORMAL" align="left">NexxUtils</Text>
+				<Text variant="display-md" color="TEXT_DEFAULT" align="left">NexxUtils</Text>
 				<Text variant="text-md/bold" color="TEXT_MUTED" align="left">
 					version {version}
 				</Text>

@@ -37,7 +37,7 @@ export default function AppInfoPage({
 		},
 
 		carousel: {
-			backgroundColor: semanticColors.CARD_PRIMARY_BG,
+			backgroundColor: semanticColors.CARD_SECONDARY_BG,
 			width: "100%",
 			aspectRatio: 5 / 3,
 			borderRadius: 8,
@@ -74,13 +74,13 @@ export default function AppInfoPage({
 		},
 
 		group: {
-			backgroundColor: semanticColors.CARD_PRIMARY_BG,
+			backgroundColor: semanticColors.CARD_SECONDARY_BG,
 			padding: 16,
 			borderRadius: 16,
 			marginBottom: 24,
 		},
 		sillyGroup: {
-			backgroundColor: semanticColors.CARD_PRIMARY_BG,
+			backgroundColor: semanticColors.CARD_SECONDARY_BG,
 			paddingTop: 16,
 			borderRadius: 16,
 			marginBottom: 24,
@@ -91,7 +91,7 @@ export default function AppInfoPage({
 			marginRight: 4,
 			height: 20,
 			width: 20,
-			tintColor: semanticColors.TEXT_NORMAL,
+			tintColor: semanticColors.TEXT_DEFAULT,
 		},
 
 		popularCommand: {
@@ -100,10 +100,10 @@ export default function AppInfoPage({
 			alignItems: "center",
 		},
 		popularCommandCmd: {
-			backgroundColor: semanticColors.BG_MOD_SUBTLE,
+			backgroundColor: semanticColors.BACKGROUND_MOD_SUBTLE,
 			padding: 6,
 			borderWidth: 1,
-			borderColor: semanticColors.BG_MOD_STRONG,
+			borderColor: semanticColors.BACKGROUND_MOD_STRONG,
 			borderRadius: 8,
 		},
 	});
@@ -229,7 +229,7 @@ export default function AppInfoPage({
 				}}
 			/>
 			<RN.View style={styles.group}>
-				<Text variant="text-lg/semibold" color="TEXT_NORMAL">
+				<Text variant="text-lg/semibold" color="TEXT_DEFAULT">
 					{app.name}
 				</Text>
 				<Text
@@ -301,7 +301,7 @@ export default function AppInfoPage({
 						<TableRowGroupTitle title={title} />
 						<Text
 							variant="text-md/normal"
-							color="TEXT_NORMAL"
+							color="TEXT_DEFAULT"
 							style={{
 								marginBottom: i !== a.length - 1 ? 24 : 0,
 							}}
@@ -329,14 +329,14 @@ export default function AppInfoPage({
 							>
 								<Text
 									variant="text-md/semibold"
-									color="TEXT_NORMAL"
+									color="TEXT_DEFAULT"
 									style={styles.popularCommandCmd}
 								>
 									/{x.name}
 								</Text>
 								<Text
 									variant="text-md/normal"
-									color="HEADER_SECONDARY"
+									color="TEXT_SUBTLE"
 									lineClamp={1}
 								>
 									{x.description}

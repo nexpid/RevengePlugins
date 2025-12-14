@@ -68,7 +68,7 @@ export default function Settings() {
 	return (
 		<RN.ScrollView>
 			<Card style={{ marginHorizontal: 16, marginTop: 16 }}>
-				<Text variant="text-md/medium" color="TEXT_NORMAL">
+				<Text variant="text-md/medium" color="TEXT_DEFAULT">
 					{lang.format("settings.source_hint", {})}
 				</Text>
 			</Card>

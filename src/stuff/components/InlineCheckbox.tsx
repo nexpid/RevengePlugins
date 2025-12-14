@@ -35,7 +35,7 @@ export default function InlineCheckbox({
 			}}
 		>
 			<FormCheckbox checked={value} />
-			<Text variant="text-md/normal" color="TEXT_NORMAL">
+			<Text variant="text-md/normal" color="TEXT_DEFAULT">
 				{label}
 			</Text>
 		</RN.Pressable>

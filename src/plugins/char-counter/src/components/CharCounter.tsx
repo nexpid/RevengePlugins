@@ -115,7 +115,7 @@ export default ({ inputProps }: { inputProps: ChatInputProps }) => {
 				>
 					<Text
 						variant="text-xs/semibold"
-						color="TEXT_NORMAL"
+						color="TEXT_DEFAULT"
 						style={{ paddingHorizontal: xsFontSize / 2 }}
 					>
 						{extraMessages}
@@ -124,8 +124,8 @@ export default ({ inputProps }: { inputProps: ChatInputProps }) => {
 				<Text
 					variant="text-xs/semibold"
 					color={actualLength <= maxLength
-						? "TEXT_NORMAL"
-						: "TEXT_DANGER"}
+						? "TEXT_DEFAULT"
+						: "TEXT_FEEDBACK_CRITICAL"}
 					style={{
 						paddingHorizontal: 8,
 						paddingVertical: 8,

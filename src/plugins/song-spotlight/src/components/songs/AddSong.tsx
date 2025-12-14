@@ -17,13 +17,13 @@ const { FormRow } = Forms;
 export default function AddSong({ disabled }: { disabled: boolean }) {
 	const styles = stylesheet.createThemedStyleSheet({
 		song: {
-			backgroundColor: semanticColors.BG_MOD_FAINT,
+			backgroundColor: semanticColors.BACKGROUND_MOD_MUTED,
 			borderRadius: 8,
 		},
 		songIcon: {
 			width: 30,
 			height: 30,
-			backgroundColor: semanticColors.BG_MOD_SUBTLE,
+			backgroundColor: semanticColors.BACKGROUND_MOD_SUBTLE,
 			borderRadius: 15,
 			justifyContent: "center",
 			alignItems: "center",

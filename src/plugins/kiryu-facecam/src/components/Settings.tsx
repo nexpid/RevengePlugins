@@ -28,10 +28,10 @@ const SettingsKyriu = () => {
 			height: height + 32,
 
 			marginHorizontal: 16,
-			backgroundColor: semanticColors.BG_MOD_SUBTLE,
+			backgroundColor: semanticColors.BACKGROUND_MOD_SUBTLE,
 			borderRadius: 8,
 			borderWidth: 4,
-			borderColor: semanticColors.BG_MOD_SUBTLE,
+			borderColor: semanticColors.BACKGROUND_MOD_SUBTLE,
 			borderStyle: "dotted",
 
 			flexDirection: "row",

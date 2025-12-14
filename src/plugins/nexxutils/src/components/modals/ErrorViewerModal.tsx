@@ -18,7 +18,7 @@ const Card = ({
 }) => {
 	const styles = stylesheet.createThemedStyleSheet({
 		main: {
-			backgroundColor: semanticColors.CARD_PRIMARY_BG,
+			backgroundColor: semanticColors.CARD_SECONDARY_BG,
 			borderRadius: 8,
 			padding: 12,
 			gap: 8,
@@ -42,7 +42,7 @@ const Card = ({
 		upIcon: {
 			width: 24,
 			height: 24,
-			tintColor: semanticColors.INTERACTIVE_NORMAL,
+			tintColor: semanticColors.INTERACTIVE_ICON_DEFAULT,
 		},
 		androidRipple: {
 			color: semanticColors.ANDROID_RIPPLE,
@@ -105,7 +105,7 @@ const Card = ({
 				<RN.View style={styles.middle}>
 					<Text
 						variant="text-lg/bold"
-						color="TEXT_NORMAL"
+						color="TEXT_DEFAULT"
 						align="center"
 					>
 						{label}

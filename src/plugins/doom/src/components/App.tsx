@@ -54,7 +54,7 @@ export default function App() {
 		},
 
 		webview: {
-			backgroundColor: semanticColors.BG_MOD_SUBTLE,
+			backgroundColor: semanticColors.BACKGROUND_MOD_SUBTLE,
 			overflow: "hidden",
 			borderRadius: 2,
 			aspectRatio: 1442.8 / 901.75,

@@ -42,15 +42,15 @@ export default function SongInfo({
 	const styles = stylesheet.createThemedStyleSheet({
 		cardOuter: {
 			borderRadius: 8,
-			backgroundColor: semanticColors.CARD_PRIMARY_BG,
+			backgroundColor: semanticColors.CARD_SECONDARY_BG,
 		},
 		card: {
-			backgroundColor: semanticColors.BG_MOD_FAINT,
+			backgroundColor: semanticColors.BACKGROUND_MOD_MUTED,
 			borderRadius: 8,
 			alignItems: "center",
 		},
 		song: {
-			backgroundColor: semanticColors.BG_MOD_FAINT,
+			backgroundColor: semanticColors.BACKGROUND_MOD_MUTED,
 			borderRadius: 8,
 		},
 		grabberHitbox: {
@@ -61,7 +61,7 @@ export default function SongInfo({
 			alignItems: "center",
 		},
 		grabber: {
-			tintColor: semanticColors.INTERACTIVE_NORMAL,
+			tintColor: semanticColors.INTERACTIVE_ICON_DEFAULT,
 			width: 20,
 			height: 20,
 		},
@@ -263,7 +263,7 @@ export default function SongInfo({
 												<>
 													<Text
 														variant="text-md/semibold"
-														color="TEXT_NORMAL"
+														color="TEXT_DEFAULT"
 														lineClamp={1}
 													>
 														{songInfo.label}

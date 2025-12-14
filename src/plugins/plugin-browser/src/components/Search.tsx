@@ -25,7 +25,7 @@ function SearchIcon() {
 				width: 16,
 				height: 16,
 				tintColor: resolveSemanticColor(
-					semanticColors.INTERACTIVE_NORMAL,
+					semanticColors.INTERACTIVE_ICON_DEFAULT,
 				),
 			}}
 			source={getAssetIDByName("icon-search")}

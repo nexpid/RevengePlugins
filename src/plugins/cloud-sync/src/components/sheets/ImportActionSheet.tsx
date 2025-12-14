@@ -65,7 +65,7 @@ export default function ImportActionSheet({
 			marginRight: 4,
 		},
 		btnIcon: {
-			tintColor: semanticColors.TEXT_NORMAL,
+			tintColor: semanticColors.TEXT_DEFAULT,
 			marginRight: 8,
 		},
 	});

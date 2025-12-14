@@ -79,7 +79,7 @@ export default function AppDirectoryPage({
 
 	const styles = stylesheet.createThemedStyleSheet({
 		category: {
-			backgroundColor: semanticColors.BG_SURFACE_OVERLAY,
+			backgroundColor: semanticColors.BACKGROUND_BASE_LOWER,
 			flexDirection: "row",
 			justifyContent: "center",
 			gap: 8,
@@ -87,12 +87,12 @@ export default function AppDirectoryPage({
 			borderRadius: 8,
 		},
 		selCategory: {
-			backgroundColor: semanticColors.BG_SURFACE_RAISED,
+			backgroundColor: semanticColors.BACKGROUND_BASE_LOW,
 		},
 		categoryIcon: {
 			width: 24,
 			height: 24,
-			tintColor: semanticColors.INTERACTIVE_NORMAL,
+			tintColor: semanticColors.INTERACTIVE_ICON_DEFAULT,
 		},
 		bottomNav: {
 			flexDirection: "row",
@@ -101,13 +101,13 @@ export default function AppDirectoryPage({
 			justifyContent: "center",
 		},
 		bottomNavItem: {
-			backgroundColor: semanticColors.BG_MOD_SUBTLE,
+			backgroundColor: semanticColors.BACKGROUND_MOD_SUBTLE,
 			borderRadius: 6969,
 			paddingVertical: 6,
 			paddingHorizontal: 11,
 		},
 		bottomNavItemOff: {
-			backgroundColor: semanticColors.BG_MOD_FAINT,
+			backgroundColor: semanticColors.BACKGROUND_MOD_MUTED,
 			borderRadius: 6969,
 			paddingVertical: 6,
 			paddingHorizontal: 11,
@@ -127,12 +127,12 @@ export default function AppDirectoryPage({
 	});
 	const collectionStyles = stylesheet.createThemedStyleSheet({
 		card: {
-			backgroundColor: semanticColors.CARD_PRIMARY_BG,
+			backgroundColor: semanticColors.CARD_SECONDARY_BG,
 			borderRadius: 8,
 			width: jwidth,
 		},
 		cardImage: {
-			backgroundColor: semanticColors.CARD_SECONDARY_BG,
+			backgroundColor: semanticColors.BACKGROUND_BASE_LOW,
 			borderTopLeftRadius: 8,
 			borderTopRightRadius: 8,
 			width: "100%",
@@ -150,7 +150,7 @@ export default function AppDirectoryPage({
 			gap: 16,
 		},
 		smallAvatar: {
-			backgroundColor: semanticColors.BG_MOD_FAINT,
+			backgroundColor: semanticColors.BACKGROUND_MOD_MUTED,
 			width: 48,
 			height: 48,
 			borderRadius: 2147483647,
@@ -260,7 +260,7 @@ export default function AppDirectoryPage({
 								/>
 								<Text
 									variant="text-md/semibold"
-									color="TEXT_NORMAL"
+									color="TEXT_DEFAULT"
 								>
 									{item.name}
 								</Text>
@@ -308,7 +308,7 @@ export default function AppDirectoryPage({
 													>
 														<Text
 															variant="text-md/semibold"
-															color="TEXT_NORMAL"
+															color="TEXT_DEFAULT"
 														>
 															{app.name}
 														</Text>
@@ -333,7 +333,7 @@ export default function AppDirectoryPage({
 												</Text>
 												<Text
 													variant="text-md/semibold"
-													color="TEXT_NORMAL"
+													color="TEXT_DEFAULT"
 													lineClamp={2}
 												>
 													{app.directory_entry
@@ -364,7 +364,7 @@ export default function AppDirectoryPage({
 									>
 										<Text
 											variant="text-sm/bold"
-											color={isFirst ? "TEXT_MUTED" : "TEXT_NORMAL"}
+											color={isFirst ? "TEXT_MUTED" : "TEXT_DEFAULT"}
 										>
 											&lt;
 										</Text>
@@ -380,7 +380,7 @@ export default function AppDirectoryPage({
 											>
 												<Text
 													variant="text-sm/semibold"
-													color="TEXT_NORMAL"
+													color="TEXT_DEFAULT"
 												>
 													1
 												</Text>
@@ -406,7 +406,7 @@ export default function AppDirectoryPage({
 										>
 											<Text
 												variant="text-sm/semibold"
-												color="TEXT_NORMAL"
+												color="TEXT_DEFAULT"
 											>
 												{x.num}
 											</Text>
@@ -432,7 +432,7 @@ export default function AppDirectoryPage({
 											>
 												<Text
 													variant="text-sm/semibold"
-													color="TEXT_NORMAL"
+													color="TEXT_DEFAULT"
 												>
 													{searchResults.num_pages}
 												</Text>
@@ -459,7 +459,7 @@ export default function AppDirectoryPage({
 									>
 										<Text
 											variant="text-sm/bold"
-											color={isLast ? "TEXT_MUTED" : "TEXT_NORMAL"}
+											color={isLast ? "TEXT_MUTED" : "TEXT_DEFAULT"}
 										>
 											&gt;
 										</Text>
@@ -472,7 +472,7 @@ export default function AppDirectoryPage({
 								<React.Fragment key={x.id}>
 									<Text
 										variant="text-lg/bold"
-										color="TEXT_NORMAL"
+										color="TEXT_DEFAULT"
 										style={{
 											paddingBottom: 24,
 											paddingTop: i !== 0 ? 30 : 0,
@@ -509,7 +509,7 @@ export default function AppDirectoryPage({
 														>
 															<Text
 																variant="text-lg/semibold"
-																color="TEXT_NORMAL"
+																color="TEXT_DEFAULT"
 																style={{
 																	paddingBottom: 4,
 																}}
@@ -518,7 +518,7 @@ export default function AppDirectoryPage({
 															</Text>
 															<Text
 																variant="text-md/semibold"
-																color="TEXT_NORMAL"
+																color="TEXT_DEFAULT"
 																lineClamp={2}
 															>
 																{app.application
@@ -554,7 +554,7 @@ export default function AppDirectoryPage({
 														>
 															<Text
 																variant="text-md/semibold"
-																color="TEXT_NORMAL"
+																color="TEXT_DEFAULT"
 															>
 																{app.application.name}
 															</Text>
@@ -592,7 +592,7 @@ export default function AppDirectoryPage({
 															</Text>
 															<Text
 																variant="text-md/semibold"
-																color="TEXT_NORMAL"
+																color="TEXT_DEFAULT"
 																lineClamp={2}
 															>
 																{app.application
@@ -629,7 +629,7 @@ export default function AppDirectoryPage({
 																>
 																	<Text
 																		variant="text-md/semibold"
-																		color="TEXT_NORMAL"
+																		color="TEXT_DEFAULT"
 																	>
 																		{app
 																			.application
@@ -664,7 +664,7 @@ export default function AppDirectoryPage({
 															</Text>
 															<Text
 																variant="text-md/semibold"
-																color="TEXT_NORMAL"
+																color="TEXT_DEFAULT"
 																lineClamp={2}
 															>
 																{app.application

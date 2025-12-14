@@ -30,7 +30,7 @@ export default () => {
 						{noMods && (
 							<Text
 								variant="text-md/semibold"
-								color="TEXT_NORMAL"
+								color="TEXT_DEFAULT"
 							>
 								{`No plugins in the ${title} category yet!`}
 							</Text>

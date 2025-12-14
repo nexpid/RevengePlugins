@@ -34,7 +34,7 @@ const Message = ({
 }) => {
 	const styles = stylesheet.createThemedStyleSheet({
 		message: {
-			backgroundColor: semanticColors.CARD_PRIMARY_BG,
+			backgroundColor: semanticColors.CARD_SECONDARY_BG,
 			padding: 8,
 			borderRadius: 8,
 			flexDirection: "column",
@@ -43,7 +43,7 @@ const Message = ({
 		icon: {
 			width: 16,
 			height: 16,
-			tintColor: semanticColors.TEXT_NORMAL,
+			tintColor: semanticColors.TEXT_DEFAULT,
 		},
 		androidRipple: {
 			color: semanticColors.ANDROID_RIPPLE,
@@ -91,7 +91,7 @@ const Message = ({
 					source={getAssetIDByName("ChatIcon")}
 					resizeMode="cover"
 				/>
-				<Text variant="text-md/medium" color="TEXT_NORMAL">
+				<Text variant="text-md/medium" color="TEXT_DEFAULT">
 					{channel?.name ?? "unknown"}
 				</Text>
 			</RN.View>
@@ -164,7 +164,7 @@ export default function LocalPinnedModal() {
 						/>
 						<Text
 							variant="text-lg/semibold"
-							color="TEXT_NORMAL"
+							color="TEXT_DEFAULT"
 							align="center"
 						>
 							{Math.floor(status * 100)}%

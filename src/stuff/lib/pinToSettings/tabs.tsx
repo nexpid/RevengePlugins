@@ -54,10 +54,10 @@ export function patchTabsUI(tabs: PinToSettingsTabs, patches: (() => void)[]) {
 
 	const firstRender = Symbol("pinToSettings meow meow");
 
-	try{
+	try {
 		if (!createListModule) return;
 		patches.push(
-			after("createList", createListModule, function(args, ret) {
+			after("createList", createListModule, (args) => {
 				// shrug??
 				if (!args[0][firstRender]) {
 					args[0][firstRender] = true;
@@ -102,5 +102,4 @@ export function patchTabsUI(tabs: PinToSettingsTabs, patches: (() => void)[]) {
 			}),
 		);
 	}
-
 }

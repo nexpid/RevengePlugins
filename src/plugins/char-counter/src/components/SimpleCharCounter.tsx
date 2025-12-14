@@ -49,7 +49,7 @@ export default function SimpleCharCounter({
 		>
 			<Text
 				variant="text-xs/semibold"
-				color={actualLength <= maxLength ? "TEXT_MUTED" : "TEXT_DANGER"}
+				color={actualLength <= maxLength ? "TEXT_MUTED" : "TEXT_FEEDBACK_CRITICAL"}
 			>
 				{display(actualLength)}
 			</Text>

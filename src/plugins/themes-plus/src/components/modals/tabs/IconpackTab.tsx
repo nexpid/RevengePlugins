@@ -24,7 +24,7 @@ function CustomIconpack() {
 		previewBase: {
 			width: 60,
 			height: 60,
-			backgroundColor: semanticColors.BG_MOD_FAINT,
+			backgroundColor: semanticColors.BACKGROUND_MOD_MUTED,
 			borderRadius: 8,
 			justifyContent: "center",
 			alignItems: "center",
@@ -69,7 +69,7 @@ function CustomIconpack() {
 					>
 						<Text
 							variant="text-sm/semibold"
-							color="TEXT_SECONDARY"
+							color="TEXT_SUBTLE"
 						>
 							{lang.format(
 								"modal.config.iconpack.custom.preview",

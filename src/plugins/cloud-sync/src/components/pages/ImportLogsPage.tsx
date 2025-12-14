@@ -29,7 +29,7 @@ const styles = stylesheet.createThemedStyleSheet({
 	text: {
 		fontFamily: constants.Fonts.CODE_SEMIBOLD || constants.Fonts.CODE_NORMAL,
 		includeFontPadding: false,
-		color: semanticColors.TEXT_NORMAL,
+		color: semanticColors.TEXT_DEFAULT,
 
 		marginHorizontal: 12,
 		marginTop: 24,

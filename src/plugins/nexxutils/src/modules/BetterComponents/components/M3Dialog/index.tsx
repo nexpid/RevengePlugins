@@ -35,7 +35,7 @@ export default function({
 	});
 	const styles = stylesheet.createThemedStyleSheet({
 		container: {
-			backgroundColor: semanticColors.CARD_PRIMARY_BG,
+			backgroundColor: semanticColors.CARD_SECONDARY_BG,
 			borderRadius: 28,
 			flexDirection: "column",
 			width: RN.Dimensions.get("window").width * 0.85,
@@ -65,7 +65,7 @@ export default function({
 					brand: "BRAND",
 					red: "DANGER",
 					green: "POSITIVE",
-					primary: "PRIMARY",
+					primary: "NORMAL",
 					transparent: "NORMAL",
 					grey: "NORMAL",
 					lightgrey: "NORMAL",
@@ -107,13 +107,13 @@ export default function({
 	return (
 		<RN.View style={styles.container}>
 			<RN.View style={styles.textContent}>
-				<Text variant="text-lg/semibold" color="TEXT_NORMAL">
+				<Text variant="text-lg/semibold" color="TEXT_DEFAULT">
 					{title}
 				</Text>
 				{children
 					? <RN.View style={{ padding: 0 }}>{children}</RN.View>
 					: (
-						<Text variant="text-md/semibold" color="TEXT_NORMAL">
+						<Text variant="text-md/semibold" color="TEXT_DEFAULT">
 							{body}
 						</Text>
 					)}
@@ -122,7 +122,7 @@ export default function({
 				{things.map(x => (
 					<TextButton
 						key={x.loading}
-						color={x.color}
+						color={x.color as any}
 						label={x.text}
 						disabled={x.base && isConfirmButtonDisabled}
 						loading={loader[x.loading]}

@@ -18,7 +18,7 @@ export const LiveRawActivityView = () => {
 		code: {
 			fontFamily: constants.Fonts.CODE_SEMIBOLD || constants.Fonts.CODE_NORMAL,
 			includeFontPadding: false,
-			color: semanticColors.TEXT_NORMAL,
+			color: semanticColors.TEXT_DEFAULT,
 		},
 	});
 
@@ -50,7 +50,7 @@ export const LiveRawActivityView = () => {
 					)}
 			</FormSection>
 			<FormSection title="Info">
-				<Text variant="text-md/semibold" color="TEXT_NORMAL">
+				<Text variant="text-md/semibold" color="TEXT_DEFAULT">
 					Last raw activity update: {debug.lastRawActivityTimestamp
 						? new Date(
 							debug.lastRawActivityTimestamp,

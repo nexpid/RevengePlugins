@@ -22,12 +22,12 @@ const styles = stylesheet.createThemedStyleSheet({
 		gap: 8,
 	},
 	destructiveIcon: {
-		tintColor: semanticColors.TEXT_DANGER,
+		tintColor: semanticColors.TEXT_FEEDBACK_CRITICAL,
 	},
 });
 
 const destructiveText: Parameters<typeof Text>[0] = {
-	color: "TEXT_DANGER",
+	color: "TEXT_FEEDBACK_CRITICAL",
 	variant: "text-md/semibold",
 };
 
@@ -55,7 +55,7 @@ export default function SettingsActionSheet({
 			<ActionSheet title={"Settings"}>
 				<Text
 					variant="text-lg/semibold"
-					color="TEXT_DANGER"
+					color="TEXT_FEEDBACK_CRITICAL"
 					style={styles.wompwomp}
 				>
 					Manifest failed to load.

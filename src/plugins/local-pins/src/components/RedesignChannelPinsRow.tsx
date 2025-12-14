@@ -43,12 +43,12 @@ export default function RedesignChannelPinsRow({ ret }: { ret: any }) {
 			width: layout === "cozy" ? 48 : 32,
 			height: layout === "cozy" ? 48 : 32,
 			marginRight: layout === "cozy" ? 12 : 8,
-			backgroundColor: semanticColors.BG_MOD_STRONG,
+			backgroundColor: semanticColors.BACKGROUND_MOD_STRONG,
 		},
 		iconImg: {
 			width: 24,
 			height: 24,
-			tintColor: semanticColors.INTERACTIVE_NORMAL,
+			tintColor: semanticColors.INTERACTIVE_ICON_DEFAULT,
 		},
 		androidRipple: {
 			color: semanticColors.STATUS_WARNING_TEXT,

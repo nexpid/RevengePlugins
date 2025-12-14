@@ -29,7 +29,7 @@ export function EntrySong({
 		pauseIcon: {
 			width: 18,
 			height: 18,
-			tintColor: semanticColors.INTERACTIVE_NORMAL,
+			tintColor: semanticColors.INTERACTIVE_ICON_DEFAULT,
 		},
 		explicit: {
 			width: 16,
@@ -37,7 +37,7 @@ export function EntrySong({
 			alignItems: "center",
 			justifyContent: "center",
 			borderRadius: 4,
-			backgroundColor: semanticColors.BG_MOD_SUBTLE,
+			backgroundColor: semanticColors.BACKGROUND_MOD_SUBTLE,
 		},
 	});
 	return (
@@ -73,7 +73,7 @@ export function EntrySong({
 						: (
 							<Text
 								variant="text-md/medium"
-								color="TEXT_NORMAL"
+								color="TEXT_DEFAULT"
 								align="center"
 							>
 								{index + 1}
@@ -83,7 +83,7 @@ export function EntrySong({
 				<Stack spacing={0}>
 					<Text
 						variant="text-sm/medium"
-						color="TEXT_NORMAL"
+						color="TEXT_DEFAULT"
 						lineClamp={1}
 					>
 						{entry.label}

@@ -19,7 +19,7 @@ export default function({
 				marginHorizontal: 16,
 			}}
 		>
-			<Text variant="text-lg/bold" color="TEXT_NORMAL" align="center">
+			<Text variant="text-lg/bold" color="TEXT_DEFAULT" align="center">
 				{count}
 			</Text>
 			<Text variant="text-md/medium" color="TEXT_MUTED" align="center">

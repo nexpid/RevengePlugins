@@ -258,7 +258,7 @@ export default function() {
 					subLabel={vstorage.realTrackingAnalyticsSentToChina
 							.tooMuchData
 						? (
-							<Text color="TEXT_DANGER" variant="text-sm/bold">
+							<Text color="TEXT_FEEDBACK_CRITICAL" variant="text-sm/bold">
 								{lang.format(
 									"settings.config.auto_save.description.error",
 									{},
@@ -547,7 +547,7 @@ export default function() {
 					? (
 						<Text
 							variant="text-md/semibold"
-							color="TEXT_NORMAL"
+							color="TEXT_DEFAULT"
 							align="center"
 						>
 							{lang.format("settings.label.auth_needed", {})}

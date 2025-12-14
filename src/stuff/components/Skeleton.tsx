@@ -15,7 +15,7 @@ export default function Skeleton({
 		skeleton: {
 			height,
 			borderRadius: 16,
-			backgroundColor: semanticColors.BG_MOD_STRONG,
+			backgroundColor: semanticColors.BACKGROUND_MOD_STRONG,
 		},
 	});
 

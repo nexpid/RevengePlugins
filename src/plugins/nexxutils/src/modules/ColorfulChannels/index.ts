@@ -178,7 +178,7 @@ export default new Module({
 							channel.nsfw_
 								&& React.createElement(
 									TextBadge,
-									{ variant: "danger" },
+									{ variant: "destructive" },
 									"nsfw",
 								),
 							ret,

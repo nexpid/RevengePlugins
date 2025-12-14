@@ -103,9 +103,9 @@ export default function Commit({
 		card: {
 			padding: 16,
 			borderRadius: 16,
-			borderColor: semanticColors.BORDER_FAINT,
+			borderColor: semanticColors.BORDER_MUTED,
 			borderWidth: 1,
-			backgroundColor: semanticColors.CARD_PRIMARY_BG,
+			backgroundColor: semanticColors.CARD_BACKGROUND_DEFAULT,
 			marginHorizontal: 16,
 		},
 		cardSelected: {
@@ -136,7 +136,7 @@ export default function Commit({
 	});
 
 	let title = (
-		<Text variant="text-md/medium" color="TEXT_NORMAL" lineClamp={1}>
+		<Text variant="text-md/medium" color="TEXT_DEFAULT" lineClamp={1}>
 			{commit.commit.message}
 		</Text>
 	);
@@ -163,7 +163,7 @@ export default function Commit({
 		title = (
 			<Text
 				variant="text-md/medium"
-				color="TEXT_NORMAL"
+				color="TEXT_DEFAULT"
 				style={styles.labelTitle}
 				lineClamp={1}
 			>
@@ -228,7 +228,7 @@ export default function Commit({
 					/>
 					<Text
 						variant="text-md/medium"
-						color="TEXT_NORMAL"
+						color="TEXT_DEFAULT"
 						style={{ transform: [{ translateY: -1 }] }}
 					>
 						{commit.commit.committer.name}

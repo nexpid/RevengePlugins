@@ -61,7 +61,7 @@ export default function ProfileSong({
 	const noCardBackground = themeContext.theme === "light"
 		? `${rawColors.PRIMARY_400}14`
 		: `${rawColors.PLUM_0}09`;
-	const cardBorder = customBorder ?? semanticColors.BORDER_SUBTLE;
+	const cardBorder = customBorder ?? semanticColors.BORDER_MUTED;
 
 	const styles = createThemeContextStyleSheet({
 		card: {
@@ -110,7 +110,7 @@ export default function ProfileSong({
 			alignItems: "center",
 		},
 		serviceIcon: {
-			tintColor: semanticColors.INTERACTIVE_NORMAL,
+			tintColor: semanticColors.INTERACTIVE_ICON_DEFAULT,
 			width: 18,
 			height: 18,
 		},
@@ -273,7 +273,7 @@ export default function ProfileSong({
 									>
 										<Text
 											variant="text-md/bold"
-											color="TEXT_NORMAL"
+											color="TEXT_DEFAULT"
 											style={{ flexShrink: 1 }}
 											lineClamp={1}
 										>
@@ -286,7 +286,7 @@ export default function ProfileSong({
 											>
 												<Text
 													variant="text-sm/bold"
-													color="TEXT_NORMAL"
+													color="TEXT_DEFAULT"
 												>
 													E
 												</Text>

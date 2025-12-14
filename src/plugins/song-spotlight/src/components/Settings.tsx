@@ -41,7 +41,7 @@ export const ModifiedDataContext = React.createContext({
 function Songs({ isFetching }: { isFetching: boolean }) {
 	const styles = stylesheet.createThemedStyleSheet({
 		songDisabled: {
-			backgroundColor: semanticColors.BG_MOD_FAINT,
+			backgroundColor: semanticColors.BACKGROUND_MOD_MUTED,
 			borderRadius: 8,
 			opacity: 0.4,
 		},
@@ -214,7 +214,7 @@ export default function Settings({ newData }: { newData?: UserData }) {
 						? (
 							<Text
 								variant="text-md/semibold"
-								color="TEXT_NORMAL"
+								color="TEXT_DEFAULT"
 								align="center"
 							>
 								{lang.format("settings.songs.auth_needed", {})}

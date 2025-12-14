@@ -21,16 +21,16 @@ export default function SuperAwesomeIcon({
 			width: 24,
 			height: 24,
 			marginRight: 10,
-			tintColor: semanticColors.HEADER_PRIMARY,
+			tintColor: semanticColors.TEXT_STRONG,
 		},
 		cardStyleIcon: {
 			width: 22,
 			height: 22,
 			marginLeft: 5,
-			tintColor: semanticColors.INTERACTIVE_NORMAL,
+			tintColor: semanticColors.INTERACTIVE_ICON_DEFAULT,
 		},
 		destructiveIcon: {
-			tintColor: semanticColors.TEXT_DANGER,
+			tintColor: semanticColors.TEXT_FEEDBACK_CRITICAL,
 		},
 	});
 

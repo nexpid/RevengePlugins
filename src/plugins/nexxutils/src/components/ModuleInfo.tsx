@@ -21,11 +21,11 @@ export function ModuleInfo({ module }: { module: AnyModule }) {
 		icon: {
 			width: 18,
 			height: 18,
-			tintColor: semanticColors.TEXT_NORMAL,
+			tintColor: semanticColors.TEXT_DEFAULT,
 		},
 		themed: {
-			color: extras[0]?.color ?? semanticColors.TEXT_NORMAL,
-			tintColor: extras[0]?.color ?? semanticColors.TEXT_NORMAL,
+			color: extras[0]?.color ?? semanticColors.TEXT_DEFAULT,
+			tintColor: extras[0]?.color ?? semanticColors.TEXT_DEFAULT,
 		},
 	});
 
@@ -40,7 +40,7 @@ export function ModuleInfo({ module }: { module: AnyModule }) {
 						<RN.Image
 							key={extra.id}
 							source={getAssetIDByName(extra.icon)}
-							style={[styles.icon, extra.color && { tintColor: extra.color }]}
+							style={[styles.icon, extra.color ? { tintColor: extra.color } : null]}
 						/>
 					))}
 				</Stack>

@@ -153,14 +153,14 @@ function MigrationModal(
 				<Stack direction="vertical" style={{ flex: 1 }}>
 					<Text
 						variant="heading-xl/extrabold"
-						color="TEXT_NORMAL"
+						color="TEXT_DEFAULT"
 						style={{ flex: 0 }}
 					>
 						Hey, it's me, nexpid!
 					</Text>
 					<Text
 						variant="heading-md/medium"
-						color="TEXT_NORMAL"
+						color="TEXT_DEFAULT"
 						style={{ flex: 0 }}
 					>
 						You might know me. I made {affectedPlugin
@@ -175,7 +175,7 @@ function MigrationModal(
 			</Stack>
 			<Text
 				variant="text-md/medium"
-				color="TEXT_NORMAL"
+				color="TEXT_DEFAULT"
 			>
 				{affectedPlugin
 					? "The plugin you use has"
@@ -183,21 +183,21 @@ function MigrationModal(
 			</Text>
 			<Text
 				variant="text-md/bold"
-				color="TEXT_NORMAL"
+				color="TEXT_DEFAULT"
 				style={{ marginHorizontal: 10 }}
 			>
 				{domains.map(label => `• ${label}`).join("\n")}
 			</Text>
 			<Text
 				variant="text-md/medium"
-				color="TEXT_NORMAL"
+				color="TEXT_DEFAULT"
 			>
 				These domains are being deprecated and plugins on them won't receive any new updates. Please
 				use the new domain instead:
 			</Text>
 			<Text
 				variant="text-lg/bold"
-				color="TEXT_NORMAL"
+				color="TEXT_DEFAULT"
 				style={{ textDecorationLine: "underline" }}
 				align="center"
 			>

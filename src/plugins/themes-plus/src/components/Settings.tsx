@@ -25,7 +25,7 @@ const ListItem = ({
 }>) => {
 	const trolleySupercalifragilisticexpialidocious = Reanimated.useSharedValue("0deg");
 
-	const color = state ? "TEXT_POSITIVE" : "TEXT_DANGER";
+	const color = state ? "TEXT_FEEDBACK_POSITIVE" : "TEXT_FEEDBACK_CRITICAL";
 
 	const styles = stylesheet.createThemedStyleSheet({
 		icon: {
@@ -137,8 +137,8 @@ export default function() {
 		container: {
 			width: "100%",
 			padding: 12,
-			backgroundColor: semanticColors.CARD_PRIMARY_BG,
-			borderColor: semanticColors.BORDER_FAINT,
+			backgroundColor: semanticColors.CARD_BACKGROUND_DEFAULT,
+			borderColor: semanticColors.BORDER_MUTED,
 			borderWidth: 1,
 			borderRadius: 16,
 			gap: 2,
@@ -151,7 +151,7 @@ export default function() {
 			gap: trolley ? 0 : 8,
 		},
 		titleIcon: {
-			tintColor: semanticColors.TEXT_NORMAL,
+			tintColor: semanticColors.TEXT_DEFAULT,
 			width: 20,
 			height: 20,
 		},
@@ -252,7 +252,7 @@ export default function() {
 								/>
 								<Text
 									variant="text-lg/semibold"
-									color="TEXT_NORMAL"
+									color="TEXT_DEFAULT"
 								>
 									{trolley
 										? (

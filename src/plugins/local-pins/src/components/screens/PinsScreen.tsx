@@ -57,7 +57,7 @@ export default function PinsScreen({
 			style={{ alignItems: "center", justifyContent: "center", flex: 1 }}
 		>
 			<RN.ActivityIndicator size="large" style={{ marginBottom: 10 }} />
-			<Text variant="text-lg/semibold" color="TEXT_NORMAL" align="center">
+			<Text variant="text-lg/semibold" color="TEXT_DEFAULT" align="center">
 				{Math.floor(status * 100)}%
 			</Text>
 		</RN.View>

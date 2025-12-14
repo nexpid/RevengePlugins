@@ -28,11 +28,11 @@ const SheetFooter = () => <RN.View style={{ marginBottom: 16 }} />;
 
 const styles = stylesheet.createThemedStyleSheet({
 	destructiveIcon: {
-		tintColor: semanticColors.TEXT_DANGER,
+		tintColor: semanticColors.TEXT_FEEDBACK_CRITICAL,
 	},
 });
 const destructiveText: Parameters<typeof Text>[0] = {
-	color: "TEXT_DANGER",
+	color: "TEXT_FEEDBACK_CRITICAL",
 	variant: "text-md/semibold",
 };
 

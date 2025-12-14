@@ -29,7 +29,7 @@ const styles = stylesheet.createThemedStyleSheet({
 		marginTop: -4,
 	},
 	actionIcon: {
-		tintColor: semanticColors.INTERACTIVE_NORMAL,
+		tintColor: semanticColors.INTERACTIVE_ICON_DEFAULT,
 		width: ACTION_ICON_SIZE * 0.6,
 		height: ACTION_ICON_SIZE * 0.6,
 	},

@@ -60,7 +60,7 @@ export default () => {
 			alignItems: "center",
 			paddingHorizontal: 6,
 			paddingVertical: 4,
-			backgroundColor: semanticColors.BG_MOD_SUBTLE,
+			backgroundColor: semanticColors.BACKGROUND_MOD_SUBTLE,
 			borderRadius: 8,
 		},
 		androidRipple: {
@@ -77,7 +77,7 @@ export default () => {
 			width: 14,
 			height: 14,
 			marginRight: 6,
-			tintColor: semanticColors.TEXT_NORMAL,
+			tintColor: semanticColors.TEXT_DEFAULT,
 		},
 	});
 
@@ -111,7 +111,7 @@ export default () => {
 						)}
 						style={styles.help}
 					/>
-					<Text variant="text-md/semibold" color={"TEXT_BRAND"}>
+					<Text variant="text-md/semibold" color="TEXT_BRAND">
 						{showMessage}
 					</Text>
 				</RN.View>
@@ -149,7 +149,7 @@ export default () => {
 							/>
 							<Text
 								variant="text-sm/semibold"
-								color="TEXT_NORMAL"
+								color="TEXT_DEFAULT"
 							>
 								Autofill
 							</Text>
@@ -206,7 +206,7 @@ export default () => {
 							style={styles.labelIcon}
 							resizeMode="cover"
 						/>
-						<Text variant="text-sm/semibold" color="TEXT_NORMAL">
+						<Text variant="text-sm/semibold" color="TEXT_DEFAULT">
 							Use Repainter theme
 						</Text>
 					</PressableScale>
@@ -313,14 +313,14 @@ export default () => {
 					>
 						<Text
 							variant="text-md/semibold"
-							color="TEXT_DANGER"
+							color="TEXT_FEEDBACK_CRITICAL"
 							align="center"
 						>
 							You've been ratelimited by GitHub.
 						</Text>
 						<Text
 							variant="text-md/semibold"
-							color="TEXT_DANGER"
+							color="TEXT_FEEDBACK_CRITICAL"
 							align="center"
 							onPress={revalidateCommits}
 						>

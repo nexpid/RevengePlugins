@@ -39,8 +39,8 @@ export function ModulePage({ module }: { module: AnyModule }) {
 	const extras = getModuleExtras(module).filter(x => x.content);
 	const styles = stylesheet.createThemedStyleSheet({
 		thumbnailCard: {
-			backgroundColor: semanticColors.CARD_PRIMARY_BG,
-			borderColor: semanticColors.BORDER_STRONG,
+			backgroundColor: semanticColors.CARD_BACKGROUND_DEFAULT,
+			borderColor: semanticColors.BORDER_MUTED,
 			borderWidth: 1,
 			borderRadius: 16,
 			width: "100%",
@@ -50,8 +50,8 @@ export function ModulePage({ module }: { module: AnyModule }) {
 			padding: 16,
 		},
 		themed: {
-			color: semanticColors.TEXT_NORMAL,
-			tintColor: semanticColors.TEXT_NORMAL,
+			color: semanticColors.TEXT_DEFAULT,
+			tintColor: semanticColors.TEXT_DEFAULT,
 		},
 		ripple: {
 			color: semanticColors.ANDROID_RIPPLE,
@@ -70,7 +70,7 @@ export function ModulePage({ module }: { module: AnyModule }) {
 	return (
 		<RN.ScrollView style={{ flex: 1, paddingBottom: 16 }}>
 			<BetterTableRowGroup padding>
-				<Text variant="text-md/medium" color="TEXT_NORMAL">{module.meta.sublabel}</Text>
+				<Text variant="text-md/medium" color="TEXT_DEFAULT">{module.meta.sublabel}</Text>
 			</BetterTableRowGroup>
 			{thumbnail && (
 				<RN.View style={{ padding: 16, paddingTop: 8 }}>
@@ -100,11 +100,15 @@ export function ModulePage({ module }: { module: AnyModule }) {
 									>
 										<RN.Image
 											source={getAssetIDByName(extra.icon)}
-											style={[styles.themed, extra.color && { tintColor: extra.color }]}
+											style={[styles.themed, extra.color ? { tintColor: extra.color } : null]}
 										/>
 										<Text
 											variant="text-md/medium"
-											style={[{ flex: 1 }, styles.themed, extra.color && { color: extra.color }]}
+											style={[
+												{ flex: 1 },
+												styles.themed,
+												extra.color ? { color: extra.color } : null,
+											]}
 										>
 											{extra.content}
 										</Text>

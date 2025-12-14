@@ -88,9 +88,9 @@ function resolve(semantic: any) {
 
 function getCodedLinkProps() {
 	return {
-		backgroundColor: resolve(semanticColors.CARD_PRIMARY_BG), // #131318ff
-		borderColor: resolve(semanticColors.BORDER_SUBTLE), // #6c6f7c24
-		headerColor: resolve(semanticColors.HEADER_SECONDARY), // #a8aab4ff
+		backgroundColor: resolve(semanticColors.CARD_BACKGROUND_DEFAULT), // #131318ff
+		borderColor: resolve(semanticColors.BORDER_MUTED), // #6c6f7c24
+		headerColor: resolve(semanticColors.TEXT_SUBTLE), // #a8aab4ff
 		acceptLabelBackgroundColor: resolve(
 			semanticColors.REDESIGN_BUTTON_PRIMARY_BACKGROUND,
 		), // #5865f2

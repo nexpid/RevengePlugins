@@ -37,7 +37,7 @@ function Wallpaper({
 			cornerRadius: 8,
 		} as any,
 		thing: {
-			backgroundColor: semanticColors.BG_MOD_FAINT,
+			backgroundColor: semanticColors.BACKGROUND_MOD_MUTED,
 			borderRadius: 8,
 			width: dims.width / 4,
 			height: dims.width / 2,
@@ -54,7 +54,7 @@ function Wallpaper({
 		centerImage: {
 			width: 24,
 			height: 24,
-			tintColor: semanticColors.INTERACTIVE_NORMAL,
+			tintColor: semanticColors.INTERACTIVE_ICON_DEFAULT,
 		},
 	});
 
@@ -80,7 +80,7 @@ function Wallpaper({
 			</PressableScale>
 			<Text
 				variant="text-sm/semibold"
-				color="TEXT_NORMAL"
+				color="TEXT_DEFAULT"
 				align="center"
 				style={{ marginTop: 8 }}
 			>
@@ -104,7 +104,7 @@ function WallpaperCollection({
 		<RN.View>
 			<Text
 				variant="text-md/medium"
-				color="TEXT_NORMAL"
+				color="TEXT_DEFAULT"
 				style={{ marginBottom: 8 }}
 			>
 				{collection.label}

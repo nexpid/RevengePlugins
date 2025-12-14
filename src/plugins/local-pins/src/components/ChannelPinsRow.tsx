@@ -27,12 +27,12 @@ export default function ChannelPinsRow() {
 			position: "relative",
 			justifyContent: "center",
 			alignItems: "center",
-			backgroundColor: semanticColors.BG_MOD_STRONG,
+			backgroundColor: semanticColors.BACKGROUND_MOD_STRONG,
 		},
 		iconImg: {
 			width: 24,
 			height: 24,
-			tintColor: semanticColors.INTERACTIVE_NORMAL,
+			tintColor: semanticColors.INTERACTIVE_ICON_DEFAULT,
 		},
 		text: {
 			marginLeft: 16,

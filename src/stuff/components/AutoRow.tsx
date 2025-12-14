@@ -24,7 +24,7 @@ export default function AutoRow({
 		icon: {
 			width: 24,
 			height: 24,
-			tintColor: semanticColors.INTERACTIVE_NORMAL,
+			tintColor: semanticColors.INTERACTIVE_ICON_DEFAULT,
 			opacity: 0.6,
 		},
 	});

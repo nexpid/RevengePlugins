@@ -41,7 +41,7 @@ export default function TooMuchDataSheet({ navigation }: { navigation: any }) {
 		>
 			<Text
 				variant="text-md/medium"
-				color="TEXT_NORMAL"
+				color="TEXT_DEFAULT"
 				style={{ marginBottom: 8 }}
 			>
 				{Lang.basicFormat(
