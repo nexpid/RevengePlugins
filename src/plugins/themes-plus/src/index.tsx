@@ -39,8 +39,6 @@ export const vstorage = storage as {
 		};
 		isCustom: boolean;
 	};
-	downloadIconpackModalDismissed?: boolean;
-	iconpackDownloading?: boolean;
 };
 
 export let enabled = false;

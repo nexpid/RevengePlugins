@@ -61,7 +61,6 @@ export default interface LangValues {
 		values: typeof import("./values/base/themes_plus.json");
 		fillers: {
 			"settings.header": { "active": boolean };
-			"alert.downloadpack.body": { "iconpack": string; "space": string };
 		};
 	};
 	"twemoji_everywhere": {

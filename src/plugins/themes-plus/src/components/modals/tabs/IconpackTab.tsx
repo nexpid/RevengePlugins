@@ -9,7 +9,6 @@ import { useProxy } from "@vendetta/storage";
 import { semanticColors } from "@vendetta/ui";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { Forms } from "@vendetta/ui/components";
-import { showToast } from "@vendetta/ui/toasts";
 import { ConfigIconpackMode, lang, vstorage } from "../../..";
 import { state } from "../../../stuff/active";
 import { customUrl } from "../../../stuff/util";
@@ -20,7 +19,7 @@ const { FormRow, FormSwitchRow } = Forms;
 const previewIcon = () =>
 	`design/components/Icon/native/redesign/generated/images/StarIcon${vstorage.iconpack.custom.suffix}.png`;
 
-export function IconpackTab() {
+function CustomIconpack() {
 	const styles = stylesheet.createThemedStyleSheet({
 		previewBase: {
 			width: 60,
@@ -45,6 +44,149 @@ export function IconpackTab() {
 		},
 	});
 
+	return (
+		<>
+			<BetterTableRowGroup
+				title={lang.format(
+					"modal.config.iconpack.choose.custom",
+					{},
+				)}
+				padding
+			>
+				<RN.View
+					style={{
+						paddingHorizontal: 16,
+						paddingTop: 16,
+					}}
+				>
+					<RN.View
+						style={[
+							{
+								justifyContent: "center",
+								alignItems: "center",
+							},
+						]}
+					>
+						<Text
+							variant="text-sm/semibold"
+							color="TEXT_SECONDARY"
+						>
+							{lang.format(
+								"modal.config.iconpack.custom.preview",
+								{},
+							)}
+						</Text>
+						<RN.View
+							style={styles.previewBase}
+						>
+							<RN.Image
+								style={styles.previewImage}
+								source={{
+									uri: `${customUrl()}${previewIcon()}`,
+								}}
+								resizeMode="cover"
+							/>
+						</RN.View>
+						<Text
+							variant="text-xxs/medium"
+							color="TEXT_MUTED"
+							style={styles.previewSource}
+						>
+							{customUrl() + previewIcon()}
+						</Text>
+					</RN.View>
+
+					<TextInput
+						size="md"
+						value={vstorage.iconpack.custom.url}
+						onChange={v => (vstorage.iconpack.custom.url = v)}
+						label={lang.format(
+							"modal.config.iconpack.custom.url",
+							{},
+						)}
+						description={lang.format(
+							"modal.config.iconpack.custom.url.desc",
+							{},
+						)}
+						placeholder="https://example.com"
+					/>
+					<RN.View style={{ height: 8 }} />
+					<TextInput
+						size="md"
+						value={vstorage.iconpack.custom
+							.suffix}
+						onChange={v => (vstorage.iconpack.custom.suffix = v)}
+						label={lang.format(
+							"modal.config.iconpack.custom.suffix",
+							{},
+						)}
+						description={Lang.basicFormat(
+							lang.format(
+								"modal.config.iconpack.custom.suffix.desc",
+								{},
+							),
+						)}
+						placeholder="@2x"
+					/>
+				</RN.View>
+			</BetterTableRowGroup>
+			<BetterTableRowGroup nearby>
+				<FormSwitchRow
+					label={lang.format(
+						"modal.config.iconpack.custom.config.bigger_status",
+						{},
+					)}
+					subLabel={Lang.basicFormat(
+						lang.format(
+							"modal.config.iconpack.custom.config.bigger_status.desc",
+							{},
+						),
+					)}
+					leading={
+						<FormRow.Icon
+							source={getAssetIDByName(
+								"PencilIcon",
+							)}
+						/>
+					}
+					onValueChange={() => (vstorage.iconpack.custom.config.biggerStatus = !vstorage
+						.iconpack.custom
+						.config.biggerStatus)}
+					value={vstorage.iconpack.custom.config
+						.biggerStatus}
+				/>
+			</BetterTableRowGroup>
+			<BetterTableRowGroup nearby>
+				<FormSwitchRow
+					label={lang.format(
+						"modal.config.iconpack.custom.config.bigger_status",
+						{},
+					)}
+					subLabel={Lang.basicFormat(
+						lang.format(
+							"modal.config.iconpack.custom.config.bigger_status.desc",
+							{},
+						),
+					)}
+					leading={
+						<FormRow.Icon
+							source={getAssetIDByName(
+								"PencilIcon",
+							)}
+						/>
+					}
+					onValueChange={() => (vstorage.iconpack.custom.config.biggerStatus = !vstorage
+						.iconpack.custom
+						.config.biggerStatus)}
+					value={vstorage.iconpack.custom.config
+						.biggerStatus}
+				/>
+			</BetterTableRowGroup>
+		</>
+	);
+}
+
+export function IconpackTab() {
 	useProxy(vstorage);
 	const superSecretTimeout = React.useRef<any>(null);
 
@@ -87,19 +229,6 @@ export function IconpackTab() {
 							},
 						});
 					}}
-					onPressIn={() => (superSecretTimeout.current = setTimeout(() => {
-						if (!vstorage.iconpackDownloading) {
-							showToast(
-								"Yay!",
-								getAssetIDByName("SparklesIcon"),
-							);
-						}
-
-						vstorage.iconpackDownloading = !vstorage.iconpackDownloading;
-					}, 3_000))}
-					onPressOut={() => {
-						clearTimeout(superSecretTimeout.current);
-					}}
 				/>
 			</RN.View>
 			{vstorage.iconpack.mode === ConfigIconpackMode.Manual && (
@@ -136,120 +265,7 @@ export function IconpackTab() {
 							}}
 						/>
 					</BetterTableRowGroup>
-					{vstorage.iconpack.isCustom && (
-						<>
-							<BetterTableRowGroup
-								title={lang.format(
-									"modal.config.iconpack.choose.custom",
-									{},
-								)}
-								padding
-							>
-								<RN.View
-									style={{
-										paddingHorizontal: 16,
-										paddingTop: 16,
-									}}
-								>
-									<RN.View
-										style={[
-											{
-												justifyContent: "center",
-												alignItems: "center",
-											},
-										]}
-									>
-										<Text
-											variant="text-sm/semibold"
-											color="TEXT_SECONDARY"
-										>
-											{lang.format(
-												"modal.config.iconpack.custom.preview",
-												{},
-											)}
-										</Text>
-										<RN.View
-											style={styles.previewBase}
-										>
-											<RN.Image
-												style={styles.previewImage}
-												source={{
-													uri: `${customUrl()}${previewIcon()}`,
-												}}
-												resizeMode="cover"
-											/>
-										</RN.View>
-										<Text
-											variant="text-xxs/medium"
-											color="TEXT_MUTED"
-											style={styles.previewSource}
-										>
-											{customUrl() + previewIcon()}
-										</Text>
-									</RN.View>
-
-									<TextInput
-										size="md"
-										value={vstorage.iconpack.custom.url}
-										onChange={v => (vstorage.iconpack.custom.url = v)}
-										label={lang.format(
-											"modal.config.iconpack.custom.url",
-											{},
-										)}
-										description={lang.format(
-											"modal.config.iconpack.custom.url.desc",
-											{},
-										)}
-										placeholder="https://example.com"
-									/>
-									<RN.View style={{ height: 8 }} />
-									<TextInput
-										size="md"
-										value={vstorage.iconpack.custom
-											.suffix}
-										onChange={v => (vstorage.iconpack.custom.suffix = v)}
-										label={lang.format(
-											"modal.config.iconpack.custom.suffix",
-											{},
-										)}
-										description={Lang.basicFormat(
-											lang.format(
-												"modal.config.iconpack.custom.suffix.desc",
-												{},
-											),
-										)}
-										placeholder="@2x"
-									/>
-								</RN.View>
-							</BetterTableRowGroup>
-							<BetterTableRowGroup nearby>
-								<FormSwitchRow
-									label={lang.format(
-										"modal.config.iconpack.custom.config.bigger_status",
-										{},
-									)}
-									subLabel={Lang.basicFormat(
-										lang.format(
-											"modal.config.iconpack.custom.config.bigger_status.desc",
-											{},
-										),
-									)}
-									leading={
-										<FormRow.Icon
-											source={getAssetIDByName(
-												"PencilIcon",
-											)}
-										/>
-									}
-									onValueChange={() => (vstorage.iconpack.custom.config.biggerStatus = !vstorage
-										.iconpack.custom
-										.config.biggerStatus)}
-									value={vstorage.iconpack.custom.config
-										.biggerStatus}
-								/>
-							</BetterTableRowGroup>
-						</>
-					)}
+					{vstorage.iconpack.isCustom && <CustomIconpack />}
 				</>
 			)}
 			<RN.View style={{ height: 20 }} />
