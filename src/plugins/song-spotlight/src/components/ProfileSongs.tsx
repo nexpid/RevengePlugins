@@ -37,7 +37,7 @@ export default function ProfileSongs({
 	style?: ViewProps["style"];
 }) {
 	const { isAuthorized } = useAuthorizationStore();
-	if (!isAuthorized) return null;
+	if (!isAuthorized()) return null;
 
 	const styles = stylesheet.createThemedStyleSheet({
 		card: {
