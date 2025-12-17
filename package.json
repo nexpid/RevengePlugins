@@ -56,6 +56,9 @@
             "esbuild"
         ]
     },
+    "patchedDependencies": {
+        "fuzzysort@3.1.0": "patches/fuzzysort@3.1.0.patch"
+    },
     "overrides": {
         "@types/minimatch": "5.1.2"
     },
@@ -63,8 +66,5 @@
     "engines": {
         "node": ">=24.2.0",
         "dprint": "0.50.1"
-    },
-    "patchedDependencies": {
-        "fuzzysort@3.1.0": "patches/fuzzysort@3.1.0.patch"
     }
 }

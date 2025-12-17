@@ -4,14 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@types/minimatch': 5.1.2
-
-patchedDependencies:
-  fuzzysort@3.1.0:
-    hash: 7d2bfee4383dbe57e7f3cf7fb56e46de30a9f1bc072e21a8b4820a32c5a4b10a
-    path: patches/fuzzysort@3.1.0.patch
-
 importers:
 
   .:
@@ -33,7 +25,7 @@ importers:
         version: 0.20.2
       fuzzysort:
         specifier: ^3.1.0
-        version: 3.1.0(patch_hash=7d2bfee4383dbe57e7f3cf7fb56e46de30a9f1bc072e21a8b4820a32c5a4b10a)
+        version: 3.1.0
       image-size:
         specifier: 2.0.2
         version: 2.0.2
@@ -5302,7 +5294,7 @@ snapshots:
 
   function-bind@1.1.2: {}
 
-  fuzzysort@3.1.0(patch_hash=7d2bfee4383dbe57e7f3cf7fb56e46de30a9f1bc072e21a8b4820a32c5a4b10a): {}
+  fuzzysort@3.1.0: {}
 
   gensync@1.0.0-beta.2: {}
 
