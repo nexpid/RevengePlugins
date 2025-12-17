@@ -44,8 +44,7 @@ export default () => {
 
 	// thank you rosie
 	patches.push(
-		// @ts-expect-error not in RN typings
-		before("render", RN.Pressable.type, ([a]) => {
+		before("type", RN.Pressable, ([a]) => {
 			if (
 				a?.accessibilityLabel === intlProxy.SEND
 				&& a?.onPress?.name === "handlePressSend"
