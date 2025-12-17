@@ -57,7 +57,7 @@ export function resolveSemanticColor(
 	color: any,
 	theme: string = ThemeStore.theme,
 ) {
-	return colorResolver?.resolveSemanticColor(theme, color);
+	return (color && colorResolver?.resolveSemanticColor(theme, color)) || "#000000";
 }
 
 export function getUserAvatar(
