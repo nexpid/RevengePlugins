@@ -15,7 +15,7 @@ const styles = stylesheet.createThemedStyleSheet({
 		cornerRadius: 8,
 	} as any,
 	container: {
-		backgroundColor: semanticColors.BACKGROUND_TERTIARY,
+		backgroundColor: semanticColors.BACKGROUND_SECONDARY_ALT,
 		borderRadius: 8,
 		marginRight: 8,
 		marginTop: -12,
