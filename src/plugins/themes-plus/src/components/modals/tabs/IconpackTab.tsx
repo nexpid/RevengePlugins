@@ -4,7 +4,7 @@ import ChooseSheet from "$/components/sheets/ChooseSheet";
 import Text from "$/components/Text";
 import { Lang } from "$/lang";
 import { RowButton, TextInput } from "$/lib/redesign";
-import { constants, React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
+import { constants, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
 import { useProxy } from "@vendetta/storage";
 import { semanticColors } from "@vendetta/ui";
 import { getAssetIDByName } from "@vendetta/ui/assets";
@@ -188,7 +188,6 @@ function CustomIconpack() {
 
 export function IconpackTab() {
 	useProxy(vstorage);
-	const superSecretTimeout = React.useRef<any>(null);
 
 	return (
 		<>
