@@ -1,70 +1,70 @@
 {
-    "name": "revenge-plugins",
-    "private": true,
-    "type": "module",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/nexpid/RevengePlugins.git"
-    },
-    "scripts": {
-        "build": "tsx scripts/build/index.ts",
-        "dev": "pnpm build --dev",
-        "watch": "tsx scripts/watch/index.ts",
-        "serve": "tsx scripts/serve/index.ts",
-        "crowdin": "tsx scripts/crowdin/index.ts",
-        "declarations": "tsx scripts/declarations/index.ts",
-        "ci": "pnpm lint && pnpm format && pnpm check",
-        "lint": "biome check --fix",
-        "format": "dprint fmt",
-        "check": "tsc"
-    },
-    "dependencies": {
-        "@nexpid/vdp-shared": "^1.0.2",
-        "@swc/core": "^1.10.7",
-        "dts-bundle": "^0.7.3",
-        "emoji-regex": "^10.4.0",
-        "esbuild": "^0.20.1",
-        "fuzzysort": "^3.1.0",
-        "image-size": "2.0.2",
-        "mime": "^4.0.7",
-        "tsx": "4.19.4"
-    },
-    "devDependencies": {
-        "@biomejs/biome": "^2.1.2",
-        "@eslint/js": "^9.26.0",
-        "@types/dts-bundle": "^0.0.35",
-        "@types/tar-fs": "^2.0.4",
-        "chokidar": "^4.0.3",
-        "detect-libc": "^2.0.4",
-        "picocolors": "^1.1.1",
-        "tar-fs": "3.0.8",
-        "typescript": "^5.8.3",
-        "vendetta-types": "^2.4.21",
-        "ws": "^8.18.2",
-        "zustand": "^5.0.6"
-    },
-    "pnpm": {
-        "peerDependencyRules": {
-            "ignoreMissing": [
-                "react",
-                "react-native"
-            ]
-        },
-        "onlyBuiltDependencies": [
-            "@biomejs/biome",
-            "@swc/core",
-            "esbuild"
-        ]
-    },
-    "patchedDependencies": {
-        "fuzzysort@3.1.0": "patches/fuzzysort@3.1.0.patch"
-    },
-    "overrides": {
-        "@types/minimatch": "5.1.2"
-    },
-    "packageManager": "pnpm@10.13.1",
-    "engines": {
-        "node": ">=24.2.0",
-        "dprint": "0.50.1"
-    }
+	"name": "revenge-plugins",
+	"private": true,
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nexpid/RevengePlugins.git"
+	},
+	"scripts": {
+		"build": "tsx scripts/build/index.ts",
+		"dev": "pnpm build --dev",
+		"watch": "tsx scripts/watch/index.ts",
+		"serve": "tsx scripts/serve/index.ts",
+		"crowdin": "tsx scripts/crowdin/index.ts",
+		"declarations": "tsx scripts/declarations/index.ts",
+		"ci": "pnpm lint && pnpm format && pnpm check",
+		"lint": "biome check --fix",
+		"format": "dprint fmt",
+		"check": "tsc"
+	},
+	"dependencies": {
+		"@nexpid/vdp-shared": "^1.0.2",
+		"@swc/core": "^1.10.7",
+		"dts-bundle": "^0.7.3",
+		"emoji-regex": "^10.4.0",
+		"esbuild": "^0.20.1",
+		"fuzzysort": "^3.1.0",
+		"image-size": "2.0.2",
+		"mime": "^4.0.7",
+		"tsx": "4.19.4"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.1.2",
+		"@eslint/js": "^9.26.0",
+		"@types/dts-bundle": "^0.0.35",
+		"@types/tar-fs": "^2.0.4",
+		"chokidar": "^4.0.3",
+		"detect-libc": "^2.0.4",
+		"picocolors": "^1.1.1",
+		"tar-fs": "3.0.8",
+		"typescript": "^5.8.3",
+		"vendetta-types": "^2.4.21",
+		"ws": "^8.18.2",
+		"zustand": "^5.0.6"
+	},
+	"pnpm": {
+		"peerDependencyRules": {
+			"ignoreMissing": [
+				"react",
+				"react-native"
+			]
+		},
+		"onlyBuiltDependencies": [
+			"@biomejs/biome",
+			"@swc/core",
+			"esbuild"
+		]
+	},
+	"patchedDependencies": {
+		"fuzzysort@3.1.0": "patches/fuzzysort@3.1.0.patch"
+	},
+	"overrides": {
+		"@types/minimatch": "5.1.2"
+	},
+	"packageManager": "pnpm@10.13.1",
+	"engines": {
+		"node": ">=24.2.0",
+		"dprint": "0.50.1"
+	}
 }

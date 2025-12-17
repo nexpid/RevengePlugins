@@ -1,28 +1,10 @@
-import { constants, React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
+import { ReactNative as RN } from "@vendetta/metro/common";
 import { useProxy } from "@vendetta/storage";
-import { semanticColors } from "@vendetta/ui";
-import { getAssetIDByName } from "@vendetta/ui/assets";
-import { Forms } from "@vendetta/ui/components";
-import { showToast } from "@vendetta/ui/toasts";
 
-import { ActionSheet } from "$/components/ActionSheet";
-import { BetterTableRowGroup } from "$/components/BetterTableRow";
 import Modal from "$/components/Modal";
-import ChooseSheet from "$/components/sheets/ChooseSheet";
-import Text from "$/components/Text";
-import { Lang } from "$/lang";
-import {
-	RowButton,
-	SegmentedControlPages,
-	Tabs,
-	TextInput,
-	useSegmentedControlState,
-} from "$/lib/redesign";
+import { SegmentedControlPages, Tabs, useSegmentedControlState } from "$/lib/redesign";
 
-import { ConfigIconpackMode, lang, vstorage } from "../..";
-import { state } from "../../stuff/active";
-import { customUrl } from "../../stuff/util";
-import IconpackRow from "../IconpackRow";
+import { lang, vstorage } from "../..";
 import { IconpackTab } from "./tabs/IconpackTab";
 
 const tabs = {
