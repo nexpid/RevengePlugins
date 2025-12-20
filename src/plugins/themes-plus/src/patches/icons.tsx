@@ -40,8 +40,9 @@ export default function patchIcons(
 		}
 		if (iconpack) state.patches.push(PatchType.Iconpack);
 
+		// FIXME the great component functionification of 2025
 		patches.push(
-			instead("render", RN.Image, (_args, orig) => {
+			instead("Image", RN, (_args, orig) => {
 				const args = _args.slice();
 				const [props] = args;
 
