@@ -28,7 +28,9 @@ function handleMessage(msg: any) {
 
 function handleContent(content: ContentRow[]) {
 	for (const thing of content) {
-		if (thing.type === "link") thing.target = clean(thing.target);
+		if (thing.type === "link" && typeof thing.target === "string") {
+			thing.target = clean(thing.target);
+		}
 		if ("content" in thing) {
 			if (typeof thing.content === "string") thing.content = clean(thing.content);
 			else if (Array.isArray(thing.content)) thing.content = handleContent(thing.content);
