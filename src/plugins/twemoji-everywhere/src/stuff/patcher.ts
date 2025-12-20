@@ -8,8 +8,9 @@ import { getSrc, parse } from "./parser";
 export default function() {
 	const patches: (() => void)[] = [];
 
+	// FIXME the great component functionification of 2025
 	patches.push(
-		before("render", RN.Image, args => {
+		before("Image", RN, args => {
 			const cloned = [...args];
 			const [x] = cloned;
 			if (x.vanilla) return cloned;
@@ -25,7 +26,7 @@ export default function() {
 	);
 
 	patches.push(
-		before("render", RN.Text, ([x]) => {
+		before("Text", RN, ([x]) => {
 			let children: (any)[] = [];
 
 			const style = RN.StyleSheet.flatten(x.style) ?? {};
