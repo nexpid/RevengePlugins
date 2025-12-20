@@ -4,6 +4,7 @@ import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 import type { StyleSheet } from "react-native";
 
+import { plugin } from "@vendetta";
 import { before } from "@vendetta/patcher";
 import type Modal from "./components/Modal";
 import { RNChatModule } from "./deps";
@@ -37,8 +38,8 @@ export const getDiscordTheme = () => {
 	return theme;
 };
 
-export const resolveCustomSemantic = (dark: any, light: any) =>
-	getDiscordTheme() === "light" ? light : dark;
+export const resolveCustomSemantic = (dark: any, light: any, inverted?: boolean) =>
+	getDiscordTheme() === "light" ? (inverted ? dark : light) : (inverted ? light : dark);
 
 export const lerp = (og: string, target: string, perc: number) => {
 	const hex2rgb = (hex: string) =>
@@ -201,8 +202,8 @@ export function patchRows(callback: (rows: ChatRowTypeMessage[]) => void) {
 		const rows = JSON.parse(args[1]);
 		try {
 			callback(rows);
-		} catch (e) {
-			console.error("[nexpid.patchRows]", e);
+		} catch (e: any) {
+			console.error(`[nexpid.patchRows][${plugin.id}]`, e.stack);
 		}
 
 		args[1] = JSON.stringify(rows);
