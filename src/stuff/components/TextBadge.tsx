@@ -28,9 +28,6 @@ export default function TextBadge({
 			backgroundColor: semanticColors[
 				`REDESIGN_BUTTON_${variant.toUpperCase()}_BACKGROUND`
 			],
-			color: semanticColors[
-				`REDESIGN_BUTTON_${variant.toUpperCase()}_TEXT`
-			],
 			marginTop: 3,
 			overflow: "hidden",
 		},
@@ -39,6 +36,12 @@ export default function TextBadge({
 			width: 7,
 			height: 80,
 			backgroundColor: "#fff4",
+		},
+		text: {
+			color: semanticColors[
+				`REDESIGN_BUTTON_${variant.toUpperCase()}_TEXT`
+			],
+			textTransform: "uppercase",
 		},
 	});
 
@@ -92,9 +95,7 @@ export default function TextBadge({
 			<Text
 				variant="text-xxs/bold"
 				align="center"
-				style={{
-					textTransform: "uppercase",
-				}}
+				style={styles.text}
 			>
 				{children}
 			</Text>
