@@ -1,6 +1,6 @@
 import { find, findByDisplayName, findByName } from "@vendetta/metro";
 import { React, ReactNative as RN } from "@vendetta/metro/common";
-import { instead } from "@vendetta/patcher";
+import { after, instead } from "@vendetta/patcher";
 import { assets } from "@vendetta/ui";
 import { showConfirmationAlert } from "@vendetta/ui/alerts";
 import { getAssetIDByName } from "@vendetta/ui/assets";
@@ -11,7 +11,7 @@ import { Module, ModuleCategory } from "../../stuff/Module";
 import M3Snackbar from "./components/M3Snackbar";
 import M3Switch from "./components/M3Switch";
 
-const { FormSwitch } = find(
+const FormSwitch = find(
 	x => typeof x?.FormSwitch === "function" && !("FormRow" in x),
 );
 const Toast = findByName("Toast", false);
@@ -86,6 +86,16 @@ export default new Module({
 				return this.storage.options.toast === "M3";
 			},
 		},
+		toast_color: {
+			label: "Toast Color",
+			type: "choose",
+			choices: ["Inverted", "Normal"],
+			default: "Inverted",
+			icon: getAssetIDByName("TicketIcon"),
+			predicate() {
+				return this.storage.options.toast === "M3";
+			},
+		},
 		test_toast: {
 			label: "Test Toast",
 			type: "button",
@@ -132,15 +142,26 @@ export default new Module({
 	handlers: {
 		onStart() {
 			if (this.storage.options.switch !== "Default") {
+				// FIXME the great component functionification of 2025
 				this.patches.add(
-					instead("render", RN.Switch, ([props]) => {
+					instead("Switch", RN, ([props]) => {
 						if (this.storage.options.switch === "M3") {
 							return React.createElement(M3Switch, {
 								...props,
 								showIcons: this.storage.options.switch_xicon,
 							});
 						}
-						return React.createElement(FormSwitch, props);
+						return React.createElement(FormSwitch.FormSwitch, props);
+					}),
+				);
+				this.patches.add(
+					after("FormSwitch", FormSwitch, ([props]) => {
+						if (this.storage.options.switch === "M3") {
+							return React.createElement(M3Switch, {
+								...props,
+								showIcons: this.storage.options.switch_xicon,
+							});
+						}
 					}),
 				);
 			}
@@ -152,11 +173,12 @@ export default new Module({
 							...props,
 							isOnBottom: this.storage.options.toast_position
 								=== "Bottom",
+							inverted: this.storage.options.toast_color !== "Inverted",
 						})),
 				);
 			}
 
-			// FIX fix Alert patch
+			// FIXME fix Alert patch
 			// if (this.storage.options.alert !== "Default") {
 			// 	this.patches.add(
 			// 		after(

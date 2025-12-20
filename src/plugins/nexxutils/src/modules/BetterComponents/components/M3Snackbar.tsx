@@ -10,6 +10,7 @@ export default function(props: {
 	source?: any;
 	icon?: any;
 	isOnBottom?: boolean;
+	inverted?: boolean;
 }) {
 	const height = RN.Dimensions.get("window").height - 40;
 	const styles = stylesheet.createThemedStyleSheet({
@@ -17,6 +18,7 @@ export default function(props: {
 			backgroundColor: resolveCustomSemantic(
 				rawColors.PRIMARY_200,
 				rawColors.PRIMARY_730,
+				props.inverted,
 			),
 			width: 344,
 			minHeight: 48,
@@ -33,6 +35,7 @@ export default function(props: {
 			color: resolveCustomSemantic(
 				rawColors.PRIMARY_730,
 				rawColors.PRIMARY_130,
+				props.inverted,
 			),
 			width: 280,
 		},

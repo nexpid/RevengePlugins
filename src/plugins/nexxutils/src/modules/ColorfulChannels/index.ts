@@ -1,4 +1,4 @@
-import { findByName } from "@vendetta/metro";
+import { findByName, findByProps } from "@vendetta/metro";
 import { React, ReactNative as RN } from "@vendetta/metro/common";
 import { after } from "@vendetta/patcher";
 import { semanticColors } from "@vendetta/ui";
@@ -134,6 +134,7 @@ const glyphs = [
 ];
 
 const ChannelInfo = findByName("ChannelInfo", false);
+const BaseChannelIcon = findByProps("BaseChannelIcon");
 
 export default new Module({
 	id: "colorful-channels",
@@ -187,7 +188,7 @@ export default new Module({
 			}
 
 			this.patches.add(
-				after("render", RN.Image, ([{ source, style }]) => {
+				after("BaseChannelIcon", BaseChannelIcon, ([{ source, style }], ret) => {
 					const name = typeof source?.original === "number"
 						? getAssetByID(source.original)?.name
 						: typeof source === "number"
@@ -201,11 +202,23 @@ export default new Module({
 					const color = glyphColors[glyph.kind];
 					const overlay = getGlyphOverlay(glyph.kind, glyph.bottom);
 
+					const iconColor = ret.props.color?.replace(/-/g, "_").toUpperCase();
+					const styled = RN.StyleSheet.flatten([
+						style,
+						ret.props.style,
+						{
+							width: 18,
+							height: 18,
+							tintColor: semanticColors?.[iconColor]
+								&& resolveSemanticColor(semanticColors[iconColor]),
+						},
+					]);
+
 					return React.createElement(
 						RN.View,
 						{},
 						React.createElement(RN.Image, {
-							style: RN.StyleSheet.flatten(style),
+							style: styled,
 							source: glyph.base,
 						}),
 						React.createElement(
@@ -219,7 +232,7 @@ export default new Module({
 							},
 							React.createElement(RN.Image, {
 								style: {
-									...RN.StyleSheet.flatten(style),
+									...styled,
 									tintColor: this.storage.options.colorIconsFallback
 										? color[0]
 										: resolveSemanticColor(color[1]),
