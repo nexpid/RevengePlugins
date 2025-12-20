@@ -3,6 +3,7 @@ import { storage } from "@vendetta/plugin";
 import { Lang } from "$/lang";
 
 import Settings from "./components/Settings";
+import patcher from "./stuff/patcher";
 
 export const vstorage = storage as {
 	styling: {
@@ -52,6 +53,6 @@ export function onLoad() {
 	};
 }
 
-// export const onUnload = patcher();
+export const onUnload = patcher();
 
 export const settings = Settings();

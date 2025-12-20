@@ -3,8 +3,11 @@ import { useProxy } from "@vendetta/storage";
 
 import { Reanimated } from "$/deps";
 
+import type { MutableRefObject } from "react";
 import kazuma from "../../assets/kazuma.png";
 import { vstorage } from "..";
+import type { ChatInputProps } from "../stuff/patcher";
+import { useTexter } from "./hooks/useTexter";
 
 export const kyrDt = {
 	w: 220,
@@ -45,12 +48,13 @@ export const kyriuStyles = stylesheet.createThemedStyleSheet({
 	},
 });
 
-export default function Kiryu({ oldUI }: { oldUI: boolean }) {
+export default function Kiryu({ inputProps }: { inputProps: MutableRefObject<ChatInputProps> }) {
 	useProxy(vstorage);
+	useTexter(inputProps);
 
 	const [frame, setFrame] = React.useState(0);
-	frameSet = setFrame;
 	const [open, setOpen] = React.useState(false);
+	frameSet = setFrame;
 	openSet = setOpen;
 
 	const wHeight = RN.Dimensions.get("screen").height;
@@ -62,7 +66,7 @@ export default function Kiryu({ oldUI }: { oldUI: boolean }) {
 
 	if (vstorage.styling.yPos === "top") {
 		yPosOff = -height - padding;
-		yPos = oldUI ? rem(2.5) : rem(6);
+		yPos = rem(2.5);
 	} else if (vstorage.styling.yPos === "middle") {
 		yPosOff = -height - wHeight;
 		yPos = 0;
