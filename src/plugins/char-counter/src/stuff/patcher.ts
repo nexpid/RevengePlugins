@@ -1,14 +1,17 @@
-import { findByName } from "@vendetta/metro";
-import { React } from "@vendetta/metro/common";
-import { after } from "@vendetta/patcher";
-import { findInReactTree } from "@vendetta/utils";
+import { find, findByName } from "@vendetta/metro";
+import { after, instead } from "@vendetta/patcher";
 
+import { ReactNative as RN } from "@vendetta/metro/common";
+import { findInReactTree } from "@vendetta/utils";
+import React from "react";
 import { vstorage } from "..";
 import CharCounter from "../components/CharCounter";
 import SimpleCharCounter from "../components/SimpleCharCounter";
 
-const ChatInputGuardWrapper = findByName("ChatInputGuardWrapper", false);
 const JumpToPresentButton = findByName("JumpToPresentButton", false);
+const ChatInputGuardWrapper = findByName("ChatInputGuardWrapper", false);
+const ChatInputCharCounter =
+	find(x => x?.default?.type?.displayName === "ChatInputCharCounter").default.type;
 
 export interface ChatInputProps {
 	handleTextChanged: (text: string) => void;
@@ -17,49 +20,37 @@ export interface ChatInputProps {
 export default () => {
 	const patches: (() => void)[] = [];
 
-	patches.push(
-		after("default", ChatInputGuardWrapper, (_, ret) => {
-			const inputProps = findInReactTree(
-				ret.props.children,
-				x => x?.props?.chatInputRef?.current,
-			)?.props?.chatInputRef?.current as ChatInputProps;
-			if (!inputProps?.handleTextChanged) return;
+	patches.push(after("default", ChatInputGuardWrapper, (_, ret) => {
+		const inputProps = findInReactTree(ret, x => x?.chatInputRef)?.chatInputRef;
+		if (!inputProps) return;
 
-			if (vstorage.position === "pill") {
-				const children = findInReactTree(
-					ret.props.children,
-					x =>
-						x.type?.displayName === "View"
-						&& Array.isArray(x.props?.children),
-				)?.props?.children as any[];
-				if (!children) return;
+		if (vstorage.position === "pill") {
+			ret.props.children.unshift(
+				React.createElement(CharCounter, { inputProps }),
+			);
+		} else {
+			const native = findInReactTree(
+				ret,
+				x => x?.props?.children?.[0]?.type?.displayName === "ChatInputNativeComponent",
+			);
+			if (!native) return;
 
-				children.unshift(
-					React.createElement(CharCounter, { inputProps }),
-				);
-			} else {
-				const chatCont = findInReactTree(
-					ret.props.children,
-					x =>
-						x?.children?.[0].type?.displayName
-							=== "ChatInputNativeComponent",
-				) as { children: any[]; style: any[] };
-				if (!chatCont) return;
-
-				chatCont.style = [...chatCont.style, { marginBottom: 8 }];
-				chatCont.children.push(
-					React.createElement(SimpleCharCounter, { inputProps }),
-				);
-			}
-		}),
-	);
+			native.props.style = [native.props.style, { marginBottom: 8 }];
+			native.props.children.push(React.createElement(SimpleCharCounter, { inputProps }));
+		}
+	}));
+	patches.push(instead("render", ChatInputCharCounter, (args, orig) => {
+		if (vstorage.position === "inside") return null;
+		else return orig(...args);
+	}));
 
 	patches.push(
 		after("default", JumpToPresentButton, (_, ret) => {
 			if (ret?.props?.style && vstorage.position === "pill") {
+				const style = RN.StyleSheet.flatten(ret.props.style);
 				ret.props.style = [
-					...ret.props.style,
-					{ bottom: ret.props.style[1].bottom + 32 + 8 },
+					style,
+					{ bottom: (style.bottom || 0) + 24 + 8 },
 				];
 			}
 		}),

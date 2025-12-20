@@ -1,12 +1,14 @@
 import Text from "$/components/Text";
 import { Reanimated } from "$/deps";
 import { TextStyleSheet } from "$/types";
+import { findByProps } from "@vendetta/metro";
 import { React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
-import { before } from "@vendetta/patcher";
 import { semanticColors } from "@vendetta/ui";
+import type { MutableRefObject } from "react";
 import { vstorage } from "..";
 import getMessageLength, { display, hasSLM } from "../stuff/getMessageLength";
 import type { ChatInputProps } from "../stuff/patcher";
+import { useInput } from "./hooks/useInput";
 
 const xsFontSize = TextStyleSheet["text-xs/semibold"].fontSize;
 const styles = stylesheet.createThemedStyleSheet({
@@ -48,14 +50,13 @@ const styles = stylesheet.createThemedStyleSheet({
 	},
 });
 
-export default ({ inputProps }: { inputProps: ChatInputProps }) => {
-	const [isToggled, setIsToggled] = React.useState(false);
-	const [text, setText] = React.useState("");
+const { useChatInputContainerHeight } = findByProps("useChatInputContainerHeight");
 
-	React.useEffect(() => {
-		const des = before("handleTextChanged", inputProps, ([txt]) => setText(txt));
-		return () => void des();
-	}, []);
+export default ({ inputProps }: { inputProps: MutableRefObject<ChatInputProps | undefined> }) => {
+	const [isToggled, setIsToggled] = React.useState(false);
+	const text = useInput(inputProps);
+
+	const height = useChatInputContainerHeight();
 
 	const fade = Reanimated.useSharedValue(vstorage.minChars === 0 ? 1 : 0);
 	const fadeExtra = Reanimated.useSharedValue(0);
@@ -84,10 +85,7 @@ export default ({ inputProps }: { inputProps: ChatInputProps }) => {
 					flexDirection: "row-reverse",
 					position: "absolute",
 					right: 0,
-					top: -(
-						(styles.text as any).fontSize * 2
-						+ (styles.text as any).paddingVertical
-					),
+					bottom: height + 8,
 					zIndex: 1,
 					opacity: fade.value,
 				},

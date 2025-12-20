@@ -1,10 +1,11 @@
 import Text from "$/components/Text";
 import { Reanimated } from "$/deps";
 import { React, stylesheet } from "@vendetta/metro/common";
-import { before } from "@vendetta/patcher";
+import type { MutableRefObject } from "react";
 import { vstorage } from "..";
 import getMessageLength, { display, hasSLM } from "../stuff/getMessageLength";
 import type { ChatInputProps } from "../stuff/patcher";
+import { useInput } from "./hooks/useInput";
 
 const styles = stylesheet.createThemedStyleSheet({
 	container: {
@@ -14,15 +15,8 @@ const styles = stylesheet.createThemedStyleSheet({
 	},
 });
 
-export default function SimpleCharCounter({
-	inputProps,
-}: { inputProps: ChatInputProps }) {
-	const [text, setText] = React.useState("");
-
-	React.useEffect(() => {
-		const des = before("handleTextChanged", inputProps, ([txt]) => setText(txt));
-		return () => void des();
-	}, []);
+export default ({ inputProps }: { inputProps: MutableRefObject<ChatInputProps | undefined> }) => {
+	const text = useInput(inputProps);
 
 	const fade = Reanimated.useSharedValue(vstorage.minChars === 0 ? 1 : 0);
 
@@ -55,4 +49,4 @@ export default function SimpleCharCounter({
 			</Text>
 		</Reanimated.default.View>
 	);
-}
+};
