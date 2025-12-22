@@ -120,7 +120,6 @@ export default async function load() {
 	let tree: string[] = [];
 
 	if (!isCustomIconpack && state.iconpack.iconpack) {
-		// TODO this should be an actual type
 		let dt: FetchedIconpackData;
 		try {
 			dt = await getIconpackData(
