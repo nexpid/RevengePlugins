@@ -1,31 +1,23 @@
-import { ReactNative as RN, stylesheet } from "@vendetta/metro/common";
 import { Forms } from "@vendetta/ui/components";
 
-import { vstorage } from "..";
 import { useState } from "../stuff/active";
 import type { Iconpack } from "../types";
 
 const { FormRow } = Forms;
 
+export function previewIcon(name: string, load: string, suffix: string) {
+	return `${load}design/components/Icon/native/redesign/generated/images/${name}${suffix}.png`;
+}
+
 export default function IconpackRow({
 	pack,
+	selected,
 	onPress,
 }: {
 	pack: Iconpack;
+	selected: boolean;
 	onPress: () => void;
 }) {
-	const styles = stylesheet.createThemedStyleSheet({
-		headerTrailing: {
-			flexDirection: "row",
-			gap: 15,
-			alignItems: "center",
-		},
-		actions: {
-			flexDirection: "row-reverse",
-			alignItems: "center",
-			gap: 5,
-		},
-	});
 	useState();
 
 	return (
@@ -36,17 +28,11 @@ export default function IconpackRow({
 			leading={
 				<FormRow.Icon
 					source={{
-						uri: `${pack.load}images/native/main_tabs/Messages${pack.suffix}.png`,
+						uri: previewIcon("ChatIcon", pack.load, pack.suffix),
 					}}
 				/>
 			}
-			trailing={
-				<RN.View style={styles.headerTrailing}>
-					<FormRow.Radio
-						selected={vstorage.iconpack.pack === pack.id}
-					/>
-				</RN.View>
-			}
+			trailing={<FormRow.Radio selected={selected} />}
 		/>
 	);
 }

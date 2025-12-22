@@ -1,10 +1,9 @@
 import { ReactNative as RN } from "@vendetta/metro/common";
-import { useProxy } from "@vendetta/storage";
 
 import Modal from "$/components/Modal";
 import { SegmentedControlPages, Tabs, useSegmentedControlState } from "$/lib/redesign";
 
-import { lang, vstorage } from "../..";
+import { lang } from "../..";
 import { IconpackTab } from "./tabs/IconpackTab";
 
 const tabs = {
@@ -24,7 +23,6 @@ export default function ConfigModal() {
 		})),
 		pageWidth: RN.Dimensions.get("window").width,
 	});
-	useProxy(vstorage);
 
 	return (
 		<Modal

@@ -4,7 +4,7 @@ import ChooseSheet from "$/components/sheets/ChooseSheet";
 import Text from "$/components/Text";
 import { Lang } from "$/lang";
 import { RowButton, TextInput } from "$/lib/redesign";
-import { constants, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
+import { constants, React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
 import { useProxy } from "@vendetta/storage";
 import { semanticColors } from "@vendetta/ui";
 import { getAssetIDByName } from "@vendetta/ui/assets";
@@ -12,12 +12,9 @@ import { Forms } from "@vendetta/ui/components";
 import { ConfigIconpackMode, lang, vstorage } from "../../..";
 import { state } from "../../../stuff/active";
 import { customUrl } from "../../../stuff/util";
-import IconpackRow from "../../IconpackRow";
+import IconpackRow, { previewIcon } from "../../IconpackRow";
 
 const { FormRow, FormSwitchRow } = Forms;
-
-const previewIcon = () =>
-	`design/components/Icon/native/redesign/generated/images/StarIcon${vstorage.iconpack.custom.suffix}.png`;
 
 function CustomIconpack() {
 	const styles = stylesheet.createThemedStyleSheet({
@@ -43,6 +40,13 @@ function CustomIconpack() {
 			includeFontPadding: false,
 		},
 	});
+	const iconUrl = React.useMemo(
+		() => previewIcon("StarIcon", customUrl(), vstorage.iconpack.custom.suffix),
+		[
+			customUrl(),
+			vstorage.iconpack.custom.suffix,
+		],
+	);
 
 	return (
 		<>
@@ -82,7 +86,7 @@ function CustomIconpack() {
 							<RN.Image
 								style={styles.previewImage}
 								source={{
-									uri: `${customUrl()}${previewIcon()}`,
+									uri: iconUrl,
 								}}
 								resizeMode="cover"
 							/>
@@ -92,7 +96,7 @@ function CustomIconpack() {
 							color="TEXT_MUTED"
 							style={styles.previewSource}
 						>
-							{customUrl() + previewIcon()}
+							{iconUrl}
 						</Text>
 					</RN.View>
 
@@ -156,32 +160,52 @@ function CustomIconpack() {
 						.biggerStatus}
 				/>
 			</BetterTableRowGroup>
-			<BetterTableRowGroup nearby>
-				<FormSwitchRow
+		</>
+	);
+}
+
+function ManualIconpack() {
+	// FIXME: fix useProxy(vstorage) not working
+	const [_, forceUpdate] = React.useReducer(x => ~x, 0);
+
+	return (
+		<>
+			<BetterTableRowGroup
+				title={lang.format(
+					"modal.config.iconpack.choose",
+					{},
+				)}
+			>
+				{state.iconpack.list.map(pack => (
+					<IconpackRow
+						key={pack.id}
+						pack={pack}
+						selected={vstorage.iconpack.pack === pack.id}
+						onPress={() => {
+							vstorage.iconpack.pack = pack.id;
+							vstorage.iconpack.isCustom = false;
+							forceUpdate();
+						}}
+					/>
+				))}
+				<FormRow
 					label={lang.format(
-						"modal.config.iconpack.custom.config.bigger_status",
+						"modal.config.iconpack.choose.custom",
 						{},
 					)}
-					subLabel={Lang.basicFormat(
-						lang.format(
-							"modal.config.iconpack.custom.config.bigger_status.desc",
-							{},
-						),
-					)}
-					leading={
-						<FormRow.Icon
-							source={getAssetIDByName(
-								"PencilIcon",
-							)}
+					trailing={
+						<FormRow.Radio
+							selected={vstorage.iconpack.isCustom}
 						/>
 					}
-					onValueChange={() => (vstorage.iconpack.custom.config.biggerStatus = !vstorage
-						.iconpack.custom
-						.config.biggerStatus)}
-					value={vstorage.iconpack.custom.config
-						.biggerStatus}
+					onPress={() => {
+						vstorage.iconpack.pack = undefined;
+						vstorage.iconpack.isCustom = true;
+						forceUpdate();
+					}}
 				/>
 			</BetterTableRowGroup>
+			{vstorage.iconpack.isCustom && <CustomIconpack />}
 		</>
 	);
 }
@@ -230,44 +254,8 @@ export function IconpackTab() {
 					}}
 				/>
 			</RN.View>
-			{vstorage.iconpack.mode === ConfigIconpackMode.Manual && (
-				<>
-					<BetterTableRowGroup
-						title={lang.format(
-							"modal.config.iconpack.choose",
-							{},
-						)}
-					>
-						{state.iconpack.list.map(pack => (
-							<IconpackRow
-								key={pack.id}
-								pack={pack}
-								onPress={() => {
-									vstorage.iconpack.pack = pack.id;
-									vstorage.iconpack.isCustom = false;
-								}}
-							/>
-						))}
-						<FormRow
-							label={lang.format(
-								"modal.config.iconpack.choose.custom",
-								{},
-							)}
-							trailing={
-								<FormRow.Radio
-									selected={vstorage.iconpack.isCustom}
-								/>
-							}
-							onPress={() => {
-								vstorage.iconpack.isCustom = true;
-								vstorage.iconpack.pack = undefined;
-							}}
-						/>
-					</BetterTableRowGroup>
-					{vstorage.iconpack.isCustom && <CustomIconpack />}
-				</>
-			)}
-			<RN.View style={{ height: 20 }} />
+			{vstorage.iconpack.mode === ConfigIconpackMode.Manual && <ManualIconpack />}
+			<RN.View style={{ height: 32 }} />
 		</>
 	);
 }
