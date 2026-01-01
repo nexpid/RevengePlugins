@@ -1,9 +1,8 @@
 import { find, findByName } from "@vendetta/metro";
 import { after, instead } from "@vendetta/patcher";
 
-import { ReactNative as RN } from "@vendetta/metro/common";
+import { React, ReactNative as RN } from "@vendetta/metro/common";
 import { findInReactTree } from "@vendetta/utils";
-import React from "react";
 import { vstorage } from "..";
 import CharCounter from "../components/CharCounter";
 import SimpleCharCounter from "../components/SimpleCharCounter";
