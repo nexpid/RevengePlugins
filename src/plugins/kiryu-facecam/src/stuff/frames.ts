@@ -10,14 +10,14 @@ let curInt: any;
 
 export function sendAction(action: keyof typeof actions, fps = 1000 / 20) {
 	const act = actions[action];
-	scaleSet();
+	scaleSet?.();
 
 	let index = 0;
 
 	clearInterval(curInt);
 	curInt = setInterval(() => {
 		index++;
-		frameSet(act[index - 1]);
+		frameSet?.(act[index - 1]);
 		if (index >= act.length) clearInterval(curInt);
 	}, fps);
 }
