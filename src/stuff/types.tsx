@@ -1,8 +1,7 @@
 import { findByProps, findByStoreName } from "@vendetta/metro";
-import { FluxDispatcher, ReactNative as RN } from "@vendetta/metro/common";
+import { FluxDispatcher } from "@vendetta/metro/common";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
-import type { StyleSheet } from "react-native";
 
 import { plugin } from "@vendetta";
 import { before } from "@vendetta/patcher";
@@ -16,8 +15,6 @@ const { triggerHaptic } = findByProps("triggerHaptic");
 const colorModule = findByProps("colors", "unsafe_rawColors");
 const colorResolver = colorModule?.internal ?? colorModule?.meta;
 
-const { useThemeContext } = findByProps("useThemeContext");
-
 export const TextStyleSheet = findByProps("TextStyleSheet")
 	.TextStyleSheet as _TextStyleSheet;
 
@@ -26,6 +23,10 @@ export const modalCloseButton = findByProps(
 	"getHeaderCloseButton",
 )?.getHeaderCloseButton;
 export const { popModal, pushModal } = findByProps("popModal", "pushModal");
+
+export const { useThemeContext } = findByProps("useThemeContext");
+
+export const { createStyles } = findByProps("createStyles");
 
 export type Entries<T> = [keyof T, T[keyof T]];
 
@@ -175,26 +176,6 @@ export function formatDuration(duration: number) {
 		return `${hours}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 	}
 	return `${minutes}:${String(seconds).padStart(2, "0")}`;
-}
-
-export function createThemeContextStyleSheet<
-	T extends StyleSheet.NamedStyles<any>,
->(sheet: T) {
-	const themeContext = useThemeContext();
-
-	for (const key in sheet) {
-		// @ts-expect-error types
-		sheet[key] = new Proxy(RN.StyleSheet.flatten(sheet[key]), {
-			get(target, prop, receiver) {
-				const res = Reflect.get(target, prop, receiver);
-				return colorResolver.isSemanticColor(res)
-					? resolveSemanticColor(res, themeContext?.theme)
-					: res;
-			},
-		});
-	}
-
-	return sheet;
 }
 
 export function patchRows(callback: (rows: ChatRowTypeMessage[]) => void) {

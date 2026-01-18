@@ -1,8 +1,8 @@
 import { React } from "@vendetta/metro/common";
 
 import { MobileAudioSound } from "$/deps";
-
-import type { SongInfo } from "../stuff/songs/info";
+import type { RenderSongInfo } from "@song-spotlight/api/handlers";
+import type { Song } from "@song-spotlight/api/structs";
 
 export interface AudioPlayer {
 	play(urlOrNext?: string | true): void;
@@ -19,11 +19,13 @@ const defaultPreviewVolume = 0.4;
 
 export default function AudioPlayer({
 	song,
+	render,
 	id,
 	playing,
 	children,
 }: {
-	song: SongInfo;
+	song: Song;
+	render: RenderSongInfo;
 	id: string;
 	playing: {
 		currentlyPlaying: string | null;
@@ -76,15 +78,15 @@ export default function AudioPlayer({
 	};
 
 	const songs = (
-		song.type === "single"
+		render.form === "single"
 			? [
-				song.previewUrl
-				&& `${song.type}-${song.service}-${id}${coolSep}${song.previewUrl}`,
+				render.single.audio?.previewUrl
+				&& `${song.type}-${song.service}-${id}${coolSep}${render.single.audio.previewUrl}`,
 			]
-			: song.entries.map(
-				x =>
-					x.previewUrl
-					&& `${song.type}-${song.service}-${id}:${x.id}${coolSep}${x.previewUrl}`,
+			: render.list.map(
+				item =>
+					item.audio?.previewUrl
+					&& `${song.type}-${song.service}-${id}:${item.link}${coolSep}${item.audio.previewUrl}`,
 			)
 	).filter(x => !!x) as string[];
 

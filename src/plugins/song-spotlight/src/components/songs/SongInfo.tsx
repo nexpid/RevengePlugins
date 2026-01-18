@@ -9,10 +9,10 @@ import Text from "$/components/Text";
 import { Reanimated } from "$/deps";
 import { ContextMenu, PressableScale, Stack } from "$/lib/redesign";
 
+import { renderSong, type RenderSongInfo } from "@song-spotlight/api/handlers";
+import type { Song } from "@song-spotlight/api/structs";
 import { lang } from "../..";
-import { copyLink, openLink, serviceToIcon } from "../../stuff/songs";
-import { getSongInfo, type SongInfo as SongInfoType } from "../../stuff/songs/info";
-import type { Song } from "../../types";
+import { copyLink, openLink, serviceIcons, sid } from "../../stuff/songs";
 import { ModifiedDataContext } from "../Settings";
 
 const { FormRow } = Forms;
@@ -21,6 +21,8 @@ const { GestureDetector, Gesture } = findByProps("GestureDetector");
 
 const cardHeight = 38 + 32;
 const separator = 8;
+
+const animMs = 150;
 
 export default function SongInfo({
 	song,
@@ -42,16 +44,20 @@ export default function SongInfo({
 	const styles = stylesheet.createThemedStyleSheet({
 		cardOuter: {
 			borderRadius: 8,
-			backgroundColor: semanticColors.CARD_SECONDARY_BG,
+			backgroundColor: semanticColors.CARD_BACKGROUND_DEFAULT,
 		},
 		card: {
 			backgroundColor: semanticColors.BACKGROUND_MOD_MUTED,
 			borderRadius: 8,
 			alignItems: "center",
 		},
-		song: {
-			backgroundColor: semanticColors.BACKGROUND_MOD_MUTED,
-			borderRadius: 8,
+		songIcon: {
+			width: 30,
+			height: 30,
+			backgroundColor: semanticColors.BACKGROUND_MOD_SUBTLE,
+			borderRadius: 15,
+			justifyContent: "center",
+			alignItems: "center",
 		},
 		grabberHitbox: {
 			width: 20 + 16 * 2,
@@ -70,31 +76,32 @@ export default function SongInfo({
 	const poss = React.useRef(positions);
 	poss.current = positions;
 
-	const [songInfo, setSongInfo] = React.useState<null | false | SongInfoType>(
+	const id = sid(song);
+	const [songRender, setSongRender] = React.useState<null | false | RenderSongInfo>(
 		null,
 	);
 	const { data, setData } = React.useContext(ModifiedDataContext);
 
 	React.useEffect(() => {
-		setSongInfo(null);
+		setSongRender(null);
 
-		getSongInfo(song)
-			.then(val => setSongInfo(val))
-			.catch(() => setSongInfo(false));
-	}, [song.service + song.type + song.id]);
+		renderSong(song)
+			.then(val => setSongRender(val))
+			.catch(() => setSongRender(false));
+	}, [id]);
 
-	const hash = song.service + song.type + song.id;
 	const topper = Reanimated.useSharedValue(
-		(poss.current[hash] - index) * (cardHeight + separator),
+		(poss.current[id] - index) * (cardHeight + separator),
 	);
 
 	const dragging = React.useRef(false);
 	const zIndex = Reanimated.useSharedValue(1);
 	const prevTopper = Reanimated.useSharedValue(0);
+	const opacity = Reanimated.useSharedValue(disabled ? 0.5 : 1);
 
 	// can't use useAnimatedReaction :(
-	const oldPos = React.useRef([poss.current[hash] - index, index]);
-	const newPos = [poss.current[hash] - index, index];
+	const oldPos = React.useRef([poss.current[id] - index, index]);
+	const newPos = [poss.current[id] - index, index];
 	if (oldPos.current[0] !== newPos[0] || oldPos.current[1] !== newPos[1]) {
 		if (!dragging.current) {
 			if (oldPos.current[1] !== newPos[1]) {
@@ -102,8 +109,8 @@ export default function SongInfo({
 				topper.value -= indDiff * (cardHeight + separator);
 			}
 			topper.value = Reanimated.withTiming(
-				(poss.current[hash] - index) * (cardHeight + separator),
-				{ duration: 150 },
+				(poss.current[id] - index) * (cardHeight + separator),
+				{ duration: animMs },
 			);
 		}
 		oldPos.current = newPos;
@@ -112,7 +119,7 @@ export default function SongInfo({
 	const pan = Gesture.Pan()
 		.minDistance(1)
 		.onStart(() => {
-			dragging.current = !disabled && !!songInfo;
+			dragging.current = !disabled && !!songRender;
 			if (!dragging.current) return;
 
 			prevTopper.value = topper.value;
@@ -140,15 +147,15 @@ export default function SongInfo({
 				top,
 			);
 
-			if (poss.current[hash] !== toPos + index) {
+			if (poss.current[id] !== toPos + index) {
 				const ind = Object.entries(poss.current).find(
 					([_, v]) => v === toPos + index,
 				)?.[0];
 				if (ind) {
 					updatePos({
 						...poss.current,
-						[hash]: toPos + index,
-						[ind]: poss.current[hash],
+						[id]: toPos + index,
+						[ind]: poss.current[id],
 					});
 				}
 			}
@@ -158,22 +165,28 @@ export default function SongInfo({
 			dragging.current = false;
 
 			topper.value = Reanimated.withTiming(
-				(poss.current[hash] - index) * (cardHeight + separator),
-				{ duration: 150 },
+				(poss.current[id] - index) * (cardHeight + separator),
+				{ duration: animMs },
 			);
 			zIndex.value = 1;
 			commit();
 		});
 
+	React.useEffect(() => {
+		opacity.value = Reanimated.withTiming(disabled ? 0.5 : 1, { duration: 50 });
+	}, [disabled]);
+
 	return (
 		<Reanimated.default.View
-			style={{
+			style={[{
 				position: "relative",
+				opacity: disabled ? 0.5 : 1,
+			}, {
 				top: topper,
 				zIndex,
 				elevation: zIndex,
-				opacity: disabled ? 0.5 : 1,
-			}}
+				opacity,
+			}]}
 		>
 			<ContextMenu
 				title={lang.format("sheet.manage_song.title", {})}
@@ -183,27 +196,22 @@ export default function SongInfo({
 					{
 						label: lang.format("sheet.manage_song.copy_link", {}),
 						variant: "default",
-						action: () => !disabled && songInfo && copyLink(song),
+						action: () => !disabled && songRender && copyLink(song),
 						iconSource: getAssetIDByName("LinkIcon"),
 					},
 					{
 						label: lang.format("sheet.manage_song.remove_song", {}),
 						variant: "destructive",
 						async action() {
-							if (disabled || !songInfo) return;
+							if (disabled || !songRender) return;
 
 							showToast(
 								lang.format("toast.removed_song", {}),
 								getAssetIDByName("TrashIcon"),
 							);
 
-							const hash = song.service + song.type + song.id;
 							setData(
-								data.filter(
-									sng =>
-										sng.service + sng.type + sng.id
-											!== hash,
-								),
+								data.filter(item => sid(item) !== sid(song)),
 							);
 						},
 						iconSource: getAssetIDByName("TrashIcon"),
@@ -221,7 +229,7 @@ export default function SongInfo({
 							bottom: 0,
 							right: 0,
 						}}
-						disabled={disabled || !songInfo}
+						disabled={disabled || !songRender}
 					>
 						<Reanimated.default.View style={styles.cardOuter}>
 							<Stack direction="horizontal" style={styles.card}>
@@ -234,9 +242,11 @@ export default function SongInfo({
 										flexShrink: 1,
 									}}
 								>
-									<FormRow.Icon
-										source={serviceToIcon[song.service]}
-									/>
+									<RN.View style={styles.songIcon}>
+										<FormRow.Icon
+											source={serviceIcons[song.service]}
+										/>
+									</RN.View>
 									<RN.View
 										style={{
 											flexShrink: 1,
@@ -246,9 +256,9 @@ export default function SongInfo({
 											justifyContent: "center",
 										}}
 									>
-										{!songInfo
+										{!songRender
 											? (
-												songInfo === false
+												songRender === false
 													? (
 														<Text
 															variant="text-md/semibold"
@@ -266,14 +276,14 @@ export default function SongInfo({
 														color="TEXT_DEFAULT"
 														lineClamp={1}
 													>
-														{songInfo.label}
+														{songRender.label}
 													</Text>
 													<Text
 														variant="text-sm/medium"
 														color="TEXT_MUTED"
 														lineClamp={1}
 													>
-														{songInfo.sublabel}
+														{songRender.sublabel}
 													</Text>
 												</>
 											)}

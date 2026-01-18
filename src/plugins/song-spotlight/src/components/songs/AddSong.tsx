@@ -1,6 +1,8 @@
 import { getInputAlertMessage, InputAlert } from "$/components/InputAlert";
+import Text from "$/components/Text";
 import { Lang } from "$/lang";
 import { PressableScale } from "$/lib/redesign";
+import { parseLink, parsers } from "@song-spotlight/api/handlers";
 import { React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
 import { semanticColors } from "@vendetta/ui";
 import { showConfirmationAlert } from "@vendetta/ui/alerts";
@@ -8,8 +10,7 @@ import { getAssetIDByName } from "@vendetta/ui/assets";
 import { Forms } from "@vendetta/ui/components";
 import { showToast } from "@vendetta/ui/toasts";
 import { lang } from "../..";
-import { resolveLinkToSong } from "../../stuff/songs/parse";
-import { humanReadableServices } from "../../types";
+import { sid } from "../../stuff/songs";
 import { ModifiedDataContext } from "../Settings";
 
 const { FormRow } = Forms;
@@ -42,7 +43,7 @@ export default function AddSong({ disabled }: { disabled: boolean }) {
 							id="addSong"
 							title={Lang.basicFormat(
 								lang.format("alert.add_song.description", {
-									services_seperated_by_commas: humanReadableServices.join(", "),
+									services_seperated_by_commas: parsers.map(x => x.name).join(", "),
 								}),
 							)}
 							importClipboard="Import from clipboard"
@@ -60,23 +61,16 @@ export default function AddSong({ disabled }: { disabled: boolean }) {
 							return;
 						}
 
-						const song = await resolveLinkToSong(value);
+						const song = await parseLink(value);
 						if (song) {
-							const hash = song.service + song.type + song.id;
-							if (
-								!data.find(
-									sng =>
-										sng.service + sng.type + sng.id
-											=== hash,
-								)
-							) {
-								return setData([...data, song].slice(0, 6));
+							if (data.find(item => sid(item) === sid(song))) {
+								return showToast(
+									lang.format("toast.song_already_exists", {}),
+									getAssetIDByName("CircleXIcon-primary"),
+								);
 							}
 
-							showToast(
-								lang.format("toast.song_already_exists", {}),
-								getAssetIDByName("CircleXIcon-primary"),
-							);
+							setData([...data, song].slice(0, 6));
 						} else {
 							showToast(
 								lang.format("toast.song_fetch_failed", {}),
@@ -89,7 +83,14 @@ export default function AddSong({ disabled }: { disabled: boolean }) {
 			disabled={disabled}
 		>
 			<FormRow
-				label={lang.format("settings.songs.add_song", {})}
+				label={
+					<Text
+						variant="text-md/semibold"
+						color="TEXT_DEFAULT"
+					>
+						{lang.format("settings.songs.add_song", {})}
+					</Text>
+				}
 				leading={
 					<RN.View style={styles.songIcon}>
 						<FormRow.Icon

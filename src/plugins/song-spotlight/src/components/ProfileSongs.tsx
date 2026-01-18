@@ -6,11 +6,12 @@ import type { ViewProps } from "react-native";
 
 import { FlashList } from "$/deps";
 
+import type { UserData } from "@song-spotlight/api/structs";
 import { lang } from "..";
 import { useAuthorizationStore } from "../stores/AuthorizationStore";
 import { useCacheStore } from "../stores/CacheStore";
 import { getData, listData } from "../stuff/api";
-import type { UserData } from "../types";
+import { sid } from "../stuff/songs";
 import ProfileSong from "./songs/ProfileSong";
 
 const { TableRowGroupTitle } = findByProps("TableRowGroup", "TableRow");
@@ -90,8 +91,9 @@ export default function ProfileSongs({
 					playing={{ currentlyPlaying, setCurrentlyPlaying }}
 				/>
 			)}
-			keyExtractor={item => item.service + item.type + item.id}
-			scrollEnabled={false}
+			keyExtractor={item => sid(item)}
+			scrollEnabled
+			nestedScrollEnabled
 			estimatedItemSize={167} // average of 92 (single) and 241.6 (entries)
 		/>
 	);

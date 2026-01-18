@@ -3,11 +3,11 @@ import { findByStoreName } from "@vendetta/metro";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 
+import type { UserData } from "@song-spotlight/api/structs";
 import { lang } from "..";
 import constants from "../constants";
 import { useAuthorizationStore } from "../stores/AuthorizationStore";
 import { useCacheStore } from "../stores/CacheStore";
-import type { UserData } from "../types";
 
 const UserStore = findByStoreName("UserStore");
 

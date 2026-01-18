@@ -14,15 +14,14 @@ import { Button, IconButton } from "$/lib/redesign";
 import { managePage } from "$/lib/ui";
 import { deepEquals } from "$/types";
 
+import { clearCache } from "@song-spotlight/api/handlers";
+import type { Song, UserData } from "@song-spotlight/api/structs";
 import { debugLog, debugLogs, initState, lang, showDebugLogs, vstorage } from "..";
 import { useAuthorizationStore } from "../stores/AuthorizationStore";
 import { useCacheStore } from "../stores/CacheStore";
 import { deleteData, getData, saveData } from "../stuff/api";
 import { openOauth2Modal } from "../stuff/oauth2";
-import { linkCacheSymbol } from "../stuff/songs";
-import { infoCacheSymbol } from "../stuff/songs/info";
-import { parseCacheSymbol } from "../stuff/songs/parse";
-import type { Song, UserData } from "../types";
+import { sid } from "../stuff/songs";
 import AddSong from "./songs/AddSong";
 import SongInfo from "./songs/SongInfo";
 
@@ -53,15 +52,15 @@ function Songs({ isFetching }: { isFetching: boolean }) {
 		Record<string, number>
 	>({});
 	const dervPositions = Object.fromEntries(
-		data.map((item, index) => [item.service + item.type + item.id, index]),
+		data.map((item, index) => [sid(item), index]),
 	);
 
 	// can't use useEffect/useMemo because it doesn't update instantly and causes a quick flicker
 	const oldData = React.useRef(
-		data.map(item => item.service + item.type + item.id).join(","),
+		data.map(item => sid(item)).join(","),
 	);
 	const newData = data
-		.map(item => item.service + item.type + item.id)
+		.map(item => sid(item))
 		.join(",");
 
 	let positions = { ...dervPositions, ...manPositions };
@@ -86,7 +85,7 @@ function Songs({ isFetching }: { isFetching: boolean }) {
 				item === true
 					? "add-song"
 					: item
-					? item.service + item.type + item.id
+					? sid(item)
 					: `empty-${index}`}
 			renderItem={({ item, index }) =>
 				item === true ? <AddSong disabled={isFetching} /> : item
@@ -100,13 +99,9 @@ function Songs({ isFetching }: { isFetching: boolean }) {
 							updatePos={setManPositions}
 							commit={() => {
 								const newData = Object.entries(positions)
-									.map(([hash, index]) => ({
+									.map(([id, index]) => ({
 										item: data.find(
-											item =>
-												item.service
-														+ item.type
-														+ item.id
-													=== hash,
+											item => sid(item) === id,
 										),
 										index,
 									}))
@@ -117,7 +112,7 @@ function Songs({ isFetching }: { isFetching: boolean }) {
 							}}
 						/>
 					)
-					: <FormRow label="" style={styles.songDisabled} />}
+					: <FormRow label="" sublabel="" style={styles.songDisabled} />}
 			style={isFetching && { opacity: 0.8 }}
 			ItemSeparatorComponent={() => <RN.View style={{ height: 8 }} />}
 		/>
@@ -360,9 +355,7 @@ export default function Settings({ newData }: { newData?: UserData }) {
 								lang.format("toast.cleared_link_cache", {}),
 								getAssetIDByName("TrashIcon"),
 							);
-							(window as any)[infoCacheSymbol] = new Map();
-							(window as any)[linkCacheSymbol] = new Map();
-							(window as any)[parseCacheSymbol] = new Map();
+							clearCache();
 						}}
 					/>
 				</BetterTableRowGroup>

@@ -1,6 +1,5 @@
-import { findByProps } from "@vendetta/metro";
 import { React, ReactNative as RN } from "@vendetta/metro/common";
-import { rawColors, semanticColors } from "@vendetta/ui";
+import { semanticColors } from "@vendetta/ui";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 
@@ -9,20 +8,73 @@ import Modal from "$/components/Modal";
 import Text from "$/components/Text";
 import { FlashList, Reanimated } from "$/deps";
 import { ContextMenu, IconButton, PressableScale, Stack } from "$/lib/redesign";
-import { createThemeContextStyleSheet, formatDuration, openModal } from "$/types";
+import { createStyles, formatDuration, openModal } from "$/types";
 
+import { renderSong, type RenderSongInfo } from "@song-spotlight/api/handlers";
+import type { Song } from "@song-spotlight/api/structs";
 import FastForwardIcon from "../../../assets/images/player/FastForwardIcon.png";
 import { lang } from "../..";
 import { useCacheStore } from "../../stores/CacheStore";
-import { copyLink, openLink, serviceToIcon } from "../../stuff/songs";
-import { getSongInfo, skeletonSongInfo, type SongInfo } from "../../stuff/songs/info";
-import type { Song } from "../../types";
+import { copyLink, openLink, serviceIcons, sid, skeletonSongInfo } from "../../stuff/songs";
 import AudioPlayer from "../AudioPlayer";
 import Settings from "../Settings";
 import { EntrySong } from "./EntrySong";
 
 const minTracksInEntriesView = 3;
-const { useThemeContext } = findByProps("useThemeContext");
+
+const cardBorder = semanticColors.BORDER_MUTED;
+const useStyles = createStyles({
+	card: {
+		width: "100%",
+		backgroundColor: semanticColors.BACKGROUND_MOD_MUTED,
+		borderColor: cardBorder,
+		borderWidth: 1,
+		borderRadius: 10,
+	},
+	noCard: {
+		backgroundColor: semanticColors.BACKGROUND_MOD_MUTED,
+		borderRadius: 10,
+		borderColor: semanticColors.BACKGROUND_MOD_MUTED,
+	},
+	thumbnail: {
+		width: 64,
+		height: 64,
+		borderRadius: 8,
+	},
+	explicit: {
+		width: 18,
+		height: 18,
+		alignItems: "center",
+		justifyContent: "center",
+		borderRadius: 4,
+		backgroundColor: cardBorder,
+	},
+	entriesMain: {
+		borderTopColor: cardBorder,
+		borderTopWidth: 1,
+		paddingHorizontal: 10,
+		height: 36 * minTracksInEntriesView
+			+ 4 * (minTracksInEntriesView - 1)
+			+ 10 * 2,
+	},
+	service: {
+		position: "absolute",
+		top: 0,
+		right: 0,
+		width: 24,
+		height: 24,
+		borderBottomLeftRadius: 9,
+		borderTopRightRadius: 10,
+		backgroundColor: cardBorder,
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	serviceIcon: {
+		tintColor: semanticColors.INTERACTIVE_ICON_DEFAULT,
+		width: 18,
+		height: 18,
+	},
+});
 
 export default function ProfileSong({
 	song,
@@ -36,124 +88,65 @@ export default function ProfileSong({
 		setCurrentlyPlaying: (value: string | null) => void;
 	};
 }) {
-	const isEntries = ["album", "playlist", "artist", "user"].includes(
+	const isList = !["song", "track"].includes(
 		song.type,
 	);
-	const themeContext = useThemeContext();
+	const styles = useStyles();
 
-	const [_songInfo, setSongInfo] = React.useState<null | false | SongInfo>(
+	const [realSongRender, setSongRender] = React.useState<null | false | RenderSongInfo>(
 		null,
 	);
-	const songInfo = _songInfo
-		|| (isEntries ? skeletonSongInfo.entries() : skeletonSongInfo.single());
-
-	React.useEffect(() => {
-		setSongInfo(null);
-
-		getSongInfo(song)
-			.then(val => setSongInfo(val))
-			.catch(() => setSongInfo(false));
-	}, [song.service + song.type + song.id]);
-
-	const cardBackground = themeContext.theme === "light"
-		? `${rawColors.PRIMARY_400}29`
-		: `${rawColors.PLUM_0}08`;
-	const noCardBackground = themeContext.theme === "light"
-		? `${rawColors.PRIMARY_400}14`
-		: `${rawColors.PLUM_0}09`;
-	const cardBorder = customBorder ?? semanticColors.BORDER_MUTED;
-
-	const styles = createThemeContextStyleSheet({
-		card: {
-			width: "100%",
-			backgroundColor: cardBackground,
-			borderColor: cardBorder,
-			borderWidth: 1,
-			borderRadius: 10,
-		},
-		noCard: {
-			backgroundColor: noCardBackground,
-			borderRadius: 10,
-			borderColor: noCardBackground,
-		},
-		thumbnail: {
-			width: 64,
-			height: 64,
-			borderRadius: 8,
-		},
-		explicit: {
-			width: 18,
-			height: 18,
-			alignItems: "center",
-			justifyContent: "center",
-			borderRadius: 4,
-			backgroundColor: cardBorder,
-		},
-		entriesMain: {
-			borderTopColor: cardBorder,
-			borderTopWidth: 1,
-			paddingHorizontal: 10,
-			height: 36 * minTracksInEntriesView
-				+ 4 * (minTracksInEntriesView - 1)
-				+ 10 * 2,
-		},
-		service: {
-			position: "absolute",
-			top: 0,
-			right: 0,
-			width: 24,
-			height: 24,
-			borderBottomLeftRadius: 9,
-			borderTopRightRadius: 10,
-			backgroundColor: cardBorder,
-			justifyContent: "center",
-			alignItems: "center",
-		},
-		serviceIcon: {
-			tintColor: semanticColors.INTERACTIVE_ICON_DEFAULT,
-			width: 18,
-			height: 18,
-		},
-	});
-
-	const cardThing = () => (_songInfo ? styles.card : styles.noCard);
-
-	const opacityValue = Reanimated.useSharedValue(_songInfo ? 1 : 0);
-	const backgroundColor = Reanimated.useSharedValue(
-		cardThing().backgroundColor,
+	const songRender = React.useMemo(
+		() => realSongRender || (isList ? skeletonSongInfo.list : skeletonSongInfo.single),
+		[realSongRender],
 	);
-	const borderColor = Reanimated.useSharedValue(cardThing().borderColor);
 
 	React.useEffect(() => {
-		opacityValue.value = Reanimated.withSpring(_songInfo ? 1 : 0);
+		setSongRender(null);
+
+		renderSong(song)
+			.then(val => setSongRender(val))
+			.catch(() => setSongRender(false));
+	}, [sid(song)]);
+
+	const cardStyle = () => (realSongRender ? styles.card : styles.noCard);
+
+	const opacityValue = Reanimated.useSharedValue(realSongRender ? 1 : 0);
+	const backgroundColor = Reanimated.useSharedValue(
+		cardStyle().backgroundColor,
+	);
+	const borderColor = Reanimated.useSharedValue(cardStyle().borderColor);
+
+	React.useEffect(() => {
+		opacityValue.value = Reanimated.withSpring(realSongRender ? 1 : 0);
 		backgroundColor.value = Reanimated.withSpring(
-			cardThing().backgroundColor,
+			cardStyle().backgroundColor,
 		);
-		borderColor.value = Reanimated.withSpring(cardThing().borderColor);
-	}, [!!_songInfo]);
+		borderColor.value = Reanimated.withSpring(cardStyle().borderColor);
+	}, [!!realSongRender]);
 
 	return (
 		<Reanimated.default.View
 			style={[
 				styles.card,
-				!_songInfo && styles.noCard,
+				!realSongRender && styles.noCard,
 				{ backgroundColor, borderColor },
 			]}
 		>
 			<Reanimated.default.View
 				style={[
-					{ opacity: _songInfo ? 1 : 0 },
+					{ opacity: realSongRender ? 1 : 0 },
 					{ opacity: opacityValue },
 				]}
 				key={"body"}
 			>
 				<RN.View style={styles.service}>
 					<RN.Image
-						source={serviceToIcon[song.service]}
+						source={serviceIcons[song.service]}
 						style={styles.serviceIcon}
 					/>
 				</RN.View>
-				<AudioPlayer song={songInfo} id={song.id} playing={playing}>
+				<AudioPlayer song={song} render={songRender} id={song.id} playing={playing}>
 					{({ player, loaded, resolved }) => (
 						<>
 							<Stack
@@ -162,7 +155,7 @@ export default function ProfileSong({
 								style={{ padding: 10 }}
 							>
 								<ContextMenu
-									title={songInfo.label}
+									title={songRender.label}
 									triggerOnLongPress
 									items={[
 										{
@@ -185,17 +178,7 @@ export default function ProfileSong({
 														),
 													);
 												}
-												if (
-													data.find(
-														item =>
-															item.service
-																	+ item.type
-																	+ item.id
-																=== song.service
-																	+ song.type
-																	+ song.id,
-													)
-												) {
+												if (data.find(item => sid(item) === sid(song))) {
 													return showToast(
 														lang.format(
 															"toast.song_already_exists",
@@ -249,7 +232,7 @@ export default function ProfileSong({
 										>
 											<RN.Image
 												source={{
-													uri: songInfo.thumbnailUrl,
+													uri: songRender.thumbnailUrl,
 													width: 64,
 													height: 64,
 													cache: "force-cache",
@@ -277,10 +260,10 @@ export default function ProfileSong({
 											style={{ flexShrink: 1 }}
 											lineClamp={1}
 										>
-											{songInfo.label}
+											{songRender.label}
 										</Text>
-										{songInfo.type === "single"
-											&& songInfo.explicit && (
+										{songRender.form === "single"
+											&& songRender.explicit && (
 											<RN.View
 												style={styles.explicit}
 											>
@@ -301,7 +284,7 @@ export default function ProfileSong({
 											flexShrink: 1,
 										}}
 									>
-										{songInfo.sublabel}
+										{songRender.sublabel}
 									</Text>
 								</Stack>
 								<RN.View
@@ -318,20 +301,22 @@ export default function ProfileSong({
 											alignItems: "flex-end",
 										}}
 									>
-										{songInfo.type === "single" && (
+										{songRender.form === "single" && (
 											<Text
 												variant="text-md/medium"
 												color="TEXT_MUTED"
 											>
-												{formatDuration(
-													Math.ceil(
-														songInfo.duration
-															/ 1000,
-													),
-												)}
+												{songRender.single.audio
+													? formatDuration(
+														Math.ceil(
+															songRender.single.audio.duration
+																/ 1000,
+														),
+													)
+													: "-:--"}
 											</Text>
 										)}
-										{songInfo.type === "entries" && (
+										{songRender.form === "list" && (
 											<IconButton
 												variant="secondary"
 												icon={FastForwardIcon}
@@ -360,11 +345,11 @@ export default function ProfileSong({
 									</Stack>
 								</RN.View>
 							</Stack>
-							{songInfo.type === "entries" && (
+							{songRender.form === "list" && (
 								<RN.View style={styles.entriesMain}>
 									<FlashList
-										data={songInfo.entries}
-										keyExtractor={item => item.id}
+										data={songRender.list}
+										keyExtractor={item => item.link}
 										nestedScrollEnabled
 										scrollEnabled
 										estimatedItemSize={36}
@@ -380,9 +365,9 @@ export default function ProfileSong({
 												player={player}
 												entry={item}
 												index={index}
-												isLoaded={item.previewUrl
+												isLoaded={item.audio?.previewUrl
 													? loaded.includes(
-														item.previewUrl,
+														item.audio.previewUrl,
 													)
 													: false}
 											/>

@@ -2,8 +2,7 @@ import { findByStoreName } from "@vendetta/metro";
 
 import { RNCacheModule, zustand, zustandMW } from "$/deps";
 import { fluxSubscribe } from "$/types";
-
-import type { UserData } from "../types";
+import type { UserData } from "@song-spotlight/api/structs";
 
 const UserStore = findByStoreName("UserStore");
 

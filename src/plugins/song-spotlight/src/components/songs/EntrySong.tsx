@@ -4,10 +4,31 @@ import { getAssetIDByName } from "@vendetta/ui/assets";
 
 import Text from "$/components/Text";
 import { PressableScale, Stack } from "$/lib/redesign";
-import { createThemeContextStyleSheet } from "$/types";
 
-import type { SongInfoEntry } from "../../stuff/songs/info";
+import { createStyles } from "$/types";
+import type { RenderInfoEntryBased } from "@song-spotlight/api/handlers";
 import type { AudioPlayer } from "../AudioPlayer";
+
+const useStyles = createStyles({
+	indexCont: {
+		width: 24,
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	pauseIcon: {
+		width: 18,
+		height: 18,
+		tintColor: semanticColors.INTERACTIVE_ICON_DEFAULT,
+	},
+	explicit: {
+		width: 16,
+		height: 16,
+		alignItems: "center",
+		justifyContent: "center",
+		borderRadius: 4,
+		backgroundColor: semanticColors.BACKGROUND_MOD_SUBTLE,
+	},
+});
 
 export function EntrySong({
 	player,
@@ -16,38 +37,20 @@ export function EntrySong({
 	isLoaded,
 }: {
 	player: AudioPlayer;
-	entry: SongInfoEntry;
+	entry: RenderInfoEntryBased;
 	index: number;
 	isLoaded: boolean;
 }) {
-	const styles = createThemeContextStyleSheet({
-		indexCont: {
-			width: 24,
-			alignItems: "center",
-			justifyContent: "center",
-		},
-		pauseIcon: {
-			width: 18,
-			height: 18,
-			tintColor: semanticColors.INTERACTIVE_ICON_DEFAULT,
-		},
-		explicit: {
-			width: 16,
-			height: 16,
-			alignItems: "center",
-			justifyContent: "center",
-			borderRadius: 4,
-			backgroundColor: semanticColors.BACKGROUND_MOD_SUBTLE,
-		},
-	});
+	const styles = useStyles();
+
 	return (
 		<PressableScale
 			onPress={() =>
 				isLoaded
-				&& entry.previewUrl
-				&& (player.current === entry.previewUrl
+				&& entry.audio
+				&& (player.current === entry.audio.previewUrl
 					? player.pause()
-					: player.play(entry.previewUrl))}
+					: player.play(entry.audio.previewUrl))}
 			style={!isLoaded ? { opacity: 0.5 } : {}}
 			disabled={!isLoaded}
 		>
@@ -63,7 +66,7 @@ export function EntrySong({
 						justifyContent: "center",
 					}}
 				>
-					{player.current === entry.previewUrl
+					{player.current === entry.audio?.previewUrl
 						? (
 							<RN.Image
 								source={getAssetIDByName("PauseIcon")}
