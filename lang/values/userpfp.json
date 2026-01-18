@@ -16,7 +16,7 @@
   "ja": {"toast.patch_error":"UserPFP はアバターをパッチできませんでした！","toast.fetch_error":"UserPFP がアバターの取得に失敗しました！"},
   "ko": {"toast.patch_error":"UserPFP couldn't patch avatars!","toast.fetch_error":"UserPFP couldn't fetch avatars!"},
   "lt": {"toast.patch_error":"UserPFP couldn't patch avatars!","toast.fetch_error":"UserPFP couldn't fetch avatars!"},
-  "nl": {"toast.patch_error":"UserPFP couldn't patch avatars!","toast.fetch_error":"UserPFP couldn't fetch avatars!"},
+  "nl": {"toast.patch_error":"UserPFP kon de avatars niet bijwerken!","toast.fetch_error":"UserPFP kon de avatars niet ophalen!"},
   "no": {"toast.patch_error":"UserPFP couldn't patch avatars!","toast.fetch_error":"UserPFP couldn't fetch avatars!"},
   "pl": {"toast.patch_error":"UserPFP couldn't patch avatars!","toast.fetch_error":"UserPFP couldn't fetch avatars!"},
   "pt_BR": {"toast.patch_error":"UserPFP não conseguiu corrigir os avatares!","toast.fetch_error":"UserPFP não conseguiu buscar os avatares!"},
