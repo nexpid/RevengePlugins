@@ -31,7 +31,7 @@ export function openOauth2Modal() {
 				clientId: constants.oauth2.clientId,
 				redirectUri: constants.oauth2.redirectURL,
 
-				scopes: ["identify"],
+				scopes: ["application.commands", "identify"],
 				responseType: "code",
 				permissions: 0n,
 				cancelCompletesFlow: false,
