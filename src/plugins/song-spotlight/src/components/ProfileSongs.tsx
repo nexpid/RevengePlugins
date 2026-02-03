@@ -29,7 +29,6 @@ const UserProfileCard = findByName("UserProfileCard");
 export default function ProfileSongs({
 	userId,
 	variant,
-	customBorder,
 	style,
 }: {
 	userId: string;
@@ -87,7 +86,6 @@ export default function ProfileSongs({
 			renderItem={({ item }) => (
 				<ProfileSong
 					song={item}
-					customBorder={customBorder}
 					playing={{ currentlyPlaying, setCurrentlyPlaying }}
 				/>
 			)}

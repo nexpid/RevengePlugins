@@ -78,7 +78,6 @@ const useStyles = createStyles({
 
 export default function ProfileSong({
 	song,
-	customBorder,
 	playing,
 }: {
 	song: Song;

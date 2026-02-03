@@ -20,7 +20,7 @@
 	},
 	"dependencies": {
 		"@nexpid/vdp-shared": "^1.0.2",
-		"@song-spotlight/api": "^1.2.1",
+		"@song-spotlight/api": "^1.3.2",
 		"@swc/core": "^1.10.7",
 		"dts-bundle": "^0.7.3",
 		"emoji-regex": "^10.4.0",

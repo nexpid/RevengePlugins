@@ -84,11 +84,6 @@ export default function() {
 							style: displayProfile.themeColors
 								? {}
 								: undefined,
-							customBorder: displayProfile.themeColors
-								? ThemeStore.theme === "light"
-									? "rgba(0, 0, 0, 0.24)"
-									: "rgba(255, 255, 255, 0.24)"
-								: undefined,
 						}),
 						ret,
 					])

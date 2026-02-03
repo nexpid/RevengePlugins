@@ -1,3 +1,4 @@
+import { GITHUB } from "@vendetta/constants";
 import { findByName, findByProps } from "@vendetta/metro";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
@@ -9,6 +10,13 @@ import { authFetch, getData } from "./api";
 
 const { pushModal, popModal } = findByProps("pushModal", "popModal");
 const OAuth2AuthorizeModal = findByName("OAuth2AuthorizeModal");
+
+function identifyClient() {
+	if (GITHUB === "https://github.com/kmmiio99o/ShiggyCord") return "shiggycord";
+	else if (GITHUB === "https://github.com/C0C0B01/Kettu") return "kettu";
+	else if (GITHUB === "https://github.com/revenge-mod") return "revenge";
+	else return "vd-fork";
+}
 
 export function openOauth2Modal() {
 	pushModal({
@@ -30,7 +38,10 @@ export function openOauth2Modal() {
 				callback: async ({ location }) => {
 					if (!location) return;
 					try {
-						const token = await (await authFetch(location))?.text();
+						const url = new URL(location);
+						url.searchParams.append("whois", identifyClient());
+
+						const token = await (await authFetch(url))?.text();
 						useAuthorizationStore.getState().setToken(token);
 						getData();
 
