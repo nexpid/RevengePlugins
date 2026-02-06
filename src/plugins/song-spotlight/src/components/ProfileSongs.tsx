@@ -7,11 +7,11 @@ import type { ViewProps } from "react-native";
 import { FlashList } from "$/deps";
 
 import type { UserData } from "@song-spotlight/api/structs";
+import { sid } from "@song-spotlight/api/util";
 import { lang } from "..";
 import { useAuthorizationStore } from "../stores/AuthorizationStore";
 import { useCacheStore } from "../stores/CacheStore";
 import { getData, listData } from "../stuff/api";
-import { sid } from "../stuff/songs";
 import ProfileSong from "./songs/ProfileSong";
 
 const { TableRowGroupTitle } = findByProps("TableRowGroup", "TableRow");
@@ -37,7 +37,6 @@ export default function ProfileSongs({
 	style?: ViewProps["style"];
 }) {
 	const { isAuthorized } = useAuthorizationStore();
-	if (!isAuthorized()) return null;
 
 	const styles = stylesheet.createThemedStyleSheet({
 		card: {
@@ -76,7 +75,7 @@ export default function ProfileSongs({
 		string | null
 	>(null);
 
-	if (!data?.length) return null;
+	if (!isAuthorized() || !data?.length) return null;
 
 	const songs = (
 		<FlashList

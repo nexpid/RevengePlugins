@@ -16,12 +16,12 @@ import { deepEquals } from "$/types";
 
 import { clearCache } from "@song-spotlight/api/handlers";
 import type { Song, UserData } from "@song-spotlight/api/structs";
+import { sid } from "@song-spotlight/api/util";
 import { debugLog, debugLogs, initState, lang, showDebugLogs, vstorage } from "..";
 import { useAuthorizationStore } from "../stores/AuthorizationStore";
 import { useCacheStore } from "../stores/CacheStore";
 import { deleteData, getData, saveData } from "../stuff/api";
 import { openOauth2Modal } from "../stuff/oauth2";
-import { sid } from "../stuff/songs";
 import AddSong from "./songs/AddSong";
 import SongInfo from "./songs/SongInfo";
 

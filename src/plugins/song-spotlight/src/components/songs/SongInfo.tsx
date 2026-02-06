@@ -1,5 +1,5 @@
 import { findByProps } from "@vendetta/metro";
-import { React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
+import { clipboard, React, ReactNative as RN, stylesheet, url } from "@vendetta/metro/common";
 import { semanticColors } from "@vendetta/ui";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { Forms } from "@vendetta/ui/components";
@@ -11,8 +11,9 @@ import { ContextMenu, PressableScale, Stack } from "$/lib/redesign";
 
 import { renderSong, type RenderSongInfo } from "@song-spotlight/api/handlers";
 import type { Song } from "@song-spotlight/api/structs";
+import { sid } from "@song-spotlight/api/util";
 import { lang } from "../..";
-import { copyLink, openLink, serviceIcons, sid } from "../../stuff/songs";
+import { serviceIcons } from "../../stuff/songs";
 import { ModifiedDataContext } from "../Settings";
 
 const { FormRow } = Forms;
@@ -196,7 +197,15 @@ export default function SongInfo({
 					{
 						label: lang.format("sheet.manage_song.copy_link", {}),
 						variant: "default",
-						action: () => !disabled && songRender && copyLink(song),
+						action: () => {
+							if (disabled || !songRender) return;
+
+							clipboard.setString(songRender.link);
+							showToast(
+								lang.format("toast.copied_link", {}),
+								getAssetIDByName("CopyIcon"),
+							);
+						},
 						iconSource: getAssetIDByName("LinkIcon"),
 					},
 					{
@@ -221,7 +230,7 @@ export default function SongInfo({
 				{props => (
 					<PressableScale
 						{...props}
-						onPress={() => openLink(song)}
+						onPress={() => songRender && url.openDeeplink(songRender.link)}
 						style={{
 							position: "relative",
 							left: 0,

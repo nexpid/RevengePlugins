@@ -7,7 +7,6 @@
 	"toast.deleted_songs": "Successfully deleted songs.",
 	"toast.fetch_error": "Song Spotlight fetch error at {urlpath}",
 	"toast.fetch_error_detailed": "Song Spotlight: {error_msg}",
-	"toast.cannot_open_link": "Couldn't open link!",
 	"toast.copied_link": "Copied link to clipboard!",
 	"toast.removed_song": "Removed song!",
 	"toast.updated_songs": "Updated songs!",

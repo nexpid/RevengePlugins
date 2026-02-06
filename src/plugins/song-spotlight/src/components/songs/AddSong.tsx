@@ -3,6 +3,7 @@ import Text from "$/components/Text";
 import { Lang } from "$/lang";
 import { PressableScale } from "$/lib/redesign";
 import { parseLink, parsers } from "@song-spotlight/api/handlers";
+import { sid } from "@song-spotlight/api/util";
 import { React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
 import { semanticColors } from "@vendetta/ui";
 import { showConfirmationAlert } from "@vendetta/ui/alerts";
@@ -10,7 +11,6 @@ import { getAssetIDByName } from "@vendetta/ui/assets";
 import { Forms } from "@vendetta/ui/components";
 import { showToast } from "@vendetta/ui/toasts";
 import { lang } from "../..";
-import { sid } from "../../stuff/songs";
 import { ModifiedDataContext } from "../Settings";
 
 const { FormRow } = Forms;

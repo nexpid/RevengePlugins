@@ -1,4 +1,4 @@
-import { React, ReactNative as RN } from "@vendetta/metro/common";
+import { clipboard, React, ReactNative as RN, url } from "@vendetta/metro/common";
 import { semanticColors } from "@vendetta/ui";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
@@ -12,10 +12,11 @@ import { createStyles, formatDuration, openModal } from "$/types";
 
 import { renderSong, type RenderSongInfo } from "@song-spotlight/api/handlers";
 import type { Song } from "@song-spotlight/api/structs";
+import { sid } from "@song-spotlight/api/util";
 import FastForwardIcon from "../../../assets/images/player/FastForwardIcon.png";
 import { lang } from "../..";
 import { useCacheStore } from "../../stores/CacheStore";
-import { copyLink, openLink, serviceIcons, sid, skeletonSongInfo } from "../../stuff/songs";
+import { serviceIcons, skeletonSongInfo } from "../../stuff/songs";
 import AudioPlayer from "../AudioPlayer";
 import Settings from "../Settings";
 import { EntrySong } from "./EntrySong";
@@ -219,7 +220,13 @@ export default function ProfileSong({
 												{},
 											),
 											variant: "default",
-											action: () => copyLink(song),
+											action: () => {
+												clipboard.setString(songRender.link);
+												showToast(
+													lang.format("toast.copied_link", {}),
+													getAssetIDByName("CopyIcon"),
+												);
+											},
 											iconSource: getAssetIDByName("LinkIcon"),
 										},
 									]}
@@ -227,7 +234,7 @@ export default function ProfileSong({
 									{props => (
 										<PressableScale
 											{...props}
-											onPress={() => openLink(song)}
+											onPress={() => url.openDeeplink(songRender.link)}
 										>
 											<RN.Image
 												source={{

@@ -29,11 +29,11 @@ export function openOauth2Modal() {
 			shouldPersistUnderModals: false,
 			props: {
 				clientId: constants.oauth2.clientId,
-				redirectUri: constants.oauth2.redirectURL,
-
-				scopes: ["application.commands", "identify"],
-				responseType: "code",
+				scopes: ["applications.commands", "identify"],
+				integrationType: 1, // USER_INSTALL
 				permissions: 0n,
+				responseType: "code",
+				redirectUri: constants.oauth2.redirectURL,
 				cancelCompletesFlow: false,
 				callback: async ({ location }) => {
 					if (!location) return;
