@@ -1,0 +1,4 @@
+{
+	"toast.patch_error": "UserPFP はアバターをパッチできませんでした！",
+	"toast.fetch_error": "UserPFP がアバターの取得に失敗しました！"
+}
