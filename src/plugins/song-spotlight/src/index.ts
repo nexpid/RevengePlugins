@@ -1,4 +1,3 @@
-import { findByProps } from "@vendetta/metro";
 import { storage } from "@vendetta/plugin";
 
 import { Lang } from "$/lang";

@@ -15,7 +15,7 @@ import { managePage } from "$/lib/ui";
 import { deepEquals } from "$/types";
 
 import { clearCache, services, validateSong } from "@song-spotlight/api/handlers";
-import { type Song, type UserData } from "@song-spotlight/api/structs";
+import type { Song, UserData } from "@song-spotlight/api/structs";
 import { sid } from "@song-spotlight/api/util";
 import { lang, vstorage } from "..";
 import { useAuthorizationStore } from "../stores/AuthorizationStore";
@@ -131,7 +131,7 @@ async function runImport(onImport: (data: UserData) => void) {
 	}
 
 	// cant use UserDataSchema here sadly
-	let data: UserData | undefined = undefined;
+	let data: UserData | undefined;
 	song_check: {
 		if (!Array.isArray(json) || json.length > songLimit) break song_check;
 
