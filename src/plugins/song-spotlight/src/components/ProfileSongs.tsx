@@ -45,7 +45,7 @@ export default function ProfileSongs({
 		},
 	});
 
-	const { data: ownData } = useCacheStore();
+	const ownData = useCacheStore().self?.data;
 	const [data, setData] = React.useState<UserData | undefined>(undefined);
 
 	React.useEffect(() => {

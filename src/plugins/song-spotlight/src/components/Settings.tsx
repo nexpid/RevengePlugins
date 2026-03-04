@@ -10,17 +10,17 @@ import { showToast } from "@vendetta/ui/toasts";
 import { BetterTableRowGroup } from "$/components/BetterTableRow";
 import Text from "$/components/Text";
 import { Reanimated } from "$/deps";
-import { Button, IconButton } from "$/lib/redesign";
+import { Button } from "$/lib/redesign";
 import { managePage } from "$/lib/ui";
 import { deepEquals } from "$/types";
 
-import { clearCache } from "@song-spotlight/api/handlers";
-import type { Song, UserData } from "@song-spotlight/api/structs";
+import { clearCache, services, validateSong } from "@song-spotlight/api/handlers";
+import { type Song, type UserData } from "@song-spotlight/api/structs";
 import { sid } from "@song-spotlight/api/util";
-import { debugLog, debugLogs, initState, lang, showDebugLogs, vstorage } from "..";
+import { lang, vstorage } from "..";
 import { useAuthorizationStore } from "../stores/AuthorizationStore";
 import { useCacheStore } from "../stores/CacheStore";
-import { deleteData, getData, saveData } from "../stuff/api";
+import { deleteData, getData, saveData, songLimit } from "../stuff/api";
 import { openOauth2Modal } from "../stuff/oauth2";
 import AddSong from "./songs/AddSong";
 import SongInfo from "./songs/SongInfo";
@@ -73,7 +73,7 @@ function Songs({ isFetching }: { isFetching: boolean }) {
 
 	return (
 		<Reanimated.default.FlatList
-			data={new Array(6)
+			data={new Array(songLimit)
 				.fill(null)
 				.map((_, i) =>
 					!data[i] && (data[i - 1] || i === 0)
@@ -119,13 +119,70 @@ function Songs({ isFetching }: { isFetching: boolean }) {
 	);
 }
 
+async function runImport(onImport: (data: UserData) => void) {
+	let json: unknown;
+	try {
+		json = JSON.parse(await clipboard.getString());
+	} catch {
+		return showToast(
+			lang.format("toast.import_no_json", {}),
+			getAssetIDByName("CircleXIcon-primary"),
+		);
+	}
+
+	// cant use UserDataSchema here sadly
+	let data: UserData | undefined = undefined;
+	song_check: {
+		if (!Array.isArray(json) || json.length > songLimit) break song_check;
+
+		data = [];
+		for (const item of json) {
+			if (typeof item !== "object" || !item || Array.isArray(item)) break song_check;
+
+			const service = services.find(x => x.name === item.service);
+			if (!service) break song_check;
+
+			if (!service.types.includes(item.type)) break song_check;
+			if (typeof item.id !== "string") break song_check;
+
+			data.push({
+				service: item.service,
+				type: item.type,
+				id: item.id,
+			});
+		}
+	}
+
+	if (!data) {
+		return showToast(
+			lang.format("toast.import_invalid_data", {}),
+			getAssetIDByName("CircleXIcon-primary"),
+		);
+	}
+
+	const validated = await Promise.allSettled(data.map(song => validateSong(song)));
+	if (!validated.every(x => x.status === "fulfilled" && x.value)) {
+		return showToast(
+			lang.format("toast.import_invalid_songs", {}),
+			getAssetIDByName("CircleXIcon-primary"),
+		);
+	}
+
+	onImport(data);
+	showToast(
+		lang.format("toast.imported_songs", {}),
+		getAssetIDByName("CircleCheckIcon-primary"),
+	);
+}
+
 export default function Settings({ newData }: { newData?: UserData }) {
 	useProxy(vstorage);
 
-	const { isAuthorized } = useAuthorizationStore();
+	const { isAuthorized, deleteTokens } = useAuthorizationStore();
 	const [isFetching, setIsFetching] = React.useState(false);
 
-	const { data: _data } = useCacheStore();
+	const _data = useCacheStore().self?.data;
+
 	const [data, setData] = React.useState(newData ?? _data);
 	const isDataModified = React.useMemo(
 		() => data && _data && !deepEquals(data, _data),
@@ -139,12 +196,12 @@ export default function Settings({ newData }: { newData?: UserData }) {
 	);
 
 	const userId = UserStore.getCurrentUser()?.id ?? null;
-	if (!initState.inits.includes(userId) && !newData) {
-		debugLog("initState happening, fetching data!!!!");
-		initState.inits.push(userId);
-		isAuthorized()
-			&& (setIsFetching(true), getData().finally(() => setIsFetching(false)));
-	}
+	React.useEffect(() => {
+		if (isAuthorized()) {
+			setIsFetching(true);
+			getData().finally(() => setIsFetching(false));
+		}
+	}, [userId]);
 
 	const [isBusy, setIsBusy] = React.useState<string[]>([]);
 
@@ -154,39 +211,24 @@ export default function Settings({ newData }: { newData?: UserData }) {
 	managePage(
 		{
 			headerRight: () => (
-				<>
-					<IconButton
-						size="sm"
-						variant="tertiary"
-						icon={getAssetIDByName("CopyIcon")}
-						onPress={() => {
-							clipboard.setString(JSON.stringify(data ?? []));
-							showToast(
-								lang.format("toast.copied_data", {}),
-								getAssetIDByName("CopyIcon"),
-							);
-						}}
-						style={{ marginRight: 8 }}
-					/>
-					<Button
-						size="sm"
-						variant={isDataModified && !isFetching ? "primary" : "secondary"}
-						disabled={!isDataModified || isFetching}
-						loading={isFetching}
-						text={lang.format("settings.update_songs", {})}
-						onPress={() => {
-							setIsFetching(true);
-							saveData(data!)
-								.then(() =>
-									showToast(
-										lang.format("toast.updated_songs", {}),
-										getAssetIDByName("UploadIcon"),
-									)
+				<Button
+					size="sm"
+					variant={isDataModified && !isFetching ? "primary" : "secondary"}
+					disabled={!isDataModified || isFetching}
+					loading={isFetching}
+					text={lang.format("settings.update_songs", {})}
+					onPress={() => {
+						setIsFetching(true);
+						saveData(data!)
+							.then(() =>
+								showToast(
+									lang.format("toast.updated_songs", {}),
+									getAssetIDByName("UploadIcon"),
 								)
-								.finally(() => setIsFetching(false));
-						}}
-					/>
-				</>
+							)
+							.finally(() => setIsFetching(false));
+					}}
+				/>
 			),
 		},
 		null,
@@ -222,6 +264,58 @@ export default function Settings({ newData }: { newData?: UserData }) {
 							/>
 						)}
 				</BetterTableRowGroup>
+				{isAuthorized() && data && (
+					<BetterTableRowGroup nearby>
+						<FormRow
+							label={lang.format(
+								"settings.songs.import_songs",
+								{},
+							)}
+							leading={
+								<FormRow.Icon
+									source={getAssetIDByName(
+										"UploadIcon",
+									)}
+								/>
+							}
+							onPress={() => {
+								if (isBusy.length) return;
+
+								function run() {
+									setBusy("import_data");
+									runImport(setData).finally(() => unBusy("import_data"));
+								}
+
+								if (data?.[0]) {
+									showConfirmationAlert({
+										title: lang.format("alert.import_ovewrite.title", {}),
+										content: lang.format("alert.import_ovewrite.description", {}),
+										onConfirm: run,
+									});
+								} else run();
+							}}
+						/>
+						<FormRow
+							label={lang.format(
+								"settings.songs.copy_songs",
+								{},
+							)}
+							leading={
+								<FormRow.Icon
+									source={getAssetIDByName(
+										"CopyIcon",
+									)}
+								/>
+							}
+							onPress={() => {
+								if (isBusy.length) return;
+
+								clipboard.setString(JSON.stringify(data));
+								showToast(lang.format("toast.copied_data", {}), getAssetIDByName("CopyIcon"));
+							}}
+						/>
+					</BetterTableRowGroup>
+				)}
 				<BetterTableRowGroup
 					title="Authentication"
 					icon={getAssetIDByName("LockIcon")}
@@ -258,12 +352,7 @@ export default function Settings({ newData }: { newData?: UserData }) {
 												{},
 											),
 											onConfirm: () => {
-												useCacheStore
-													.getState()
-													.updateData(null);
-												useAuthorizationStore
-													.getState()
-													.setToken(undefined);
+												deleteTokens();
 
 												showToast(
 													lang.format("toast.logout", {}),
@@ -311,9 +400,7 @@ export default function Settings({ newData }: { newData?: UserData }) {
 											onConfirm: async () => {
 												setBusy("delete_songs");
 												await deleteData();
-												useAuthorizationStore
-													.getState()
-													.setToken(undefined);
+												deleteTokens();
 
 												unBusy("delete_songs");
 												showToast(
@@ -359,34 +446,6 @@ export default function Settings({ newData }: { newData?: UserData }) {
 						}}
 					/>
 				</BetterTableRowGroup>
-				{showDebugLogs && (
-					<Button
-						variant="secondary"
-						size="md"
-						text="DO DIAGNOSTICS"
-						icon={
-							<RN.Image
-								source={{
-									uri:
-										"https://cdn.discordapp.com/attachments/919655852724604978/1321246029148065883/plink.jpg?ex=676c89c0&is=676b3840&hm=d52249eecae923f738c0c3b2338cd56fa4e219b738e5def7a05358b3d6588a03&width=64&height=64",
-								}}
-								style={{
-									width: 18,
-									height: 18,
-									marginRight: 4,
-									borderRadius: 16,
-								}}
-							/>
-						}
-						onPress={() => {
-							showToast("COPIED TO CLIPBOARD!!!!!!");
-							clipboard.setString(
-								`\`\`\`\n${debugLogs.join("\n")}\`\`\``,
-							);
-						}}
-						style={{ paddingHorizontal: 12, marginVertical: 12 }}
-					/>
-				)}
 				<RN.View style={{ height: 12 }} />
 			</RN.ScrollView>
 		</ModifiedDataContext.Provider>

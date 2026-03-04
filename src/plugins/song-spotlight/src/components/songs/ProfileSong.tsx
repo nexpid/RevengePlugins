@@ -12,10 +12,11 @@ import { createStyles, formatDuration, openModal } from "$/types";
 
 import { renderSong, type RenderSongInfo } from "@song-spotlight/api/handlers";
 import type { Song } from "@song-spotlight/api/structs";
-import { sid } from "@song-spotlight/api/util";
+import { isListLayout, sid } from "@song-spotlight/api/util";
 import FastForwardIcon from "../../../assets/images/player/FastForwardIcon.png";
 import { lang } from "../..";
 import { useCacheStore } from "../../stores/CacheStore";
+import { songLimit } from "../../stuff/api";
 import { serviceIcons, skeletonSongInfo } from "../../stuff/songs";
 import AudioPlayer from "../AudioPlayer";
 import Settings from "../Settings";
@@ -88,9 +89,6 @@ export default function ProfileSong({
 		setCurrentlyPlaying: (value: string | null) => void;
 	};
 }) {
-	const isList = !["song", "track"].includes(
-		song.type,
-	);
 	const styles = useStyles();
 
 	const [realSongRender, setSongRender] = React.useState<null | false | RenderSongInfo>(
@@ -100,6 +98,7 @@ export default function ProfileSong({
 		() => realSongRender || (isList ? skeletonSongInfo.list : skeletonSongInfo.single),
 		[realSongRender],
 	);
+	const isList = isListLayout(song, songRender);
 
 	React.useEffect(() => {
 		setSongRender(null);
@@ -165,9 +164,8 @@ export default function ProfileSong({
 											),
 											variant: "default",
 											action() {
-												const data = useCacheStore.getState()
-													.data ?? [];
-												if (data.length >= 6) {
+												const data = useCacheStore.getState().self?.data ?? [];
+												if (data.length >= songLimit) {
 													return showToast(
 														lang.format(
 															"toast.steal_song_no_space_left",
@@ -193,7 +191,7 @@ export default function ProfileSong({
 												const newData = [
 													...data,
 													song,
-												].slice(0, 6);
+												].slice(0, songLimit);
 
 												hideActionSheet();
 												openModal("settings", () => (

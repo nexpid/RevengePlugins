@@ -11,6 +11,7 @@ import { getAssetIDByName } from "@vendetta/ui/assets";
 import { Forms } from "@vendetta/ui/components";
 import { showToast } from "@vendetta/ui/toasts";
 import { lang } from "../..";
+import { songLimit } from "../../stuff/api";
 import { ModifiedDataContext } from "../Settings";
 
 const { FormRow } = Forms;
@@ -70,7 +71,7 @@ export default function AddSong({ disabled }: { disabled: boolean }) {
 								);
 							}
 
-							setData([...data, song].slice(0, 6));
+							setData([...data, song].slice(0, songLimit));
 						} else {
 							showToast(
 								lang.format("toast.song_fetch_failed", {}),

@@ -3,6 +3,7 @@ import { findByName, findByProps } from "@vendetta/metro";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 
+import { logger } from "@vendetta";
 import { lang } from "..";
 import constants from "../constants";
 import { useAuthorizationStore } from "../stores/AuthorizationStore";
@@ -41,16 +42,28 @@ export function openOauth2Modal() {
 						const url = new URL(location);
 						url.searchParams.append("whois", identifyClient());
 
-						const token = await (await authFetch(url))?.text();
-						useAuthorizationStore.getState().setToken(token);
+						const res = await authFetch(url);
+						if (!res) throw "Response wasn't ok";
+
+						const access = await res.text();
+						if (!access) throw "Access token is missing";
+
+						const refresh = res.headers.get("X-Refresh-Token");
+						// STUB uncomment this once API is fully rolled out
+						// if (!refresh) throw "Refresh token is missing";
+
+						useAuthorizationStore.getState().setToken(access, refresh || "");
 						getData();
 
 						showToast(
 							lang.format("toast.oauth.authorized", {}),
 							getAssetIDByName("CircleCheckIcon-primary"),
 						);
-					} catch {
-						// handled in authFetch
+					} catch (error) {
+						logger.error("oauth2 error", error);
+						if (typeof error === "string") {
+							showToast(error, getAssetIDByName("CircleXIcon-primary"));
+						}
 					}
 				},
 				dismissOAuthModal: () => popModal("oauth2-authorize"),

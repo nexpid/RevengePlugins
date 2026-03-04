@@ -2,9 +2,9 @@ import { findByName, findByStoreName } from "@vendetta/metro";
 import { React } from "@vendetta/metro/common";
 import { after } from "@vendetta/patcher";
 
+import { fluxSubscribe } from "$/types";
 import ProfileSongs from "../components/ProfileSongs";
-import { unsubAuthStore } from "../stores/AuthorizationStore";
-import { unsubCacheStore } from "../stores/CacheStore";
+import { useCacheStore } from "../stores/CacheStore";
 
 // pre 264.5
 const YouAboutMeCard = findByName("YouAboutMeCard", false);
@@ -15,8 +15,6 @@ const SimplifiedUserProfileAboutMeCard = findByName(
 const UserProfileBio = findByName("UserProfileBio", false);
 // post 264.5
 const UserProfileAboutMeCard = findByName("UserProfileAboutMeCard", false);
-
-const ThemeStore = findByStoreName("ThemeStore");
 
 export default function() {
 	const patches: (any)[] = [];
@@ -91,8 +89,7 @@ export default function() {
 		);
 	}
 
-	patches.push(unsubAuthStore);
-	patches.push(unsubCacheStore);
+	patches.push(fluxSubscribe("CONNECTION_OPEN", () => useCacheStore.getState().$refresh()));
 
 	return () => {
 		for (const x of patches) x();

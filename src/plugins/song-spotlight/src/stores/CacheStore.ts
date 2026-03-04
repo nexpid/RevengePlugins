@@ -1,67 +1,54 @@
 import { findByStoreName } from "@vendetta/metro";
 
-import { RNCacheModule, zustand, zustandMW } from "$/deps";
-import { fluxSubscribe } from "$/types";
+import { zustand } from "$/deps";
 import type { UserData } from "@song-spotlight/api/structs";
 
 const UserStore = findByStoreName("UserStore");
 
-interface CacheState {
-	data: UserData | undefined;
-	at: string | undefined;
-	dir: Record<
-		string,
-		{
-			data: UserData | undefined;
-			at: string | undefined;
-		}
-	>;
-	init: () => void;
-	updateData: (userId: null | string, data?: UserData, at?: string) => void;
-	hasData: () => boolean;
+interface Data {
+	data: UserData;
+	at?: string;
 }
 
-export const useCacheStore = zustand.create<
-	CacheState,
-	[["zustand/persist", { dir: CacheState["dir"] }]]
->(
-	zustandMW.persist(
-		(set, get) => ({
-			data: undefined,
-			at: undefined,
-			dir: {},
-			init() {
-				const { data, at } = get().dir[UserStore.getCurrentUser()?.id] ?? {};
-				set({ data, at });
-			},
-			updateData(userId, data, at) {
-				const you = UserStore.getCurrentUser()?.id;
-				if (!userId || userId === you) {
-					set({
-						data,
-						at,
-						dir: {
-							...get().dir,
-							[userId ?? you]: {
-								data,
-								at,
-							},
-						},
-					});
-				} else set({ dir: { ...get().dir, [userId]: { data, at } } });
-			},
-			hasData: () => !!get().data && !!get().at,
-		}),
-		{
-			version: 2,
-			name: "songspotlight-cache",
-			storage: zustandMW.createJSONStorage(() => RNCacheModule),
-			partialize: ({ dir }) => ({ dir }),
-			onRehydrateStorage: () => state => state?.init(),
-		},
-	),
-);
+interface CacheState {
+	users: Record<string, Data>;
+	self?: Data;
+	update(props: {
+		userId?: string;
+		data: UserData;
+		at?: string;
+	}): void;
+	delete(userId?: string): void;
+	$refresh(): void;
+}
 
-export const unsubCacheStore = fluxSubscribe("CONNECTION_OPEN", () => {
-	useCacheStore.persist.rehydrate();
-});
+export const useCacheStore = zustand.create<CacheState>(
+	(set, get) => ({
+		users: {},
+		update({ userId, data, at }) {
+			userId ??= UserStore.getCurrentUser()?.id;
+			if (userId) {
+				set({
+					users: {
+						...get().users,
+						[userId]: { data, at },
+					},
+				});
+			}
+			get().$refresh();
+		},
+		delete(userId) {
+			userId ??= UserStore.getCurrentUser()?.id;
+			if (userId) {
+				const { [userId]: _, ...users } = get().users;
+				set({ users });
+			}
+			get().$refresh();
+		},
+		$refresh() {
+			set({
+				self: get().users[UserStore.getCurrentUser()?.id],
+			});
+		},
+	}),
+);
