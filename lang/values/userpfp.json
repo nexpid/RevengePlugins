@@ -18,7 +18,7 @@
   "lt": {"toast.patch_error":"UserPFP couldn't patch avatars!","toast.fetch_error":"UserPFP couldn't fetch avatars!"},
   "nl": {"toast.patch_error":"UserPFP kon de avatars niet bijwerken!","toast.fetch_error":"UserPFP kon de avatars niet ophalen!"},
   "no": {"toast.patch_error":"UserPFP couldn't patch avatars!","toast.fetch_error":"UserPFP couldn't fetch avatars!"},
-  "pl": {"toast.patch_error":"UserPFP couldn't patch avatars!","toast.fetch_error":"UserPFP couldn't fetch avatars!"},
+  "pl": {"toast.patch_error":"UserPFP nie mógł załatać awatarów!","toast.fetch_error":"UserPFP nie mógł pobrać awatarów!"},
   "pt_BR": {"toast.patch_error":"UserPFP não conseguiu corrigir os avatares!","toast.fetch_error":"UserPFP não conseguiu buscar os avatares!"},
   "ro": {"toast.patch_error":"UserPFP nu a putut da patch la avatar!","toast.fetch_error":"UserPFP nu a putut găsi avatar-ul!"},
   "ru": {"toast.patch_error":"UserPFP ну удалось заменить аватары!","toast.fetch_error":"UserPFP не может загрузить аватары!"},
