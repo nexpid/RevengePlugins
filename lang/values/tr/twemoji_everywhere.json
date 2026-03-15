@@ -1,0 +1,20 @@
+{
+	"settings.source_hint": "💡 Daha fazla bilgi için emoji'ye basılı tutun",
+	"settings.emojipack.maintained_by": "**{maintainer}** Tarafından sürdürülen",
+	"settings.emojipack.maintained_by.short": "{maintainer} Tarafından",
+	"settings.emojipacks.title": "Temel paketler",
+	"settings.emojipacks.choose.default": "Varsayılan (Twemoji)",
+	"settings.emojipacks.choose.default.apple": "Varsayılan(Apple emojisi)",
+	"settings.emojipacks.choose.twemoji": "Twemoji (remote)",
+	"settings.emojipacks.choose.facebook": "Facebook",
+	"settings.emojipacks.choose.fluent": "Fluent Emoji",
+	"settings.emojipacks.choose.joypixels": "JoyPixels",
+	"settings.emojipacks.choose.huawei": "Huawei Emoji",
+	"settings.emojipacks.choose.noto": "Noto Emoji",
+	"settings.emojipacks.choose.samsung": "Samsung Emoji",
+	"settings.emojipacks.choose.apple": "Apple Emoji",
+	"settings.jokepacks.title": "Şaka paketleri",
+	"settings.jokepacks.choose.discord": "Discord emoji seçici",
+	"settings.jokepacks.choose.skype": "Skype",
+	"sheet.emojipack.source_repository": "Kaynak Deposu"
+}
