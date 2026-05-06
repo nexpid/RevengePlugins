@@ -1,11 +1,31 @@
+// =============================================================================
+// CloudSync plugin — ImportActionSheet.tsx — migrated for Discord 325+ / Kettu
+// =============================================================================
+//
+// What changed vs the original:
+//   • Forms.FormCheckboxRow → TableCheckboxRow
+//   • selected={X}          → checked={X}    (prop name changed)
+//
+// Verified against Kettu's TableCheckboxRowProps in
+// src/metro/common/types/components.ts:
+//
+//   interface TableCheckboxRowProps extends TableRowBaseProps {
+//       checked: boolean;
+//       onPress: () => void;
+//   }
+//
+// All other props (label, disabled, onPress) carry over from TableRowBaseProps
+// unchanged.
+// =============================================================================
+
 import { settings } from "@vendetta";
+import { findByProps } from "@vendetta/metro";
 import { React, ReactNative as RN, stylesheet } from "@vendetta/metro/common";
 import { plugins } from "@vendetta/plugins";
 import { themes } from "@vendetta/themes";
 import { semanticColors } from "@vendetta/ui";
 import { showConfirmationAlert } from "@vendetta/ui/alerts";
 import { getAssetIDByName } from "@vendetta/ui/assets";
-import { Forms } from "@vendetta/ui/components";
 
 import { ActionSheet, hideActionSheet } from "$/components/ActionSheet";
 import Text from "$/components/Text";
@@ -18,7 +38,7 @@ import { importData, type SyncImportOptions } from "../../stuff/syncStuff";
 import type { UserData } from "../../types";
 import { openImportLogsPage } from "../pages/ImportLogsPage";
 
-const { FormCheckboxRow } = Forms;
+const { TableCheckboxRow } = findByProps("TableCheckboxRow", "TableRow");
 
 export default function ImportActionSheet({
 	defOptions,
@@ -97,7 +117,7 @@ export default function ImportActionSheet({
 					</Text>
 				</RN.View>
 			)}
-			<FormCheckboxRow
+			<TableCheckboxRow
 				label={lang.format("sheet.import_data.unproxied_plugins", {
 					count: String(has.unproxiedPlugins),
 				})}
@@ -136,9 +156,9 @@ export default function ImportActionSheet({
 							...options,
 							unproxiedPlugins: !options.unproxiedPlugins,
 						}))}
-				selected={options.unproxiedPlugins}
+				checked={options.unproxiedPlugins}
 			/>
-			<FormCheckboxRow
+			<TableCheckboxRow
 				label={lang.format("sheet.import_data.plugins", {
 					count: String(has.plugins),
 				})}
@@ -149,9 +169,9 @@ export default function ImportActionSheet({
 						...options,
 						plugins: !options.plugins,
 					})}
-				selected={options.plugins}
+				checked={options.plugins}
 			/>
-			<FormCheckboxRow
+			<TableCheckboxRow
 				label={lang.format("sheet.import_data.themes", {
 					count: String(has.themes),
 				})}
@@ -162,9 +182,9 @@ export default function ImportActionSheet({
 						...options,
 						themes: !options.themes,
 					})}
-				selected={options.themes}
+				checked={options.themes}
 			/>
-			<FormCheckboxRow
+			<TableCheckboxRow
 				label={lang.format("sheet.import_data.fonts", {
 					count: String(has.fonts),
 				})}
@@ -175,7 +195,7 @@ export default function ImportActionSheet({
 						...options,
 						fonts: !options.fonts,
 					})}
-				selected={options.fonts}
+				checked={options.fonts}
 			/>
 			<Button
 				text={lang.format("sheet.import_data.import", {})}
