@@ -1,15 +1,11 @@
-import { find, findByProps } from "@vendetta/metro";
+import { findByProps } from "@vendetta/metro";
 import { ReactNative as RN } from "@vendetta/metro/common";
 import { without } from "@vendetta/utils";
 import type { ImageSourcePropType, ViewProps } from "react-native";
 
-const _ActionSheet = findByProps("ActionSheet")?.ActionSheet
-	?? find(x => x.render?.name === "ActionSheet"); // thank you to @pylixonly for fixing this
-
-const { ActionSheetTitleHeader, ActionSheetCloseButton } = findByProps(
-	"ActionSheetTitleHeader",
-	"ActionSheetCloseButton",
-);
+const _ActionSheet = findByProps("ActionSheet").ActionSheet;
+const { BottomSheetTitleHeader } = findByProps("BottomSheetTitleHeader");
+const { ActionSheetCloseButton } = findByProps("ActionSheetCloseButton");
 
 export const LazyActionSheet = findByProps("openLazy", "hideActionSheet") as {
 	openLazy: (component: Promise<any>, key: string, props?: object) => void;
@@ -46,18 +42,21 @@ type ActionSheetProps = React.PropsWithChildren<
 
 export const ActionSheet = ((props: ActionSheetProps) => {
 	return (
-		<_ActionSheet>
-			<ActionSheetTitleHeader
-				title={props.title}
-				trailing={
-					<ActionSheetCloseButton
-						onPress={props.onClose
-							?? (() => {
-								hideActionSheet();
-							})}
-					/>
-				}
-			/>
+		<_ActionSheet
+			header={
+				<BottomSheetTitleHeader
+					title={props.title}
+					trailing={
+						<ActionSheetCloseButton
+							onPress={props.onClose
+								?? (() => {
+									hideActionSheet();
+								})}
+						/>
+					}
+				/>
+			}
+		>
 			<RN.View {...without(props, "title", "onClose")} />
 		</_ActionSheet>
 	);

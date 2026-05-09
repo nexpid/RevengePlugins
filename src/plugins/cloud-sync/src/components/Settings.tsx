@@ -531,14 +531,14 @@ export default function() {
 								onPress={() => {
 									if (isBusy.length) return;
 
-									ActionSheet.open(ImportActionSheet, {
-										navigation,
-									});
 									setImportCallback(x =>
 										x
 											? setBusy("import_api")
 											: unBusy("import_api")
 									);
+									ActionSheet.open(ImportActionSheet, {
+										navigation,
+									});
 								}}
 							/>
 						</>

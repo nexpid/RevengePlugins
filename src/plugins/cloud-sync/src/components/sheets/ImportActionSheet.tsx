@@ -5,12 +5,12 @@ import { themes } from "@vendetta/themes";
 import { semanticColors } from "@vendetta/ui";
 import { showConfirmationAlert } from "@vendetta/ui/alerts";
 import { getAssetIDByName } from "@vendetta/ui/assets";
-import { Forms } from "@vendetta/ui/components";
 
 import { ActionSheet, hideActionSheet } from "$/components/ActionSheet";
 import Text from "$/components/Text";
-import { Button } from "$/lib/redesign";
 
+import { Button } from "$/lib/redesign";
+import { Forms } from "@vendetta/ui/components";
 import { canImport, isPluginProxied, lang } from "../..";
 import { useCacheStore } from "../../stores/CacheStore";
 import { getFonts, hasFontByName, hasFontBySource } from "../../stuff/fonts";
