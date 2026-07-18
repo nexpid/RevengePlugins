@@ -2,18 +2,13 @@
 // https://github.com/discord/discord-intl
 
 import { findByProps } from "@vendetta/metro";
-import { i18n } from "@vendetta/metro/common";
 
 const { intl, t: intlMap } = findByProps("intl") ?? {};
 const { runtimeHashMessageKey } = findByProps("runtimeHashMessageKey") ?? {};
 
 export function getLocale() {
-	const lang = intl?.currentLocale ?? i18n.getLocale?.() ?? "en";
-	return lang;
+	return intl?.currentLocale ?? "en";
 }
-
-const isUsingi18n = !!i18n.Messages.DISCORD || !intl || !intlMap
-	|| !runtimeHashMessageKey;
 
 const _messages = {} as Record<string, string>;
 const intlProxy = Object.freeze(
@@ -22,7 +17,7 @@ const intlProxy = Object.freeze(
 			const key = prop.toString();
 			if (key in _messages) return Reflect.get(trg, key, receiv);
 
-			if (isUsingi18n) return (_messages[key] = i18n.Messages[key]);
+			if (!intl || !intlMap || !runtimeHashMessageKey) return "";
 
 			const hash = runtimeHashMessageKey(key);
 			try {
@@ -45,11 +40,7 @@ export const intlFormat = Object.freeze(
 			const key = prop.toString();
 			if (key in _format) return Reflect.get(trg, key, receiv);
 
-			if (isUsingi18n) {
-				return (_format[key] = typeof i18n.Messages[key] === "string"
-					? () => i18n.Messages[key]
-					: i18n.Messages[key].format);
-			}
+			if (!intl || !intlMap || !runtimeHashMessageKey) return () => "";
 
 			const hash = runtimeHashMessageKey(key);
 			try {
