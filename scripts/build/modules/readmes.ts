@@ -9,7 +9,7 @@ import { listPlugins } from "./plugins.ts";
 const mdNote = makeMdNote("scripts/build/modules/readmes.ts", "md");
 const links = {
 	base: "https://revenge.nexpid.xyz/",
-	code: "./plugins/",
+	code: "https://github.com/nexpid/RevengePlugins/tree/main/src/plugins/",
 	external: {
 		backend: "https://github.com/",
 	},
