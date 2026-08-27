@@ -48,59 +48,59 @@
 ### ✅ Finished
 
 - Char Counter — Adds a character counter above the chat input
-  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/char-counter) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/char-counter/)
+  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/char-counter) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/char-counter/)
 - Clean URLs — Removes tracking garbage from links sent and received
-  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/clean-urls) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/clean-urls/)
+  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/clean-urls) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/clean-urls/)
 - Cloud Sync — Syncs your plugins, themes and fonts to the cloud
-  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/cloud-sync) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/cloud-sync/) [<img alt="view_backend_code" src="https://img.shields.io/badge/view_backend_code-494d64?style=for-the-badge" />](https://github.com/nexpid/CloudSync)
+  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/cloud-sync) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/cloud-sync/) [<img alt="view_backend_code" src="https://img.shields.io/badge/view_backend_code-494d64?style=for-the-badge" />](https://github.com/nexpid/CloudSync)
 - Kazum Kiryu Facecam — Have Kazum Kiryu accompany you while you type. Don't worry, he doesn't bite!
-  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/kiryu-facecam) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/kiryu-facecam/)
+  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/kiryu-facecam) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/kiryu-facecam/)
 - Message Preview — Adds a button to preview your message before sending it
-  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/message-preview) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/message-preview/)
+  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/message-preview) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/message-preview/)
 - NexxUtils — Nexx's utility plugins
-  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/nexxutils) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/nexxutils/)
+  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/nexxutils) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/nexxutils/)
 - Plugin Browser — Browse all proxied plugins
-  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/plugin-browser) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/plugin-browser/)
+  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/plugin-browser) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/plugin-browser/)
 - Plugin Embeds — Shows an embed with plugin info when a plugin link is sent in chat
-  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/plugin-embeds) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/plugin-embeds/)
+  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/plugin-embeds) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/plugin-embeds/)
 - Song Spotlight — Show off songs on your Discord profile!
-  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/song-spotlight) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/song-spotlight/) [<img alt="view_backend_code" src="https://img.shields.io/badge/view_backend_code-494d64?style=for-the-badge" />](https://github.com/nexpid-labs/SongSpotlight)
+  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/song-spotlight) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/song-spotlight/) [<img alt="view_backend_code" src="https://img.shields.io/badge/view_backend_code-494d64?style=for-the-badge" />](https://github.com/nexpid-labs/SongSpotlight)
 - Use System Emoji — Replaces Twemoji with system emoji in messages
-  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/use-system-emoji) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/use-system-emoji/)
+  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/use-system-emoji) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/use-system-emoji/)
 - UserPFP — https://userpfp.github.io/UserPFP/#using-userpfp
-  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/userpfp) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/userpfp/)
+  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/userpfp) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/userpfp/)
 
 ### ❌ Broken
 
 - App Directory — Brings the app directory to mobile
-  - [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/app-directory/)
+  - [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/app-directory/)
 - DOOM — Play DOOM inside of Discord by going to the Settings (powered by js-dos)
   - **Broken due to:** js-dos misconfiguration
-  - [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/doom/)
+  - [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/doom/)
 - Themes+ — Adds more customizability to Themes
   - **Broken due to:** Iconpacks broken by React Native function components
-  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/themes-plus) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/themes-plus/)
+  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/themes-plus) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/themes-plus/)
 - Twemoji Everywhere — Turns all system emoji used on Discord into Twemoji! 👋😀🎉
   - **Broken due to:** Emoji replacement broken by React Native function components
-  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/twemoji-everywhere) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/twemoji-everywhere/)
+  - [<img alt="copy_link" src="https://img.shields.io/badge/copy_link-1e2030?style=for-the-badge" />](https://revenge.nexpid.xyz/twemoji-everywhere) [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/twemoji-everywhere/)
 
 ### ⏳ Unfinished
 
 - Monet Theme — A material you theme generator
   - **Note:** Theming is kinda wonky. Expect a refactor soon™
-  - [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/monet-theme/)
+  - [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/monet-theme/)
 
 ### 💀 Discontinued
 
 - CustomRPC — Displays a custom RPC activity on your profile! (idea from Vencord) (RECODED)
   - **Discontinued due to:** CustomRPC is no longer maintained, use Rich Presence by siguma
-  - [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/customrpc/)
+  - [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/customrpc/)
 - Local Pins — Adds a button to locally pin a message
   - **Discontinued due to:** Superseeded by Discord's bookmarks feature (nitro only)
-  - [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/local-pins/)
+  - [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/local-pins/)
 - Tenor Gif Fix — Download and share Tenor links as GIFs instead of MP4s (thanks to rosie <3)
   - **Discontinued due to:** Replaced by the NexxUtils TenorGifFix module
-  - [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./plugins/tenor-gif-fix/)
+  - [<img alt="view_code" src="https://img.shields.io/badge/view_code-363a4f?style=for-the-badge" />](./src/plugins/tenor-gif-fix/)
 
 ## 📜 Licensing
 
