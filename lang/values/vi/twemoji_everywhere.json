@@ -1,0 +1,20 @@
+{
+	"settings.source_hint": "💡 Ấn giữ vào gói biểu tượng cảm xúc để xem thêm thông tin",
+	"settings.emojipack.maintained_by": "Được duy trì bởi **{maintainer}**",
+	"settings.emojipack.maintained_by.short": "bởi {maintainer}",
+	"settings.emojipacks.title": "Gói cơ bản",
+	"settings.emojipacks.choose.default": "Mặc định (Twemoji)",
+	"settings.emojipacks.choose.default.apple": "Mặc định (Apple Emoji)",
+	"settings.emojipacks.choose.twemoji": "Twemoji (từ xa)",
+	"settings.emojipacks.choose.facebook": "Facebook",
+	"settings.emojipacks.choose.fluent": "Biểu tượng cảm xúc Fluent",
+	"settings.emojipacks.choose.joypixels": "JoyPixels",
+	"settings.emojipacks.choose.huawei": "Biểu tượng cảm xúc Huawei",
+	"settings.emojipacks.choose.noto": "Biểu tượng cảm xúc Noto",
+	"settings.emojipacks.choose.samsung": "Biểu tượng cảm xúc Samsung",
+	"settings.emojipacks.choose.apple": "Biểu tượng cảm xúc Apple",
+	"settings.jokepacks.title": "Gói trò đùa",
+	"settings.jokepacks.choose.discord": "Lựa chọn biểu tượng cảm xúc của Discord",
+	"settings.jokepacks.choose.skype": "Skype",
+	"sheet.emojipack.source_repository": "Lưu trữ nguồn"
+}
