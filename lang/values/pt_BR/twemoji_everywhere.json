@@ -1,0 +1,20 @@
+{
+	"settings.source_hint": "💡 Segure em um pacote de emojis para ver mais informações",
+	"settings.emojipack.maintained_by": "Mantido/a por **{maintainer}**",
+	"settings.emojipack.maintained_by.short": "por {maintainer}",
+	"settings.emojipacks.title": "Pacotes básicos",
+	"settings.emojipacks.choose.default": "Padrão (Twemoji)",
+	"settings.emojipacks.choose.default.apple": "Padrão (Apple Emoji)",
+	"settings.emojipacks.choose.twemoji": "Twemoji (remoto)",
+	"settings.emojipacks.choose.facebook": "Facebook",
+	"settings.emojipacks.choose.fluent": "Fluent Emoji",
+	"settings.emojipacks.choose.joypixels": "JoyPixels",
+	"settings.emojipacks.choose.huawei": "Huawei Emoji",
+	"settings.emojipacks.choose.noto": "Noto Emoji",
+	"settings.emojipacks.choose.samsung": "Samsung Emoji",
+	"settings.emojipacks.choose.apple": "Apple Emoji",
+	"settings.jokepacks.title": "Joke packs",
+	"settings.jokepacks.choose.discord": "Seletor de emojis do Discord",
+	"settings.jokepacks.choose.skype": "Skype",
+	"sheet.emojipack.source_repository": "Repositório fonte"
+}
