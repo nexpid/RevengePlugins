@@ -8,7 +8,7 @@ import type { ThemeDataWithPlus } from "$/typings";
 
 import { hasThemeKey, vstorage } from "..";
 import type { Patches, PatchThing } from "../types";
-import { getLABShade, parseColor } from "./colors";
+import { getLABShade, getPaletteColor, parseColor } from "./colors";
 
 export function apply(theme: ThemeDataWithPlus | null) {
 	const { bunny } = window as any;
@@ -56,7 +56,7 @@ export function build(patches: Patches): ThemeDataWithPlus {
 	const style = getDiscordTheme();
 
 	const get = <T extends PatchThing<any>>(lk: T): T["both"] =>
-		Object.assign(lk.both, style === "light" ? lk.light : lk.dark);
+		Object.assign({}, lk.both, style === "light" ? lk.light : lk.dark);
 	const entries = <T extends object>(obj: T): [string, T[keyof T]][] => Object.entries(obj);
 
 	const checkShouldPut = (shade: number, checks: string[]): boolean => {
@@ -73,24 +73,47 @@ export function build(patches: Patches): ThemeDataWithPlus {
 	};
 
 	if (patches.version === 3) {
-		for (const [x, y] of entries(get(patches.replacers))) {
-			const clr = parseColor(y.color);
-			if (!clr) continue;
+		// Keep legacy patch files compatible with Discord's newer palettes.
+		const modernPalettes = {
+			NEUTRAL: "PRIMARY",
+			BLURPLE: "BRAND",
+			BLUE_NEW: "BLUE",
+			RED_NEW: "RED",
+		};
+		const modernFamilies = new Set(Object.keys(modernPalettes));
+		const replacers = get(patches.replacers);
+		for (const [family, source] of entries(modernPalettes)) {
+			if (Object.keys(replacers).some(key => key.split(/_(?=[<>])/)[0] === family)) continue;
+			if (replacers[source]) replacers[family] = replacers[source];
+		}
 
-			for (
-				const c of Object.keys(rawColors).filter(l => l.startsWith(`${x.split("_")[0]}_`))
-			) {
-				const shade = Number(c.split("_")[1]);
-				if (!checkShouldPut(shade, x.split("_").slice(1))) continue;
+		for (const [key, replacement] of entries(replacers)) {
+			if (!replacement) continue;
+			const color = parseColor(replacement.color);
+			if (!color) continue;
 
-				const useShade = y.alternative
+			// Underscores can belong to the palette name (e.g. BLUE_NEW).
+			const [family, ...checks] = key.split(/_(?=[<>])/);
+			for (const name of Object.keys(rawColors)) {
+				if (!name.startsWith(`${family}_`)) continue;
+				const suffix = name.slice(family.length + 1);
+				if (!/^\d+$/.test(suffix)) continue;
+				const shade = Number(suffix);
+				if (!checkShouldPut(shade, checks)) continue;
+
+				if (modernFamilies.has(family)) {
+					raw[name] = getPaletteColor(color, rawColors[name]);
+					continue;
+				}
+
+				const useShade = replacement.alternative
 					? Math.floor((shade / 26) * 1000)
 					: shade;
 
-				raw[c] = getLABShade(
-					clr,
-					y.base ? useShade + (500 - y.base) : useShade,
-					y.ratio,
+				raw[name] = getLABShade(
+					color,
+					replacement.base ? useShade + (500 - replacement.base) : useShade,
+					replacement.ratio,
 				);
 			}
 		}
