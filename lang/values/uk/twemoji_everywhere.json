@@ -1,0 +1,20 @@
+{
+	"settings.source_hint": "💡Затримайте на паку смайликів щоб побачити більше інформації",
+	"settings.emojipack.maintained_by": "Підтримано **{maintainer}**",
+	"settings.emojipack.maintained_by.short": "зроблено {maintainer}",
+	"settings.emojipacks.title": "Базові паки",
+	"settings.emojipacks.choose.default": "За замовчуванням (Twemoji)",
+	"settings.emojipacks.choose.default.apple": "За замовчуванням (Apple Emoji)",
+	"settings.emojipacks.choose.twemoji": "Twemoji (remote)",
+	"settings.emojipacks.choose.facebook": "Facebook",
+	"settings.emojipacks.choose.fluent": "Fluent Emoji",
+	"settings.emojipacks.choose.joypixels": "JoyPixels",
+	"settings.emojipacks.choose.huawei": "Huawei Emoji",
+	"settings.emojipacks.choose.noto": "Noto Emoji",
+	"settings.emojipacks.choose.samsung": "Samsung Emoji",
+	"settings.emojipacks.choose.apple": "Apple Emoji",
+	"settings.jokepacks.title": "Joke packs",
+	"settings.jokepacks.choose.discord": "Discord emoji picker",
+	"settings.jokepacks.choose.skype": "Skype",
+	"sheet.emojipack.source_repository": "Source repository"
+}
