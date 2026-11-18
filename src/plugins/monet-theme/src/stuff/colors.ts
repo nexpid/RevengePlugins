@@ -46,3 +46,12 @@ export function getLABShade(
 		),
 	);
 }
+
+// Modern Discord palettes use different, non-linear shade scales. Preserve the
+// original tone instead of interpreting those shade numbers as legacy shades.
+export function getPaletteColor(color: string, original: string): string {
+	const cam = Cam16.fromInt(argbFromHex(color));
+	return hexFromArgb(
+		HctSolver.solveToInt(cam.hue, cam.chroma, lstarFromArgb(argbFromHex(original))),
+	);
+}
